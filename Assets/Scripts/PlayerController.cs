@@ -36,10 +36,13 @@ public class PlayerController : MonoBehaviour
     ParticleSystem[] flames;
     public GameObject jetPack;
 
+    private GameManager gameManager;
+
     private void Start()
     {
         flames = jetPack.GetComponentsInChildren<ParticleSystem>();
         Debug.Log(flames.Length);
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     //turns the jetpack particle effects on/off
@@ -84,7 +87,7 @@ public class PlayerController : MonoBehaviour
             moveDirection = transform.up * currentDashSpd;
 
             //Jump to get out of dashing
-            if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown("Jump"))
+            if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown(gameManager.jump))
             {
                 myState = State.Idle;
                 transform.RotateAround(transform.position, playerModel.transform.right, -90);
@@ -118,13 +121,13 @@ public class PlayerController : MonoBehaviour
             /*
              * CHANGE HARD CODED RECHARGE RATE LATER
              */
-            if (Input.GetAxis("Charge") == 0 && !Input.GetButton("Charge")){
+            if (Input.GetAxis(gameManager.charge) <= gameManager.bumperThreshold && !Input.GetButton(gameManager.charge)){
                 currentFuel += 5f;
                 if (currentFuel > maxFuel) currentFuel = maxFuel;
             }
 
             //Jumping
-            if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown("Jump")) && myState == State.Idle) 
+            if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown(gameManager.jump)) && myState == State.Idle) 
             {
                 moveDirection.y += jumpForce;
             }
@@ -136,7 +139,7 @@ public class PlayerController : MonoBehaviour
             if (myState == State.Idle)
             {
                 //Press A to enter flapping state while idle in the air if you are falling
-                if ((Input.GetKey(KeyCode.LeftShift) || Input.GetButton("Jump")) && moveDirection.y < 0)
+                if ((Input.GetKey(KeyCode.LeftShift) || Input.GetButton(gameManager.jump)) && moveDirection.y < 0)
                 {
                     myState = State.Flapping;
                 }
@@ -147,12 +150,12 @@ public class PlayerController : MonoBehaviour
                  * Make it so flapping gets weaker after a brief time then you just fall regularly
                  */
                 //Hold down A to hover down slowly
-                if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("Jump"))
+                if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton(gameManager.jump))
                 {
                     moveDirection.y -= Physics.gravity.y * gravityScale * .85f * Time.deltaTime;
                 }
                 //Let go of A to return to free fall
-                if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetButtonUp("Jump"))
+                if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetButtonUp(gameManager.jump))
                 {
                     myState = State.Idle;
                 }
@@ -168,7 +171,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Penguin Dash
-        if (Input.GetButtonDown("Slide") && myState != State.Dashing && !hasDashed)
+        if (Input.GetButtonDown(gameManager.slide) && myState != State.Dashing && !hasDashed)
         {
             myState = State.Dashing;
             transform.RotateAround(transform.position, playerModel.transform.right, 90);
@@ -180,7 +183,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Hovering with the jetpack
-        if ((Input.GetKey(KeyCode.Space) == true || Input.GetAxis("Hover") != 0) && currentFuel > 0)
+        if ((Input.GetKey(KeyCode.Space) == true || Input.GetAxis(gameManager.hover) != gameManager.bumperThreshold) && currentFuel > 0)
         {
             if(!flames[0].isPlaying) EmitFlames(true);
             if (myState != State.Dashing)
@@ -198,19 +201,19 @@ public class PlayerController : MonoBehaviour
             }
             currentFuel -= .5f;
         }
-        else if ((Input.GetKey(KeyCode.Space) == false && Input.GetAxis("Hover") == 0) && flames[0].isPlaying && currentFuel > 0)
+        else if ((Input.GetKey(KeyCode.Space) == false && Input.GetAxis(gameManager.hover) <= gameManager.bumperThreshold) && flames[0].isPlaying && currentFuel > 0)
         {
             EmitFlames(false);
         }
 
         //Charge jumping - Charge
-        if ((Input.GetAxis("Charge") != 0 || Input.GetButton("Charge")) && currentFuel > 0)
+        if ((Input.GetAxis(gameManager.charge) > gameManager.bumperThreshold || Input.GetButton(gameManager.charge)) && currentFuel > 0)
         {
             currentCharge += chargeSpeed;
             currentFuel -= chargeSpeed;
         }
         //Charge jumping - Release
-        else if(Input.GetAxis("Charge") == 0 || Input.GetButtonUp("Charge"))
+        else if(Input.GetAxis(gameManager.charge) <= gameManager.bumperThreshold || Input.GetButtonUp(gameManager.charge))
         {
             if (currentCharge > 0)
             {
