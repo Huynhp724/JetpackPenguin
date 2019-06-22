@@ -19,14 +19,24 @@ public class GameManager : MonoBehaviour {
     public string charge = "Charge";
     public float bumperThreshold = Mathf.Epsilon;
 
-    // Start is called before the first frame update
-    void Start()
+    private string currentController = "";
+
+    // Update is called once per frame
+    void Update()
     {
-        string currentController = Input.GetJoystickNames()[1];
+        foreach (string name in Input.GetJoystickNames())
+        {
+            if (name.Length > 1)
+            {
+                currentController = name;
+            }
+        }
+
         print(currentController + " is connected.");
 
-        if(currentController.Length == 19) //PS4 is named "Wireless Controller" = 19 chars
+        if (currentController.Length == 19) //PS4 is named "Wireless Controller" = 19 chars
         {
+            Debug.Log("Using PS4 Controller");
             jump = "Jump_PS4";
             slide = "Slide_PS4";
             cameraX = "CameraX_PS4";
@@ -35,11 +45,17 @@ public class GameManager : MonoBehaviour {
             charge = "Charge_PS4";
             bumperThreshold = -1f;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        //Then use xbox as default
+        else
+        {
+            Debug.Log("Using Xbox Controller");
+            jump = "Jump";
+            slide = "Slide";
+            cameraX = "CameraX";
+            cameraY = "CameraY";
+            hover = "Hover";
+            charge = "Charge";
+}
         fishText.text = "Fish: " + currentFish + "/6";
         if (currentFish == 6)
         {

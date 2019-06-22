@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
             /*
              * CHANGE HARD CODED RECHARGE RATE LATER
              */
-            if (Input.GetAxis(gameManager.charge) <= gameManager.bumperThreshold && !Input.GetButton(gameManager.charge)){
+            if (Input.GetAxis(gameManager.charge) <= gameManager.bumperThreshold && !Input.GetButton("Charge_Mouse")){
                 currentFuel += 5f;
                 if (currentFuel > maxFuel) currentFuel = maxFuel;
             }
@@ -183,7 +183,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Hovering with the jetpack
-        if ((Input.GetKey(KeyCode.Space) == true || Input.GetAxis(gameManager.hover) != gameManager.bumperThreshold) && currentFuel > 0)
+        if ((Input.GetKey(KeyCode.Space) == true || Input.GetAxis(gameManager.hover) > gameManager.bumperThreshold) && currentFuel > 0)
         {
             if(!flames[0].isPlaying) EmitFlames(true);
             if (myState != State.Dashing)
@@ -207,13 +207,13 @@ public class PlayerController : MonoBehaviour
         }
 
         //Charge jumping - Charge
-        if ((Input.GetAxis(gameManager.charge) > gameManager.bumperThreshold || Input.GetButton(gameManager.charge)) && currentFuel > 0)
+        if ((Input.GetAxis(gameManager.charge) > gameManager.bumperThreshold || Input.GetButton("Charge_Mouse")) && currentFuel > 0)
         {
             currentCharge += chargeSpeed;
             currentFuel -= chargeSpeed;
         }
         //Charge jumping - Release
-        else if(Input.GetAxis(gameManager.charge) <= gameManager.bumperThreshold || Input.GetButtonUp(gameManager.charge))
+        else if(!Input.GetButton("Charge_Mouse") && (Input.GetAxis(gameManager.charge) <= gameManager.bumperThreshold))
         {
             if (currentCharge > 0)
             {
