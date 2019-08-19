@@ -23,6 +23,8 @@ public class CameraController : MonoBehaviour
 
     public Transform pivot;
 
+    private GameManager gameManager;
+
     void Start()
     {
         if (!useOffset)
@@ -34,6 +36,8 @@ public class CameraController : MonoBehaviour
         pivot.transform.parent = null;
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -51,10 +55,10 @@ public class CameraController : MonoBehaviour
     {
         pivot.transform.position = player.transform.position;
 
-        float hori = (Input.GetAxis("CameraX") + Input.GetAxis("Mouse X")) * AngleHSpd;
+        float hori = (Input.GetAxis(gameManager.cameraX) + Input.GetAxis("Mouse X")) * AngleHSpd;// + Input.GetAxis("Mouse X")) * AngleHSpd;
         pivot.transform.Rotate(0, hori, 0);
 
-        float vert = (Input.GetAxis("CameraY") + Input.GetAxis("Mouse Y") * -1) * AngleVSpd;
+        float vert = (Input.GetAxis(gameManager.cameraY) + Input.GetAxis("Mouse Y") * -1) * AngleVSpd;// + Input.GetAxis("Mouse Y") * -1) * AngleVSpd;
         if (invertY)
         {
             pivot.transform.Rotate(vert, 0, 0);
