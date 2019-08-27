@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Rewired;
 
 // This script handles any specials non-movemnet abilities such as throwing an ice bomb.
 public class PlayerAbilities : MonoBehaviour
@@ -18,17 +19,17 @@ public class PlayerAbilities : MonoBehaviour
     private GameObject throwEndPoint = null;
     private Camera playerCamera;
     private float timeOfLastThrow = 0f;
-    private GameManager gameManager;
+    private Player player;
 
-    void Start()
+    private void Awake()
     {
+        player = ReInput.players.GetPlayer(0);
         playerCamera = FindObjectOfType<Camera>();
-        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Update()
     {
-        if(Input.GetButton("AimBomb_PS4") || Input.GetKey(KeyCode.Q))
+        if(player.GetButton("Aim Bomb"))
         {
             AimSnowBomb();
         }
@@ -74,7 +75,7 @@ public class PlayerAbilities : MonoBehaviour
 
         //transform.LookAt(throwEndPoint.transform.position);
 
-        if ((Input.GetButtonDown("ThrowBomb_PS4") || Input.GetKeyDown(KeyCode.E)) && timeOfLastThrow + timeBetweenThrows <= Time.time)
+        if (player.GetButtonDown("Throw Bomb") && timeOfLastThrow + timeBetweenThrows <= Time.time)
         {
             ThrowSnowBomb();
         }

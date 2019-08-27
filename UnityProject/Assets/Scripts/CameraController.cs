@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Rewired;
 
 public class CameraController : MonoBehaviour
 {
@@ -23,7 +24,12 @@ public class CameraController : MonoBehaviour
 
     public Transform pivot;
 
-    private GameManager gameManager;
+    private Player playerMapping;
+
+    private void Awake()
+    {
+        playerMapping = ReInput.players.GetPlayer(0);
+    }
 
     void Start()
     {
@@ -37,28 +43,16 @@ public class CameraController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
 
-        gameManager = FindObjectOfType<GameManager>();
-    }
-
-    private void Update()
-    {
-
-
-    }
-
-    private void FixedUpdate()
-    {
-
     }
 
     void LateUpdate()
     {
         pivot.transform.position = player.transform.position;
 
-        float hori = (Input.GetAxis(gameManager.cameraX) + Input.GetAxis("Mouse X")) * AngleHSpd;// + Input.GetAxis("Mouse X")) * AngleHSpd;
+        float hori = (playerMapping.GetAxis("Camera X")) * AngleHSpd;// + Input.GetAxis("Mouse X")) * AngleHSpd;
         pivot.transform.Rotate(0, hori, 0);
 
-        float vert = (Input.GetAxis(gameManager.cameraY) + Input.GetAxis("Mouse Y") * -1) * AngleVSpd;// + Input.GetAxis("Mouse Y") * -1) * AngleVSpd;
+        float vert = (playerMapping.GetAxis("Camera Y") * -1) * AngleVSpd;// + Input.GetAxis("Mouse Y") * -1) * AngleVSpd;
         if (invertY)
         {
             pivot.transform.Rotate(vert, 0, 0);
