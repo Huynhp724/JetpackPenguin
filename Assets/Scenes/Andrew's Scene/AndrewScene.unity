@@ -1992,6 +1992,7 @@ Transform:
   - {fileID: 205890259}
   - {fileID: 205642829}
   - {fileID: 529653190}
+  - {fileID: 1801749062}
   m_Father: {fileID: 1242378799}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12892,11 +12893,13 @@ MonoBehaviour:
   endPointPrefab: {fileID: 8359640083916901840, guid: 38ac819ca618a2a47ad72c8704056c54,
     type: 3}
   maxRange: 10
-  raycastOffput: {x: 0, y: 5, z: 0}
+  raycastOffput: {x: 0, y: 0, z: 0}
   throwStartPoint: {fileID: 1801749062}
   snowBomb: {fileID: 8359640083916901840, guid: 470d00258aabc14448128b47a84defa8,
     type: 3}
   bombVelocity: 40
+  timeBetweenThrows: 0.5
+  playerModel: {fileID: 741468884}
 --- !u!23 &1242378797
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14287,8 +14290,8 @@ Transform:
   m_LocalPosition: {x: 0.816, y: 0.572, z: 0.565}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1975090870}
-  m_RootOrder: 0
+  m_Father: {fileID: 741468885}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1805352506
 GameObject:
@@ -14673,8 +14676,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1801749062}
+  m_Children: []
   m_Father: {fileID: 1242378799}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
