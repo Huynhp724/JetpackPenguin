@@ -12,6 +12,8 @@ public class NPCInteraction : MonoBehaviour
     public float rotationSpeed;                                 // speed the npc will rotate with speaking or done speaking to you
     public Sprite faceImage;                                    // image of the npc character. Will appear in the dialog box
     public int dialoguePriorityNumber = 0;                      // int that chooses which dialogue the npc will say
+    public GameObject npcExclamationSignal;
+    public bool hasSomethingToSay = true;
 
 
     UIController uiController;
@@ -46,7 +48,7 @@ public class NPCInteraction : MonoBehaviour
             }
             else
             {
-                rotateTowardsPlayer = false;
+                //rotateTowardsPlayer = false;
             }
         }
         else {
@@ -54,6 +56,15 @@ public class NPCInteraction : MonoBehaviour
                 parentObject.transform.rotation = Quaternion.Slerp(parentObject.transform.rotation, previousRotation, rotationSpeed * Time.deltaTime);
             }
         }
+
+        if (npcExclamationSignal != null)
+        {
+            if (hasSomethingToSay)
+            {
+                npcExclamationSignal.SetActive(true);
+            }
+        }
+
     }
     /// <summary>
     /// When Pluck enter trigger turns on button that needs to be pressed to speak and the npc rotates toward pluck
@@ -63,17 +74,14 @@ public class NPCInteraction : MonoBehaviour
     {
         if (other.CompareTag(playerTag))
         {
-            Debug.Log(other.name);
             uiController.SetSpeakingInteractionButton(true);
 
             PlayerInteraction interact = other.GetComponent<PlayerInteraction>();
             interact.SetInteract(true, this);
 
             previousRotation = parentObject.transform.rotation;
-            Debug.Log(previousRotation);
             rotateTowardsPlayer = true;
             targetObject = other.gameObject;
-
 
         }
     }
@@ -86,15 +94,12 @@ public class NPCInteraction : MonoBehaviour
     {
         if (other.CompareTag(playerTag))
         {
-            Debug.Log(other.name);
             uiController.SetSpeakingInteractionButton(false);
 
             PlayerInteraction interact = other.GetComponent<PlayerInteraction>();
             interact.SetInteract(false, null);
 
             rotateTowardsPlayer = false;
-
-            //parentObject.transform.rotation = previousRotation;
         }
     }
 
@@ -122,6 +127,9 @@ public class NPCInteraction : MonoBehaviour
     }
 
     public void SendDialogeInfo() {
+        npcExclamationSignal.SetActive(false);
+        hasSomethingToSay = false;
         dialogueManager.StartDialogue(dialogueOptions[dialoguePriorityNumber], faceImage);
+
     }
 }

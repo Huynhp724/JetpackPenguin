@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    public bool canInteract = false;                                // whether you can talk to the npc or not
+    public bool canInteractWithNPC = false;                                // whether you can talk to the npc or not
 
     UIController uiController;
     NPCInteraction npcInInteraction = null;
@@ -20,13 +20,13 @@ public class PlayerInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canInteract)
+        if (canInteractWithNPC)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 npcInInteraction.SendDialogeInfo();
                 uiController.SetSpeakingInteractionButton(false);
-                canInteract = false;
+                canInteractWithNPC = false;
                 // make sure to freeze movement while Dialoging with other npcs
             }
         }
@@ -39,7 +39,12 @@ public class PlayerInteraction : MonoBehaviour
     /// <param name="npc"></param>
     public void SetInteract(bool interact, NPCInteraction npc)
     {
-        canInteract = interact;
+        canInteractWithNPC = interact;
         npcInInteraction = npc;
+    }
+
+    public void RedoNPCInteraction() {
+        canInteractWithNPC = true;
+        uiController.SetSpeakingInteractionButton(true);
     }
 }

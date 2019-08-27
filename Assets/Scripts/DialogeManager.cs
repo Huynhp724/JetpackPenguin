@@ -12,6 +12,7 @@ public class DialogeManager : MonoBehaviour
     public Image speakerImage;                              // image of where the character will go
     public Text dialogueText;                               // the text of where the dialog will be written
     public Text nameText;                                   // the text of the name
+    public PlayerInteraction playerInteraction;
 
     public AudioClip[] typingClips;
 
@@ -19,6 +20,8 @@ public class DialogeManager : MonoBehaviour
     bool isDialoging = false;
     CanvasGroup canvasGroup;
     AudioSource source;
+    int count = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +33,7 @@ public class DialogeManager : MonoBehaviour
     private void Update()
     {
         if (isDialoging) {
-            if (Input.GetKeyDown(KeyCode.Space)) {
+            if (Input.GetKeyDown(KeyCode.Space) && count != 0) {
                 DisplayNextSentence();
             }
         }
@@ -50,13 +53,12 @@ public class DialogeManager : MonoBehaviour
 
         foreach (string sent in dialogue.sentences) {
             sentences.Enqueue(sent);
-
+            Debug.Log(sent);
             
         }
-        Debug.Log(sentences.Count);
         DisplayNextSentence();
-
-        isDialoging = true;
+        
+        
     }
 
     /// <summary>
@@ -67,10 +69,13 @@ public class DialogeManager : MonoBehaviour
             EndDialogue();
             return;
         }
-
+        
         string sentence = sentences.Dequeue();
+        source.Stop();
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
+       // isDialoging = true;
+        count = 1;
     }
 
     IEnumerator TypeSentence(string sentence) {
@@ -80,7 +85,9 @@ public class DialogeManager : MonoBehaviour
             source.PlayOneShot(typingClips[choice]);
             dialogueText.text += letter;
             yield return new WaitForSeconds(typingClips[choice].length);
+            isDialoging = true;
         }
+        
     }
 
     /// <summary>
@@ -88,7 +95,17 @@ public class DialogeManager : MonoBehaviour
     /// </summary>
     void EndDialogue() {
         Debug.Log("End of convo");
+        source.Stop();
+        StopAllCoroutines();
         canvasGroup.alpha = 0f;
         isDialoging = false;
+        count = 0;
+        StartCoroutine(RedoInteraction());
+       
+    }
+
+    IEnumerator RedoInteraction() {
+        yield return new WaitForSeconds(1.5f);
+        playerInteraction.RedoNPCInteraction();
     }
 }
