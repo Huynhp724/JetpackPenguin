@@ -28,7 +28,7 @@ public class PlayerAbilities : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetAxis(gameManager.charge) > gameManager.bumperThreshold || Input.GetKey(KeyCode.Q))
+        if(Input.GetButton("AimBomb_PS4") || Input.GetKey(KeyCode.Q))
         {
             AimSnowBomb();
         }
@@ -57,8 +57,8 @@ public class PlayerAbilities : MonoBehaviour
         // If the raycast hit is out of the max throw range then calculate a point in the same direction but at max range.
         if(Vector3.Distance(endPointPosition, throwStartPoint.position) >= maxRange)
         {
-            float rangeVariance = (Input.GetAxis(gameManager.charge) + 1.0f) / 2.0f;
-            endPointPosition = throwStartPoint.position + (maxRange * rangeVariance) * Vector3.Normalize(endPointPosition - throwStartPoint.position); // V0 + du, where u is the normalize vector of V1 - V0
+            //float rangeVariance = (Input.GetAxis(gameManager.charge) + 1.0f) / 2.0f;
+            endPointPosition = throwStartPoint.position + maxRange * Vector3.Normalize(endPointPosition - throwStartPoint.position); // V0 + du, where u is the normalize vector of V1 - V0
             if (Physics.Raycast(endPointPosition, Vector3.down, out hit))
             {
                 endPointPosition -= (Vector3.up * hit.distance);
