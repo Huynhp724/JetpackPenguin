@@ -5,14 +5,18 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public GameObject minorCheckPoints;
+    public float invincibilityFrames;
 
+    bool isInvincible = false;
     PlayerStats stats;
     ScreenFader fader;
+    Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
         stats = GetComponent<PlayerStats>();
         fader = FindObjectOfType<ScreenFader>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -22,7 +26,8 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void LoseALife() {
-        if (stats.GetIsDead())
+        Debug.Log("Lose a life");
+        if (!stats.GetIsDead() && !isInvincible)
         {
             if (stats.lives > 1)
             {
@@ -34,15 +39,52 @@ public class PlayerHealth : MonoBehaviour
                 stats.SetIsDead(true);
 
             }
+            isInvincible = true;
+            rb.AddForce(Vector3.forward * -5f, ForceMode.Impulse);
+            StartCoroutine(Invincible());
         }
     }
 
+    public void LoseHitpoint() {
+        Debug.Log("Lose a health point");
+        if (!stats.GetIsDead() && !isInvincible) {
+            if (stats.hitPoints > 1)
+            {
+                stats.hitPoints -= 1;
+
+            }
+            else {
+                if (stats.lives > 1)
+                {
+                    stats.lives -= 1;
+                    stats.hitPoints = 3;
+                }
+                else {
+                    stats.lives -= 1;
+                    stats.hitPoints -= 1;
+                    stats.SetIsDead(true);
+                }
+
+            }
+            isInvincible = true;
+            rb.AddForce(Vector3.forward * -5f, ForceMode.Impulse);
+            StartCoroutine(Invincible());
+
+        }
+    }
+
+    IEnumerator Invincible() {
+        yield return new WaitForSeconds(invincibilityFrames);
+        isInvincible = false;
+    }
+
     public void LoseEntireLives(bool checkPoint) {
+        Debug.Log("Lose all your lives");
         stats.lives = 0;
         stats.SetIsDead(true);
         if (checkPoint)
         {
-            float minDistance = 100000f;
+            float minDistance = 90000000f;
             GameObject point = null;
 
             for (int i = 0; i < minorCheckPoints.transform.childCount; i++) {

@@ -5,41 +5,75 @@ using UnityEngine.SceneManagement;
 
 public class LevelChanger : MonoBehaviour
 {
-    public string nextLevelName;
     public string currentLevelName;
     public Vector3 pos;
+    public static LevelChanger Instance { get; private set; }
+
+
+    public string previousLevelName = "", nextLevelName = "";
+    GameObject player;
+    bool needOldLocation = false;
+    ScreenFader fader;
 
     private void Awake()
     {
-        
-        DontDestroyOnLoad(this.gameObject);
+        if (Instance == null) {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+
+        }
     }
 
-    ScreenFader fader;
-    // Start is called before the first frame update
     void Start()
     {
         fader = GetComponent<ScreenFader>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(1)) {
-            NextLevel();
+    public void SetLevelInfo(string nxtLvl, Vector3 lastScenePosition) {
+        nextLevelName = nxtLvl;
+        
+
+        if (previousLevelName == nxtLvl)
+        {
+            needOldLocation = true;
+            Debug.Log("Next is the same as previous scene");
         }
+        else {
+            pos = lastScenePosition;
+        }
+
+        NextLevel();
     }
 
 
     public void NextLevel() {
         fader.Fade("out");
         StartCoroutine(LoadScene());
-
     }
 
     IEnumerator LoadScene() {
-        pos = gameObject.transform.position;
+        //pos = gameObject.transform.position;
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(nextLevelName);
+        previousLevelName = currentLevelName;
+        currentLevelName = nextLevelName;
+        nextLevelName = "";
+        if (needOldLocation)
+        {
+            SetOldLocation();
+        }
+
+        fader.Fade("in");
+
+    }
+
+    void SetOldLocation() {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.transform.position = pos;
+        Debug.Log("position has been set");
     }
 }

@@ -7,6 +7,8 @@ public class PlayerStats : MonoBehaviour
     public int lives;
     public int hitPoints;
 
+    private static bool playerExists;
+
     bool isDead =false;
 
     public bool GetIsDead() {
@@ -15,6 +17,18 @@ public class PlayerStats : MonoBehaviour
 
     public void SetIsDead(bool dead) {
         isDead = dead;
+    }
+
+    private void Start()
+    {
+        if (!playerExists)
+        {
+            playerExists = true;
+            DontDestroyOnLoad(gameObject);
+        }
+        else {
+            Destroy(gameObject);
+        }
     }
 
 }
