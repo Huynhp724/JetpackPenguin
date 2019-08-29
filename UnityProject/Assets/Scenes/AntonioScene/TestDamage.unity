@@ -697,6 +697,96 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633052605}
   m_CullTransparentMesh: 0
+--- !u!1 &796215899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 796215901}
+  - component: {fileID: 796215900}
+  m_Layer: 0
+  m_Name: PathCreator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &796215900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796215899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5ac92bc18f545cc84cd886ece82b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  editorData:
+    _bezierPath:
+      points:
+      - {x: -2, y: 0, z: 0}
+      - {x: -0.012094498, y: 0, z: -2.2496908}
+      - {x: 2.7320528, y: 0, z: -0.044665813}
+      - {x: 2, y: 0, z: 1.9354482}
+      - {x: 1.2648911, y: 0, z: 3.9238286}
+      - {x: -0.1384306, y: 0, z: 4.8864026}
+      - {x: -1.9214344, y: 0, z: 3.547442}
+      - {x: -3.340107, y: 0, z: 2.4820788}
+      - {x: -3.174778, y: 0, z: 1.3294834}
+      isClosed: 1
+      space: 0
+      controlMode: 0
+      autoControlLength: 0.3
+      boundsUpToDate: 0
+      bounds:
+        m_Center: {x: -0.40621126, y: 0, z: 1.6096604}
+        m_Extent: {x: 2.5273213, y: 0, z: 2.5579598}
+      perAnchorNormalsAngle:
+      - 0
+      - 0
+      - 0
+      globalNormalsAngle: 99
+      flipNormals: 0
+    vertexPathUpToDate: 1
+    vertexPathMaxAngleError: 0.3
+    vertexPathMinVertexSpacing: 0.01
+    showTransformTool: 0
+    showPathBounds: 0
+    showPerSegmentBounds: 0
+    displayAnchorPoints: 1
+    displayControlPoints: 1
+    bezierHandleScale: 5
+    globalDisplaySettingsFoldout: 0
+    keepConstantHandleSize: 0
+    showNormalsInVertexMode: 0
+    showBezierPathInVertexMode: 0
+    showDisplayOptions: 1
+    showPathOptions: 1
+    showVertexPathDisplayOptions: 0
+    showVertexPathOptions: 1
+    showNormals: 1
+    showNormalsHelpInfo: 0
+    tabIndex: 0
+  initialized: 1
+--- !u!4 &796215901
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796215899}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.21, y: 0, z: -3.45}
+  m_LocalScale: {x: 3, y: 1, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &802356962 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8325362178580512854, guid: c7a784afa4138224493f798cbaa02373,
@@ -987,6 +1077,7 @@ GameObject:
   - component: {fileID: 1402925068}
   - component: {fileID: 1402925067}
   - component: {fileID: 1402925071}
+  - component: {fileID: 1402925072}
   m_Layer: 0
   m_Name: Test_Enemy
   m_TagString: Untagged
@@ -1079,6 +1170,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62438be1415e0b0498194a6edabbcd75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1402925072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402925066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73fee6417b2b734382e46fa39bc4b8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  pathCreator: {fileID: 796215900}
+  followPath: 0
 --- !u!1 &1434796184
 GameObject:
   m_ObjectHideFlags: 0
@@ -1541,6 +1647,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_UseGravity
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325362178580512855, guid: c7a784afa4138224493f798cbaa02373,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9080833720600734768, guid: c7a784afa4138224493f798cbaa02373,
         type: 3}

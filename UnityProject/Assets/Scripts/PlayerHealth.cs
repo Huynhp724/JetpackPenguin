@@ -16,31 +16,42 @@ public class PlayerHealth : MonoBehaviour
     {
         stats = GetComponent<PlayerStats>();
         fader = FindObjectOfType<ScreenFader>();
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (stats.GetIsDead()) {
+            Debug.Log("I am dead");
+        }
     }
 
-    public void LoseALife() {
+    public void LoseALife(bool checkPoint) {
         Debug.Log("Lose a life");
-        if (!stats.GetIsDead() && !isInvincible)
+        if (!stats.GetIsDead())
         {
             if (stats.lives > 1)
             {
                 stats.lives -= 1;
+
+                if (checkPoint)
+                {
+                    FindClosestMinorCheckpoint();
+                    return;
+
+                }
             }
             else
             {
                 stats.lives -= 1;
+                stats.hitPoints = 0;
                 stats.SetIsDead(true);
+                return;
 
             }
             isInvincible = true;
-            rb.AddForce(Vector3.forward * -5f, ForceMode.Impulse);
+            //rb.AddForce(Vector3.forward * -50f, ForceMode.Impulse);
             StartCoroutine(Invincible());
         }
     }
@@ -67,7 +78,7 @@ public class PlayerHealth : MonoBehaviour
 
             }
             isInvincible = true;
-            rb.AddForce(Vector3.forward * -5f, ForceMode.Impulse);
+            //rb.AddForce(Vector3.forward * -50f, ForceMode.Impulse);
             StartCoroutine(Invincible());
 
         }
@@ -84,19 +95,7 @@ public class PlayerHealth : MonoBehaviour
         stats.SetIsDead(true);
         if (checkPoint)
         {
-            float minDistance = 90000000f;
-            GameObject point = null;
-
-            for (int i = 0; i < minorCheckPoints.transform.childCount; i++) {
-                float check = Vector3.Distance(gameObject.transform.position, minorCheckPoints.transform.GetChild(i).transform.position);
-                if (check < minDistance) {
-                    minDistance = check;
-                    point = minorCheckPoints.transform.GetChild(i).gameObject;
-                }
-            }
-
-            fader.Fade("out");
-            StartCoroutine(Fade(point));
+            FindClosestMinorCheckpoint();
 
         }
     }
@@ -104,6 +103,40 @@ public class PlayerHealth : MonoBehaviour
     IEnumerator Fade(GameObject go) {
         yield return new WaitForSeconds(1f);
         fader.Fade("in");
+        gameObject.transform.position = go.transform.position;
+    }
+
+    void FindClosestMinorCheckpoint() {
+        float minDistance = 90000000f;
+        GameObject point = null;
+
+        for (int i = 0; i < minorCheckPoints.transform.childCount; i++)
+        {
+            float check = Vector3.Distance(gameObject.transform.position, minorCheckPoints.transform.GetChild(i).transform.position);
+            if (check < minDistance)
+            {
+                minDistance = check;
+                point = minorCheckPoints.transform.GetChild(i).gameObject;
+            }
+        }
+
+        fader.Fade("out");
+        StartCoroutine(Fade(point));
+    }
+
+    void FindMajorCheckpoint() {
+        GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("MajorCheckpoint");
+
+        float minDistance = 9000000f;
+        GameObject go = null;
+        for (int i = 0; i < checkpoints.Length; i++) {
+            float check = Vector3.Distance(gameObject.transform.position, checkpoints[i].transform.position);
+            if (check < minDistance) {
+                minDistance = check;
+                go = checkpoints[i];
+            }
+        }
+
         gameObject.transform.position = go.transform.position;
     }
 }
