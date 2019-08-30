@@ -25,6 +25,11 @@ public class PlayerController : MonoBehaviour
     public float currentFuel = 100f;
     public float currentDashSpd = 30f;
 
+    public bool onLedge = false;
+    private Vector3 ledgePos;
+
+    public Transform grabCastT;
+
     bool hasDashed = false;
 
     public CharacterController controller;
@@ -173,6 +178,27 @@ public class PlayerController : MonoBehaviour
 
                 currentDashSpd -= .3f;
             }
+
+            //ledge grabbing
+            RaycastHit ledgeGrabHit;
+            if (!onLedge && Physics.Raycast(grabCastT.position, transform.forward, out ledgeGrabHit, 2f, LayerMask.GetMask("LedgeGrab")))
+            {
+                onLedge = true;
+                GrabableLedge ledge = ledgeGrabHit.transform.GetComponent<GrabableLedge>();
+                controller.transform.position = ledgePos = ledge.GetGrabPosition(ledgeGrabHit.point);
+                controller.transform.rotation = ledge.GetGrabRotation(ledgeGrabHit.point);
+            }
+
+            if (onLedge)
+            {
+                if (player.GetButtonDown("Jump"))
+                {
+                    onLedge = false;
+                    moveDirection = Vector3.zero;
+                    moveDirection += -transform.forward * .25f;
+                    moveDirection.y += jumpForce * 1.3f;
+                }
+            }
         }
 
         //Penguin Dash
@@ -244,16 +270,23 @@ public class PlayerController : MonoBehaviour
 
         //Add Gravity
         moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
-   
+
         // Move the controller
-        controller.Move(moveDirection * Time.deltaTime);
-      
-        //Rotate model as you turn
-        if((player.GetAxis("Move Horizontal") != 0 || player.GetAxis("Move Vertical") != 0) && myState != State.Dashing)
+        if (!onLedge)
         {
-            transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
-            Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
-            playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
+            controller.Move(moveDirection * Time.deltaTime);
+
+            //Rotate model as you turn
+            if ((player.GetAxis("Move Horizontal") != 0 || player.GetAxis("Move Vertical") != 0) && myState != State.Dashing)
+            {
+                transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
+                Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
+                playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
+            }
+        }
+        else
+        {
+            controller.transform.position = ledgePos;
         }
     }
 }
