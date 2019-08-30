@@ -6,7 +6,7 @@ using Rewired;
 
 public class PlayerController : MonoBehaviour
 {
-    enum State { Idle, Flapping, Dashing }
+    public enum State { Idle, Flapping, Dashing }
 
     public float moveSpeed = 15.0f;
     public float dashSpeed = 30.0f;
@@ -288,5 +288,10 @@ public class PlayerController : MonoBehaviour
         {
             controller.transform.position = ledgePos;
         }
+    }
+
+    public State GetCurrentState()
+    {
+        return myState;
     }
 }

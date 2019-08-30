@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Description and give credit
+// This script computes severals points along a projectile path and then creates a line using them. Based off of the tutorial Board To Bits Games on youtube.
 [RequireComponent(typeof(LineRenderer))]
 public class LaunchArcRenderer : MonoBehaviour
 {
