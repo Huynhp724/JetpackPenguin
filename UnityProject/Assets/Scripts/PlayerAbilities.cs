@@ -64,7 +64,7 @@ public class PlayerAbilities : MonoBehaviour
         
         float xVelocity = Mathf.Cos(radianAngle) * throwVelocity;
         float yVelocity = Mathf.Sin(radianAngle) * throwVelocity;
-        currentBomb.GetComponent<Rigidbody>().velocity = throwStartPoint.transform.InverseTransformDirection(xVelocity, yVelocity, 0);
+        currentBomb.GetComponent<Rigidbody>().velocity = throwStartPoint.transform.TransformDirection(xVelocity, yVelocity, 0);
     }
 
     /*
