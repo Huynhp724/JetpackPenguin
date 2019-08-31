@@ -2,78 +2,135 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Rewired;
 
 // This script handles any specials non-movemnet abilities such as throwing an ice bomb.
 public class PlayerAbilities : MonoBehaviour
 {
+    [SerializeField] GameObject endPointPrefab;
+    [SerializeField] float maxRange = 20f;
+    [SerializeField] Vector3 raycastOffput = new Vector3(0, 3, 0);
     [SerializeField] Transform throwStartPoint;
     [SerializeField] GameObject snowBomb;
-    [SerializeField] GameObject playerModel;
+    [SerializeField] float bombVelocity = 1f;
     [SerializeField] float timeBetweenThrows = .5f;
-    [SerializeField] float minThrowVelocity = 5f;
-    [SerializeField] float MaxThrowVelocity = 10f;
-    [SerializeField] float throwAngle = 45f;
-    [SerializeField] float adjustThrowRate = .1f;
+    [SerializeField] GameObject playerModel;
 
-    private float throwVelocity;
+    private GameObject throwEndPoint = null;
+    private Camera playerCamera;
     private float timeOfLastThrow = 0f;
-    private Player player;
-    private LaunchArcRenderer lineRenderer;
-    private PlayerController playerController;
+    private GameManager gameManager;
 
-    private void Awake()
+    void Start()
     {
-        player = ReInput.players.GetPlayer(0);
-        lineRenderer = throwStartPoint.GetComponent<LaunchArcRenderer>();
-        playerController = GetComponent<PlayerController>();
-        throwVelocity = minThrowVelocity;
+        playerCamera = FindObjectOfType<Camera>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Update()
     {
-        if(player.GetButton("Aim Bomb") && playerController.GetCurrentState() != PlayerController.State.Dashing)
+        if(Input.GetAxis(gameManager.charge) > gameManager.bumperThreshold || Input.GetKey(KeyCode.Q))
         {
             AimSnowBomb();
         }
-        else //if(player.GetButtonUp("Aim Bomb"))
+        else if(throwEndPoint != null)
         {
-            lineRenderer.UnrenderArc();
-            throwVelocity = minThrowVelocity;
+            Destroy(throwEndPoint);
         }
     }
 
     
-    // This function allows the player to aim a snowbomb throw. By holding the adjust throw button the arc will increase till max velocity. Pressing the throw bomb button will throw the bomb.
+    // This function allows the player to aim a snowbomb throw. While holding the aim button the player can ajust their aim the same as moving the camera. There is a max range to the throw.
     private void AimSnowBomb()
     {
-        if (player.GetButton("Adjust Throw"))
+        RaycastHit hit;
+        Vector3 raycastStart = playerModel.transform.position + raycastOffput;
+        Vector3 endPointPosition;
+        if (Physics.Raycast(raycastStart, playerModel.transform.TransformDirection(Vector3.forward), out hit))
         {
-            AdjustAim();
+            endPointPosition = hit.point;
+        }
+        else
+        {
+            endPointPosition = Vector3.zero;
         }
 
-        lineRenderer.RenderArc(throwVelocity, throwAngle);
+        // If the raycast hit is out of the max throw range then calculate a point in the same direction but at max range.
+        if(Vector3.Distance(endPointPosition, throwStartPoint.position) >= maxRange)
+        {
+            float rangeVariance = (Input.GetAxis(gameManager.charge) + 1.0f) / 2.0f;
+            endPointPosition = throwStartPoint.position + (maxRange * rangeVariance) * Vector3.Normalize(endPointPosition - throwStartPoint.position); // V0 + du, where u is the normalize vector of V1 - V0
+            if (Physics.Raycast(endPointPosition, Vector3.down, out hit))
+            {
+                endPointPosition -= (Vector3.up * hit.distance);
+            }
+        }
 
-        if (player.GetButtonDown("Throw Bomb") && timeOfLastThrow + timeBetweenThrows <= Time.time)
+        if (throwEndPoint == null)
+        {
+            throwEndPoint = Instantiate(endPointPrefab, endPointPosition, transform.rotation);
+        }
+
+        throwEndPoint.transform.position = endPointPosition;
+
+        //transform.LookAt(throwEndPoint.transform.position);
+
+        if ((Input.GetButtonDown("ThrowBomb_PS4") || Input.GetKeyDown(KeyCode.E)) && timeOfLastThrow + timeBetweenThrows <= Time.time)
         {
             ThrowSnowBomb();
         }
     }
-
-    // While called this method increases the velocity of the throw until reached the max velocity.
-    private void AdjustAim()
-    {
-        throwVelocity = Mathf.MoveTowards(throwVelocity, MaxThrowVelocity, adjustThrowRate);
-    }
     
-    // Instantiates a snow bomb with the same velcoity of the projected arc.
+    /// <summary>
+    /// Instansiates and throws the snow bomb at the point targeted at.
+    /// </summary>
     private void ThrowSnowBomb()
     {
         timeOfLastThrow = Time.time;
+        throwStartPoint.LookAt(throwEndPoint.transform.position);
         GameObject currentBomb = Instantiate(snowBomb, throwStartPoint.position, throwStartPoint.rotation);
-        float radianAngle = Mathf.Deg2Rad * throwAngle;
-        float xVelocity = Mathf.Cos(radianAngle) * throwVelocity;
-        float yVelocity = Mathf.Sin(radianAngle) * throwVelocity;
-        currentBomb.GetComponent<Rigidbody>().velocity = throwStartPoint.transform.TransformDirection(xVelocity, yVelocity, 0);
+        currentBomb.GetComponent<Rigidbody>().velocity = currentBomb.transform.forward * bombVelocity;
     }
+
+    /*
+    //TODO: Have Pluck look in the direction of the aim. Consider calling a function in PlayerMovement to properly rotate the player.
+    // This function allows the player to aim a snowbomb throw. While holding the aim button the player can ajust their aim the same as moving the camera. There is a max range to the throw.
+    private void AimSnowBomb()
+    {
+        RaycastHit hit;
+        Vector3 raycastStart = playerCamera.transform.position + raycastOffput;
+        Vector3 endPointPosition;
+        if (Physics.Raycast(raycastStart, playerCamera.transform.TransformDirection(Vector3.forward), out hit))
+        {
+            endPointPosition = hit.point;
+        }
+        else
+        {
+            endPointPosition = Vector3.zero;
+        }
+
+        // If the raycast hit is out of the max throw range then calculate a point in the same direction but at max range.
+        if(Vector3.Distance(endPointPosition, throwStartPoint.position) >= maxRange)
+        {
+            endPointPosition = throwStartPoint.position + maxRange * Vector3.Normalize(endPointPosition - throwStartPoint.position); // V0 + du, where u is the normalize vector of V1 - V0
+            if (Physics.Raycast(endPointPosition, Vector3.down, out hit))
+            {
+                endPointPosition -= (Vector3.up * hit.distance);
+            }
+        }
+
+        if (throwEndPoint == null)
+        {
+            throwEndPoint = Instantiate(endPointPrefab, endPointPosition, transform.rotation);
+        }
+
+        throwEndPoint.transform.position = endPointPosition;
+
+        //transform.LookAt(throwEndPoint.transform.position);
+
+        if ((Input.GetButtonDown("ThrowBomb_PS4") || Input.GetKeyDown(KeyCode.E)) && timeOfLastThrow + timeBetweenThrows <= Time.time)
+        {
+            ThrowSnowBomb();
+        }
+    }
+    */
 }

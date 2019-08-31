@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Rewired;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum State { Idle, Flapping, Dashing }
+    enum State { Idle, Flapping, Dashing }
 
     public float moveSpeed = 15.0f;
     public float dashSpeed = 30.0f;
@@ -25,11 +24,6 @@ public class PlayerController : MonoBehaviour
     public float currentFuel = 100f;
     public float currentDashSpd = 30f;
 
-    public bool onLedge = false;
-    private Vector3 ledgePos;
-
-    public Transform grabCastT;
-
     bool hasDashed = false;
 
     public CharacterController controller;
@@ -42,17 +36,13 @@ public class PlayerController : MonoBehaviour
     ParticleSystem[] flames;
     public GameObject jetPack;
 
-    private Player player;
-
-    private void Awake()
-    {
-        player = ReInput.players.GetPlayer(0);
-    }
+    private GameManager gameManager;
 
     private void Start()
     {
         flames = jetPack.GetComponentsInChildren<ParticleSystem>();
         Debug.Log(flames.Length);
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     //turns the jetpack particle effects on/off
@@ -83,7 +73,7 @@ public class PlayerController : MonoBehaviour
         //Regular Movement
         if (myState != State.Dashing)
         {
-            moveDirection = (transform.forward * player.GetAxis("Move Vertical") * moveSpeed) + (transform.right * player.GetAxis("Move Horizontal") * moveSpeed);
+            moveDirection = (transform.forward * Input.GetAxis("Vertical") * moveSpeed) + (transform.right * Input.GetAxis("Horizontal") * moveSpeed);
             moveDirection = moveDirection.normalized * moveSpeed;
         }
 
@@ -97,7 +87,7 @@ public class PlayerController : MonoBehaviour
             moveDirection = transform.up * currentDashSpd;
 
             //Jump to get out of dashing
-            if (player.GetButtonDown("Jump"))
+            if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown(gameManager.jump))
             {
                 myState = State.Idle;
                 transform.RotateAround(transform.position, playerModel.transform.right, -90);
@@ -131,13 +121,13 @@ public class PlayerController : MonoBehaviour
             /*
              * CHANGE HARD CODED RECHARGE RATE LATER
              */
-            if (!player.GetButton("Charge")){
+            if (Input.GetAxis(gameManager.charge) <= gameManager.bumperThreshold && !Input.GetButton("Charge_Mouse")){
                 currentFuel += 5f;
                 if (currentFuel > maxFuel) currentFuel = maxFuel;
             }
 
             //Jumping
-            if (player.GetButtonDown("Jump") && myState == State.Idle) 
+            if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown(gameManager.jump)) && myState == State.Idle) 
             {
                 moveDirection.y += jumpForce;
             }
@@ -149,7 +139,7 @@ public class PlayerController : MonoBehaviour
             if (myState == State.Idle)
             {
                 //Press A to enter flapping state while idle in the air if you are falling
-                if (player.GetButtonDown("Jump") && moveDirection.y < 0)
+                if ((Input.GetKey(KeyCode.LeftShift) || Input.GetButton(gameManager.jump)) && moveDirection.y < 0)
                 {
                     myState = State.Flapping;
                 }
@@ -160,12 +150,12 @@ public class PlayerController : MonoBehaviour
                  * Make it so flapping gets weaker after a brief time then you just fall regularly
                  */
                 //Hold down A to hover down slowly
-                if (player.GetButtonDown("Jump"))
+                if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton(gameManager.jump))
                 {
                     moveDirection.y -= Physics.gravity.y * gravityScale * .85f * Time.deltaTime;
                 }
                 //Let go of A to return to free fall
-                if (player.GetButtonDown("Jump"))
+                if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetButtonUp(gameManager.jump))
                 {
                     myState = State.Idle;
                 }
@@ -178,31 +168,10 @@ public class PlayerController : MonoBehaviour
 
                 currentDashSpd -= .3f;
             }
-
-            //ledge grabbing
-            RaycastHit ledgeGrabHit;
-            if (!onLedge && Physics.Raycast(grabCastT.position, transform.forward, out ledgeGrabHit, 2f, LayerMask.GetMask("LedgeGrab")))
-            {
-                onLedge = true;
-                GrabableLedge ledge = ledgeGrabHit.transform.GetComponent<GrabableLedge>();
-                controller.transform.position = ledgePos = ledge.GetGrabPosition(ledgeGrabHit.point);
-                controller.transform.rotation = ledge.GetGrabRotation(ledgeGrabHit.point);
-            }
-
-            if (onLedge)
-            {
-                if (player.GetButtonDown("Jump"))
-                {
-                    onLedge = false;
-                    moveDirection = Vector3.zero;
-                    moveDirection += -transform.forward * .25f;
-                    moveDirection.y += jumpForce * 1.3f;
-                }
-            }
         }
 
         //Penguin Dash
-        if (player.GetButtonDown("Slide") && myState != State.Dashing && !hasDashed)
+        if (Input.GetButtonDown(gameManager.slide) && myState != State.Dashing && !hasDashed)
         {
             myState = State.Dashing;
             transform.RotateAround(transform.position, playerModel.transform.right, 90);
@@ -214,7 +183,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Hovering with the jetpack
-        if (player.GetButton("Hover") && currentFuel > 0)
+        if ((Input.GetKey(KeyCode.Space) == true || Input.GetAxis(gameManager.hover) > gameManager.bumperThreshold) && currentFuel > 0)
         {
             if(!flames[0].isPlaying) EmitFlames(true);
             if (myState != State.Dashing)
@@ -227,24 +196,24 @@ public class PlayerController : MonoBehaviour
             {
                 moveDirection += transform.up * rocketSpeed;
                 currentDashSpd += rocketSpeed;
-                transform.RotateAround(transform.position, playerModel.transform.forward, -1 * player.GetAxis("Move Horizontal") * steeringForce * Time.deltaTime);
+                transform.RotateAround(transform.position, playerModel.transform.forward, -1 * Input.GetAxis("Horizontal") * steeringForce * Time.deltaTime);
                 moveDirection.y -= Physics.gravity.y * gravityScale * Time.deltaTime;
             }
             currentFuel -= .5f;
         }
-        else if (player.GetButton("Hover") == false && flames[0].isPlaying && currentFuel > 0)
+        else if ((Input.GetKey(KeyCode.Space) == false && Input.GetAxis(gameManager.hover) <= gameManager.bumperThreshold) && flames[0].isPlaying && currentFuel > 0)
         {
             EmitFlames(false);
         }
 
         //Charge jumping - Charge
-        if (player.GetButton("Charge") && currentFuel > 0)
+        if ((Input.GetAxis(gameManager.charge) > gameManager.bumperThreshold || Input.GetButton("Charge_Mouse")) && currentFuel > 0)
         {
             currentCharge += chargeSpeed;
             currentFuel -= chargeSpeed;
         }
         //Charge jumping - Release
-        else if(!player.GetButton("Charge"))
+        else if(!Input.GetButton("Charge_Mouse") && (Input.GetAxis(gameManager.charge) <= gameManager.bumperThreshold))
         {
             if (currentCharge > 0)
             {
@@ -270,28 +239,16 @@ public class PlayerController : MonoBehaviour
 
         //Add Gravity
         moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
-
+   
         // Move the controller
-        if (!onLedge)
+        controller.Move(moveDirection * Time.deltaTime);
+      
+        //Rotate model as you turn
+        if((Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) && myState != State.Dashing)
         {
-            controller.Move(moveDirection * Time.deltaTime);
-
-            //Rotate model as you turn
-            if ((player.GetAxis("Move Horizontal") != 0 || player.GetAxis("Move Vertical") != 0) && myState != State.Dashing)
-            {
-                transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
-                Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
-                playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
-            }
+            transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
+            Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
+            playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
         }
-        else
-        {
-            controller.transform.position = ledgePos;
-        }
-    }
-
-    public State GetCurrentState()
-    {
-        return myState;
     }
 }
