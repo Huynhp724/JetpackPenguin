@@ -6,6 +6,12 @@ using UnityEngine;
 public class SnowBomb : MonoBehaviour
 {
     [SerializeField] GameObject snowplosion;
+    private float gravityMultiplier = 2f;
+
+    public void setGravityMultiplier(float gravMul)
+    {
+        gravityMultiplier = gravMul;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -14,5 +20,11 @@ public class SnowBomb : MonoBehaviour
             Instantiate(snowplosion, transform.position, transform.rotation);
             Destroy(gameObject);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        float gravity = gravityMultiplier * Physics.gravity.y;
+        GetComponent<Rigidbody>().AddForce(0, gravity, 0);
     }
 }

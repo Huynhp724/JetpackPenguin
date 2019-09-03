@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2067130748
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2067130749}
+  m_Layer: 11
+  m_Name: SlideControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2067130749
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067130748}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1329826876155729632}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1329826876155729638
 GameObject:
   m_ObjectHideFlags: 0
@@ -36,6 +66,7 @@ Transform:
   - {fileID: 1329826877022657145}
   - {fileID: 1329826877669068314}
   - {fileID: 1329826877476597607}
+  - {fileID: 2067130749}
   - {fileID: 5484457911540951332}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -127,7 +158,7 @@ MonoBehaviour:
   slideJetpackBoost: 4
   slideSphere: {fileID: 9182727171326080714, guid: 404856fd8d8b241478cc5da27293f7aa,
     type: 3}
-  slideControl: {fileID: 5484457911540951332}
+  slideControl: {fileID: 2067130749}
   slideStarted: 0
   maxFuel: 50
   currentCharge: 0
@@ -157,9 +188,9 @@ MonoBehaviour:
     type: 3}
   playerModel: {fileID: 1329826877669068315}
   timeBetweenThrows: 0.5
-  minThrowVelocity: 5
-  MaxThrowVelocity: 10
-  throwAngle: 45
+  minThrowVelocity: 10
+  MaxThrowVelocity: 30
+  throwAngle: 55
   adjustThrowRate: 0.1
 --- !u!54 &5484457912418153956
 Rigidbody:
@@ -1573,7 +1604,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1329826876155729632}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5484457911579825096
 GameObject:

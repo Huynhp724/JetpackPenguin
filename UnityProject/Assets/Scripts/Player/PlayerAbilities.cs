@@ -15,6 +15,7 @@ public class PlayerAbilities : MonoBehaviour
     [SerializeField] float MaxThrowVelocity = 10f;
     [SerializeField] float throwAngle = 45f;
     [SerializeField] float adjustThrowRate = .1f;
+    [SerializeField] float snowbombGravityMultiplier = 2f;
 
     private float throwVelocity;
     private float timeOfLastThrow = 0f;
@@ -52,7 +53,7 @@ public class PlayerAbilities : MonoBehaviour
             AdjustAim();
         }
 
-        lineRenderer.RenderArc(throwVelocity, throwAngle);
+        lineRenderer.RenderArc(throwVelocity, throwAngle, snowbombGravityMultiplier * Mathf.Abs(Physics.gravity.y));
 
         if (player.GetButtonDown("Throw Bomb") && timeOfLastThrow + timeBetweenThrows <= Time.time)
         {
@@ -74,6 +75,7 @@ public class PlayerAbilities : MonoBehaviour
         float radianAngle = Mathf.Deg2Rad * throwAngle;
         float xVelocity = Mathf.Cos(radianAngle) * throwVelocity;
         float yVelocity = Mathf.Sin(radianAngle) * throwVelocity;
+        currentBomb.GetComponent<SnowBomb>().setGravityMultiplier(snowbombGravityMultiplier);
         currentBomb.GetComponent<Rigidbody>().velocity = throwStartPoint.transform.TransformDirection(xVelocity, yVelocity, 0);
     }
 }
