@@ -35,4 +35,14 @@ public class MovingPlatform : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            print("Player on moving platform");
+            float step = speed * Time.deltaTime; // calculate distance to move
+            other.transform.position = Vector3.MoveTowards(other.transform.position, nextPathPointPos, step);
+        }
+    }
 }
