@@ -16,6 +16,15 @@ public class PlayerController : MonoBehaviour
     public float steeringForce = 5f;        //how strong you can turn while flying
     public float jumpForce = 50.0f;
     public float gravityScale = 1f;
+    public float slideJetpackBoost = 4f;
+
+    [SerializeField]
+    private GameObject slideSphere;
+    [SerializeField]
+    private Transform slideControl;
+    private GameObject currentSlideSphere;
+
+    public bool slideStarted = false;
 
     State myState = State.Idle;
 
@@ -96,14 +105,28 @@ public class PlayerController : MonoBehaviour
             }
             moveDirection = transform.up * currentDashSpd;
 
+            if (controller.isGrounded && !slideStarted)
+            {
+                slideStarted = true;
+                currentSlideSphere = Instantiate(slideSphere, transform.position, Quaternion.identity);
+                currentSlideSphere.GetComponent<Rigidbody>().velocity = controller.velocity;
+            }
+
+            if(player.GetAxis("Move Vertical") != 0)
+            {
+                slideControl.Rotate(slideControl.right, player.GetAxis("Move Vertical") * Time.deltaTime * 100);
+            }
+
             //Jump to get out of dashing
             if (player.GetButtonDown("Jump"))
             {
                 myState = State.Idle;
+                slideStarted = false;
                 transform.RotateAround(transform.position, playerModel.transform.right, -90);
                 currentDashSpd = dashSpeed;
                 tempY += jumpForce * 1.25f;
                 hasDashed = true;
+                slideControl.rotation = controller.transform.rotation;
             }
         }
 
@@ -225,7 +248,12 @@ public class PlayerController : MonoBehaviour
             //Hovering while dashing
             else
             {
-                moveDirection += transform.up * rocketSpeed;
+                if (currentSlideSphere != null)
+                {
+                    Rigidbody sphereRB = currentSlideSphere.GetComponent<Rigidbody>();
+                    sphereRB.AddForce(slideControl.up * rocketSpeed * slideJetpackBoost, ForceMode.Impulse);
+                }
+                moveDirection += slideControl.up * rocketSpeed;
                 currentDashSpd += rocketSpeed;
                 transform.RotateAround(transform.position, playerModel.transform.forward, -1 * player.GetAxis("Move Horizontal") * steeringForce * Time.deltaTime);
                 moveDirection.y -= Physics.gravity.y * gravityScale * Time.deltaTime;
@@ -272,7 +300,11 @@ public class PlayerController : MonoBehaviour
         moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
 
         // Move the controller
-        if (!onLedge)
+        if (slideStarted)
+        {
+            controller.transform.position = Vector3.Lerp(controller.transform.position, currentSlideSphere.transform.position + new Vector3(0, .5f, 0), .85f);
+        }
+        else if (!onLedge)
         {
             controller.Move(moveDirection * Time.deltaTime);
 
