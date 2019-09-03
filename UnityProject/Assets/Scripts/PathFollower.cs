@@ -9,6 +9,8 @@ public class PathFollower : MonoBehaviour
     public PathCreator pathCreator;
     public bool followPath = true;
 
+    public Vector3 lastPosition;
+
     float distanceTraveled;
     // Start is called before the first frame update
     void Start()
@@ -25,5 +27,13 @@ public class PathFollower : MonoBehaviour
             transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled);
             transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled);
         }
+        else {
+            //pathCreator.path.GetClosestPointOnPath()
+        }
+    }
+
+    public void SetFollowPath(float newSpeed, bool follow) {
+        speed = newSpeed;
+        followPath = follow;
     }
 }

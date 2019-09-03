@@ -27,4 +27,16 @@ public class GrabableLedge : MonoBehaviour
         Quaternion grabRot = Quaternion.Lerp(ledgeStartT.rotation, ledgeEndT.rotation, penguinDistance / maxDistance);
         return grabRot;
     }
+
+    public Vector3 GetGrabPosition(float percent)
+    {
+        Vector3 grabPosition = Vector3.Lerp(ledgeStartT.position, ledgeEndT.position, percent);
+        return grabPosition;
+    }
+
+    public Quaternion GetGrabRotation(float percent)
+    {
+        Quaternion grabRot = Quaternion.Lerp(ledgeStartT.rotation, ledgeEndT.rotation, percent);
+        return grabRot;
+    }
 }

@@ -7,6 +7,10 @@ public class SnowBomb : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(gameObject);
+        if (collision.gameObject.tag != "Player")
+        {
+            Instantiate(snowplosion, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
     }
 }
