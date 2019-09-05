@@ -6,6 +6,7 @@ using BehaviorDesigner.Runtime;
 public class Seal : MonoBehaviour
 {
     public GameObject player;
+    public float goBackToPathAfterDistance;
 
     bool keepTrackOfDistnace = false;
     float distnace;
@@ -27,7 +28,7 @@ public class Seal : MonoBehaviour
     {
         if (keepTrackOfDistnace) {
             distnace = Vector3.Distance(player.transform.position, parentObject.position);
-            if (distnace > 100f) {
+            if (distnace > goBackToPathAfterDistance) {
                 Debug.Log("Find Path");
                 bTree.SendEvent("Find Path");
                 keepTrackOfDistnace = false;
@@ -38,7 +39,6 @@ public class Seal : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) {
-            Debug.Log("Chase");
             bTree.SendEvent("Chase");
             keepTrackOfDistnace = true;
         }

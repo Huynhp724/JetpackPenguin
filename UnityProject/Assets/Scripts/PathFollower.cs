@@ -30,7 +30,8 @@ public class PathFollower : MonoBehaviour
             transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled);
         }
         else {
-            //pathCreator.path.GetClosestPointOnPath()
+            lastPosition = pathCreator.path.GetClosestPointOnPath(transform.position);
+            Debug.Log(lastPosition);
         }
     }
 
@@ -41,6 +42,5 @@ public class PathFollower : MonoBehaviour
 
     public void GetLastPathPosition() {
         bTree.SetVariableValue("VectorPosition", lastPosition);
-        Debug.Log(lastPosition);
     }
 }
