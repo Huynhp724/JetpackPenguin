@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
+using BehaviorDesigner.Runtime;
 
 public class PathFollower : MonoBehaviour
 {
@@ -12,10 +13,11 @@ public class PathFollower : MonoBehaviour
     public Vector3 lastPosition;
 
     float distanceTraveled;
+    BehaviorTree bTree;
     // Start is called before the first frame update
     void Start()
     {
-        
+        bTree = GetComponent<BehaviorTree>();   
     }
 
     // Update is called once per frame
@@ -35,5 +37,10 @@ public class PathFollower : MonoBehaviour
     public void SetFollowPath(float newSpeed, bool follow) {
         speed = newSpeed;
         followPath = follow;
+    }
+
+    public void GetLastPathPosition() {
+        bTree.SetVariableValue("VectorPosition", lastPosition);
+        Debug.Log(lastPosition);
     }
 }
