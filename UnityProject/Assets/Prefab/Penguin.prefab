@@ -228,14 +228,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwStartPoint: {fileID: 1329826876716099209}
-  snowBomb: {fileID: 8359640083916901840, guid: 470d00258aabc14448128b47a84defa8,
+  snowBomb: {fileID: 5671347707330620985, guid: d20038a85e04eff4ca28c6c85d548db1,
     type: 3}
   playerModel: {fileID: 1329826877669068315}
   timeBetweenThrows: 0.5
-  minThrowVelocity: 10
-  MaxThrowVelocity: 30
-  throwAngle: 55
-  adjustThrowRate: 0.1
+  minThrowAngle: 45
+  maxThrowAngle: 65
+  arcHeight: 3
+  adjustThrowRate: 0.3
+  projectileSpeedMultiplier: 4
 --- !u!54 &5484457912418153956
 Rigidbody:
   m_ObjectHideFlags: 0
