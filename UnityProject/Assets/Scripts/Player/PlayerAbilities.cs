@@ -23,7 +23,8 @@ public class PlayerAbilities : MonoBehaviour
     [Tooltip("How fast the player can adjust the throw by holding the adjust button.")]
     [SerializeField] float adjustThrowRate = .1f;
     [Tooltip("How fast the projectile will go through the arc.")]
-    [SerializeField] float projectileSpeedMultiplier = 2f; //This is actually a gravity multiplier, but for the sake of the game designers they can adjust this for speed. 
+    [SerializeField] float projectileSpeedMultiplier = 2f; //This is actually a gravity multiplier for an arc throw, but for the sake of the game designers they can adjust this for speed. 
+    [SerializeField] float maxTargetRange = 40f;
 
     private float throwVelocity;
     private float throwAngle = 45f;
@@ -33,30 +34,68 @@ public class PlayerAbilities : MonoBehaviour
     private PlayerController playerController;
     private float xVelocity;
     private float yVelocity;
+    private List<GameObject> targets = new List<GameObject>();
+    private Quaternion throwStartingPointOrgRotation;
 
     private void Awake()
     {
         player = ReInput.players.GetPlayer(0);
         lineRenderer = throwStartPoint.GetComponent<LaunchArcRenderer>();
         playerController = GetComponent<PlayerController>();
+        throwStartingPointOrgRotation = throwStartPoint.localRotation;
     }
 
     void Update()
     {
         if(player.GetButton("Aim Bomb") && playerController.GetCurrentState() != PlayerController.State.Dashing)
         {
-            AimSnowBomb();
+            if (targets.Count > 0)
+            {
+                AimSnowBombWithTarget();
+            }
+            else
+            {
+                throwStartPoint.localRotation = throwStartingPointOrgRotation;
+                playerController.setIsAiming(false);
+                AimSnowBombWithArc();
+            }
         }
         else
         {
             lineRenderer.UnrenderArc();
             throwAngle = maxThrowAngle;
+            playerController.setIsAiming(false);
         }
     }
 
-    
+    // This function allows the player to aim a snowbomb throw at a target. Pressing the throw bomb button will throw the bomb.
+    private void AimSnowBombWithTarget()
+    {
+        throwVelocity = 10f * projectileSpeedMultiplier;
+        Vector3 currentTargetPosition = targets[0].transform.position;
+        Vector3 targetDir = currentTargetPosition - transform.position;
+        playerController.setIsAiming(true);
+        playerController.rotateTo(targetDir.x, 0, targetDir.z);
+        throwStartPoint.LookAt(currentTargetPosition);
+
+        //lineRenderer.RenderArc(throwVelocity, throwAngle, Mathf.Abs(Physics.gravity.y * projectileSpeedMultiplier));
+
+        if (player.GetButtonDown("Throw Bomb") && timeOfLastThrow + timeBetweenThrows <= Time.time)
+        {
+            ThrowSnowBombWithTarget();
+        }
+    }
+
+    private void ThrowSnowBombWithTarget()
+    {
+        timeOfLastThrow = Time.time;
+        GameObject currentBomb = Instantiate(snowBomb, throwStartPoint.position, throwStartPoint.rotation);
+        currentBomb.GetComponent<SnowBomb>().setGravityMultiplier(0);
+        currentBomb.GetComponent<Rigidbody>().velocity = currentBomb.transform.forward * throwVelocity;
+    }
+
     // This function allows the player to aim a snowbomb throw. By holding the adjust throw button the arc will increase till max angle. Pressing the throw bomb button will throw the bomb.
-    private void AimSnowBomb()
+    private void AimSnowBombWithArc()
     {       
         if (player.GetButton("Adjust Throw"))
         {
@@ -71,7 +110,7 @@ public class PlayerAbilities : MonoBehaviour
 
         if (player.GetButtonDown("Throw Bomb") && timeOfLastThrow + timeBetweenThrows <= Time.time)
         {
-            ThrowSnowBomb();
+            ThrowSnowBombWithArc();
         }
     }
 
@@ -82,7 +121,7 @@ public class PlayerAbilities : MonoBehaviour
     }
     
     // Instantiates a snow bomb with the same velcoity of the projected arc.
-    private void ThrowSnowBomb()
+    private void ThrowSnowBombWithArc()
     {
         timeOfLastThrow = Time.time;
         GameObject currentBomb = Instantiate(snowBomb, throwStartPoint.position, throwStartPoint.rotation);
@@ -91,5 +130,22 @@ public class PlayerAbilities : MonoBehaviour
         float yVelocity = Mathf.Sin(radianAngle) * throwVelocity;
         currentBomb.GetComponent<SnowBomb>().setGravityMultiplier(projectileSpeedMultiplier);
         currentBomb.GetComponent<Rigidbody>().velocity = throwStartPoint.transform.TransformDirection(xVelocity, yVelocity, 0);
+    }
+
+    public void addToTargets(GameObject target)
+    {
+        print(target + " has been added to targets");
+        targets.Add(target);
+    }
+
+    public void removeFromTargets(GameObject target)
+    {
+        print(target + " has been removed to targets");
+        targets.Remove(target);
+    }
+
+    public float getMaxTargetRange()
+    {
+        return maxTargetRange;
     }
 }

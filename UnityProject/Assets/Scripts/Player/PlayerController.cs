@@ -6,7 +6,7 @@ using Rewired;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum State { Idle, Flapping, Dashing }
+    public enum State { Idle, Flapping, Dashing, Aiming}
 
     public float moveSpeed = 15.0f;
     public float dashSpeed = 30.0f;
@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
     public GameObject jetPack;
 
     private Player player;
+
+    private bool isAiming = false;
 
     private void Awake()
     {
@@ -312,8 +314,10 @@ public class PlayerController : MonoBehaviour
             if ((player.GetAxis("Move Horizontal") != 0 || player.GetAxis("Move Vertical") != 0) && myState != State.Dashing)
             {
                 transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
-                Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
-                playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
+                if (!isAiming)
+                {
+                    rotateTo(moveDirection.x, 0, moveDirection.z);
+                }
             }
         }
         else
@@ -325,5 +329,16 @@ public class PlayerController : MonoBehaviour
     public State GetCurrentState()
     {
         return myState;
+    }
+
+    public void setIsAiming(bool aim)
+    {
+        isAiming = aim;
+    }
+
+    public void rotateTo(float x, float y, float z)
+    {
+        Quaternion newRotation = Quaternion.LookRotation(new Vector3(x, y, z));
+        playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
     }
 }
