@@ -76,7 +76,7 @@ public class NPCInteraction : MonoBehaviour
         {
             uiController.SetSpeakingInteractionButton(true);
 
-            PlayerInteraction interact = other.GetComponent<PlayerInteraction>();
+            PlayerInteraction interact = other.gameObject.GetComponent<PlayerInteraction>();
             interact.SetInteract(true, this);
 
             previousRotation = parentObject.transform.rotation;
@@ -96,7 +96,7 @@ public class NPCInteraction : MonoBehaviour
         {
             uiController.SetSpeakingInteractionButton(false);
 
-            PlayerInteraction interact = other.GetComponent<PlayerInteraction>();
+            PlayerInteraction interact = other.gameObject.GetComponent<PlayerInteraction>();
             interact.SetInteract(false, null);
 
             rotateTowardsPlayer = false;
