@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Baby Seal
   hp: 1
+  speed: 2
+  rotSpeed: 2
   squishDetectionDistance: 1
-  isDead: 0
-  frozen: 0
+  numOfSnowballsToFreeze: 1
   immuneToDash: 0
   immuneToSnowballs: 0

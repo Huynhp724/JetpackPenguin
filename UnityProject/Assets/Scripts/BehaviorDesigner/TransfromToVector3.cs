@@ -6,11 +6,11 @@ using BehaviorDesigner.Runtime;
 
 public class TransfromToVector3 : Action
 {
-    public SharedTransform transform;
+    public SharedTransform trans;
     public SharedVector3 vector;
 
     public override TaskStatus OnUpdate() {
-        vector.Value = transform.Value.position;
+        vector.Value = trans.Value.position;
         return TaskStatus.Success;
     }
 }
