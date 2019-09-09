@@ -6,7 +6,11 @@ using Rewired;
 
 public class PlayerController : MonoBehaviour
 {
+<<<<<<< Updated upstream
     public enum State { Idle, Flapping, Dashing, Aiming}
+=======
+    public enum State { Idle, Flapping, Dashing }
+>>>>>>> Stashed changes
 
     public float moveSpeed = 15.0f;
     public float dashSpeed = 30.0f;
@@ -333,6 +337,8 @@ public class PlayerController : MonoBehaviour
                 {
                     rotateTo(moveDirection.x, 0, moveDirection.z);
                 }
+                Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
+                playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
             }
         }
         else
