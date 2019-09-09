@@ -52,12 +52,14 @@ public class PlayerController : MonoBehaviour
     public GameObject jetPack;
 
     private Player player;
+    private Animator anim;
 
     private bool isAiming = false;
 
     private void Awake()
     {
         player = ReInput.players.GetPlayer(0);
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void Start()
@@ -96,6 +98,16 @@ public class PlayerController : MonoBehaviour
         {
             moveDirection = (transform.forward * player.GetAxis("Move Vertical") * moveSpeed) + (transform.right * player.GetAxis("Move Horizontal") * moveSpeed);
             moveDirection = moveDirection.normalized * moveSpeed;
+            //Debug.Log("Move Vertical: " + player.GetAxis("Move Vertical") * moveSpeed);
+            //Debug.Log("Move Horizontal : " + player.GetAxis("Move Horizontal") * moveSpeed);
+            if (player.GetAxis("Move Vertical") * moveSpeed == 0 && player.GetAxis("Move Horizontal")*moveSpeed == 0)
+            {
+                anim.SetFloat("Speed", 0f);
+            }
+            else {
+                anim.SetFloat("Speed", 1f);
+               
+            }
         }
 
         //If currently dashing (whether in the air or on the ground)
@@ -129,6 +141,7 @@ public class PlayerController : MonoBehaviour
                 tempY += jumpForce * 1.25f;
                 hasDashed = true;
                 slideControl.rotation = controller.transform.rotation;
+                anim.SetTrigger("Jump");
             }
         }
 
@@ -165,6 +178,7 @@ public class PlayerController : MonoBehaviour
             if (player.GetButtonDown("Jump") && myState == State.Idle) 
             {
                 moveDirection.y += jumpForce;
+                anim.SetTrigger("Jump");
             }
         }
         //In the Air
@@ -222,6 +236,7 @@ public class PlayerController : MonoBehaviour
                     moveDirection = Vector3.zero;
                     moveDirection += -transform.forward * .25f;
                     moveDirection.y += jumpForce * 1.3f;
+                    anim.SetTrigger("Jump");
                 }
             }
         }
@@ -323,6 +338,14 @@ public class PlayerController : MonoBehaviour
         else
         {
             controller.transform.position = ledgePos;
+        }
+
+        if (myState == State.Dashing)
+        {
+            anim.SetBool("Slide", true);
+        }
+        else {
+            anim.SetBool("Slide", false);
         }
     }
 

@@ -116,6 +116,7 @@ public class DialogeManager : MonoBehaviour
     }
 
     IEnumerator RedoInteraction() {
+        playerInteraction.EnablePlayerController(true);
         yield return new WaitForSeconds(1.5f);
         playerInteraction.RedoNPCInteraction();
     }

@@ -36,6 +36,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (player.GetButtonDown("Interact") && (playerController.GetCurrentState() != PlayerController.State.Dashing))
             {
+                EnablePlayerController(false);
                 npcInInteraction.SendDialogeInfo();
                 uiController.SetSpeakingInteractionButton(false);
                 canInteractWithNPC = false;
@@ -55,8 +56,12 @@ public class PlayerInteraction : MonoBehaviour
         npcInInteraction = npc;
     }
 
+    public void EnablePlayerController(bool enable) {
+        playerController.enabled = enable;
+    }
+
     public void RedoNPCInteraction() {
-        canInteractWithNPC = true;
-        uiController.SetSpeakingInteractionButton(true);
+        //canInteractWithNPC = true;
+        //uiController.SetSpeakingInteractionButton(true);
     }
 }
