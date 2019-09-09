@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
+using UnityEngine.UI;
 
 // This script handles any specials non-movemnet abilities such as throwing an ice bomb.
 public class PlayerAbilities : MonoBehaviour
@@ -25,6 +26,7 @@ public class PlayerAbilities : MonoBehaviour
     [Tooltip("How fast the projectile will go through the arc.")]
     [SerializeField] float projectileSpeedMultiplier = 2f; //This is actually a gravity multiplier for an arc throw, but for the sake of the game designers they can adjust this for speed. 
     [SerializeField] float maxTargetRange = 40f;
+    [SerializeField] RawImage targetPointUI;
 
     private float throwVelocity;
     private float throwAngle = 45f;
@@ -36,6 +38,7 @@ public class PlayerAbilities : MonoBehaviour
     private float yVelocity;
     private List<GameObject> targets = new List<GameObject>();
     private Quaternion throwStartingPointOrgRotation;
+    private Camera mainCamera;
 
     private void Awake()
     {
@@ -43,6 +46,7 @@ public class PlayerAbilities : MonoBehaviour
         lineRenderer = throwStartPoint.GetComponent<LaunchArcRenderer>();
         playerController = GetComponent<PlayerController>();
         throwStartingPointOrgRotation = throwStartPoint.localRotation;
+        mainCamera = Camera.main;
     }
 
     void Update()
@@ -57,6 +61,7 @@ public class PlayerAbilities : MonoBehaviour
             {
                 throwStartPoint.localRotation = throwStartingPointOrgRotation;
                 playerController.setIsAiming(false);
+                targetPointUI.enabled = false;
                 AimSnowBombWithArc();
             }
         }
@@ -65,6 +70,7 @@ public class PlayerAbilities : MonoBehaviour
             lineRenderer.UnrenderArc();
             throwAngle = maxThrowAngle;
             playerController.setIsAiming(false);
+            targetPointUI.enabled = false;
         }
     }
 
@@ -78,7 +84,8 @@ public class PlayerAbilities : MonoBehaviour
         playerController.rotateTo(targetDir.x, 0, targetDir.z);
         throwStartPoint.LookAt(currentTargetPosition);
 
-        //lineRenderer.RenderArc(throwVelocity, throwAngle, Mathf.Abs(Physics.gravity.y * projectileSpeedMultiplier));
+        targetPointUI.enabled = true;
+        targetPointUI.transform.position =  mainCamera.WorldToScreenPoint(currentTargetPosition);
 
         if (player.GetButtonDown("Throw Bomb") && timeOfLastThrow + timeBetweenThrows <= Time.time)
         {
