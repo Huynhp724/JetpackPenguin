@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Rewired;
+using UnityEngine.UI;
 
 // This script handles any specials non-movemnet abilities such as throwing an ice bomb.
 public class PlayerAbilities : MonoBehaviour
@@ -14,38 +16,102 @@ public class PlayerAbilities : MonoBehaviour
     [SerializeField] float bombVelocity = 1f;
     [SerializeField] float timeBetweenThrows = .5f;
     [SerializeField] GameObject playerModel;
+    [Tooltip("Time player has to wait between a throw. In real seconds.")]
+    [SerializeField] float timeBetweenThrows = .5f;
+    [Tooltip("Angle in degrees. decreasing will increase the MAX distance thrown.")]
+    [Range(.1f, 90)]
+    [SerializeField] float minThrowAngle = 35f;
+    [Tooltip("Angle in degrees. Increasing will increase the MIN distance thrown.")]
+    [Range(10, 90)]
+    [SerializeField] float maxThrowAngle = 60f;
+    [Tooltip("How high the peak of a throw will be.")]
+    [SerializeField] float arcHeight = 10f;
+    [Tooltip("How fast the player can adjust the throw by holding the adjust button.")]
+    [SerializeField] float adjustThrowRate = .1f;
+    [Tooltip("How fast the projectile will go through the arc.")]
+    [SerializeField] float projectileSpeedMultiplier = 2f; //This is actually a gravity multiplier for an arc throw, but for the sake of the game designers they can adjust this for speed. 
+    [SerializeField] float maxTargetRange = 40f;
+    [SerializeField] RawImage targetPointUI;
 
-    private GameObject throwEndPoint = null;
-    private Camera playerCamera;
+    private float throwVelocity;
+    private float throwAngle = 45f;
     private float timeOfLastThrow = 0f;
-    private GameManager gameManager;
+    private Player player;
+    private LaunchArcRenderer lineRenderer;
+    private PlayerController playerController;
+    private float xVelocity;
+    private float yVelocity;
+    private List<GameObject> targets = new List<GameObject>();
+    private Quaternion throwStartingPointOrgRotation;
+    private Camera mainCamera;
 
     void Start()
     {
-        playerCamera = FindObjectOfType<Camera>();
-        gameManager = FindObjectOfType<GameManager>();
+        player = ReInput.players.GetPlayer(0);
+        lineRenderer = throwStartPoint.GetComponent<LaunchArcRenderer>();
+        playerController = GetComponent<PlayerController>();
+        throwStartingPointOrgRotation = throwStartPoint.localRotation;
+        mainCamera = Camera.main;
     }
 
     void Update()
     {
         if(Input.GetAxis(gameManager.charge) > gameManager.bumperThreshold || Input.GetKey(KeyCode.Q))
         {
-            AimSnowBomb();
+            if (targets.Count > 0)
+            {
+                AimSnowBombWithTarget();
+            }
+            else
+            {
+                AimSnowBombWithArc();
+            }
         }
-        else if(throwEndPoint != null)
+        else
         {
-            Destroy(throwEndPoint);
+            lineRenderer.UnrenderArc();
+            throwAngle = maxThrowAngle;
+            playerController.setIsAiming(false);
+            targetPointUI.enabled = false;
         }
     }
 
-    
-    // This function allows the player to aim a snowbomb throw. While holding the aim button the player can ajust their aim the same as moving the camera. There is a max range to the throw.
-    private void AimSnowBomb()
+    // This function allows the player to aim a snowbomb throw at a target. Pressing the throw bomb button will throw the bomb.
+    private void AimSnowBombWithTarget()
     {
-        RaycastHit hit;
-        Vector3 raycastStart = playerModel.transform.position + raycastOffput;
-        Vector3 endPointPosition;
-        if (Physics.Raycast(raycastStart, playerModel.transform.TransformDirection(Vector3.forward), out hit))
+        lineRenderer.UnrenderArc();
+        throwVelocity = 10f * projectileSpeedMultiplier;
+        Vector3 currentTargetPosition = targets[0].transform.position;
+        Vector3 targetDir = currentTargetPosition - transform.position;
+        playerController.setIsAiming(true);
+        playerController.rotateTo(targetDir.x, 0, targetDir.z);
+        throwStartPoint.LookAt(currentTargetPosition);
+
+        targetPointUI.enabled = true;
+        targetPointUI.transform.position =  mainCamera.WorldToScreenPoint(currentTargetPosition);
+
+        if (player.GetButtonDown("Throw Bomb") && timeOfLastThrow + timeBetweenThrows <= Time.time)
+        {
+            ThrowSnowBombWithTarget();
+        }
+    }
+
+    private void ThrowSnowBombWithTarget()
+    {
+        timeOfLastThrow = Time.time;
+        GameObject currentBomb = Instantiate(snowBomb, throwStartPoint.position, throwStartPoint.rotation);
+        currentBomb.GetComponent<SnowBomb>().setGravityMultiplier(0);
+        currentBomb.GetComponent<Rigidbody>().velocity = currentBomb.transform.forward * throwVelocity;
+    }
+
+    // This function allows the player to aim a snowbomb throw. By holding the adjust throw button the arc will increase till max angle. Pressing the throw bomb button will throw the bomb.
+    private void AimSnowBombWithArc()
+    {
+        throwStartPoint.localRotation = throwStartingPointOrgRotation;
+        playerController.setIsAiming(false);
+        targetPointUI.enabled = false;
+
+        if (player.GetButton("Adjust Throw"))
         {
             endPointPosition = hit.point;
         }
@@ -54,83 +120,51 @@ public class PlayerAbilities : MonoBehaviour
             endPointPosition = Vector3.zero;
         }
 
-        // If the raycast hit is out of the max throw range then calculate a point in the same direction but at max range.
-        if(Vector3.Distance(endPointPosition, throwStartPoint.position) >= maxRange)
+        // Calculate the velocity based off the desired max height and the speed (gravity) of the projectile.
+        float radianAngle = Mathf.Deg2Rad * throwAngle;
+        throwVelocity = Mathf.Sqrt((2 * arcHeight * Math.Abs(Physics.gravity.y * projectileSpeedMultiplier)) / (Mathf.Sin(radianAngle) * Mathf.Sin(radianAngle)));
+
+        lineRenderer.RenderArc(throwVelocity, throwAngle, Mathf.Abs(Physics.gravity.y * projectileSpeedMultiplier));
+
+        if (player.GetButtonDown("Throw Bomb") && timeOfLastThrow + timeBetweenThrows <= Time.time)
         {
-            float rangeVariance = (Input.GetAxis(gameManager.charge) + 1.0f) / 2.0f;
-            endPointPosition = throwStartPoint.position + (maxRange * rangeVariance) * Vector3.Normalize(endPointPosition - throwStartPoint.position); // V0 + du, where u is the normalize vector of V1 - V0
-            if (Physics.Raycast(endPointPosition, Vector3.down, out hit))
-            {
-                endPointPosition -= (Vector3.up * hit.distance);
-            }
-        }
-
-        if (throwEndPoint == null)
-        {
-            throwEndPoint = Instantiate(endPointPrefab, endPointPosition, transform.rotation);
-        }
-
-        throwEndPoint.transform.position = endPointPosition;
-
-        //transform.LookAt(throwEndPoint.transform.position);
-
-        if ((Input.GetButtonDown("ThrowBomb_PS4") || Input.GetKeyDown(KeyCode.E)) && timeOfLastThrow + timeBetweenThrows <= Time.time)
-        {
-            ThrowSnowBomb();
+            ThrowSnowBombWithArc();
         }
     }
+
+    // While called this method decreases the angle of the throw until reachs the min angle. This will increase the distance travelled.
+    private void AdjustAim()
+    {
+        throwAngle = Mathf.MoveTowards(throwAngle, minThrowAngle, adjustThrowRate);
+    }
     
-    /// <summary>
-    /// Instansiates and throws the snow bomb at the point targeted at.
-    /// </summary>
-    private void ThrowSnowBomb()
+    // Instantiates a snow bomb with the same velcoity of the projected arc.
+    private void ThrowSnowBombWithArc()
     {
         timeOfLastThrow = Time.time;
         throwStartPoint.LookAt(throwEndPoint.transform.position);
         GameObject currentBomb = Instantiate(snowBomb, throwStartPoint.position, throwStartPoint.rotation);
-        currentBomb.GetComponent<Rigidbody>().velocity = currentBomb.transform.forward * bombVelocity;
+        float radianAngle = Mathf.Deg2Rad * throwAngle;
+        float xVelocity = Mathf.Cos(radianAngle) * throwVelocity;
+        float yVelocity = Mathf.Sin(radianAngle) * throwVelocity;
+        currentBomb.GetComponent<SnowBomb>().setGravityMultiplier(projectileSpeedMultiplier);
+        currentBomb.GetComponent<Rigidbody>().velocity = throwStartPoint.transform.TransformDirection(xVelocity, yVelocity, 0);
     }
 
-    /*
-    //TODO: Have Pluck look in the direction of the aim. Consider calling a function in PlayerMovement to properly rotate the player.
-    // This function allows the player to aim a snowbomb throw. While holding the aim button the player can ajust their aim the same as moving the camera. There is a max range to the throw.
-    private void AimSnowBomb()
+    public void addToTargets(GameObject target)
     {
-        RaycastHit hit;
-        Vector3 raycastStart = playerCamera.transform.position + raycastOffput;
-        Vector3 endPointPosition;
-        if (Physics.Raycast(raycastStart, playerCamera.transform.TransformDirection(Vector3.forward), out hit))
-        {
-            endPointPosition = hit.point;
-        }
-        else
-        {
-            endPointPosition = Vector3.zero;
-        }
-
-        // If the raycast hit is out of the max throw range then calculate a point in the same direction but at max range.
-        if(Vector3.Distance(endPointPosition, throwStartPoint.position) >= maxRange)
-        {
-            endPointPosition = throwStartPoint.position + maxRange * Vector3.Normalize(endPointPosition - throwStartPoint.position); // V0 + du, where u is the normalize vector of V1 - V0
-            if (Physics.Raycast(endPointPosition, Vector3.down, out hit))
-            {
-                endPointPosition -= (Vector3.up * hit.distance);
-            }
-        }
-
-        if (throwEndPoint == null)
-        {
-            throwEndPoint = Instantiate(endPointPrefab, endPointPosition, transform.rotation);
-        }
-
-        throwEndPoint.transform.position = endPointPosition;
-
-        //transform.LookAt(throwEndPoint.transform.position);
-
-        if ((Input.GetButtonDown("ThrowBomb_PS4") || Input.GetKeyDown(KeyCode.E)) && timeOfLastThrow + timeBetweenThrows <= Time.time)
-        {
-            ThrowSnowBomb();
-        }
+        print(target + " has been added to targets");
+        targets.Add(target);
     }
-    */
+
+    public void removeFromTargets(GameObject target)
+    {
+        print(target + " has been removed to targets");
+        targets.Remove(target);
+    }
+
+    public float getMaxTargetRange()
+    {
+        return maxTargetRange;
+    }
 }

@@ -52,10 +52,14 @@ public class PlayerController : MonoBehaviour
     public GameObject jetPack;
 
     private Player player;
+    private Animator anim;
+
+    private bool isAiming = false;
 
     private void Awake()
     {
         player = ReInput.players.GetPlayer(0);
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void Start()
@@ -94,6 +98,16 @@ public class PlayerController : MonoBehaviour
         {
             moveDirection = (transform.forward * player.GetAxis("Move Vertical") * moveSpeed) + (transform.right * player.GetAxis("Move Horizontal") * moveSpeed);
             moveDirection = moveDirection.normalized * moveSpeed;
+            //Debug.Log("Move Vertical: " + player.GetAxis("Move Vertical") * moveSpeed);
+            //Debug.Log("Move Horizontal : " + player.GetAxis("Move Horizontal") * moveSpeed);
+            if (player.GetAxis("Move Vertical") * moveSpeed == 0 && player.GetAxis("Move Horizontal")*moveSpeed == 0)
+            {
+                anim.SetFloat("Speed", 0f);
+            }
+            else {
+                anim.SetFloat("Speed", 1f);
+               
+            }
         }
 
         //If currently dashing (whether in the air or on the ground)
@@ -127,6 +141,7 @@ public class PlayerController : MonoBehaviour
                 tempY += jumpForce * 1.25f;
                 hasDashed = true;
                 slideControl.rotation = controller.transform.rotation;
+                anim.SetTrigger("Jump");
             }
         }
 
@@ -163,6 +178,7 @@ public class PlayerController : MonoBehaviour
             if (player.GetButtonDown("Jump") && myState == State.Idle) 
             {
                 moveDirection.y += jumpForce;
+                anim.SetTrigger("Jump");
             }
         }
         //In the Air
@@ -172,7 +188,7 @@ public class PlayerController : MonoBehaviour
             if (myState == State.Idle)
             {
                 //Press A to enter flapping state while idle in the air if you are falling
-                if (player.GetButtonDown("Jump") && moveDirection.y < 0)
+                if (player.GetButton("Jump") && moveDirection.y < 0)
                 {
                     myState = State.Flapping;
                 }
@@ -183,12 +199,12 @@ public class PlayerController : MonoBehaviour
                  * Make it so flapping gets weaker after a brief time then you just fall regularly
                  */
                 //Hold down A to hover down slowly
-                if (player.GetButtonDown("Jump"))
+                if (player.GetButton("Jump"))
                 {
                     moveDirection.y -= Physics.gravity.y * gravityScale * .85f * Time.deltaTime;
                 }
                 //Let go of A to return to free fall
-                if (player.GetButtonDown("Jump"))
+                if (player.GetButtonUp("Jump"))
                 {
                     myState = State.Idle;
                 }
@@ -220,6 +236,7 @@ public class PlayerController : MonoBehaviour
                     moveDirection = Vector3.zero;
                     moveDirection += -transform.forward * .25f;
                     moveDirection.y += jumpForce * 1.3f;
+                    anim.SetTrigger("Jump");
                 }
             }
         }
@@ -312,18 +329,39 @@ public class PlayerController : MonoBehaviour
             if ((player.GetAxis("Move Horizontal") != 0 || player.GetAxis("Move Vertical") != 0) && myState != State.Dashing)
             {
                 transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
-                Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
-                playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
+                if (!isAiming)
+                {
+                    rotateTo(moveDirection.x, 0, moveDirection.z);
+                }
             }
         }
         else
         {
             controller.transform.position = ledgePos;
         }
+
+        if (myState == State.Dashing)
+        {
+            anim.SetBool("Slide", true);
+        }
+        else {
+            anim.SetBool("Slide", false);
+        }
     }
 
     public State GetCurrentState()
     {
         return myState;
+    }
+
+    public void setIsAiming(bool aim)
+    {
+        isAiming = aim;
+    }
+
+    public void rotateTo(float x, float y, float z)
+    {
+        Quaternion newRotation = Quaternion.LookRotation(new Vector3(x, y, z));
+        playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
     }
 }

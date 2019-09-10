@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using Rewired;
+
 
 // place on the Dialogue Panel that has all the Dialog UI. Make sure it has a CanvasGroup attached to it
 // Takes the dialoge from a character and prints it out in the dialog box. Also places the name of the character and its image in the right spots
@@ -20,7 +22,14 @@ public class DialogeManager : MonoBehaviour
     bool isDialoging = false;
     CanvasGroup canvasGroup;
     AudioSource source;
+    Player player;
+
     int count = 0;
+
+    private void Awake()
+    {
+        player = ReInput.players.GetPlayer(0);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +42,7 @@ public class DialogeManager : MonoBehaviour
     private void Update()
     {
         if (isDialoging) {
-            if (Input.GetKeyDown(KeyCode.Space) && count != 0) {
+            if (player.GetButtonDown("Interact") && count != 0) {
                 DisplayNextSentence();
             }
         }
@@ -105,6 +114,7 @@ public class DialogeManager : MonoBehaviour
     }
 
     IEnumerator RedoInteraction() {
+        playerInteraction.EnablePlayerController(true);
         yield return new WaitForSeconds(1.5f);
         playerInteraction.RedoNPCInteraction();
     }
