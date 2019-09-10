@@ -8,12 +8,8 @@ using UnityEngine.UI;
 // This script handles any specials non-movemnet abilities such as throwing an ice bomb.
 public class PlayerAbilities : MonoBehaviour
 {
-    /*[SerializeField] GameObject endPointPrefab;
-    [SerializeField] float maxRange = 20f;
-    [SerializeField] Vector3 raycastOffput = new Vector3(0, 3, 0);
     [SerializeField] Transform throwStartPoint;
     [SerializeField] GameObject snowBomb;
-    [SerializeField] float bombVelocity = 1f;
     [SerializeField] GameObject playerModel;
     [Tooltip("Time player has to wait between a throw. In real seconds.")]
     [SerializeField] float timeBetweenThrows = .5f;
@@ -44,7 +40,7 @@ public class PlayerAbilities : MonoBehaviour
     private Quaternion throwStartingPointOrgRotation;
     private Camera mainCamera;
 
-    void Start()
+    private void Awake()
     {
         player = ReInput.players.GetPlayer(0);
         lineRenderer = throwStartPoint.GetComponent<LaunchArcRenderer>();
@@ -55,7 +51,7 @@ public class PlayerAbilities : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetAxis(gameManager.charge) > gameManager.bumperThreshold || Input.GetKey(KeyCode.Q))
+        if (player.GetButton("Aim Bomb") && playerController.GetCurrentState() != PlayerController.State.Dashing)
         {
             if (targets.Count > 0)
             {
@@ -87,7 +83,7 @@ public class PlayerAbilities : MonoBehaviour
         throwStartPoint.LookAt(currentTargetPosition);
 
         targetPointUI.enabled = true;
-        targetPointUI.transform.position =  mainCamera.WorldToScreenPoint(currentTargetPosition);
+        targetPointUI.transform.position = mainCamera.WorldToScreenPoint(currentTargetPosition);
 
         if (player.GetButtonDown("Throw Bomb") && timeOfLastThrow + timeBetweenThrows <= Time.time)
         {
@@ -112,11 +108,7 @@ public class PlayerAbilities : MonoBehaviour
 
         if (player.GetButton("Adjust Throw"))
         {
-            endPointPosition = hit.point;
-        }
-        else
-        {
-            endPointPosition = Vector3.zero;
+            AdjustAim();
         }
 
         // Calculate the velocity based off the desired max height and the speed (gravity) of the projectile.
@@ -136,12 +128,11 @@ public class PlayerAbilities : MonoBehaviour
     {
         throwAngle = Mathf.MoveTowards(throwAngle, minThrowAngle, adjustThrowRate);
     }
-    
+
     // Instantiates a snow bomb with the same velcoity of the projected arc.
     private void ThrowSnowBombWithArc()
     {
         timeOfLastThrow = Time.time;
-        throwStartPoint.LookAt(throwEndPoint.transform.position);
         GameObject currentBomb = Instantiate(snowBomb, throwStartPoint.position, throwStartPoint.rotation);
         float radianAngle = Mathf.Deg2Rad * throwAngle;
         float xVelocity = Mathf.Cos(radianAngle) * throwVelocity;
@@ -165,5 +156,5 @@ public class PlayerAbilities : MonoBehaviour
     public float getMaxTargetRange()
     {
         return maxTargetRange;
-    }*/
+    }
 }

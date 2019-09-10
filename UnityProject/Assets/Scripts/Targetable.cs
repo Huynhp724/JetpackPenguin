@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Targetable : MonoBehaviour
 {
-    /*private Renderer renderer;
+    private Renderer renderer;
     private PlayerAbilities player;
     private bool isTargeted = false;
 
@@ -32,5 +32,5 @@ public class Targetable : MonoBehaviour
             player.removeFromTargets(gameObject);
             isTargeted = false;
         }
-    }*/
+    }
 }

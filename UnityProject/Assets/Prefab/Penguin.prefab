@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a3daf5a54d6934180d3f457eec5d23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: 10
+  resolution: 15
 --- !u!1 &1329826876155729638
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +297,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e6176b2efbbe3478ff2a326a152fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  throwStartPoint: {fileID: 648767275}
+  snowBomb: {fileID: 5671347707330620985, guid: d20038a85e04eff4ca28c6c85d548db1,
+    type: 3}
+  playerModel: {fileID: 5214764747588540839}
+  timeBetweenThrows: 0.5
+  minThrowAngle: 35
+  maxThrowAngle: 60
+  arcHeight: 3
+  adjustThrowRate: 0.5
+  projectileSpeedMultiplier: 4
+  maxTargetRange: 40
+  targetPointUI: {fileID: 0}
 --- !u!54 &5484457912418153956
 Rigidbody:
   m_ObjectHideFlags: 0
