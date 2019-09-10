@@ -268,7 +268,7 @@ public class PlayerController : MonoBehaviour
                     Rigidbody sphereRB = currentSlideSphere.GetComponent<Rigidbody>();
                     sphereRB.AddForce(playerModel.transform.forward * rocketSpeed, ForceMode.Impulse);
                 }
-                transform.RotateAround(transform.position, playerModel.transform.forward, -1 * player.GetAxis("Move Horizontal") * steeringForce * Time.deltaTime);
+                transform.RotateAround(transform.position, playerModel.transform.up, player.GetAxis("Move Horizontal") * steeringForce * Time.deltaTime);
                 moveDirection.y -= Physics.gravity.y * gravityScale * Time.deltaTime;
             }
             currentFuel -= .5f;

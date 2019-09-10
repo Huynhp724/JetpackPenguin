@@ -91,6 +91,23 @@ public class PlayerAbilities : MonoBehaviour
         }
     }
 
+    private GameObject getClosestTargetRight(GameObject currentTarget)
+    {
+        GameObject closestTarget = currentTarget;
+        float currentTargetX = mainCamera.WorldToScreenPoint(currentTarget.transform.position).x;
+        float closestTargetX = 99999f;
+        foreach(GameObject target in targets)
+        {
+            float screenPosX = mainCamera.WorldToScreenPoint(target.transform.position).x;
+            if (closestTarget != currentTarget && screenPosX > currentTargetX && screenPosX < closestTargetX)
+            {
+                closestTargetX = screenPosX;
+                closestTarget = target;
+            }
+        }
+        return closestTarget;
+    }
+
     private void ThrowSnowBombWithTarget()
     {
         timeOfLastThrow = Time.time;

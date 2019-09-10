@@ -4207,6 +4207,16 @@ PrefabInstance:
       propertyPath: chargeText
       value: 
       objectReference: {fileID: 2078250550}
+    - target: {fileID: 1329826876155729637, guid: 71c8523c786b4314ba51187cd6b69387,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329826876155729637, guid: 71c8523c786b4314ba51187cd6b69387,
+        type: 3}
+      propertyPath: steeringForce
+      value: 240
+      objectReference: {fileID: 0}
     - target: {fileID: 1329826876155729635, guid: 71c8523c786b4314ba51187cd6b69387,
         type: 3}
       propertyPath: targetPointUI
@@ -4399,6 +4409,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768329899719504336, guid: 0cd2929990eae4f459bfe9a84d55ce00,
+        type: 3}
+      propertyPath: _userData.joystickMaps.Array.data[0].actionElementMaps.Array.data[13]._actionId
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768329899719504336, guid: 0cd2929990eae4f459bfe9a84d55ce00,
+        type: 3}
+      propertyPath: _userData.joystickMaps.Array.data[0].actionElementMaps.Array.data[11]._actionId
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cd2929990eae4f459bfe9a84d55ce00, type: 3}
