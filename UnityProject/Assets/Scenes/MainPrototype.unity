@@ -5677,6 +5677,11 @@ PrefabInstance:
       propertyPath: rocketSpeed
       value: 1.75
       objectReference: {fileID: 0}
+    - target: {fileID: 1329826876155729637, guid: 71c8523c786b4314ba51187cd6b69387,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4216848391390644386, guid: 71c8523c786b4314ba51187cd6b69387,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -11043,7 +11048,7 @@ Transform:
   m_LocalScale: {x: 3.3614933, y: 3.4416, z: 6.0495}
   m_Children: []
   m_Father: {fileID: 968396462}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &416528572
 GameObject:
@@ -32136,8 +32141,8 @@ Transform:
   m_Children:
   - {fileID: 814756650}
   - {fileID: 1377540409}
-  - {fileID: 1245937914}
   - {fileID: 416071266}
+  - {fileID: 1245937914}
   - {fileID: 1867960592}
   - {fileID: 325620439}
   - {fileID: 1164855998}

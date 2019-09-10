@@ -30,7 +30,7 @@ public class PlayerAbilities : MonoBehaviour
     [Tooltip("How fast the projectile will go through the arc.")]
     [SerializeField] float projectileSpeedMultiplier = 2f; //This is actually a gravity multiplier for an arc throw, but for the sake of the game designers they can adjust this for speed. 
     [SerializeField] float maxTargetRange = 40f;
-    //[SerializeField] RawImage targetPointUI;
+    [SerializeField] RawImage targetPointUI;
 
     private float throwVelocity;
     private float throwAngle = 45f;
@@ -55,7 +55,7 @@ public class PlayerAbilities : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetAxis(gameManager.charge) > gameManager.bumperThreshold || Input.GetKey(KeyCode.Q))
+        if (Input.GetAxis(gameManager.charge) > gameManager.bumperThreshold || Input.GetKey(KeyCode.Q))
         {
             if (targets.Count > 0)
             {
