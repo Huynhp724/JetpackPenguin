@@ -59,9 +59,6 @@ public class PlayerAbilities : MonoBehaviour
             }
             else
             {
-                throwStartPoint.localRotation = throwStartingPointOrgRotation;
-                playerController.setIsAiming(false);
-                targetPointUI.enabled = false;
                 AimSnowBombWithArc();
             }
         }
@@ -77,6 +74,7 @@ public class PlayerAbilities : MonoBehaviour
     // This function allows the player to aim a snowbomb throw at a target. Pressing the throw bomb button will throw the bomb.
     private void AimSnowBombWithTarget()
     {
+        lineRenderer.UnrenderArc();
         throwVelocity = 10f * projectileSpeedMultiplier;
         Vector3 currentTargetPosition = targets[0].transform.position;
         Vector3 targetDir = currentTargetPosition - transform.position;
@@ -103,7 +101,11 @@ public class PlayerAbilities : MonoBehaviour
 
     // This function allows the player to aim a snowbomb throw. By holding the adjust throw button the arc will increase till max angle. Pressing the throw bomb button will throw the bomb.
     private void AimSnowBombWithArc()
-    {       
+    {
+        throwStartPoint.localRotation = throwStartingPointOrgRotation;
+        playerController.setIsAiming(false);
+        targetPointUI.enabled = false;
+
         if (player.GetButton("Adjust Throw"))
         {
             AdjustAim();

@@ -188,7 +188,7 @@ public class PlayerController : MonoBehaviour
             if (myState == State.Idle)
             {
                 //Press A to enter flapping state while idle in the air if you are falling
-                if (player.GetButtonDown("Jump") && moveDirection.y < 0)
+                if (player.GetButton("Jump") && moveDirection.y < 0)
                 {
                     myState = State.Flapping;
                 }
@@ -199,12 +199,12 @@ public class PlayerController : MonoBehaviour
                  * Make it so flapping gets weaker after a brief time then you just fall regularly
                  */
                 //Hold down A to hover down slowly
-                if (player.GetButtonDown("Jump"))
+                if (player.GetButton("Jump"))
                 {
                     moveDirection.y -= Physics.gravity.y * gravityScale * .85f * Time.deltaTime;
                 }
                 //Let go of A to return to free fall
-                if (player.GetButtonDown("Jump"))
+                if (player.GetButtonUp("Jump"))
                 {
                     myState = State.Idle;
                 }
