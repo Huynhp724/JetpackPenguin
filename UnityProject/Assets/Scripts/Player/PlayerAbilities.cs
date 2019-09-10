@@ -8,13 +8,12 @@ using UnityEngine.UI;
 // This script handles any specials non-movemnet abilities such as throwing an ice bomb.
 public class PlayerAbilities : MonoBehaviour
 {
-    [SerializeField] GameObject endPointPrefab;
+    /*[SerializeField] GameObject endPointPrefab;
     [SerializeField] float maxRange = 20f;
     [SerializeField] Vector3 raycastOffput = new Vector3(0, 3, 0);
     [SerializeField] Transform throwStartPoint;
     [SerializeField] GameObject snowBomb;
     [SerializeField] float bombVelocity = 1f;
-    [SerializeField] float timeBetweenThrows = .5f;
     [SerializeField] GameObject playerModel;
     [Tooltip("Time player has to wait between a throw. In real seconds.")]
     [SerializeField] float timeBetweenThrows = .5f;
@@ -31,7 +30,7 @@ public class PlayerAbilities : MonoBehaviour
     [Tooltip("How fast the projectile will go through the arc.")]
     [SerializeField] float projectileSpeedMultiplier = 2f; //This is actually a gravity multiplier for an arc throw, but for the sake of the game designers they can adjust this for speed. 
     [SerializeField] float maxTargetRange = 40f;
-    [SerializeField] RawImage targetPointUI;
+    //[SerializeField] RawImage targetPointUI;
 
     private float throwVelocity;
     private float throwAngle = 45f;
@@ -166,5 +165,5 @@ public class PlayerAbilities : MonoBehaviour
     public float getMaxTargetRange()
     {
         return maxTargetRange;
-    }
+    }*/
 }

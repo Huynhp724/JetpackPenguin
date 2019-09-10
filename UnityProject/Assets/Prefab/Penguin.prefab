@@ -141,36 +141,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolution: 10
---- !u!1 &2067130748
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2067130749}
-  m_Layer: 11
-  m_Name: SlideControl
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2067130749
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2067130748}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1329826876155729632}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1329826876155729638
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,8 +178,6 @@ Transform:
   m_Children:
   - {fileID: 1329826877022657145}
   - {fileID: 1329826877476597607}
-  - {fileID: 2067130749}
-  - {fileID: 5484457911540951332}
   - {fileID: 9080885432742865844}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -294,22 +262,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 15
-  dashSpeed: 30
+  dashSpeed: 25
   rotateSpeed: 10
   rocketSpeed: 0.75
   chargeSpeed: 1
   steeringForce: 120
-  jumpForce: 20
-  gravityScale: 5
-  slideJetpackBoost: 4
+  jumpForce: 30
+  airDashLength: 0.85
+  dashCancelJump: 0.75
+  flapStrength: 0.95
+  dashGravity: 1
+  gravityScale: 10
   slideSphere: {fileID: 9182727171326080714, guid: 404856fd8d8b241478cc5da27293f7aa,
     type: 3}
-  slideControl: {fileID: 2067130749}
-  slideStarted: 0
   maxFuel: 50
   currentCharge: 0
   currentFuel: 50
-  currentDashSpd: 30
   onLedge: 0
   grabCastT: {fileID: 1329826877476597607}
   controller: {fileID: 1329826876155729636}
@@ -329,18 +297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e6176b2efbbe3478ff2a326a152fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwStartPoint: {fileID: 648767275}
-  snowBomb: {fileID: 5671347707330620985, guid: d20038a85e04eff4ca28c6c85d548db1,
-    type: 3}
-  playerModel: {fileID: 5214764747588540839}
-  timeBetweenThrows: 0.5
-  minThrowAngle: 35
-  maxThrowAngle: 60
-  arcHeight: 3
-  adjustThrowRate: 0.5
-  projectileSpeedMultiplier: 4
-  maxTargetRange: 30
-  targetPointUI: {fileID: 0}
 --- !u!54 &5484457912418153956
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -350,7 +306,7 @@ Rigidbody:
   m_GameObject: {fileID: 1329826876155729638}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -618,36 +574,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1329826876155729632}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5484457911540951355
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5484457911540951332}
-  m_Layer: 11
-  m_Name: SlideControl
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5484457911540951332
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5484457911540951355}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1329826876155729632}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5484457911579825096
 GameObject:
@@ -10293,6 +10219,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: JPP_@ANIMATION_01
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d760e70f0bfaaf442b946036965ca537, type: 2}
     - target: {fileID: -4216859302048453862, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10331,7 +10262,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
         type: 3}
@@ -10348,22 +10279,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: d760e70f0bfaaf442b946036965ca537, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4609c94f4df8f346bfa76b6f11eb8d5, type: 3}
---- !u!1 &5214764747588540839 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
-    type: 3}
-  m_PrefabInstance: {fileID: 4287283903396429998}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9080885432742865844 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
+    type: 3}
+  m_PrefabInstance: {fileID: 4287283903396429998}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5214764747588540839 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
     type: 3}
   m_PrefabInstance: {fileID: 4287283903396429998}
   m_PrefabAsset: {fileID: 0}

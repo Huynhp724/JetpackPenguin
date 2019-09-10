@@ -56,11 +56,11 @@ public class GameManager : MonoBehaviour {
             hover = "Hover";
             charge = "Charge";
 }
-        fishText.text = "Fish: " + currentFish + "/6";
-        if (currentFish == 6)
+        fishText.text = "Fish: " + currentFish;
+        /*if (currentFish == 6)
         {
             winText.gameObject.SetActive(true);
-        }
+        }*/
     }
 
     public void AddFish(int x)
