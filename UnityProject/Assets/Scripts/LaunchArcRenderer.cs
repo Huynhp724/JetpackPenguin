@@ -11,13 +11,13 @@ public class LaunchArcRenderer : MonoBehaviour
     [SerializeField] int resolution = 10;
 
     private LineRenderer lr;
-    private float gravity;
+    //private float gravity;
     private float radianAngle;
 
     private void Awake()
     {
         lr = GetComponent<LineRenderer>();
-        gravity = Mathf.Abs(Physics2D.gravity.y);
+        //gravity = Mathf.Abs(Physics.gravity.y);
     }
 
     private void OnValidate()
@@ -39,15 +39,15 @@ public class LaunchArcRenderer : MonoBehaviour
     }
 
     // Populating the LineRender with the appropriate settings.
-    public void RenderArc(float velocity, float angle)
+    public void RenderArc(float velocity, float angle, float gravity)
     {
         lr.enabled = true;
         lr.positionCount = (resolution + 1);
-        lr.SetPositions(CalculateArcArray(velocity, angle));
+        lr.SetPositions(CalculateArcArray(velocity, angle, gravity));
     }
 
     // Create an array of vector3 positions
-    private Vector3[] CalculateArcArray(float velocity, float angle)
+    private Vector3[] CalculateArcArray(float velocity, float angle, float gravity)
     {
         Vector3[] arcArray = new Vector3[resolution + 1];
 
@@ -57,14 +57,14 @@ public class LaunchArcRenderer : MonoBehaviour
         for(int i = 0; i <= resolution; i++)
         {
             float t = (float)i / (float)resolution;
-            arcArray[i] = CalculateArcPoint(velocity, t, maxDistance);
+            arcArray[i] = CalculateArcPoint(velocity, t, maxDistance, gravity);
         }
 
         return arcArray;
     }
 
     // Calculate each height and distance of each vertex.
-    private Vector3 CalculateArcPoint(float velocity, float t, float maxDistance)
+    private Vector3 CalculateArcPoint(float velocity, float t, float maxDistance, float gravity)
     {
         float x = t * maxDistance;
         float y = x * Mathf.Tan(radianAngle) - ((gravity * x * x) / (2 * velocity * velocity * Mathf.Cos(radianAngle) * Mathf.Cos(radianAngle)));

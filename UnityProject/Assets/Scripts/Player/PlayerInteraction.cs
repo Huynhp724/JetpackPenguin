@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Rewired;
+
 
 // Place on the Pluck
 // Gets the info of who Pluck is talking to and sets the button to press so you can talk to said npc.
@@ -11,6 +13,16 @@ public class PlayerInteraction : MonoBehaviour
 
     UIController uiController;
     NPCInteraction npcInInteraction = null;
+    Player player;
+    PlayerController playerController;
+
+
+
+    private void Awake()
+    {
+        player = ReInput.players.GetPlayer(0);
+        playerController = GetComponent<PlayerController>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +34,9 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (canInteractWithNPC)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (player.GetButtonDown("Interact") && (playerController.GetCurrentState() != PlayerController.State.Dashing))
             {
+                EnablePlayerController(false);
                 npcInInteraction.SendDialogeInfo();
                 uiController.SetSpeakingInteractionButton(false);
                 canInteractWithNPC = false;
@@ -43,8 +56,12 @@ public class PlayerInteraction : MonoBehaviour
         npcInInteraction = npc;
     }
 
+    public void EnablePlayerController(bool enable) {
+        playerController.enabled = enable;
+    }
+
     public void RedoNPCInteraction() {
-        canInteractWithNPC = true;
-        uiController.SetSpeakingInteractionButton(true);
+        //canInteractWithNPC = true;
+        //uiController.SetSpeakingInteractionButton(true);
     }
 }

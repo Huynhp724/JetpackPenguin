@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
 
     public float AngleVSpd = 2f;
     public float AngleHSpd = 2f;
-    public float Accel = 10f;
+    //public float Accel = 10f;
     public float ZoomSpd = 5f;
 
     [Range(0, 65)]
@@ -98,7 +98,7 @@ public class CameraController : MonoBehaviour
 
         //FIX ROTATION LATER
         Quaternion rotation = Quaternion.Euler(xAngle, yAngle, 0);
-        transform.position = Vector3.Slerp(transform.position, player.transform.position - (rotation * offset), Accel * Time.deltaTime);
+        transform.position = Vector3.Slerp(transform.position, player.transform.position - (rotation * offset), 1f);
         /*Vector3 tmp = gameObject.transform.position;
 
         tmp.x = (Mathf.Cos(AngleV * (Mathf.PI / 180)) * Mathf.Sin(AngleH * (Mathf.PI / 180))) * (Dist * cameraOffsetScale.x) + player.transform.position.x;
@@ -107,7 +107,7 @@ public class CameraController : MonoBehaviour
         transform.position = Vector3.Slerp(transform.position, tmp, Accel * Time.deltaTime);*/
         if (transform.position.y < player.transform.position.y)
         {
-            transform.position = Vector3.Slerp(transform.position, new Vector3(transform.position.x, player.transform.position.y, transform.position.z), Accel * Time.deltaTime);
+            transform.position = Vector3.Slerp(transform.position, new Vector3(transform.position.x, player.transform.position.y, transform.position.z), 1f);
         }
         transform.LookAt(player.transform);
     }
