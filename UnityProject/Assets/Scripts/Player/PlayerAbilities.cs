@@ -37,8 +37,11 @@ public class PlayerAbilities : MonoBehaviour
     private float xVelocity;
     private float yVelocity;
     private List<GameObject> targets = new List<GameObject>();
+    private GameObject target;
     private Quaternion throwStartingPointOrgRotation;
     private Camera mainCamera;
+    private bool hasFirstTarget = false;
+    private bool stickHasMoved = false;
 
     private void Awake()
     {
@@ -68,15 +71,42 @@ public class PlayerAbilities : MonoBehaviour
             throwAngle = maxThrowAngle;
             playerController.setIsAiming(false);
             targetPointUI.enabled = false;
+            hasFirstTarget = false;
         }
     }
 
     // This function allows the player to aim a snowbomb throw at a target. Pressing the throw bomb button will throw the bomb.
     private void AimSnowBombWithTarget()
     {
+        if (!hasFirstTarget)
+        {
+            target = targets[0]; //TODO: Function to get closest target
+            hasFirstTarget = true;
+        }
+        
+        if(targets.Count > 1)
+        {
+            if(stickHasMoved && player.GetAxisTimeActive("Camera X") <= 0)
+            {
+                stickHasMoved = false;
+            }
+
+            print("More than one target.");
+            if(!stickHasMoved && player.GetAxis("Camera X") > .25f)
+            {
+                stickHasMoved = true;
+                target = getClosestTargetRight(target);
+            }
+            else if (!stickHasMoved && player.GetAxis("Camera X") < -0.25f)
+            {
+                stickHasMoved = true;
+                target = getClosestTargetLeft(target);
+            }
+        }
+
         lineRenderer.UnrenderArc();
         throwVelocity = 10f * projectileSpeedMultiplier;
-        Vector3 currentTargetPosition = targets[0].transform.position;
+        Vector3 currentTargetPosition = target.transform.position;
         Vector3 targetDir = currentTargetPosition - transform.position;
         playerController.setIsAiming(true);
         playerController.rotateTo(targetDir.x, 0, targetDir.z);
@@ -99,7 +129,24 @@ public class PlayerAbilities : MonoBehaviour
         foreach(GameObject target in targets)
         {
             float screenPosX = mainCamera.WorldToScreenPoint(target.transform.position).x;
-            if (closestTarget != currentTarget && screenPosX > currentTargetX && screenPosX < closestTargetX)
+            if (!target.Equals(currentTarget) && screenPosX > currentTargetX && screenPosX < closestTargetX)
+            {
+                closestTargetX = screenPosX;
+                closestTarget = target;
+            }
+        }
+        return closestTarget;
+    }
+
+    private GameObject getClosestTargetLeft(GameObject currentTarget)
+    {
+        GameObject closestTarget = currentTarget;
+        float currentTargetX = mainCamera.WorldToScreenPoint(currentTarget.transform.position).x;
+        float closestTargetX = 0;
+        foreach (GameObject target in targets)
+        {
+            float screenPosX = mainCamera.WorldToScreenPoint(target.transform.position).x;
+            if (!target.Equals(currentTarget) && screenPosX < currentTargetX && screenPosX > closestTargetX)
             {
                 closestTargetX = screenPosX;
                 closestTarget = target;
@@ -122,6 +169,7 @@ public class PlayerAbilities : MonoBehaviour
         throwStartPoint.localRotation = throwStartingPointOrgRotation;
         playerController.setIsAiming(false);
         targetPointUI.enabled = false;
+        hasFirstTarget = false;
 
         if (player.GetButton("Adjust Throw"))
         {
