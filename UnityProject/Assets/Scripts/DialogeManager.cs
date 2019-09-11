@@ -42,7 +42,7 @@ public class DialogeManager : MonoBehaviour
     private void Update()
     {
         if (isDialoging) {
-            if (player.GetButtonDown("Interact") && count != 0) {
+            if ((player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.Q) ) && count != 0) {
                 DisplayNextSentence();
             }
         }

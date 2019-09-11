@@ -15,6 +15,7 @@ public class PlayerInteraction : MonoBehaviour
     NPCInteraction npcInInteraction = null;
     Player player;
     PlayerController playerController;
+    Rigidbody rb;
 
 
 
@@ -22,6 +23,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         player = ReInput.players.GetPlayer(0);
         playerController = GetComponent<PlayerController>();
+        rb = GetComponent<Rigidbody>();
     }
     // Start is called before the first frame update
     void Start()
@@ -34,7 +36,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (canInteractWithNPC)
         {
-            if (player.GetButtonDown("Interact") && (playerController.GetCurrentState() != PlayerController.State.Dashing))
+            if ((player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.Q)) && (playerController.GetCurrentState() != PlayerController.State.Dashing))
             {
                 EnablePlayerController(false);
                 npcInInteraction.SendDialogeInfo();
@@ -57,7 +59,19 @@ public class PlayerInteraction : MonoBehaviour
     }
 
     public void EnablePlayerController(bool enable) {
-        playerController.enabled = enable;
+        if (!enable)
+        {
+            //rb.isKinematic = true;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+            playerController.enabled = enable;
+            
+        }
+        else {
+            //rb.isKinematic = false;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            playerController.enabled = enable;
+            
+        }
     }
 
     public void RedoNPCInteraction() {

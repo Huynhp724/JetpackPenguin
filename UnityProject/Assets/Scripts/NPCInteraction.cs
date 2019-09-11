@@ -77,6 +77,8 @@ public class NPCInteraction : MonoBehaviour
             uiController.SetSpeakingInteractionButton(true);
 
             PlayerInteraction interact = other.gameObject.GetComponent<PlayerInteraction>();
+            Debug.Log("Interact: " + interact);
+            Debug.Log("This is: " + this);
             interact.SetInteract(true, this);
 
             previousRotation = parentObject.transform.rotation;
