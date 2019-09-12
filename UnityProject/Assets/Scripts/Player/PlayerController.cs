@@ -363,4 +363,9 @@ public class PlayerController : MonoBehaviour
         Quaternion newRotation = Quaternion.LookRotation(new Vector3(x, y, z));
         playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
     }
+
+    public void movePlayer(Vector3 direction)
+    {
+        controller.Move(direction);
+    }
 }
