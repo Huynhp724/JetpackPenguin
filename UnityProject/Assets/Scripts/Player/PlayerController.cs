@@ -368,4 +368,13 @@ public class PlayerController : MonoBehaviour
     {
         controller.Move(direction);
     }
+
+    public float getCurrentSlideSpeed()
+    {
+        if (currentSlideSphere)
+        {
+            return currentSlideSphere.GetComponent<Rigidbody>().velocity.magnitude;
+        }
+        return -1;
+    }
 }
