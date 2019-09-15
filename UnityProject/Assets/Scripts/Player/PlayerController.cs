@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour
         //Regular Movement
         if (myState != State.Dashing)
         {
-            Debug.Log(new Vector3(moveDirection.x, 0, moveDirection.z).magnitude);
+            //Debug.Log(new Vector3(moveDirection.x, 0, moveDirection.z).magnitude);
             //carry over horizontal momentum on ground
             //Debug.Log("MOVE SPEED: " + moveSpeed);
             if (new Vector3(moveDirection.x, 0, moveDirection.z).magnitude <= new Vector3(moveSpeed, 0, moveSpeed).magnitude + 0.1f)
@@ -602,7 +602,7 @@ public class PlayerController : MonoBehaviour
 
     public void movePlayer(Vector3 direction)
     {
-        rb.velocity = direction;
+        transform.position = direction;
     }
 
     public float getCurrentSlideSpeed()

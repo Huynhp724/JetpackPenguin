@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 102793626}
   m_Layer: 11
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -437,6 +437,7 @@ MonoBehaviour:
   onLedge: 0
   onGround: 1
   grabCastT: {fileID: 1329826877476597607}
+  momentumJump: 0
   pivot: {fileID: 0}
   playerModel: {fileID: 5214764747588540839}
   charCol: {fileID: 102793626}
