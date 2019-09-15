@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     [Range(0.0f, 1.0f)] 
     public float airDashLength = 0.8f;      //how far you dash in the air (it's technically the percentage of slow down before you start falling. For example, a value of .8 means you start falling
                                             //when your air speed slows down to 80% of your initial dash speed. The closer to 1, the shorter your air dash.
-    [Range(0.0f, 3.0f)]
+    [Range(0.0f, 1.0f)]
     public float dashCancelJump = 1.0f;     //a modifier of how strong your dash cancel jump is (a value of 1.25 means 125% stronger than your normal jump force)
     [Range(0.0f, 1.0f)]
     public float flapStrength = 0.0f;       //the percentage in which flapping reduces the gravity (a value closer to 1 means gravity is more reduced)
@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
     public float currentFuel = 100f;
 
     public bool onLedge = false;
+    public bool onGround;
     private Vector3 ledgePos;
 
     public Transform grabCastT;
@@ -64,8 +65,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDirection;
     public Transform pivot;
     public GameObject playerModel;
-    public Rigidbody rb;
-    private Collider charCol;
+    private Rigidbody rb;
+    public Collider charCol;
     public LayerMask ground;
 
     public Text chargeText;
@@ -82,8 +83,8 @@ public class PlayerController : MonoBehaviour
     {
         player = ReInput.players.GetPlayer(0);
         anim = GetComponentInChildren<Animator>();
-        //rb = GetComponent<Rigidbody>();
-        charCol = GetComponent<Collider>();
+        rb = GetComponent<Rigidbody>();
+        //charCol = GetComponent<Collider>();
         normalDrag = rb.drag;
     }
 
@@ -121,14 +122,34 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(charCol.transform.position, -Vector3.up * (gameObject.GetComponentInChildren<Collider>().bounds.extents.y + 0.1f));
 
         float tempY = moveDirection.y;
-        
+        float tempX = moveDirection.x;
+        float tempZ = moveDirection.z;
+
         //Regular Movement
         if (myState != State.Dashing)
         {
-            moveDirection = (transform.forward * player.GetAxis("Move Vertical") * moveSpeed) + (transform.right * player.GetAxis("Move Horizontal") * moveSpeed);
-            moveDirection = moveDirection.normalized * moveSpeed;
+            //Debug.Log(new Vector3(moveDirection.x, 0, moveDirection.z).magnitude);
+            //carry over horizontal momentum on ground
+            Debug.Log("MOVE SPEED: " + moveSpeed);
+            if (new Vector3(moveDirection.x, 0, moveDirection.z).magnitude <= moveSpeed + 0.1f)
+            {
+                Debug.Log("DON'T CARRY OVER");
+                tempX = 0;
+                tempZ = 0;
+                moveDirection = (transform.forward * player.GetAxis("Move Vertical") * moveSpeed) + (transform.right * player.GetAxis("Move Horizontal") * moveSpeed);
+                moveDirection = moveDirection.normalized * moveSpeed;
+            }
+            else
+            {
+                Debug.Log("GREATER! " + new Vector3(moveDirection.x, 0, moveDirection.z).magnitude + " is more than " + moveSpeed);
+                moveDirection.x = rb.velocity.x;
+                moveDirection.z = rb.velocity.z;
+            }
+            //Debug.Log("X: " + tempX);
+
             //Carries over the y velocity
             moveDirection.y = tempY;
+
             //Debug.Log("Move Vertical: " + player.GetAxis("Move Vertical") * moveSpeed);
             //Debug.Log("Move Horizontal : " + player.GetAxis("Move Horizontal") * moveSpeed);
             if (player.GetAxis("Move Vertical") * moveSpeed == 0 && player.GetAxis("Move Horizontal")*moveSpeed == 0)
@@ -145,8 +166,9 @@ public class PlayerController : MonoBehaviour
         //ON THE GROUND
         if (isGrounded())
         {
+            onGround = true;
             Debug.Log("IS GROUND");
-            moveDirection.y = 0;
+            if(moveDirection.y < 0) moveDirection.y = 0;
             hasDashed = false;
             hasDoubleJump = true;
             if (myState == State.Flapping)
@@ -177,15 +199,18 @@ public class PlayerController : MonoBehaviour
         //IN THE AIR
         else
         {
-        
+            onGround = false;
             if (myState == State.Idle)
             {
                 //Press A to double jump and enter flapping state while idle in the air if you are falling
-                if (player.GetButtonDown("Jump") || player.GetButton("Jump") && moveDirection.y < 0)
+                if ((player.GetButtonDown("Jump") || player.GetButton("Jump") && moveDirection.y < 0) && !player.GetButton("Hover"))
                 {
                     if (hasDoubleJump)
                     {
                         moveDirection.y = doubleJumpForce;
+                        //reset horizontal momentum with double jump
+                        moveDirection.x = 0;
+                        moveDirection.z = 0;
                         hasDoubleJump = false;
                     }
                     myState = State.Flapping;
@@ -263,12 +288,38 @@ public class PlayerController : MonoBehaviour
             //Jump to get out of dashing
             if (player.GetButtonDown("Jump"))
             {
+
+                Quaternion colRotation = charCol.gameObject.transform.rotation;
+                charCol.gameObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+            
                 //Destroy(currentSlideSphere);
                 myState = State.Idle;
-                moveDirection.y = jumpForce * dashCancelJump;
-                hasDashed = true;
+                //IF THEY JUMP OUT OF DASHING IN A GROUNDED STATE
+                if (isGrounded())
+                {
+                    moveOffGround();
+                    moveDirection.x = rb.velocity.x;
+                    moveDirection.z = rb.velocity.z;
+                    Debug.Log("MOVE DIRECTION: " + moveDirection);
+                    if(new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude > moveSpeed + 0.1f)
+                    {
+                        //dash jump with a proportionate height to your horizontal momentum
+                        moveDirection.y = jumpForce * new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude / moveSpeed * dashCancelJump;
+                        Debug.Log("RATIO: " + (new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude / moveSpeed));
+                        Debug.Log("JUMP VEL: " + jumpForce * (new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude / moveSpeed) * dashCancelJump);
+                    }
+                    else
+                    {
+                        moveDirection.y = jumpForce * dashCancelJump;
+                    }
+                }
+                else
+                {
+                    hasDashed = true;
+                    moveDirection.y = jumpForce * dashCancelJump;
+                }
                 rb.drag = normalDrag;
-                rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+              
             }
         }
 
@@ -277,7 +328,9 @@ public class PlayerController : MonoBehaviour
         {
             myState = State.Dashing;
             //rb.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-            //transform.RotateAround(transform.position, playerModel.transform.right, 90);
+            Quaternion colRotation = charCol.gameObject.transform.rotation;
+            //charCol.gameObject.transform.rotation = Quaternion.Slerp(charCol.gameObject.transform.rotation, Quaternion.Euler(colRotation.eulerAngles.x + 90, colRotation.eulerAngles.y, colRotation.eulerAngles.z), rotateSpeed);
+            charCol.gameObject.transform.RotateAround(charCol.gameObject.transform.position, playerModel.transform.right, 90);
 
             /*currentSlideSphere = Instantiate(slideSphere, transform.position, Quaternion.identity);
             currentSlideSphere.GetComponent<Rigidbody>().mass = gameObject.GetComponent<Rigidbody>().mass;
@@ -289,10 +342,9 @@ public class PlayerController : MonoBehaviour
             if(!isGrounded()) rb.useGravity = false;
 
             //moveDirection = playerModel.transform.forward * dashSpeed;
-            /*
-             * REPLACE HARD CODED MINI INITIAL DASH JUMP LATER
-             */
-            moveDirection.y += jumpForce * dashCancelJump;
+
+            //moveOffGround();
+            //moveDirection.y = jumpForce * dashCancelJump;
 
             //if(!isGrounded()) rb.drag = dashDrag;
             rb.drag = dashDrag;
@@ -324,7 +376,7 @@ public class PlayerController : MonoBehaviour
                 }*/
                 if (new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude <= maxHoverVelocityX)
                 {
-                    Debug.Log(new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude);
+                    //Debug.Log(new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude);
                     rb.AddForce(playerModel.transform.forward * rocketSpeed, ForceMode.Impulse);
                 }
                 else
@@ -452,12 +504,12 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit hit;
         //return Physics.SphereCast(transform.position, gameObject.GetComponentInChildren<Collider>().bounds.extents.x, -Vector3.up, out hit, gameObject.GetComponentInChildren<Collider>().bounds.extents.y + 0.1f);
-        if(Physics.CheckSphere(transform.position - new Vector3(0, charCol.bounds.extents.y/2 + 0.1f, 0), charCol.bounds.extents.y/2, ground))
+        if(Physics.CheckSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y/2 + 0.1f, 0), charCol.bounds.extents.y/2, ground))
         {
             return true;
         }
 
-        Debug.Log("NOT GROUND");
+        //Debug.Log("NOT GROUND");
         return false;
     }
 
@@ -484,6 +536,6 @@ public class PlayerController : MonoBehaviour
     {
         // Draw a yellow sphere at the transform's position
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.1f, 0), charCol.bounds.extents.y/2);
+        Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.1f, 0), charCol.bounds.extents.y/2);
     }
 }

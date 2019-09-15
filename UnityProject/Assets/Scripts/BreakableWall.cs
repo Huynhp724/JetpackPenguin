@@ -12,11 +12,11 @@ public class BreakableWall : MonoBehaviour
         PlayerController playerControl = other.gameObject.GetComponent<PlayerController>();
         if (playerControl)
         {
-            float playerSpeed = playerControl.getCurrentSlideSpeed();
+            /*float playerSpeed = playerControl.getCurrentSlideSpeed();
             if (playerSpeed > playerSpeedThreshhold)
             {
                 Destroy(gameObject);
-            }
+            }*/
         }
     }
 }

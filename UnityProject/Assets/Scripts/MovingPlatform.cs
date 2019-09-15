@@ -43,7 +43,7 @@ public class MovingPlatform : MonoBehaviour
         {
             print("Player on moving platform");
             float step = speed * Time.deltaTime * .1f; // calculate distance to move
-            playerControl.movePlayer((nextPathPointPos - other.transform.position) * step);
+            //playerControl.movePlayer((nextPathPointPos - other.transform.position) * step);
         }
     }
 }
