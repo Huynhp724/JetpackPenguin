@@ -538,4 +538,14 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.1f, 0), charCol.bounds.extents.y/2);
     }
+
+    public void movePlayer(Vector3 direction)
+    {
+        rb.velocity = direction;
+    }
+
+    public float getCurrentSlideSpeed()
+    {
+        return rb.velocity.magnitude;
+    }
 }
