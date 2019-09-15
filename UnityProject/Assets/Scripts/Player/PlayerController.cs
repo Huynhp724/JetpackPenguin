@@ -9,9 +9,14 @@ public class PlayerController : MonoBehaviour
     public enum State { Idle, Flapping, Dashing }
 
     public float moveSpeed = 15.0f;
+    public float airMoveSpeed = 10.0f;
     [Range(0.0f, 100.0f)]
-    public float dashSpeed = 30.0f;
-    public float dashDrag = 2f;              //how much drag you have while dashing
+    public float airDashSpeed = 30.0f;         //how fast you dash in the air
+    [Range(0.0f, 100.0f)]
+    public float dashSpeed = 10.0f;            //how fast you dash on the ground
+    public float airDrag = 2f;              //how much drag you have while dashing in the air
+    //public float hoverDrag = 2f;            //how much drag when hover flying
+    //public float chargeDrag = 2f;           //how much drag when charge dashing
     private float normalDrag;               //how much drag you have normally
     public float rotateSpeed = 2f;          
     public float rocketSpeed = 10.0f;       //how strong the rocket is
@@ -19,8 +24,10 @@ public class PlayerController : MonoBehaviour
     public float maxHoverVelocityX = 15.0f;  //how fast the rocket can ultimately go when hovering horizontally
     public float minLeanVelocity = 5.0f;     //the minimum velocity you need to be able to lean in your slide
     public float chargeSpeed = 1f;
+    public float maxChargeForce = 100.0f;    //the most you can charge before it stops
     public float leanForce = 10f;           //how much you can lean when sliding
-    public float steeringForce = 5f;        //how strong you can turn while flying
+    public float steeringForce = 20f;       //how strong you can turn while flying
+    public float turningForce = 5f;        //how fast you can rotate when in dash state
     [Range(0.0f, 100.0f)]
     public float jumpForce = 20.0f;         //how high you jump
     [Range(0.0f, 100.0f)]
@@ -60,6 +67,7 @@ public class PlayerController : MonoBehaviour
 
     bool hasDashed = false;
     bool hasDoubleJump = true;
+    public bool momentumJump = false;
 
     //public CharacterController controller;
     private Vector3 moveDirection;
@@ -122,26 +130,47 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(charCol.transform.position, -Vector3.up * (gameObject.GetComponentInChildren<Collider>().bounds.extents.y + 0.1f));
 
         float tempY = moveDirection.y;
-        float tempX = moveDirection.x;
-        float tempZ = moveDirection.z;
 
         //Regular Movement
         if (myState != State.Dashing)
         {
-            //Debug.Log(new Vector3(moveDirection.x, 0, moveDirection.z).magnitude);
+            Debug.Log(new Vector3(moveDirection.x, 0, moveDirection.z).magnitude);
             //carry over horizontal momentum on ground
-            Debug.Log("MOVE SPEED: " + moveSpeed);
-            if (new Vector3(moveDirection.x, 0, moveDirection.z).magnitude <= moveSpeed + 0.1f)
+            //Debug.Log("MOVE SPEED: " + moveSpeed);
+            if (new Vector3(moveDirection.x, 0, moveDirection.z).magnitude <= new Vector3(moveSpeed, 0, moveSpeed).magnitude + 0.1f)
             {
-                Debug.Log("DON'T CARRY OVER");
-                tempX = 0;
-                tempZ = 0;
-                moveDirection = (transform.forward * player.GetAxis("Move Vertical") * moveSpeed) + (transform.right * player.GetAxis("Move Horizontal") * moveSpeed);
-                moveDirection = moveDirection.normalized * moveSpeed;
+
+                //rb.drag = normalDrag;
+                //Debug.Log("DON'T CARRY OVER");
+                if (isGrounded())
+                {
+                    //Debug.Log("MOVE VERT: " + player.GetAxis("Move Vertical"));
+                    moveDirection = (transform.forward * player.GetAxis("Move Vertical") * moveSpeed) + (transform.right * player.GetAxis("Move Horizontal") * moveSpeed);
+                    //moveDirection = moveDirection.normalized * moveSpeed;
+                }
+                else
+                {
+          
+                    if (momentumJump && player.GetAxis("Move Vertical") == 0 && player.GetAxis("Move Vertical") == 0)
+                    {
+                        moveDirection += new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                        Debug.Log("MOMENTUM: " + moveDirection);
+                        //moveDirection.x = rb.velocity.x;
+                        //moveDirection.z = rb.velocity.z;
+                    }
+                    else
+                    {
+                        moveDirection = (transform.forward * player.GetAxis("Move Vertical") * airMoveSpeed) + (transform.right * player.GetAxis("Move Horizontal") * airMoveSpeed);
+                        moveDirection = moveDirection.normalized * airMoveSpeed;
+                    }
+                   
+                }
+                //if (moveDirection.magnitude == 0) rb.drag = normalDrag;
             }
             else
             {
-                Debug.Log("GREATER! " + new Vector3(moveDirection.x, 0, moveDirection.z).magnitude + " is more than " + moveSpeed);
+                //rb.drag = airDrag;
+                //Debug.Log("GREATER! " + new Vector3(moveDirection.x, 0, moveDirection.z).magnitude + " is more than " + moveSpeed);
                 moveDirection.x = rb.velocity.x;
                 moveDirection.z = rb.velocity.z;
             }
@@ -166,9 +195,14 @@ public class PlayerController : MonoBehaviour
         //ON THE GROUND
         if (isGrounded())
         {
+            rb.drag = normalDrag;
             onGround = true;
             Debug.Log("IS GROUND");
-            if(moveDirection.y < 0) moveDirection.y = 0;
+            if (moveDirection.y < 0)
+            {
+                moveDirection.y = 0;
+                momentumJump = false;
+            }
             hasDashed = false;
             hasDoubleJump = true;
             if (myState == State.Flapping)
@@ -199,6 +233,8 @@ public class PlayerController : MonoBehaviour
         //IN THE AIR
         else
         {
+            if (!momentumJump) rb.drag = airDrag;
+            else rb.drag = airDrag * .65f;
             onGround = false;
             if (myState == State.Idle)
             {
@@ -212,6 +248,7 @@ public class PlayerController : MonoBehaviour
                         moveDirection.x = 0;
                         moveDirection.z = 0;
                         hasDoubleJump = false;
+                        momentumJump = false;
                     }
                     myState = State.Flapping;
                 }
@@ -237,12 +274,13 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("NO Y");
                 //Vector3 tempVel = currentSlideSphere.GetComponent<Rigidbody>().velocity;
                 //Debug.Log(tempVel.magnitude);
-                if (Mathf.Abs(rb.velocity.magnitude) < dashSpeed * airDashLength) 
+                if (rb.velocity.magnitude < airDashSpeed * airDashLength) 
                 {
                     //currentSlideSphere.GetComponent<Rigidbody>().useGravity = true;
                     //currentSlideSphere.GetComponent<Rigidbody>().AddForce(new Vector3(0, Physics.gravity.y * gravityScale * dashGravity, 0));
                     rb.useGravity = true;
                     rb.AddForce(new Vector3(0, Physics.gravity.y * gravityScale, 0));
+                    //rb.drag = normalDrag;
                     //Debug.Log(currentSlideSphere.GetComponent<Rigidbody>().velocity.y);
                 }
             }
@@ -276,13 +314,15 @@ public class PlayerController : MonoBehaviour
             //lean in your slide
             if (rb.velocity.magnitude >= minLeanVelocity)
             {
-                rb.AddForce(playerModel.transform.right * leanForce * player.GetAxis("Move Horizontal"));
+           
+                rb.AddForce(playerModel.transform.right * leanForce * player.GetAxis("Move Horizontal"));  
 
             }
             else
             {
                 //Allows player to control the direction they're facing
-                transform.RotateAround(transform.position, playerModel.transform.up, player.GetAxis("Move Horizontal") * steeringForce * Time.deltaTime);
+                transform.RotateAround(transform.position, playerModel.transform.up, player.GetAxis("Move Horizontal") * turningForce * Time.deltaTime);
+                //rb.drag = normalDrag;
             }
 
             //Jump to get out of dashing
@@ -300,13 +340,14 @@ public class PlayerController : MonoBehaviour
                     moveOffGround();
                     moveDirection.x = rb.velocity.x;
                     moveDirection.z = rb.velocity.z;
-                    Debug.Log("MOVE DIRECTION: " + moveDirection);
+                    //Debug.Log("MOVE DIRECTION: " + moveDirection);
                     if(new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude > moveSpeed + 0.1f)
                     {
                         //dash jump with a proportionate height to your horizontal momentum
-                        moveDirection.y = jumpForce * new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude / moveSpeed * dashCancelJump;
+                        moveDirection.y = jumpForce;
                         Debug.Log("RATIO: " + (new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude / moveSpeed));
-                        Debug.Log("JUMP VEL: " + jumpForce * (new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude / moveSpeed) * dashCancelJump);
+                        //Debug.Log("JUMP VEL: " + jumpForce * (new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude / moveSpeed) * dashCancelJump);
+                        momentumJump = true;
                     }
                     else
                     {
@@ -318,7 +359,7 @@ public class PlayerController : MonoBehaviour
                     hasDashed = true;
                     moveDirection.y = jumpForce * dashCancelJump;
                 }
-                rb.drag = normalDrag;
+                //rb.drag = normalDrag;
               
             }
         }
@@ -338,8 +379,16 @@ public class PlayerController : MonoBehaviour
             currentSlideSphere.GetComponent<Rigidbody>().angularDrag = gameObject.GetComponent<Rigidbody>().angularDrag;
             currentSlideSphere.GetComponent<Rigidbody>().AddForce(playerModel.transform.forward * dashSpeed, ForceMode.Impulse);*/
             rb.velocity = new Vector3(0, 0, 0);
-            rb.AddForce(playerModel.transform.forward * dashSpeed, ForceMode.Impulse);
-            if(!isGrounded()) rb.useGravity = false;
+            if (isGrounded())
+            {
+                rb.AddForce(playerModel.transform.forward * dashSpeed, ForceMode.Impulse);
+            }
+            else
+            {
+                rb.AddForce(playerModel.transform.forward * airDashSpeed, ForceMode.Impulse);
+                rb.useGravity = false;
+                //rb.drag = airDrag;
+            }
 
             //moveDirection = playerModel.transform.forward * dashSpeed;
 
@@ -347,8 +396,7 @@ public class PlayerController : MonoBehaviour
             //moveDirection.y = jumpForce * dashCancelJump;
 
             //if(!isGrounded()) rb.drag = dashDrag;
-            rb.drag = dashDrag;
-            
+      
         }
 
         //Hovering with the jetpack
@@ -365,15 +413,17 @@ public class PlayerController : MonoBehaviour
             //Hovering while dashing
             else
             {
-                rb.useGravity = false;
-                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-                rb.drag = normalDrag;
+               
+                //rb.drag = hoverDrag;
                 /*if (currentSlideSphere != null)
                 {
                     //currentSlideSphere.GetComponent<Rigidbody>().useGravity = false;
                     Rigidbody sphereRB = currentSlideSphere.GetComponent<Rigidbody>();
                     sphereRB.AddForce(playerModel.transform.forward * rocketSpeed, ForceMode.Impulse);
                 }*/
+
+                rb.AddForce(playerModel.transform.right * steeringForce * player.GetAxis("Move Horizontal"));
+
                 if (new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude <= maxHoverVelocityX)
                 {
                     //Debug.Log(new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude);
@@ -381,11 +431,14 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("TOO FAST! CLAMPING HOVER VELOCITY");
                     rb.velocity = Vector3.ClampMagnitude(new Vector3(rb.velocity.x, 0, rb.velocity.z), maxHoverVelocityX) + new Vector3(0, rb.velocity.y, 0);
                 }
 
-                transform.RotateAround(transform.position, playerModel.transform.up, player.GetAxis("Move Horizontal") * steeringForce * Time.deltaTime);
-                moveDirection.y -= Physics.gravity.y * gravityScale * Time.deltaTime;
+                transform.RotateAround(transform.position, playerModel.transform.up, player.GetAxis("Move Horizontal") * turningForce * Time.deltaTime);
+                //moveDirection.y -= Physics.gravity.y * gravityScale * Time.deltaTime;
+                rb.useGravity = false;
+                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             }
             currentFuel -= .5f;
 
@@ -400,18 +453,26 @@ public class PlayerController : MonoBehaviour
             }
             rb.useGravity = true;
             rb.AddForce(new Vector3(0, Physics.gravity.y * gravityScale, 0));
+            //rb.drag = normalDrag;
         }
 
         //Charge jumping - Charge
         if (player.GetButton("Charge") && currentFuel > 0)
         {
-            currentCharge += chargeSpeed;
-            currentFuel -= chargeSpeed;
+            if (currentCharge < maxChargeForce)
+            {
+                currentCharge += chargeSpeed;
+                currentFuel -= chargeSpeed;
+            }
+            else
+            {
+                currentCharge = maxChargeForce;
+            }
         }
         //Charge jumping - Release
         else if(player.GetButtonUp("Charge"))
         {
-            rb.drag = normalDrag;
+            //rb.drag = chargeDrag;
             if (currentCharge > 0)
             {
                 //if (!flames[0].isPlaying) EmitFlames(true);

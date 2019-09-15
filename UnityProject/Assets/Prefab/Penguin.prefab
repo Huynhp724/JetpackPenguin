@@ -408,23 +408,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 15
-  dashSpeed: 50
-  dashDrag: 3
+  airMoveSpeed: 12.5
+  airDashSpeed: 50
+  dashSpeed: 40
+  airDrag: 3
   rotateSpeed: 7.5
-  rocketSpeed: 1.25
+  rocketSpeed: 1
   maxHoverVelocityY: 10
   maxHoverVelocityX: 25
   minLeanVelocity: 15
   chargeSpeed: 1
-  leanForce: 20
-  steeringForce: 200
-  jumpForce: 20
-  doubleJumpForce: 15
-  airDashLength: 0.5
+  maxChargeForce: 50
+  leanForce: 10
+  steeringForce: 10
+  turningForce: 150
+  jumpForce: 22.5
+  doubleJumpForce: 17.5
+  airDashLength: 0.4
   dashCancelJump: 0.75
   flapStrength: 0.95
   dashGravity: 1
-  gravityScale: 5
+  gravityScale: 6
   maxGroundAngle: 0
   myState: 0
   maxFuel: 500
@@ -458,8 +462,8 @@ MonoBehaviour:
     type: 3}
   playerModel: {fileID: 5214764747588540839}
   timeBetweenThrows: 0.5
-  minThrowAngle: 35
-  maxThrowAngle: 60
+  minThrowAngle: 60
+  maxThrowAngle: 75
   arcHeight: 3
   adjustThrowRate: 0.5
   projectileSpeedMultiplier: 4
