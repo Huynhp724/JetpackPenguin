@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
     //turns the jetpack particle effects on/off
     void EmitFlames(bool emit)
     {
-        Debug.Log("FIRE: " + emit);
+        //Debug.Log("FIRE: " + emit);
         if (emit)
         {
             for(int i = 0; i < flames.Length; i++)
