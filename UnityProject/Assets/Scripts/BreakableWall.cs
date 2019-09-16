@@ -9,10 +9,11 @@ public class BreakableWall : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        PlayerController playerControl = other.gameObject.GetComponent<PlayerController>();
+        PlayerController playerControl = other.gameObject.GetComponentInParent<PlayerController>();
         if (playerControl)
         {
             float playerSpeed = playerControl.getCurrentSlideSpeed();
+            print(playerSpeed);
             if (playerSpeed > playerSpeedThreshhold)
             {
                 Destroy(gameObject);
