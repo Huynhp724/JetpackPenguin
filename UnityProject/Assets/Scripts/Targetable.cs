@@ -20,7 +20,6 @@ public class Targetable : MonoBehaviour
     {
         if(renderer.isVisible && Vector3.Distance(transform.position, player.transform.position) <= player.getMaxTargetRange())
         {
-            //Debug.Log(gameObject + " is visable and is " + Vector3.Distance(transform.position, player.transform.position) + " away from the player.");
             if (!isTargeted)
             {
                 player.addToTargets(gameObject);

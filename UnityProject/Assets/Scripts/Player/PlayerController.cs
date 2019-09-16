@@ -268,7 +268,7 @@ public class PlayerController : MonoBehaviour
                     Rigidbody sphereRB = currentSlideSphere.GetComponent<Rigidbody>();
                     sphereRB.AddForce(playerModel.transform.forward * rocketSpeed, ForceMode.Impulse);
                 }
-                transform.RotateAround(transform.position, playerModel.transform.forward, -1 * player.GetAxis("Move Horizontal") * steeringForce * Time.deltaTime);
+                transform.RotateAround(transform.position, playerModel.transform.up, player.GetAxis("Move Horizontal") * steeringForce * Time.deltaTime);
                 moveDirection.y -= Physics.gravity.y * gravityScale * Time.deltaTime;
             }
             currentFuel -= .5f;
@@ -362,5 +362,19 @@ public class PlayerController : MonoBehaviour
     {
         Quaternion newRotation = Quaternion.LookRotation(new Vector3(x, y, z));
         playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
+    }
+
+    public void movePlayer(Vector3 direction)
+    {
+        controller.Move(direction);
+    }
+
+    public float getCurrentSlideSpeed()
+    {
+        if (currentSlideSphere)
+        {
+            return currentSlideSphere.GetComponent<Rigidbody>().velocity.magnitude;
+        }
+        return -1;
     }
 }
