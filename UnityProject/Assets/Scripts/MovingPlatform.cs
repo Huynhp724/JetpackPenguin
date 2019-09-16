@@ -42,8 +42,8 @@ public class MovingPlatform : MonoBehaviour
         if(playerControl && timeAtWaypoint + timeToWaitAtWaypoints <= Time.time)
         {
             print("Player on moving platform");
-            float step = speed * Time.deltaTime * .1f; // calculate distance to move
-            playerControl.movePlayer((nextPathPointPos - other.transform.position) * step);
+            float step = speed * Time.deltaTime; // calculate distance to move
+            playerControl.movePlayer(Vector3.MoveTowards(other.transform.position, nextPathPointPos, step));
         }
     }
 }

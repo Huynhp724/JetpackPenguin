@@ -706,7 +706,7 @@ public class PlayerController : MonoBehaviour
 
     public void movePlayer(Vector3 direction)
     {
-        rb.velocity = direction;
+        transform.position = direction;
     }
 
     public float getCurrentSlideSpeed()
