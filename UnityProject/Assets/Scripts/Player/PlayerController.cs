@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviour
     private float horiInput;
     public Transform pivot;
     public GameObject playerModel;
+    public GameObject feetPivot;
     private Rigidbody rb;
     public Collider charCol;
     public LayerMask ground;
@@ -142,7 +143,6 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log(isGrounded());
         //Debug.Log(myState);
-        Debug.DrawRay(charCol.transform.position, -Vector3.up * (gameObject.GetComponentInChildren<Collider>().bounds.extents.y + 0.1f));
 
         vertInput = player.GetAxis("Move Vertical");
         horiInput = player.GetAxis("Move Horizontal");
@@ -454,8 +454,9 @@ public class PlayerController : MonoBehaviour
             if (dashJump)
             {
 
-                Quaternion colRotation = charCol.gameObject.transform.rotation;
+                //Quaternion colRotation = charCol.gameObject.transform.rotation;
                 charCol.gameObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                //charCol.gameObject.transform.RotateAround(feetPivot.transform.position, playerModel.transform.right, 90);
                 chargeDashing = false;
 
                 //Destroy(currentSlideSphere);
@@ -499,7 +500,7 @@ public class PlayerController : MonoBehaviour
             //rb.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             Quaternion colRotation = charCol.gameObject.transform.rotation;
             //charCol.gameObject.transform.rotation = Quaternion.Slerp(charCol.gameObject.transform.rotation, Quaternion.Euler(colRotation.eulerAngles.x + 90, colRotation.eulerAngles.y, colRotation.eulerAngles.z), rotateSpeed);
-            charCol.gameObject.transform.RotateAround(charCol.gameObject.transform.position, playerModel.transform.right, 90);
+            charCol.gameObject.transform.RotateAround(feetPivot.transform.position, playerModel.transform.right, 90);
 
             /*currentSlideSphere = Instantiate(slideSphere, transform.position, Quaternion.identity);
             currentSlideSphere.GetComponent<Rigidbody>().mass = gameObject.GetComponent<Rigidbody>().mass;
@@ -706,12 +707,17 @@ public class PlayerController : MonoBehaviour
 
     private bool isGrounded()
     {
+        Debug.DrawRay(charCol.gameObject.transform.position, -Vector3.up * (charCol.bounds.extents.y + 0.1f));
         RaycastHit hit;
         //return Physics.SphereCast(transform.position, gameObject.GetComponentInChildren<Collider>().bounds.extents.x, -Vector3.up, out hit, gameObject.GetComponentInChildren<Collider>().bounds.extents.y + 0.1f);
-        if(Physics.CheckSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y/2 + 0.1f, 0), charCol.bounds.extents.y/2, ground))
+        if(Physics.SphereCast(charCol.gameObject.transform.position, charCol.bounds.extents.y / 2, -Vector3.up, out hit, charCol.bounds.extents.y / 2 + 0.1f, ground))
         {
             return true;
         }
+        /*if(Physics.CheckSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y/2 + 0.1f, 0), charCol.bounds.extents.y/2, ground))
+        {
+            return true;
+        }*/
 
         //Debug.Log("NOT GROUND");
         return false;
@@ -740,7 +746,12 @@ public class PlayerController : MonoBehaviour
     {
         // Draw a yellow sphere at the transform's position
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.1f, 0), charCol.bounds.extents.y/2);
+        Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.1f,0), charCol.bounds.extents.y/2);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(-playerModel.transform.forward.x * 0.5f, 0.1f, -playerModel.transform.forward.z * 0.05f), charCol.bounds.extents.z / 2);
+        //Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(-playerModel.transform.forward.x * 0.5f, charCol.bounds.extents.y + 0.1f, -playerModel.transform.forward.z * 0.05f), (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4);
+        Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(-playerModel.transform.forward.x * 0.5f, 0.1f, -playerModel.transform.forward.z * 0.05f), (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4);
+
     }
 
     public void movePlayer(Vector3 direction)
