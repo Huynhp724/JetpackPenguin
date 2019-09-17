@@ -7,6 +7,7 @@ public class LevelChanger : MonoBehaviour
 {
     public string currentLevelName;
     public Vector3 pos;
+    public Vector3 newPos;
     public static LevelChanger Instance { get; private set; }
 
 
@@ -65,6 +66,12 @@ public class LevelChanger : MonoBehaviour
         if (needOldLocation)
         {
             SetOldLocation();
+        }
+        else
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.transform.position = newPos;
+            Debug.Log("position has been set");
         }
 
         fader.Fade("in");

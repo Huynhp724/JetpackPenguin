@@ -7,12 +7,14 @@ public class PlayerHealth : MonoBehaviour
     public GameObject minorCheckPoints;
     public GameObject rootModelObj;
     public float invincibilityFrames;
+    public float respawnTime;
 
     bool isInvincible = false;
 
     PlayerStats stats;
     ScreenFader fader;
     FlickerRenderer flick;
+    PlayerInteraction playerInteraction;
 
     
 
@@ -22,6 +24,7 @@ public class PlayerHealth : MonoBehaviour
         stats = GetComponent<PlayerStats>();
         fader = FindObjectOfType<ScreenFader>();
         flick = GetComponentInChildren<FlickerRenderer>();
+        playerInteraction = GetComponent<PlayerInteraction>();
 
     }
 
@@ -30,6 +33,9 @@ public class PlayerHealth : MonoBehaviour
     {
         if (stats.GetIsDead()) {
             Debug.Log("I am dead");
+            flick.SwitchAllRenderers(false);
+            stats.ResetStats();
+            FindMajorCheckpoint();
         }
     }
 
@@ -104,10 +110,13 @@ public class PlayerHealth : MonoBehaviour
     public void LoseEntireLives(bool checkPoint) {
         Debug.Log("Lose all your lives");
         stats.lives = 0;
+        stats.hitPoints = 0;
         stats.SetIsDead(true);
         if (checkPoint)
         {
-            FindClosestMinorCheckpoint();
+            flick.SwitchAllRenderers(false);
+            stats.ResetStats();
+            FindMajorCheckpoint();
 
         }
     }
@@ -136,6 +145,7 @@ public class PlayerHealth : MonoBehaviour
         StartCoroutine(Fade(point));
     }
 
+    // sent here only when dead
     void FindMajorCheckpoint() {
         GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("MajorCheckpoint");
 
@@ -150,6 +160,17 @@ public class PlayerHealth : MonoBehaviour
         }
 
         gameObject.transform.position = go.transform.position;
+        fader.Fade("out");
+        StartCoroutine(RespawnWait());
+    }
+
+    IEnumerator RespawnWait() {
+        playerInteraction.EnablePlayerController(false);
+        yield return new WaitForSeconds(respawnTime);
+        fader.Fade("in");
+        playerInteraction.EnablePlayerController(true);
+        flick.SwitchAllRenderers(true);
+
     }
 
     public void SetInvincibilty(bool invincible) {

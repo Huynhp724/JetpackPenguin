@@ -368,6 +368,7 @@ MonoBehaviour:
   minorCheckPoints: {fileID: 0}
   rootModelObj: {fileID: 5214764747588540839}
   invincibilityFrames: 3
+  respawnTime: 2
 --- !u!114 &5495214538031801945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,8 +414,8 @@ MonoBehaviour:
   dashSpeed: 40
   airDrag: 3
   chargeDrag: 3
-  rotateSpeed: 7.5
-  jetpackForce: 1
+  rotateSpeed: 10
+  jetpackForce: 1.5
   hoverDashScale: 1.5
   maxHoverVelocityY: 10
   maxHoverVelocityX: 25
@@ -428,7 +429,7 @@ MonoBehaviour:
   jumpForce: 22.5
   doubleJumpForce: 17.5
   airDashLength: 0.4
-  dashCancelJump: 0.75
+  dashJumpMod: 1
   flapStrength: 0.95
   dashGravity: 1
   gravityScale: 6
@@ -440,6 +441,7 @@ MonoBehaviour:
   onLedge: 0
   onGround: 1
   grabCastT: {fileID: 1329826877476597607}
+  hasDoubleJump: 1
   momentumJump: 0
   pivot: {fileID: 0}
   playerModel: {fileID: 5214764747588540839}
@@ -591,7 +593,7 @@ BoxCollider:
   m_GameObject: {fileID: 1329826876765502636}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -812,7 +814,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 5484457911579825096}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -5628,7 +5630,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 5484457912394467250}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -11128,12 +11130,6 @@ Transform:
 --- !u!1 &5214764747588540839 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
-    type: 3}
-  m_PrefabInstance: {fileID: 4287283903396429998}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5269655161049141335 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8241286654171713785, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
     type: 3}
   m_PrefabInstance: {fileID: 4287283903396429998}
   m_PrefabAsset: {fileID: 0}
