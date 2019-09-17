@@ -5,18 +5,27 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public GameObject minorCheckPoints;
+    public GameObject rootModelObj;
     public float invincibilityFrames;
+    public float respawnTime;
 
     bool isInvincible = false;
+
     PlayerStats stats;
     ScreenFader fader;
-    Rigidbody rb;
+    FlickerRenderer flick;
+    PlayerInteraction playerInteraction;
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
         stats = GetComponent<PlayerStats>();
         fader = FindObjectOfType<ScreenFader>();
-        //rb = GetComponent<Rigidbody>();
+        flick = GetComponentInChildren<FlickerRenderer>();
+        playerInteraction = GetComponent<PlayerInteraction>();
+
     }
 
     // Update is called once per frame
@@ -24,8 +33,12 @@ public class PlayerHealth : MonoBehaviour
     {
         if (stats.GetIsDead()) {
             Debug.Log("I am dead");
+            flick.SwitchAllRenderers(false);
+            stats.ResetStats();
+            FindMajorCheckpoint();
         }
     }
+
 
     public void LoseALife(bool checkPoint) {
         Debug.Log("Lose a life");
@@ -62,6 +75,7 @@ public class PlayerHealth : MonoBehaviour
             if (stats.hitPoints > 1)
             {
                 stats.hitPoints -= 1;
+                flick.SetFlickering();
 
             }
             else {
@@ -69,6 +83,7 @@ public class PlayerHealth : MonoBehaviour
                 {
                     stats.lives -= 1;
                     stats.hitPoints = 3;
+                    flick.SetFlickering();
                 }
                 else {
                     stats.lives -= 1;
@@ -84,18 +99,24 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    
+
     IEnumerator Invincible() {
         yield return new WaitForSeconds(invincibilityFrames);
         isInvincible = false;
+
     }
 
     public void LoseEntireLives(bool checkPoint) {
         Debug.Log("Lose all your lives");
         stats.lives = 0;
+        stats.hitPoints = 0;
         stats.SetIsDead(true);
         if (checkPoint)
         {
-            FindClosestMinorCheckpoint();
+            flick.SwitchAllRenderers(false);
+            stats.ResetStats();
+            FindMajorCheckpoint();
 
         }
     }
@@ -124,6 +145,7 @@ public class PlayerHealth : MonoBehaviour
         StartCoroutine(Fade(point));
     }
 
+    // sent here only when dead
     void FindMajorCheckpoint() {
         GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("MajorCheckpoint");
 
@@ -138,6 +160,17 @@ public class PlayerHealth : MonoBehaviour
         }
 
         gameObject.transform.position = go.transform.position;
+        fader.Fade("out");
+        StartCoroutine(RespawnWait());
+    }
+
+    IEnumerator RespawnWait() {
+        playerInteraction.EnablePlayerController(false);
+        yield return new WaitForSeconds(respawnTime);
+        fader.Fade("in");
+        playerInteraction.EnablePlayerController(true);
+        flick.SwitchAllRenderers(true);
+
     }
 
     public void SetInvincibilty(bool invincible) {

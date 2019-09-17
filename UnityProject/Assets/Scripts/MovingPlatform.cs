@@ -38,11 +38,12 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        PlayerController playerControl = other.GetComponentInParent<PlayerController>();
+        if(playerControl && timeAtWaypoint + timeToWaitAtWaypoints <= Time.time)
         {
             print("Player on moving platform");
             float step = speed * Time.deltaTime; // calculate distance to move
-            other.transform.position = Vector3.MoveTowards(other.transform.position, nextPathPointPos, step);
+            playerControl.movePlayer(Vector3.MoveTowards(other.transform.position, nextPathPointPos, step));
         }
     }
 }
