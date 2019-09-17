@@ -100,6 +100,12 @@ public class PlayerController : MonoBehaviour
     private Player player;
     private Animator anim;
 
+    //REMOVE LATER
+    public GameObject mainCam;
+    public GameObject followCam;
+    public GameObject canvas;
+    public GameObject manager;
+
     private bool isAiming = false;
 
     private void Awake()
@@ -109,6 +115,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         //charCol = GetComponent<Collider>();
         normalDrag = rb.drag;
+        DontDestroyOnLoad(mainCam);
+        DontDestroyOnLoad(followCam);
     }
 
     private void Start()
