@@ -31,7 +31,7 @@ public class PathFollower : MonoBehaviour
         }
         else {
             lastPosition = pathCreator.path.GetClosestPointOnPath(transform.position);
-            Debug.Log(lastPosition);
+            //Debug.Log(lastPosition);
 
         }
     }

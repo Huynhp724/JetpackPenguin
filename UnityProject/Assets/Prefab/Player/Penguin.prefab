@@ -368,6 +368,7 @@ MonoBehaviour:
   minorCheckPoints: {fileID: 0}
   rootModelObj: {fileID: 5214764747588540839}
   invincibilityFrames: 3
+  respawnTime: 2
 --- !u!114 &5495214538031801945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,7 +429,7 @@ MonoBehaviour:
   jumpForce: 22.5
   doubleJumpForce: 17.5
   airDashLength: 0.4
-  dashCancelJump: 0.75
+  dashJumpMod: 1
   flapStrength: 0.95
   dashGravity: 1
   gravityScale: 6
@@ -440,6 +441,7 @@ MonoBehaviour:
   onLedge: 0
   onGround: 1
   grabCastT: {fileID: 1329826877476597607}
+  hasDoubleJump: 1
   momentumJump: 0
   pivot: {fileID: 0}
   playerModel: {fileID: 5214764747588540839}
