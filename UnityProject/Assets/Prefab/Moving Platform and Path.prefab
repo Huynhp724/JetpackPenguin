@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 9036188485560580946}
   - component: {fileID: 2970404843428345877}
   - component: {fileID: 5901250952289804220}
+  - component: {fileID: 1998361314}
   m_Layer: 0
   m_Name: Moving Platform
   m_TagString: Untagged
@@ -139,6 +140,19 @@ MonoBehaviour:
   waypointTolerance: 2
   timeToWaitAtWaypoints: 1
   speed: 2
+--- !u!65 &1998361314
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673910927831021281}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000002, y: 0.15318893, z: 1.0000002}
+  m_Center: {x: 0, y: 0.5644431, z: 0}
 --- !u!1 &774022232693481355
 GameObject:
   m_ObjectHideFlags: 0
