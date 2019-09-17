@@ -121,7 +121,7 @@ public class PlayerAbilities : MonoBehaviour
         Vector3 currentTargetPosition = target.transform.position;
         Vector3 targetDir = currentTargetPosition - transform.position;
         playerController.setIsAiming(true);
-        playerController.rotateTo(targetDir.x, 0, targetDir.z);
+        playerController.rotateTo(new Vector3(targetDir.x, 0, targetDir.z));
         throwStartPoint.LookAt(currentTargetPosition);
 
         // Set the UI target element to the screen position of the target.
