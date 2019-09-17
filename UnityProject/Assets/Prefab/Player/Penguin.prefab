@@ -414,8 +414,8 @@ MonoBehaviour:
   dashSpeed: 40
   airDrag: 3
   chargeDrag: 3
-  rotateSpeed: 7.5
-  jetpackForce: 1
+  rotateSpeed: 10
+  jetpackForce: 1.5
   hoverDashScale: 1.5
   maxHoverVelocityY: 10
   maxHoverVelocityX: 25
@@ -593,7 +593,7 @@ BoxCollider:
   m_GameObject: {fileID: 1329826876765502636}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -814,7 +814,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 5484457911579825096}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -5630,7 +5630,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 5484457912394467250}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1

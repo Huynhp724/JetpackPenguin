@@ -34,14 +34,9 @@ public class PlayerHealth : MonoBehaviour
         if (stats.GetIsDead()) {
             Debug.Log("I am dead");
             flick.SwitchAllRenderers(false);
-            ResetDeadPlayer();
+            stats.ResetStats();
             FindMajorCheckpoint();
         }
-    }
-
-    public void ResetDeadPlayer() {
-        stats.ResetStats();
-
     }
 
 
@@ -165,12 +160,14 @@ public class PlayerHealth : MonoBehaviour
         }
 
         gameObject.transform.position = go.transform.position;
+        fader.Fade("out");
         StartCoroutine(RespawnWait());
     }
 
     IEnumerator RespawnWait() {
         playerInteraction.EnablePlayerController(false);
         yield return new WaitForSeconds(respawnTime);
+        fader.Fade("in");
         playerInteraction.EnablePlayerController(true);
         flick.SwitchAllRenderers(true);
 

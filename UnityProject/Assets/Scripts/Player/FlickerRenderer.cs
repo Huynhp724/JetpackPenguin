@@ -89,16 +89,19 @@ public class FlickerRenderer : MonoBehaviour
     }
 
     public void SwitchAllRenderers(bool turn) {
-        
-        for (int i = 0; i < modelRends.Length; i++)
+        try
         {
-            modelRends[i].enabled = turn;
-        }
+            for (int i = 0; i < modelRends.Length; i++)
+            {
+                modelRends[i].enabled = turn;
+            }
 
-        for (int i = 0; i < packRends.Length; i++)
-        {
-            packRends[i].enabled = turn;
+            for (int i = 0; i < packRends.Length; i++)
+            {
+                packRends[i].enabled = turn;
+            }
         }
+        catch { }
         
     }
 }
