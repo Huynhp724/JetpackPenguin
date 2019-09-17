@@ -7,6 +7,8 @@ public class PlayerStats : MonoBehaviour
     public int lives;
     public int hitPoints;
 
+    int setLives, setHitPoints;
+
     private static bool playerExists;
 
     bool isDead =false;
@@ -29,6 +31,16 @@ public class PlayerStats : MonoBehaviour
         else {
             Destroy(gameObject);
         }
+
+        setLives = lives;
+        setHitPoints = hitPoints;
+    }
+
+    public void ResetStats() {
+        SetIsDead(false);
+        lives = setLives;
+        hitPoints = setHitPoints;
+        
     }
 
 }

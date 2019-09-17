@@ -22,10 +22,11 @@ public class DeathVolume : MonoBehaviour
     {
         if (other.CompareTag(playerTag))
         {
-            PlayerHealth health = other.GetComponent<PlayerHealth>();
+            PlayerHealth health = other.GetComponentInParent<PlayerHealth>();
             health.LoseALife(true);
         }
         else {
+            Debug.Log(other);
             StartCoroutine(Destroy(other));
         }
     }

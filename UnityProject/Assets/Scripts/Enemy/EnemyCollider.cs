@@ -19,7 +19,7 @@ public class EnemyCollider : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) {
-            PlayerHealth health = other.GetComponent<PlayerHealth>();
+            PlayerHealth health = other.GetComponentInParent<PlayerHealth>();
             health.LoseHitpoint();
         }
     }

@@ -18,7 +18,7 @@ public class WithinDistance : Action
             return TaskStatus.Success;
         }
         else {
-            Debug.Log(distance);
+            //Debug.Log(distance);
             return TaskStatus.Failure;
         }
     }
