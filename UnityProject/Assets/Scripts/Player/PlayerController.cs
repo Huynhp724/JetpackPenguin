@@ -500,7 +500,7 @@ public class PlayerController : MonoBehaviour
             //rb.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             Quaternion colRotation = charCol.gameObject.transform.rotation;
             //charCol.gameObject.transform.rotation = Quaternion.Slerp(charCol.gameObject.transform.rotation, Quaternion.Euler(colRotation.eulerAngles.x + 90, colRotation.eulerAngles.y, colRotation.eulerAngles.z), rotateSpeed);
-            charCol.gameObject.transform.RotateAround(feetPivot.transform.position, playerModel.transform.right, 90);
+            charCol.gameObject.transform.RotateAround(charCol.transform.position, playerModel.transform.right, 90);
 
             /*currentSlideSphere = Instantiate(slideSphere, transform.position, Quaternion.identity);
             currentSlideSphere.GetComponent<Rigidbody>().mass = gameObject.GetComponent<Rigidbody>().mass;
@@ -710,14 +710,14 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(charCol.gameObject.transform.position, -Vector3.up * (charCol.bounds.extents.y + 0.1f));
         RaycastHit hit;
         //return Physics.SphereCast(transform.position, gameObject.GetComponentInChildren<Collider>().bounds.extents.x, -Vector3.up, out hit, gameObject.GetComponentInChildren<Collider>().bounds.extents.y + 0.1f);
-        if(Physics.SphereCast(charCol.gameObject.transform.position, charCol.bounds.extents.y / 2, -Vector3.up, out hit, charCol.bounds.extents.y / 2 + 0.1f, ground))
-        {
-            return true;
-        }
-        /*if(Physics.CheckSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y/2 + 0.1f, 0), charCol.bounds.extents.y/2, ground))
+        /*if(Physics.SphereCast(charCol.gameObject.transform.position, charCol.bounds.extents.y / 2, -Vector3.up, out hit, charCol.bounds.extents.y / 2 + 0.1f, ground))
         {
             return true;
         }*/
+        if(Physics.CheckSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y/2 + 0.1f, 0), charCol.bounds.extents.y/2, ground))
+        {
+            return true;
+        }
 
         //Debug.Log("NOT GROUND");
         return false;
