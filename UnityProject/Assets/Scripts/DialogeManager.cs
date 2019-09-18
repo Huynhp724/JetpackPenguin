@@ -15,6 +15,7 @@ public class DialogeManager : MonoBehaviour
     public Text dialogueText;                               // the text of where the dialog will be written
     public Text nameText;                                   // the text of the name
     public PlayerInteraction playerInteraction;
+    public float printLetterTime;
 
     public AudioClip[] typingClips;
 
@@ -93,7 +94,9 @@ public class DialogeManager : MonoBehaviour
         foreach (char letter in sentence.ToCharArray()) {
             source.PlayOneShot(typingClips[choice]);
             dialogueText.text += letter;
-            yield return new WaitForSeconds(typingClips[choice].length);
+            //yield return new WaitForSeconds(typingClips[choice].length);
+            yield return new WaitForSeconds(printLetterTime);
+            source.Stop();
             isDialoging = true;
         }
         

@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
 
     ParticleSystem[] flames;
     public GameObject jetPack;
+    public GameObject freezeTrigger;
 
     private Player player;
     private Animator anim;
@@ -130,6 +131,7 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("FIRE: " + emit);
         if (emit)
         {
+            freezeTrigger.SetActive(true);
             for(int i = 0; i < flames.Length; i++)
             {
                 flames[i].Play();
@@ -137,6 +139,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            freezeTrigger.SetActive(false);
             for (int i = 0; i < flames.Length; i++)
             {
                 flames[i].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
@@ -253,6 +256,7 @@ public class PlayerController : MonoBehaviour
             if (player.GetButtonDown("Jump"))
             {
                 dashJump = true;
+                anim.SetBool("Slide", false);
               
             }
         }
