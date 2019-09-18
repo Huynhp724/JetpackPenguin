@@ -14,6 +14,7 @@ public class LevelChanger : MonoBehaviour
     public string previousLevelName = "", nextLevelName = "";
     int entryPoint;
     bool needOldLocation = false;
+    bool startFade = false;
     ScreenFader fader;
 
     private void Awake()
@@ -27,6 +28,10 @@ public class LevelChanger : MonoBehaviour
             Destroy(gameObject);
 
         }
+    }
+
+    private void Update()
+    {
     }
 
     void Start()
@@ -48,13 +53,15 @@ public class LevelChanger : MonoBehaviour
             pos = lastScenePosition;
         }
 
-        NextLevel();
+        StartCoroutine(WaitToFadeOut());
+        //NextLevel();
     }
 
 
     public void NextLevel() {
-        fader.Fade("out");
+        //fader.Fade("out");
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
         Destroy(player);
         //StartCoroutine(LoadScene());
         StartCoroutine(LoadScenePlacePluck());
@@ -95,6 +102,20 @@ public class LevelChanger : MonoBehaviour
 
         FindLocation();
 
+        StartCoroutine(WaitToFadeIn());
+
+    }
+
+    IEnumerator WaitToFadeOut() {
+        fader.Fade("out");
+        yield return new WaitForSeconds(2f);
+        NextLevel();
+        
+    }
+
+    IEnumerator WaitToFadeIn()
+    {
+        yield return new WaitForSeconds(2f);
         fader.Fade("in");
 
     }
