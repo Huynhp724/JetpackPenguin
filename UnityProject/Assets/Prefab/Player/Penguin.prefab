@@ -408,15 +408,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3dec0ed74953374eb52be3c02fcca6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
-  airMoveSpeed: 12
-  airDashSpeed: 50
+  moveForce: 12.5
+  maxMoveSpeed: 15
+  maxAirMoveSpeed: 12
+  airDashSpeed: 40
   dashSpeed: 40
-  airDrag: 3
+  airDrag: 2.5
   chargeDrag: 3
-  rotateSpeed: 10
-  jetpackForce: 1.5
-  hoverDashScale: 1.5
+  rotateSpeed: 7.5
+  jetpackForce: 60
+  hoverDashScale: 1
   maxHoverVelocityY: 10
   maxHoverVelocityX: 25
   minLeanVelocity: 15
@@ -426,13 +427,13 @@ MonoBehaviour:
   leanForce: 10
   steeringForce: 50
   turningForce: 150
-  jumpForce: 22.5
+  jumpForce: 20
   doubleJumpForce: 17.5
-  airDashLength: 0.4
+  airDashLength: 0.5
   dashJumpMod: 1
   flapStrength: 0.95
   dashGravity: 1
-  gravityScale: 6
+  gravityScale: 5
   maxGroundAngle: 0
   myState: 0
   maxFuel: 500
@@ -445,12 +446,14 @@ MonoBehaviour:
   momentumJump: 0
   pivot: {fileID: 0}
   playerModel: {fileID: 5214764747588540839}
+  feetPivot: {fileID: 0}
   charCol: {fileID: 102793626}
   ground:
     serializedVersion: 2
     m_Bits: 4097
   chargeText: {fileID: 0}
   jetPack: {fileID: 1329826877457266954}
+  canvas: {fileID: 0}
 --- !u!114 &1329826876155729635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,6 +478,7 @@ MonoBehaviour:
   projectileSpeedMultiplier: 4
   maxTargetRange: 20
   targetPointUI: {fileID: 0}
+  grabCastT: {fileID: 0}
 --- !u!54 &5484457912418153956
 Rigidbody:
   m_ObjectHideFlags: 0
