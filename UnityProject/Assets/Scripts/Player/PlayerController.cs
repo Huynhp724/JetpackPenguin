@@ -47,8 +47,10 @@ public class PlayerController : MonoBehaviour
                                             //this is different from flapStrength because here the closer the value is to 0, the more gravity is reduced
     [Range(0.0f, 10.0f)]
     public float gravityScale = 1f;         //how strong the gravity is for Pluck
+    public float slopePadding = 0.5f;
+    public float antiBump = 1f;
 
-    private float groundAngle;
+    public float groundAngle;
     public float maxGroundAngle;
 
     [SerializeField]
@@ -83,9 +85,10 @@ public class PlayerController : MonoBehaviour
     public bool momentumJump = false;
 
     //public CharacterController controller;
-    private Vector3 moveDirection;
+    public Vector3 moveDirection;
     private float vertInput;
     private float horiInput;
+    private Vector3 slopeDir;        //direction of slopes
     public Transform pivot;
     public GameObject playerModel;
     public GameObject feetPivot;
@@ -101,10 +104,6 @@ public class PlayerController : MonoBehaviour
 
     private Player player;
     private Animator anim;
-
-    //REMOVE LATER
-
-    public GameObject canvas;
 
     private bool isAiming = false;
 
@@ -122,7 +121,6 @@ public class PlayerController : MonoBehaviour
     {
         flames = gameObject.GetComponentsInChildren<ParticleSystem>();
         Debug.Log(flames.Length);
-
     }
 
     //turns the jetpack particle effects on/off
@@ -160,7 +158,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded())
         {
             onGround = true;
-            Debug.Log("IS GROUND");
+            //Debug.Log("IS GROUND");
             hasDashed = false;
             hasDoubleJump = true;
             if (myState == State.Flapping)
@@ -310,7 +308,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void FixedUpdate()
     {
-       
+      
+
         //Regular Movement
         if (myState != State.Dashing)
         {
@@ -319,14 +318,35 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("MOVE SPEED: " + moveSpeed);
             if (new Vector3(moveDirection.x, 0, moveDirection.z).magnitude <= new Vector3(maxMoveSpeed, 0, maxMoveSpeed).magnitude + 0.1f)
             {
-
+                //Calculate slope angle if on ground
+                calculateGroundAngle();
                 //rb.drag = normalDrag;
                 //Debug.Log("DON'T CARRY OVER");
                 if (isGrounded())
                 {
+                
+                    Debug.DrawRay(transform.position, transform.forward + new Vector3(0, -slopeDir.y, 0), Color.green);
                     //Debug.Log("MOVE VERT: " + vertInput);
-                   
+
                     Vector3 targetDir = (transform.forward * vertInput * maxMoveSpeed) + (transform.right * horiInput * maxMoveSpeed) + new Vector3(0, moveDirection.y, 0);
+                    if (groundAngle != 0)
+                    {
+                        //slopeDir = slopeDir.normalized;
+                        //targetDir = (slopeDir* vertInput * maxMoveSpeed) + (transform.right * horiInput * maxMoveSpeed) + new Vector3(0, moveDirection.y, 0);
+                        //Debug.Log("ADDING: " + slopeDir.y * -1);
+                        //targetDir += new Vector3(0, -slopeDir.y, 0);
+
+                        moveDirection.y = rb.velocity.y;
+                        //Vector3 temp = slopeDir.normalized * maxMoveSpeed;
+                        //Debug.Log(temp.y);
+                        //if (slopeDir.y > 0) moveDirection.y = -antiBump;
+                  
+                        Debug.DrawRay(transform.position, targetDir, Color.red);
+
+                        //targetDir = new Vector3(vertInput, 0, -horiInput);
+                        //Vector3 tempDir = Vector3.Cross(slopeDir, targetDir);
+                        //targetDir = tempDir * maxMoveSpeed;
+                    }
                     moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * Time.deltaTime);
                        
                     //moveDirection = moveDirection.normalized * moveSpeed;
@@ -337,7 +357,7 @@ public class PlayerController : MonoBehaviour
                     if (momentumJump && horiInput == 0 && vertInput == 0)
                     {
                         //moveDirection += new Vector3(rb.velocity.x, 0, rb.velocity.z);
-                        Debug.Log("MOMENTUM: " + moveDirection);
+                        //Debug.Log("MOMENTUM: " + moveDirection);
                         //moveDirection.x = rb.velocity.x;
                         //moveDirection.z = rb.velocity.z;
                     }
@@ -431,7 +451,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (myState == State.Dashing)
             {
-                Debug.Log("NO Y");
+                //Debug.Log("NO Y");
                 //Vector3 tempVel = currentSlideSphere.GetComponent<Rigidbody>().velocity;
                 //Debug.Log(tempVel.magnitude);
                 if (rb.velocity.magnitude < airDashSpeed * airDashLength)
@@ -439,7 +459,7 @@ public class PlayerController : MonoBehaviour
                     //currentSlideSphere.GetComponent<Rigidbody>().useGravity = true;
                     //currentSlideSphere.GetComponent<Rigidbody>().AddForce(new Vector3(0, Physics.gravity.y * gravityScale * dashGravity, 0));
                     //rb.useGravity = true;
-                    rb.AddForce(new Vector3(0, Physics.gravity.y * gravityScale, 0));
+                    rb.AddForce(new Vector3(0, Physics.gravity.y * gravityScale * Time.deltaTime, 0));
                     //rb.drag = normalDrag;
                     //Debug.Log(currentSlideSphere.GetComponent<Rigidbody>().velocity.y);
                 }
@@ -449,12 +469,13 @@ public class PlayerController : MonoBehaviour
         //If currently dashing (whether in the air or on the ground) 
         if (myState == State.Dashing)
         {
+            Debug.DrawRay(charCol.transform.position, charCol.transform.up * 2f, Color.blue);
             if (chargeDashing) rb.drag = chargeDrag;
             //lean in your slide
             if (rb.velocity.magnitude >= minLeanVelocity)
             {
 
-                rb.AddForce(playerModel.transform.right * leanForce * horiInput);
+                rb.AddForce(playerModel.transform.right * leanForce * horiInput * Time.deltaTime);
 
             }
             else
@@ -514,7 +535,14 @@ public class PlayerController : MonoBehaviour
             //rb.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             Quaternion colRotation = charCol.gameObject.transform.rotation;
             //charCol.gameObject.transform.rotation = Quaternion.Slerp(charCol.gameObject.transform.rotation, Quaternion.Euler(colRotation.eulerAngles.x + 90, colRotation.eulerAngles.y, colRotation.eulerAngles.z), rotateSpeed);
-            charCol.gameObject.transform.RotateAround(charCol.transform.position, playerModel.transform.right, 90);
+            if (slopeDir.y > 0)
+            {
+                charCol.gameObject.transform.RotateAround(charCol.transform.position, playerModel.transform.right, 90 + groundAngle);
+            }
+            else
+            {
+                charCol.gameObject.transform.RotateAround(charCol.transform.position, playerModel.transform.right, 90 - groundAngle);
+            }
 
             /*currentSlideSphere = Instantiate(slideSphere, transform.position, Quaternion.identity);
             currentSlideSphere.GetComponent<Rigidbody>().mass = gameObject.GetComponent<Rigidbody>().mass;
@@ -570,9 +598,9 @@ public class PlayerController : MonoBehaviour
         //Hovering with the jetpack
         if (isHovering)
         {
-            moveOffGround();
             if (myState != State.Dashing)
             {
+                moveOffGround();
                 myState = State.Idle;
                 if (moveDirection.y < maxHoverVelocityY) moveDirection.y += jetpackForce * Time.deltaTime;
                 //Debug.Log("Y: " + moveDirection.y);
@@ -580,12 +608,12 @@ public class PlayerController : MonoBehaviour
             //Hovering while dashing
             else
             {
-                rb.AddForce(playerModel.transform.right * steeringForce * horiInput);
+                rb.AddForce(playerModel.transform.right * steeringForce * horiInput * Time.deltaTime);
 
                 if (new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude <= maxHoverVelocityX)
                 {
                     //Debug.Log(new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude);
-                    rb.AddForce(playerModel.transform.forward * jetpackForce * hoverDashScale, ForceMode.Impulse);
+                    rb.AddForce(charCol.transform.up * jetpackForce * hoverDashScale * Time.deltaTime, ForceMode.Impulse);
                 }
                 else
                 {
@@ -596,7 +624,7 @@ public class PlayerController : MonoBehaviour
                 transform.RotateAround(transform.position, playerModel.transform.up, horiInput * turningForce * Time.deltaTime);
                 //moveDirection.y -= Physics.gravity.y * gravityScale * Time.deltaTime;
                 //rb.useGravity = false;
-                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                //rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             }
             currentFuel -= .5f;
 
@@ -608,7 +636,7 @@ public class PlayerController : MonoBehaviour
             //currentSlideSphere.GetComponent<Rigidbody>().AddForce(new Vector3(0, Physics.gravity.y * gravityScale * dashGravity, 0));
            
             //rb.useGravity = true;
-            rb.AddForce(new Vector3(0, Physics.gravity.y * gravityScale, 0));
+            rb.AddForce(new Vector3(0, Physics.gravity.y * gravityScale * Time.deltaTime, 0));
             //rb.drag = normalDrag;
 
             hoverDashRelease = false;
@@ -721,19 +749,25 @@ public class PlayerController : MonoBehaviour
 
     private bool isGrounded()
     {
-        Debug.DrawRay(charCol.gameObject.transform.position, -Vector3.up * (charCol.bounds.extents.y + 0.1f));
-        RaycastHit hit;
-        //return Physics.SphereCast(transform.position, gameObject.GetComponentInChildren<Collider>().bounds.extents.x, -Vector3.up, out hit, gameObject.GetComponentInChildren<Collider>().bounds.extents.y + 0.1f);
-        /*if(Physics.SphereCast(charCol.gameObject.transform.position, charCol.bounds.extents.y / 2, -Vector3.up, out hit, charCol.bounds.extents.y / 2 + 0.1f, ground))
+        //Debug.DrawRay(charCol.gameObject.transform.position, -Vector3.up * (charCol.bounds.extents.y + 0.1f));
+        if (myState != State.Dashing)
         {
-            return true;
-        }*/
-        if(Physics.CheckSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y/2 + 0.1f, 0), charCol.bounds.extents.y/2, ground))
-        {
-            return true;
+            if (Physics.CheckSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.1f, 0), charCol.bounds.extents.y / 2, ground))
+            {
+                return true;
+            }
         }
-
+        else
+        {
+            if (Physics.CheckCapsule (charCol.gameObject.transform.position - -charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4 - new Vector3(0, 0.1f, 0),
+                charCol.gameObject.transform.position - charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 3 - new Vector3(0, 0.1f, 0),
+                charCol.bounds.extents.y, ground))
+            {
+                return true;
+            }
+        }
         //Debug.Log("NOT GROUND");
+     
         return false;
     }
 
@@ -742,19 +776,59 @@ public class PlayerController : MonoBehaviour
     {
         while (isGrounded())
         {
-            Debug.Log("MOVING");
+            //Debug.Log("MOVING");
             transform.position += Vector3.up * Time.deltaTime;
+        }
+    }
+
+    private void moveToGround()
+    {
+        while (!isGrounded())
+        {
+            //Debug.Log("MOVING");
+            transform.position -= Vector3.up * Time.deltaTime;
         }
     }
 
     void calculateGroundAngle()
     {
-        if (!isGrounded())
+        Debug.DrawRay(charCol.transform.position + playerModel.transform.forward, Vector3.down * (charCol.bounds.extents.y / 2 + 0.2f), Color.yellow);
+        /*if (!isGrounded())
         {
             groundAngle = 90;
             return;
+        }*/
+
+        RaycastHit hit;
+        if(Physics.Raycast(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), Vector3.down, out hit, charCol.bounds.extents.y/2 + slopePadding, ground))
+        {
+            Debug.Log("HITTING GROUND");
+            Debug.DrawRay(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), Vector3.down * hit.distance, Color.yellow);
+            Debug.DrawRay(charCol.gameObject.transform.position + playerModel.transform.forward, Vector3.Cross(hit.normal, playerModel.transform.right) * 1f, Color.blue);
+            groundAngle = Vector3.Angle(hit.normal, Vector3.up);
+            slopeDir = Vector3.Cross(hit.normal, playerModel.transform.right);
+            //Debug.Log("SLOPE: " + slopeDir);
+            if(slopeDir.y > 0 && groundAngle != 0)
+            {
+                Debug.Log("MOVING DOWN");
+                moveToGround();
+            }
+            //Debug.Log("SLOPE: " + slopeDir);
         }
-        //groundAngle = Vector3.Angle(hitinfo.normal, transform.forward);
+        else
+        {
+            if (isGrounded())
+            {
+                Debug.DrawRay(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), Vector3.down * (charCol.bounds.extents.y / 2 + slopePadding), Color.red);
+                Debug.Log("ERROR: ON THE GROUND BUT NOT DETECTING GROUND");
+            }
+            else
+            {
+                groundAngle = 0;
+            }
+        
+        }
+ 
     }
     void OnDrawGizmosSelected()
     {
@@ -762,9 +836,9 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.1f,0), charCol.bounds.extents.y/2);
         Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(-playerModel.transform.forward.x * 0.5f, 0.1f, -playerModel.transform.forward.z * 0.05f), charCol.bounds.extents.z / 2);
+        Gizmos.DrawSphere(charCol.gameObject.transform.position - charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 3 - new Vector3(0, 0.1f, 0), charCol.bounds.extents.y);
         //Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(-playerModel.transform.forward.x * 0.5f, charCol.bounds.extents.y + 0.1f, -playerModel.transform.forward.z * 0.05f), (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4);
-        Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(-playerModel.transform.forward.x * 0.5f, 0.1f, -playerModel.transform.forward.z * 0.05f), (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4);
+        Gizmos.DrawSphere(charCol.gameObject.transform.position - -charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4 - new Vector3(0, 0.1f, 0), charCol.bounds.extents.y);
 
     }
 
