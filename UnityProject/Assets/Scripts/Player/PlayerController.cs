@@ -8,8 +8,9 @@ public class PlayerController : MonoBehaviour
 {
     public enum State { Idle, Flapping, Dashing }
 
-    public float moveSpeed = 15.0f;
-    public float airMoveSpeed = 10.0f;
+    public float moveForce = 1.0f;             //player move force into max move speed
+    public float maxMoveSpeed = 15.0f;         //player's max move speed
+    public float maxAirMoveSpeed = 10.0f;          //player's max air move speed
     [Range(0.0f, 100.0f)]
     public float airDashSpeed = 30.0f;         //how fast you dash in the air
     [Range(0.0f, 100.0f)]
@@ -95,11 +96,17 @@ public class PlayerController : MonoBehaviour
 
     ParticleSystem[] flames;
     public GameObject jetPack;
+    public GameObject freezeTrigger;
 
     private Player player;
     private Animator anim;
 
+    //REMOVE LATER
+
+    public GameObject canvas;
+
     private bool isAiming = false;
+    private bool holdingBlock = false;
 
     private void Awake()
     {
@@ -108,11 +115,12 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         //charCol = GetComponent<Collider>();
         normalDrag = rb.drag;
+
     }
 
     private void Start()
     {
-        flames = jetPack.GetComponentsInChildren<ParticleSystem>();
+        flames = gameObject.GetComponentsInChildren<ParticleSystem>();
         Debug.Log(flames.Length);
 
     }
@@ -123,6 +131,7 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("FIRE: " + emit);
         if (emit)
         {
+            freezeTrigger.SetActive(true);
             for(int i = 0; i < flames.Length; i++)
             {
                 flames[i].Play();
@@ -130,6 +139,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            freezeTrigger.SetActive(false);
             for (int i = 0; i < flames.Length; i++)
             {
                 flames[i].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
@@ -247,6 +257,7 @@ public class PlayerController : MonoBehaviour
             if (player.GetButtonDown("Jump"))
             {
                 dashJump = true;
+                anim.SetBool("Slide", false);
               
             }
         }
@@ -256,7 +267,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //PENGUIN DASH START
-        if (player.GetButtonDown("Slide") && myState != State.Dashing && !hasDashed)
+        if (player.GetButtonDown("Slide") && myState != State.Dashing && !hasDashed && !holdingBlock)
         {
             initDash = true;
         }
@@ -307,7 +318,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log(new Vector3(moveDirection.x, 0, moveDirection.z).magnitude);
             //carry over horizontal momentum on ground
             //Debug.Log("MOVE SPEED: " + moveSpeed);
-            if (new Vector3(moveDirection.x, 0, moveDirection.z).magnitude <= new Vector3(moveSpeed, 0, moveSpeed).magnitude + 0.1f)
+            if (new Vector3(moveDirection.x, 0, moveDirection.z).magnitude <= new Vector3(maxMoveSpeed, 0, maxMoveSpeed).magnitude + 0.1f)
             {
 
                 //rb.drag = normalDrag;
@@ -315,7 +326,10 @@ public class PlayerController : MonoBehaviour
                 if (isGrounded())
                 {
                     //Debug.Log("MOVE VERT: " + vertInput);
-                    moveDirection = (transform.forward * vertInput * moveSpeed) + (transform.right * horiInput * moveSpeed) + new Vector3(0, moveDirection.y, 0);
+                   
+                    Vector3 targetDir = (transform.forward * vertInput * maxMoveSpeed) + (transform.right * horiInput * maxMoveSpeed) + new Vector3(0, moveDirection.y, 0);
+                    moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * Time.deltaTime);
+                       
                     //moveDirection = moveDirection.normalized * moveSpeed;
                 }
                 else
@@ -323,14 +337,15 @@ public class PlayerController : MonoBehaviour
 
                     if (momentumJump && horiInput == 0 && vertInput == 0)
                     {
-                        moveDirection += new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                        //moveDirection += new Vector3(rb.velocity.x, 0, rb.velocity.z);
                         Debug.Log("MOMENTUM: " + moveDirection);
                         //moveDirection.x = rb.velocity.x;
                         //moveDirection.z = rb.velocity.z;
                     }
                     else
                     {
-                        moveDirection = (transform.forward * vertInput * airMoveSpeed) + (transform.right * horiInput * airMoveSpeed) + new Vector3(0, moveDirection.y, 0);
+                        Vector3 targetDir = (transform.forward * vertInput * maxAirMoveSpeed) + (transform.right * horiInput * maxAirMoveSpeed) + new Vector3(0, moveDirection.y, 0);
+                        moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * Time.deltaTime);
                         //moveDirection = moveDirection.normalized * airMoveSpeed;
                     }
 
@@ -349,7 +364,7 @@ public class PlayerController : MonoBehaviour
 
             //Debug.Log("Move Vertical: " + vertInput * moveSpeed);
             //Debug.Log("Move Horizontal : " + horiInput * moveSpeed);
-            if (vertInput * moveSpeed == 0 && horiInput * moveSpeed == 0)
+            if (vertInput * moveForce == 0 && horiInput * moveForce == 0)
             {
                 anim.SetFloat("Speed", 0f);
             }
@@ -467,7 +482,7 @@ public class PlayerController : MonoBehaviour
                     moveDirection.x = rb.velocity.x;
                     moveDirection.z = rb.velocity.z;
                     //Debug.Log("MOVE DIRECTION: " + moveDirection);
-                    if (new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude > moveSpeed + 0.1f)
+                    if (new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude > maxMoveSpeed + 0.1f)
                     {
                         //dash jump with a proportionate height to your horizontal momentum
                         moveDirection.y = jumpForce;
@@ -559,7 +574,7 @@ public class PlayerController : MonoBehaviour
             if (myState != State.Dashing)
             {
                 myState = State.Idle;
-                if (moveDirection.y < maxHoverVelocityY) moveDirection.y += jetpackForce;
+                if (moveDirection.y < maxHoverVelocityY) moveDirection.y += jetpackForce * Time.deltaTime;
                 //Debug.Log("Y: " + moveDirection.y);
             }
             //Hovering while dashing
@@ -690,6 +705,11 @@ public class PlayerController : MonoBehaviour
     public void setIsAiming(bool aim)
     {
         isAiming = aim;
+    }
+
+    public void setHoldingBlock(bool holding)
+    {
+        holdingBlock = holding;
     }
 
     public void rotateTo(Vector3 dir)

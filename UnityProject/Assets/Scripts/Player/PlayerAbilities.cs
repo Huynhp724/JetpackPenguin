@@ -5,7 +5,7 @@ using UnityEngine;
 using Rewired;
 using UnityEngine.UI;
 
-// This script handles any specials non-movemnet abilities such as throwing an ice bomb.
+// This script handles any specials non-movement abilities such as throwing an ice bomb.
 public class PlayerAbilities : MonoBehaviour
 {
     [SerializeField] Transform throwStartPoint;
@@ -29,6 +29,12 @@ public class PlayerAbilities : MonoBehaviour
     [SerializeField] float maxTargetRange = 40f;
     [Tooltip("The UI element that indicates which target is selected.")]
     [SerializeField] RawImage targetPointUI;
+    [SerializeField] Transform grabCastT;
+    [Tooltip("How far from Pluck the player can pick an ice block.")]
+    [SerializeField] float pickUpRange = 3f;
+    [Tooltip("How far and fast a picked up iceblock will be thrown.")]
+    [SerializeField] float blockThrowVelocity = 10f;
+
 
     private float throwVelocity;
     private float throwAngle = 45f;
@@ -45,6 +51,8 @@ public class PlayerAbilities : MonoBehaviour
     private bool isAiming = false;
     private bool hasFirstTarget = false;
     private bool stickHasMoved = false;
+    private Transform heldIceBlock;
+    private float sphereCastRadius;
 
     private void Awake()
     {
@@ -58,11 +66,12 @@ public class PlayerAbilities : MonoBehaviour
     void Update()
     {
         // Press once to aim, press again to exit aiming.
-        if(player.GetButtonDown("Aim Bomb"))
+        if(heldIceBlock == null && player.GetButtonDown("Aim Bomb"))
         {
             isAiming = !isAiming;
         }
 
+        // While aiming
         if (isAiming && playerController.GetCurrentState() != PlayerController.State.Dashing)
         {
             if (targets.Count > 0)
@@ -74,6 +83,7 @@ public class PlayerAbilities : MonoBehaviour
                 AimSnowBombWithArc();
             }
         }
+        // Not aiming
         else
         {
             lineRenderer.UnrenderArc();
@@ -81,7 +91,41 @@ public class PlayerAbilities : MonoBehaviour
             playerController.setIsAiming(false);
             targetPointUI.enabled = false;
             hasFirstTarget = false;
+
+            //Spherecast for an ice block and pick up if button is pressed.
+            RaycastHit iceBlockHit;
+            if (heldIceBlock == null && Physics.SphereCast(grabCastT.position, sphereCastRadius, grabCastT.forward, out iceBlockHit, pickUpRange, LayerMask.GetMask("IceBlock")) && player.GetButtonDown("Throw Bomb"))
+            {
+                pickupIceBlock(iceBlockHit.transform);
+            }
+            //If already holding a block then throw the block if the button is pressed.
+            else if(heldIceBlock != null && player.GetButtonDown("Throw Bomb"))
+            {
+                throwIceBlock();
+            }
         }
+    }
+
+    private void pickupIceBlock(Transform iceblock)
+    {
+        iceblock.position = transform.position + (Vector3.up * 2);
+        iceblock.rotation = grabCastT.rotation;
+        iceblock.SetParent(playerModel.transform);
+        iceblock.GetComponent<Rigidbody>().useGravity = false;
+        iceblock.GetComponent<Rigidbody>().isKinematic = true;
+        heldIceBlock = iceblock;
+        playerController.setHoldingBlock(true);
+    }
+
+    private void throwIceBlock()
+    {
+        Rigidbody iceRB = heldIceBlock.GetComponent<Rigidbody>();
+        iceRB.useGravity = true;
+        iceRB.isKinematic = false;
+        heldIceBlock.SetParent(null);
+        iceRB.velocity = grabCastT.forward * blockThrowVelocity + GetComponent<Rigidbody>().velocity;
+        heldIceBlock = null;
+        playerController.setHoldingBlock(false);
     }
 
     // This function allows the player to aim a snowbomb throw at an object with the targetable script attached to it. Pressing the throw bomb button will throw the bomb directly at the target.

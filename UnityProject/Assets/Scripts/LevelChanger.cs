@@ -12,8 +12,9 @@ public class LevelChanger : MonoBehaviour
 
 
     public string previousLevelName = "", nextLevelName = "";
-    GameObject player;
+    int entryPoint;
     bool needOldLocation = false;
+    bool startFade = false;
     ScreenFader fader;
 
     private void Awake()
@@ -29,13 +30,18 @@ public class LevelChanger : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+    }
+
     void Start()
     {
         fader = GetComponent<ScreenFader>();
     }
 
-    public void SetLevelInfo(string nxtLvl, Vector3 lastScenePosition) {
+    public void SetLevelInfo(string nxtLvl, Vector3 lastScenePosition, int entryValue) {
         nextLevelName = nxtLvl;
+        entryPoint = entryValue;
         
 
         if (previousLevelName == nxtLvl)
@@ -47,13 +53,18 @@ public class LevelChanger : MonoBehaviour
             pos = lastScenePosition;
         }
 
-        NextLevel();
+        StartCoroutine(WaitToFadeOut());
+        //NextLevel();
     }
 
 
     public void NextLevel() {
-        fader.Fade("out");
-        StartCoroutine(LoadScene());
+        //fader.Fade("out");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
+        Destroy(player);
+        //StartCoroutine(LoadScene());
+        StartCoroutine(LoadScenePlacePluck());
     }
 
     IEnumerator LoadScene() {
@@ -63,6 +74,9 @@ public class LevelChanger : MonoBehaviour
         previousLevelName = currentLevelName;
         currentLevelName = nextLevelName;
         nextLevelName = "";
+
+        FindLocation();
+
         if (needOldLocation)
         {
             SetOldLocation();
@@ -76,6 +90,49 @@ public class LevelChanger : MonoBehaviour
 
         fader.Fade("in");
 
+    }
+
+    IEnumerator LoadScenePlacePluck() {
+        SceneManager.LoadScene(nextLevelName);
+        yield return new WaitForSeconds(1f);
+        
+        previousLevelName = currentLevelName;
+        currentLevelName = nextLevelName;
+        nextLevelName = "";
+
+        FindLocation();
+
+        StartCoroutine(WaitToFadeIn());
+
+    }
+
+    IEnumerator WaitToFadeOut() {
+        fader.Fade("out");
+        yield return new WaitForSeconds(2f);
+        NextLevel();
+        
+    }
+
+    IEnumerator WaitToFadeIn()
+    {
+        yield return new WaitForSeconds(2f);
+        fader.Fade("in");
+
+    }
+
+    void FindLocation() {
+        GameObject[] entryDoors = GameObject.FindGameObjectsWithTag("EntryPoint");
+        foreach (GameObject obj in entryDoors) {
+            SceneTransitionTrigger trigger = obj.GetComponent<SceneTransitionTrigger>();
+            Debug.Log(obj.name + " " + obj.transform.localPosition);
+            if (trigger.entryTarget == entryPoint) {
+                Transform transtionTranform = obj.transform.GetChild(0);
+                Debug.Log(obj.transform.localPosition);
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                player.transform.localPosition = transtionTranform.position;
+                
+            }
+        }
     }
 
     void SetOldLocation() {

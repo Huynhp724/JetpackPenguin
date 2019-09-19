@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    public PlayerAttackStats playerAttackStats;
     public int lives;
     public int hitPoints;
 
     int setLives, setHitPoints;
 
-    private static bool playerExists;
+    //private static bool playerExists;
 
     bool isDead =false;
 
@@ -23,15 +24,6 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-        if (!playerExists)
-        {
-            playerExists = true;
-            DontDestroyOnLoad(gameObject);
-        }
-        else {
-            Destroy(gameObject);
-        }
-
         setLives = lives;
         setHitPoints = hitPoints;
     }
