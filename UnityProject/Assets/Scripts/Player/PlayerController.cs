@@ -107,6 +107,7 @@ public class PlayerController : MonoBehaviour
     public GameObject canvas;
 
     private bool isAiming = false;
+    private bool holdingBlock = false;
 
     private void Awake()
     {
@@ -266,7 +267,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //PENGUIN DASH START
-        if (player.GetButtonDown("Slide") && myState != State.Dashing && !hasDashed)
+        if (player.GetButtonDown("Slide") && myState != State.Dashing && !hasDashed && !holdingBlock)
         {
             initDash = true;
         }
@@ -705,6 +706,11 @@ public class PlayerController : MonoBehaviour
     public void setIsAiming(bool aim)
     {
         isAiming = aim;
+    }
+
+    public void setHoldingBlock(bool holding)
+    {
+        holdingBlock = holding;
     }
 
     public void rotateTo(Vector3 dir)

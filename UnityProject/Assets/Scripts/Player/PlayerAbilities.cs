@@ -30,6 +30,7 @@ public class PlayerAbilities : MonoBehaviour
     [Tooltip("The UI element that indicates which target is selected.")]
     [SerializeField] RawImage targetPointUI;
     [SerializeField] Transform grabCastT;
+    [SerializeField] float pickUpRange = 3f;
 
 
     private float throwVelocity;
@@ -48,6 +49,7 @@ public class PlayerAbilities : MonoBehaviour
     private bool hasFirstTarget = false;
     private bool stickHasMoved = false;
     private Transform heldIceBlock;
+    private float sphereCastRadius;
 
     private void Awake()
     {
@@ -86,7 +88,7 @@ public class PlayerAbilities : MonoBehaviour
             hasFirstTarget = false;
 
             RaycastHit iceBlockHit;
-            if (heldIceBlock == null && Physics.Raycast(grabCastT.position, transform.forward, out iceBlockHit, 2f, LayerMask.GetMask("IceBlock")) && player.GetButtonDown("Throw Bomb"))
+            if (heldIceBlock == null && Physics.SphereCast(grabCastT.position, sphereCastRadius, grabCastT.forward, out iceBlockHit, pickUpRange, LayerMask.GetMask("IceBlock")) && player.GetButtonDown("Throw Bomb"))
             {
                 pickupIceBlock(iceBlockHit.transform);
             }
@@ -105,6 +107,7 @@ public class PlayerAbilities : MonoBehaviour
         iceblock.GetComponent<Rigidbody>().useGravity = false;
         iceblock.GetComponent<Rigidbody>().isKinematic = true;
         heldIceBlock = iceblock;
+        playerController.setHoldingBlock(true);
     }
 
     private void throwIceBlock()
@@ -113,6 +116,7 @@ public class PlayerAbilities : MonoBehaviour
         heldIceBlock.GetComponent<Rigidbody>().isKinematic = false;
         heldIceBlock.SetParent(null);
         heldIceBlock = null;
+        playerController.setHoldingBlock(false);
     }
 
     // This function allows the player to aim a snowbomb throw at an object with the targetable script attached to it. Pressing the throw bomb button will throw the bomb directly at the target.
