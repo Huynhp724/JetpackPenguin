@@ -30,7 +30,10 @@ public class PlayerAbilities : MonoBehaviour
     [Tooltip("The UI element that indicates which target is selected.")]
     [SerializeField] RawImage targetPointUI;
     [SerializeField] Transform grabCastT;
+    [Tooltip("How far from Pluck the player can pick an ice block.")]
     [SerializeField] float pickUpRange = 3f;
+    [Tooltip("How far and fast a picked up iceblock will be thrown.")]
+    [SerializeField] float blockThrowVelocity = 10f;
 
 
     private float throwVelocity;
@@ -68,6 +71,7 @@ public class PlayerAbilities : MonoBehaviour
             isAiming = !isAiming;
         }
 
+        // While aiming
         if (isAiming && playerController.GetCurrentState() != PlayerController.State.Dashing)
         {
             if (targets.Count > 0)
@@ -79,6 +83,7 @@ public class PlayerAbilities : MonoBehaviour
                 AimSnowBombWithArc();
             }
         }
+        // Not aiming
         else
         {
             lineRenderer.UnrenderArc();
@@ -87,11 +92,13 @@ public class PlayerAbilities : MonoBehaviour
             targetPointUI.enabled = false;
             hasFirstTarget = false;
 
+            //Spherecast for an ice block and pick up if button is pressed.
             RaycastHit iceBlockHit;
             if (heldIceBlock == null && Physics.SphereCast(grabCastT.position, sphereCastRadius, grabCastT.forward, out iceBlockHit, pickUpRange, LayerMask.GetMask("IceBlock")) && player.GetButtonDown("Throw Bomb"))
             {
                 pickupIceBlock(iceBlockHit.transform);
             }
+            //If already holding a block then throw the block if the button is pressed.
             else if(heldIceBlock != null && player.GetButtonDown("Throw Bomb"))
             {
                 throwIceBlock();
@@ -112,9 +119,11 @@ public class PlayerAbilities : MonoBehaviour
 
     private void throwIceBlock()
     {
-        heldIceBlock.GetComponent<Rigidbody>().useGravity = true;
-        heldIceBlock.GetComponent<Rigidbody>().isKinematic = false;
+        Rigidbody iceRB = heldIceBlock.GetComponent<Rigidbody>();
+        iceRB.useGravity = true;
+        iceRB.isKinematic = false;
         heldIceBlock.SetParent(null);
+        iceRB.velocity = grabCastT.forward * blockThrowVelocity + GetComponent<Rigidbody>().velocity;
         heldIceBlock = null;
         playerController.setHoldingBlock(false);
     }
