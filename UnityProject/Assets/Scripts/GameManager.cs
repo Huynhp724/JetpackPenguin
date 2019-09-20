@@ -32,11 +32,11 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        print(currentController + " is connected.");
+        //print(currentController + " is connected.");
 
         if (currentController.Length == 19) //PS4 is named "Wireless Controller" = 19 chars
         {
-            Debug.Log("Using PS4 Controller");
+            //Debug.Log("Using PS4 Controller");
             jump = "Jump_PS4";
             slide = "Slide_PS4";
             cameraX = "CameraX_PS4";
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour {
         //Then use xbox as default
         else
         {
-            Debug.Log("Using Xbox Controller");
+            //Debug.Log("Using Xbox Controller");
             jump = "Jump";
             slide = "Slide";
             cameraX = "CameraX";
