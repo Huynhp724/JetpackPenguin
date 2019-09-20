@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2694,7 +2694,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1100257293}
-  m_LocalRotation: {x: 0.11383061, y: 0.21728964, z: -0.025521737, w: 0.9691112}
+  m_LocalRotation: {x: 0.11383062, y: 0.21728964, z: -0.025521655, w: 0.9691112}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3209,7 +3209,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1314724158}
-  m_LocalRotation: {x: -0.11250354, y: -0.37222585, z: 0.045512114, w: -0.92017365}
+  m_LocalRotation: {x: -0.11327259, y: -0.3562964, z: 0.04356466, w: -0.926458}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5044,6 +5044,11 @@ PrefabInstance:
       propertyPath: grabCastT
       value: 
       objectReference: {fileID: 510287158}
+    - target: {fileID: 1329826876155729635, guid: 71c8523c786b4314ba51187cd6b69387,
+        type: 3}
+      propertyPath: pickUpRange
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71c8523c786b4314ba51187cd6b69387, type: 3}
 --- !u!1001 &1650652729706248185
