@@ -457,10 +457,12 @@ public class PlayerController : MonoBehaviour
                 //Debug.Log(tempVel.magnitude);
                 if (rb.velocity.magnitude < airDashSpeed * airDashLength)
                 {
+                    Debug.Log("NO Y");
                     //currentSlideSphere.GetComponent<Rigidbody>().useGravity = true;
                     //currentSlideSphere.GetComponent<Rigidbody>().AddForce(new Vector3(0, Physics.gravity.y * gravityScale * dashGravity, 0));
                     //rb.useGravity = true;
-                    rb.AddForce(new Vector3(0, Physics.gravity.y * gravityScale * Time.deltaTime, 0));
+                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + (Physics.gravity.y * gravityScale * Time.deltaTime), rb.velocity.z);
+                    Debug.Log(rb.velocity.y);
                     //rb.drag = normalDrag;
                     //Debug.Log(currentSlideSphere.GetComponent<Rigidbody>().velocity.y);
                 }
@@ -635,9 +637,9 @@ public class PlayerController : MonoBehaviour
         {
             //currentSlideSphere.GetComponent<Rigidbody>().useGravity = true;
             //currentSlideSphere.GetComponent<Rigidbody>().AddForce(new Vector3(0, Physics.gravity.y * gravityScale * dashGravity, 0));
-           
+
             //rb.useGravity = true;
-            rb.AddForce(new Vector3(0, Physics.gravity.y * gravityScale * Time.deltaTime, 0));
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + Physics.gravity.y * gravityScale * Time.deltaTime, rb.velocity.z);
             //rb.drag = normalDrag;
 
             hoverDashRelease = false;
