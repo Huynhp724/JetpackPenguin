@@ -91,7 +91,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 slopeDir;        //direction of slopes
     public Transform pivot;
     public GameObject playerModel;
-    public GameObject feetPivot;
     private Rigidbody rb;
     public Collider charCol;
     public LayerMask ground;
@@ -151,6 +150,7 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log(isGrounded());
         //Debug.Log(myState);
+        Debug.DrawRay(charCol.transform.position, -Vector3.up * (gameObject.GetComponentInChildren<Collider>().bounds.extents.y + 0.1f));
 
         vertInput = player.GetAxis("Move Vertical");
         horiInput = player.GetAxis("Move Horizontal");
@@ -492,9 +492,8 @@ public class PlayerController : MonoBehaviour
             if (dashJump)
             {
 
-                //Quaternion colRotation = charCol.gameObject.transform.rotation;
+                Quaternion colRotation = charCol.gameObject.transform.rotation;
                 charCol.gameObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-                //charCol.gameObject.transform.RotateAround(feetPivot.transform.position, playerModel.transform.right, 90);
                 chargeDashing = false;
 
                 //Destroy(currentSlideSphere);
