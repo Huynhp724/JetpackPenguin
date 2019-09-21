@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        /*
         foreach (string name in Input.GetJoystickNames())
         {
             if (name.Length > 1)
@@ -66,5 +67,6 @@ public class GameManager : MonoBehaviour {
     public void AddFish(int x)
     {
         currentFish += x;
+        fishText.text = "Fish: " + currentFish;
     }
 }
