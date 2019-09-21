@@ -147,8 +147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentFish: 0
-  fishText: {fileID: 0}
-  winText: {fileID: 0}
+  fishText: {fileID: 5632698835597910375}
+  winText: {fileID: 5632698834115407191}
   jump: Jump
   slide: Slide
   cameraX: CameraX
@@ -232,12 +232,12 @@ PrefabInstance:
         type: 3}
       propertyPath: chargeText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5632698835690111338}
     - target: {fileID: 1329826876155729635, guid: 71c8523c786b4314ba51187cd6b69387,
         type: 3}
       propertyPath: targetPointUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5632698835598872233}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71c8523c786b4314ba51187cd6b69387, type: 3}
 --- !u!4 &1895110386273324943 stripped
@@ -411,22 +411,22 @@ PrefabInstance:
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.10293784
+      value: -0.102938175
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.38358316
+      value: -0.38358307
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.043050658
+      value: 0.043050773
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.9167412
+      value: -0.91674125
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858432434212, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
@@ -466,7 +466,7 @@ PrefabInstance:
     - target: {fileID: 8288169857334309961, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_XAxis.m_InvertAxis
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8288169857334309961, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
@@ -488,21 +488,6 @@ PrefabInstance:
       propertyPath: m_Orbits.Array.data[1].m_Radius
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 8288169857764725834, guid: 7a3d376ec22700344b99280ceee408ec,
-        type: 3}
-      propertyPath: m_FollowOffset.y
-      value: 4.947605
-      objectReference: {fileID: 0}
-    - target: {fileID: 8288169857764725834, guid: 7a3d376ec22700344b99280ceee408ec,
-        type: 3}
-      propertyPath: m_FollowOffset.z
-      value: -12.935836
-      objectReference: {fileID: 0}
-    - target: {fileID: 8288169857764725834, guid: 7a3d376ec22700344b99280ceee408ec,
-        type: 3}
-      propertyPath: m_XAxis.m_InvertAxis
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8288169857910625143, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_TrackedObjectOffset.y
@@ -521,7 +506,22 @@ PrefabInstance:
     - target: {fileID: 8288169857910625140, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_XAxis.m_InvertAxis
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288169857764725834, guid: 7a3d376ec22700344b99280ceee408ec,
+        type: 3}
+      propertyPath: m_FollowOffset.y
+      value: 4.947605
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288169857764725834, guid: 7a3d376ec22700344b99280ceee408ec,
+        type: 3}
+      propertyPath: m_FollowOffset.z
+      value: -12.935836
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288169857764725834, guid: 7a3d376ec22700344b99280ceee408ec,
+        type: 3}
+      propertyPath: m_XAxis.m_InvertAxis
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858470623526, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
@@ -536,7 +536,7 @@ PrefabInstance:
     - target: {fileID: 8288169858470623526, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_XAxis.m_InvertAxis
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a3d376ec22700344b99280ceee408ec, type: 3}
@@ -691,6 +691,54 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3761876747983609018}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5632698835690111338 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8799896542036991440, guid: 0a79ca57679f6144e9a0e761e1c8b871,
+    type: 3}
+  m_PrefabInstance: {fileID: 3761876747983609018}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5632698835597910375 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8799896541944659421, guid: 0a79ca57679f6144e9a0e761e1c8b871,
+    type: 3}
+  m_PrefabInstance: {fileID: 3761876747983609018}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5632698834115407191 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8799896540461789677, guid: 0a79ca57679f6144e9a0e761e1c8b871,
+    type: 3}
+  m_PrefabInstance: {fileID: 3761876747983609018}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5632698835598872233 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8799896541947875859, guid: 0a79ca57679f6144e9a0e761e1c8b871,
+    type: 3}
+  m_PrefabInstance: {fileID: 3761876747983609018}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7011299947796424964
 PrefabInstance:
   m_ObjectHideFlags: 0
