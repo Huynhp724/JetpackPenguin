@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2416177111458552270}
   m_LocalRotation: {x: 0.028469961, y: 0.96541935, z: 0.0847569, w: 0.2448903}
   m_LocalPosition: {x: 114.73195, y: -11.378417, z: 139.0566}
-  m_LocalScale: {x: 1.0587224, y: 1.0587224, z: 0.86777663}
+  m_LocalScale: {x: 1.1777228, y: 1.0587224, z: 0.86777663}
   m_Children:
   - {fileID: 5939761230174560625}
   - {fileID: 5939761229273319865}
@@ -104,12 +104,12 @@ PrefabInstance:
     - target: {fileID: 6810205671267932941, guid: 248b445ca4b73e74f957e416f983b05a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.79
+      value: 0.39
       objectReference: {fileID: 0}
     - target: {fileID: 6810205671267932941, guid: 248b445ca4b73e74f957e416f983b05a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.78
+      value: 2.08
       objectReference: {fileID: 0}
     - target: {fileID: 7942737929118864188, guid: 248b445ca4b73e74f957e416f983b05a,
         type: 3}
@@ -136,11 +136,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AA_CliffWall03_CT (1)
       objectReference: {fileID: 0}
-    - target: {fileID: -8023733359516586618, guid: 61f7cc9484f97e54c9232852edc5a0ac,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 68df310e7a32a2d44a43d62bc1c3edf5, type: 2}
     - target: {fileID: -4216859302048453862, guid: 61f7cc9484f97e54c9232852edc5a0ac,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -206,6 +201,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.86
       objectReference: {fileID: 0}
+    - target: {fileID: -8023733359516586618, guid: 61f7cc9484f97e54c9232852edc5a0ac,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 68df310e7a32a2d44a43d62bc1c3edf5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61f7cc9484f97e54c9232852edc5a0ac, type: 3}
 --- !u!4 &5939761229614597287 stripped
@@ -281,11 +281,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -157825318150610632, guid: 6a4dfcf54353b5b4c944bac01c1b4fa7,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 26d4e63405d5c6a4aaebce55ee14b377, type: 2}
     - target: {fileID: 6985287465494735213, guid: 6a4dfcf54353b5b4c944bac01c1b4fa7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -301,6 +296,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.883
       objectReference: {fileID: 0}
+    - target: {fileID: -157825318150610632, guid: 6a4dfcf54353b5b4c944bac01c1b4fa7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 26d4e63405d5c6a4aaebce55ee14b377, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a4dfcf54353b5b4c944bac01c1b4fa7, type: 3}
 --- !u!4 &5939761230174560625 stripped
@@ -321,11 +321,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AA_CliffWall04_CT
       objectReference: {fileID: 0}
-    - target: {fileID: -7429494897165829546, guid: 22261b6be8957ec48aa83861d4f875a2,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 68df310e7a32a2d44a43d62bc1c3edf5, type: 2}
     - target: {fileID: -4216859302048453862, guid: 22261b6be8957ec48aa83861d4f875a2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -401,6 +396,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 1.181
       objectReference: {fileID: 0}
+    - target: {fileID: -7429494897165829546, guid: 22261b6be8957ec48aa83861d4f875a2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 68df310e7a32a2d44a43d62bc1c3edf5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22261b6be8957ec48aa83861d4f875a2, type: 3}
 --- !u!4 &5939761230558872604 stripped
