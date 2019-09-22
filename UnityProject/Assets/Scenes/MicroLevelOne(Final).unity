@@ -11145,12 +11145,12 @@ PrefabInstance:
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 148.2
+      value: 147.93
       objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.44
+      value: -2.03
       objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
@@ -11200,12 +11200,12 @@ PrefabInstance:
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 13.5888
+      value: 10.08126
       objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 9.279
+      value: 5.980965
       objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046815, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
@@ -23932,6 +23932,7 @@ MonoBehaviour:
   dialogueText: {fileID: 702436764}
   nameText: {fileID: 81398337}
   playerInteraction: {fileID: 0}
+  printLetterTime: 0
   typingClips:
   - {fileID: 8300000, guid: bc4ca80dc76de514a9cfb6809fcc03b3, type: 3}
 --- !u!222 &1335051882
