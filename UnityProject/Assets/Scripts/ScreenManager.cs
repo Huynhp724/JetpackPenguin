@@ -124,9 +124,10 @@ public class ScreenManager : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
-
         if (wantToClose)
+        {
             anim.gameObject.SetActive(false);
+        }
     }
 
     //Make the provided GameObject selected
