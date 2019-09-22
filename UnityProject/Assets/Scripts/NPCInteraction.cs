@@ -113,6 +113,9 @@ public class NPCInteraction : MonoBehaviour
     bool RotateTowards()
     {
         rotationCheck = Quaternion.LookRotation(targetObject.transform.position - parentObject.transform.position);
+        Vector3 newVector = rotationCheck.eulerAngles;
+        rotationCheck = Quaternion.Euler(0f, newVector.y, newVector.z);
+        
 
         parentObject.transform.rotation = Quaternion.Slerp(parentObject.transform.rotation, rotationCheck, rotationSpeed * Time.deltaTime);
 

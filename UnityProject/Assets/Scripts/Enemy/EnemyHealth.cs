@@ -6,11 +6,12 @@ public class EnemyHealth : MonoBehaviour
 {
     public EnemyStats stats;
     public Transform squishPosition;
+    public GameObject freezedStatePrefab;
 
     [HideInInspector] public bool isFreezing = false;
 
-    [SerializeField] int hp;
-    bool isDead;
+    int hp;
+    bool isDead, freezing;
     float maxTimer, timer;
 
     
@@ -48,6 +49,7 @@ public class EnemyHealth : MonoBehaviour
             if (timer <= 0f) {
                 LoseHp();
                 timer = maxTimer;
+                
             }
         }
 
@@ -62,8 +64,16 @@ public class EnemyHealth : MonoBehaviour
             else {
                 hp = 0;
                 isDead = true;
-                Debug.Log("Squished");
-                Destroy(gameObject);
+
+                if (isFreezing)
+                {
+                    CreateIceBlock();
+                    LoseLife();
+                }
+                else
+                {
+                    LoseLife();
+                }
             }
         }
     }
@@ -72,11 +82,18 @@ public class EnemyHealth : MonoBehaviour
         Destroy(gameObject);
     }
 
+    void CreateIceBlock() {
+        GameObject newObj = Instantiate(freezedStatePrefab, transform);
+        newObj.transform.parent = null;
+        newObj.transform.localPosition = transform.localPosition;
+    }
+
     public void SetFreeze(bool freeze) {
         isFreezing = freeze;
 
-        if (!freeze) {
-            timer = maxTimer;
-        }
+    }
+
+    public void IsSquished() {
+        Destroy(gameObject);
     }
 }
