@@ -98,9 +98,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.75800997, g: 0.9622642, b: 0.80973923, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.75800997, g: 0.9622642, b: 0.80973923, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 76.35
+  m_fontSize: 76.6
   m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -545,9 +545,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.75800997, g: 0.9622642, b: 0.80973923, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.75800997, g: 0.9622642, b: 0.80973923, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -802,9 +802,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.75800997, g: 0.9622642, b: 0.80973923, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.75800997, g: 0.9622642, b: 0.80973923, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1093,7 +1093,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 0
   m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!82 &929886251
 AudioSource:
@@ -1235,6 +1235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0260d78ad477b0f44bccd70ca0cda800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventSystem: {fileID: 0}
   initiallyOpen: {fileID: 0}
 --- !u!114 &1161001028
 MonoBehaviour:
@@ -1249,6 +1250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 776095646}
+  optionsMenu: {fileID: 0}
 --- !u!1 &1298656664
 GameObject:
   m_ObjectHideFlags: 0
@@ -2377,11 +2379,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8799896540758015865}
     m_Modifications:
-    - target: {fileID: 1650652731570171402, guid: 7671626152fda9d4faf99cb590032dbe,
-        type: 3}
-      propertyPath: m_Name
-      value: Target Point
-      objectReference: {fileID: 0}
     - target: {fileID: 1650652731570171405, guid: 7671626152fda9d4faf99cb590032dbe,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2486,6 +2483,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650652731570171402, guid: 7671626152fda9d4faf99cb590032dbe,
+        type: 3}
+      propertyPath: m_Name
+      value: Target Point
       objectReference: {fileID: 0}
     - target: {fileID: 1650652731570171404, guid: 7671626152fda9d4faf99cb590032dbe,
         type: 3}

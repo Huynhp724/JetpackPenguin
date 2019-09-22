@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7279781701267934264}
   - component: {fileID: 3154855273863225495}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: HeadCollider
   m_TagString: Head
   m_Icon: {fileID: 0}
@@ -713,7 +713,7 @@ GameObject:
   - component: {fileID: 8546721067342167756}
   - component: {fileID: 8546721067342167759}
   - component: {fileID: 8546721067342167760}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: PF_Baby_Seal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -780,6 +780,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 0404cc32bd1ab104d89001339309172b, type: 2}
   squishPosition: {fileID: 8546721066365232074}
+  freezedStatePrefab: {fileID: 5623452744358927494, guid: ca878f07a3b129747b36b9d0770ad0ac,
+    type: 3}
+  isFreezing: 0
 --- !u!114 &8546721067342167756
 MonoBehaviour:
   m_ObjectHideFlags: 0

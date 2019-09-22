@@ -727,6 +727,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Head") && (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")))
+        {
+            //Debug.Log("Landed on an enemy");
+            EnemyHealth enemyHealth = collision.gameObject.GetComponentInParent<EnemyHealth>();
+            enemyHealth.IsSquished();
+            BouncePluck();
+
+        }
+        else if (collision.collider.CompareTag("Head") && (collision.gameObject.layer == LayerMask.NameToLayer("NPC"))) {
+            Debug.Log("Landed on an npc");
+            BouncePluck();
+        }
+    }
+
+    void BouncePluck() {
+        anim.SetTrigger("Jump");
+        rb.AddForce(Vector3.up * 300f, ForceMode.Impulse);
+    }
+
     public State GetCurrentState()
     {
         return myState;
@@ -775,6 +796,30 @@ public class PlayerController : MonoBehaviour
         }
         //Debug.Log("NOT GROUND");
      
+        return false;
+    }
+
+    public bool CheckIsGrounded()
+    {
+        //Debug.DrawRay(charCol.gameObject.transform.position, -Vector3.up * (charCol.bounds.extents.y + 0.1f));
+        if (myState != State.Dashing)
+        {
+            if (Physics.CheckSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.1f, 0), charCol.bounds.extents.y / 2, ground))
+            {
+                return true;
+            }
+        }
+        else
+        {
+            if (Physics.CheckCapsule(charCol.gameObject.transform.position - -charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4 - new Vector3(0, 0.1f, 0),
+                charCol.gameObject.transform.position - charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 3 - new Vector3(0, 0.1f, 0),
+                charCol.bounds.extents.y, ground))
+            {
+                return true;
+            }
+        }
+        //Debug.Log("NOT GROUND");
+
         return false;
     }
 
