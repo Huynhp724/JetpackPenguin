@@ -732,9 +732,9 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.CompareTag("Head") && (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")))
         {
             //Debug.Log("Landed on an enemy");
-            //EnemyHealth enemyHealth = collision.gameObject.GetComponentInParent<EnemyHealth>();
-            //enemyHealth.IsSquished();
-            //BouncePluck();
+            EnemyHealth enemyHealth = collision.gameObject.GetComponentInParent<EnemyHealth>();
+            enemyHealth.IsSquished();
+            BouncePluck();
 
         }
         else if (collision.collider.CompareTag("Head") && (collision.gameObject.layer == LayerMask.NameToLayer("NPC"))) {
