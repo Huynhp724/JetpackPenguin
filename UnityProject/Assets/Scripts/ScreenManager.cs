@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class ScreenManager : MonoBehaviour
 {
     public EventSystem eventSystem;
+    public GameObject essentials;
 
     //Screen to open automatically at the start of the Scene
     public Animator initiallyOpen;
@@ -79,6 +80,7 @@ public class ScreenManager : MonoBehaviour
     public void LoadLevel(string levelName)
     {
         SceneManager.LoadScene(levelName);
+        Destroy(essentials);
     }
 
     public void QuitGame()
