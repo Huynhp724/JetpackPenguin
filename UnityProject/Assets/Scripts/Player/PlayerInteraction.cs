@@ -38,7 +38,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             if ((player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.Q)) &&
                 (playerController.GetCurrentState() != PlayerController.State.Dashing) && 
-                (playerController.GetCurrentState() != PlayerController.State.Flapping) && (playerController.CheckIsGrounded()))
+                (playerController.GetCurrentState() != PlayerController.State.Flapping) && (playerController.onGround))
             {
                 EnablePlayerController(false);
                 npcInInteraction.SendDialogeInfo();
