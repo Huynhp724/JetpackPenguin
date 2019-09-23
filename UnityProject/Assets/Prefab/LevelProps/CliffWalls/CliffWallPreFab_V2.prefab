@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7808461858449363050}
+  - component: {fileID: 7292501171090651332}
   m_Layer: 0
   m_Name: CliffWallPreFab_V2
   m_TagString: Untagged
@@ -34,6 +35,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -8.610001, y: 151.11101, z: 5.6000004}
+--- !u!65 &7292501171090651332
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2416177111458552270}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.2790647, y: 11.918465, z: 1.6543086}
+  m_Center: {x: 0.37450713, y: -0.6525475, z: 0.32715774}
 --- !u!1001 &1663219766017450659
 PrefabInstance:
   m_ObjectHideFlags: 0
