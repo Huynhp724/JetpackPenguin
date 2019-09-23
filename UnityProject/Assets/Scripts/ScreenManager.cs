@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class ScreenManager : MonoBehaviour
 {
+    public EventSystem eventSystem;
+    public GameObject essentials;
 
     //Screen to open automatically at the start of the Scene
     public Animator initiallyOpen;
@@ -64,9 +66,21 @@ public class ScreenManager : MonoBehaviour
         SetSelected(go);
     }
 
+    public void OpenPanelBasic(GameObject panel)
+    {
+        eventSystem.firstSelectedGameObject = panel.GetComponentInChildren<Button>().gameObject;
+        panel.SetActive(true);
+    }
+
+    public void ClosePanelBasic(GameObject panel)
+    {
+        panel.SetActive(false);
+    }
+
     public void LoadLevel(string levelName)
     {
         SceneManager.LoadScene(levelName);
+        Destroy(essentials);
     }
 
     public void QuitGame()
@@ -124,9 +138,10 @@ public class ScreenManager : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
-
         if (wantToClose)
+        {
             anim.gameObject.SetActive(false);
+        }
     }
 
     //Make the provided GameObject selected

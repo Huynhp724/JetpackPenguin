@@ -5,7 +5,7 @@ using BehaviorDesigner.Runtime;
 
 public class Seal : MonoBehaviour
 {
-    public GameObject player;
+    GameObject player;
     public float goBackToPathAfterDistance;
 
     bool keepTrackOfDistnace = false;
@@ -19,6 +19,7 @@ public class Seal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         bTree = GetComponentInParent<BehaviorTree>();
         parentObject = gameObject.transform.parent;
     }
