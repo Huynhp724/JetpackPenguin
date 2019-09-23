@@ -35,4 +35,10 @@ public class PlayerStats : MonoBehaviour
         
     }
 
+    public float getHealthPercent()
+    {
+        float hpPercent = hitPoints;
+        return hpPercent / setHitPoints;
+    }
+
 }

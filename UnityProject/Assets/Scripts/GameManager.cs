@@ -67,6 +67,6 @@ public class GameManager : MonoBehaviour {
     public void AddFish(int x)
     {
         currentFish += x;
-        fishText.text = "Fish: " + currentFish;
+        fishText.text = "Crystals: " + currentFish;
     }
 }
