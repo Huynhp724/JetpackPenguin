@@ -162,6 +162,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("IS GROUND");
             hasDashed = false;
             hasDoubleJump = true;
+            calculateGroundAngle();
             if (myState == State.Flapping)
             {
                 holdFlapping = false;
@@ -320,7 +321,6 @@ public class PlayerController : MonoBehaviour
             if (new Vector3(moveDirection.x, 0, moveDirection.z).magnitude <= new Vector3(maxMoveSpeed, 0, maxMoveSpeed).magnitude + 0.1f)
             {
                 //Calculate slope angle if on ground
-                calculateGroundAngle();
                 //rb.drag = normalDrag;
                 //Debug.Log("DON'T CARRY OVER");
                 if (isGrounded())
@@ -348,7 +348,7 @@ public class PlayerController : MonoBehaviour
                         //Vector3 tempDir = Vector3.Cross(slopeDir, targetDir);
                         //targetDir = tempDir * maxMoveSpeed;
                     }
-                    moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * Time.deltaTime);
+                    moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * Time.fixedDeltaTime);
                        
                     //moveDirection = moveDirection.normalized * moveSpeed;
                 }
@@ -365,7 +365,7 @@ public class PlayerController : MonoBehaviour
                     else
                     {
                         Vector3 targetDir = (transform.forward * vertInput * maxAirMoveSpeed) + (transform.right * horiInput * maxAirMoveSpeed) + new Vector3(0, moveDirection.y, 0);
-                        moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * Time.deltaTime);
+                        moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * Time.fixedDeltaTime);
                         //moveDirection = moveDirection.normalized * airMoveSpeed;
                     }
 
@@ -446,7 +446,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (holdFlapping)
                 {
-                    moveDirection.y -= Physics.gravity.y * gravityScale * flapStrength * Time.deltaTime;
+                    moveDirection.y -= Physics.gravity.y * gravityScale * flapStrength * Time.fixedDeltaTime;
                     holdFlapping = false;
                 }
             }
@@ -461,8 +461,8 @@ public class PlayerController : MonoBehaviour
                     //currentSlideSphere.GetComponent<Rigidbody>().useGravity = true;
                     //currentSlideSphere.GetComponent<Rigidbody>().AddForce(new Vector3(0, Physics.gravity.y * gravityScale * dashGravity, 0));
                     //rb.useGravity = true;
-                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + (Physics.gravity.y * gravityScale * Time.deltaTime), rb.velocity.z);
-                    Debug.Log(rb.velocity.y);
+                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + (Physics.gravity.y * gravityScale * Time.fixedDeltaTime), rb.velocity.z);
+                    Debug.Log(Physics.gravity.y * gravityScale * Time.fixedDeltaTime);
                     //rb.drag = normalDrag;
                     //Debug.Log(currentSlideSphere.GetComponent<Rigidbody>().velocity.y);
                 }
@@ -478,13 +478,13 @@ public class PlayerController : MonoBehaviour
             if (rb.velocity.magnitude >= minLeanVelocity)
             {
 
-                rb.AddForce(playerModel.transform.right * leanForce * horiInput * Time.deltaTime);
+                rb.AddForce(playerModel.transform.right * leanForce * horiInput * Time.fixedDeltaTime);
 
             }
             else
             {
                 //Allows player to control the direction they're facing
-                transform.RotateAround(transform.position, playerModel.transform.up, horiInput * turningForce * Time.deltaTime);
+                transform.RotateAround(transform.position, playerModel.transform.up, horiInput * turningForce * Time.fixedDeltaTime);
                 //rb.drag = normalDrag;
             }
 
@@ -539,11 +539,11 @@ public class PlayerController : MonoBehaviour
             //charCol.gameObject.transform.rotation = Quaternion.Slerp(charCol.gameObject.transform.rotation, Quaternion.Euler(colRotation.eulerAngles.x + 90, colRotation.eulerAngles.y, colRotation.eulerAngles.z), rotateSpeed);
             if (slopeDir.y > 0)
             {
-                charCol.gameObject.transform.RotateAround(charCol.transform.position, playerModel.transform.right, 90 + groundAngle);
+                charCol.gameObject.transform.RotateAround(charCol.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), playerModel.transform.right, 90 + groundAngle);
             }
             else
             {
-                charCol.gameObject.transform.RotateAround(charCol.transform.position, playerModel.transform.right, 90 - groundAngle);
+                charCol.gameObject.transform.RotateAround(charCol.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), playerModel.transform.right, 90 - groundAngle);
             }
 
             /*currentSlideSphere = Instantiate(slideSphere, transform.position, Quaternion.identity);
@@ -575,11 +575,11 @@ public class PlayerController : MonoBehaviour
             {
                 if (isGrounded())
                 {
-                    rb.AddForce(playerModel.transform.forward * dashSpeed, ForceMode.Impulse);
+                    rb.AddForce(charCol.transform.up * dashSpeed, ForceMode.Impulse);
                 }
                 else
                 {
-                    rb.AddForce(playerModel.transform.forward * airDashSpeed, ForceMode.Impulse);
+                    rb.AddForce(charCol.transform.up * airDashSpeed, ForceMode.Impulse);
                     //rb.useGravity = false;
 
                 }
@@ -604,18 +604,18 @@ public class PlayerController : MonoBehaviour
             {
                 moveOffGround();
                 myState = State.Idle;
-                if (moveDirection.y < maxHoverVelocityY) moveDirection.y += jetpackForce * Time.deltaTime;
+                if (moveDirection.y < maxHoverVelocityY) moveDirection.y += jetpackForce * Time.fixedDeltaTime;
                 //Debug.Log("Y: " + moveDirection.y);
             }
             //Hovering while dashing
             else
             {
-                rb.AddForce(playerModel.transform.right * steeringForce * horiInput * Time.deltaTime);
+                rb.AddForce(playerModel.transform.right * steeringForce * horiInput * Time.fixedDeltaTime);
 
                 if (new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude <= maxHoverVelocityX)
                 {
                     //Debug.Log(new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude);
-                    rb.AddForce(charCol.transform.up * jetpackForce * hoverDashScale * Time.deltaTime, ForceMode.Impulse);
+                    rb.AddForce(charCol.transform.up * jetpackForce * hoverDashScale * Time.fixedDeltaTime, ForceMode.Impulse);
                 }
                 else
                 {
@@ -623,8 +623,8 @@ public class PlayerController : MonoBehaviour
                     rb.velocity = Vector3.ClampMagnitude(new Vector3(rb.velocity.x, 0, rb.velocity.z), maxHoverVelocityX) + new Vector3(0, rb.velocity.y, 0);
                 }
 
-                transform.RotateAround(transform.position, playerModel.transform.up, horiInput * turningForce * Time.deltaTime);
-                //moveDirection.y -= Physics.gravity.y * gravityScale * Time.deltaTime;
+                transform.RotateAround(transform.position, playerModel.transform.up, horiInput * turningForce * Time.fixedDeltaTime);
+                //moveDirection.y -= Physics.gravity.y * gravityScale * Time.fixedDeltaTime;
                 //rb.useGravity = false;
                 //rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             }
@@ -638,7 +638,7 @@ public class PlayerController : MonoBehaviour
             //currentSlideSphere.GetComponent<Rigidbody>().AddForce(new Vector3(0, Physics.gravity.y * gravityScale * dashGravity, 0));
 
             //rb.useGravity = true;
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + Physics.gravity.y * gravityScale * Time.deltaTime, rb.velocity.z);
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + Physics.gravity.y * gravityScale * Time.fixedDeltaTime, rb.velocity.z);
             //rb.drag = normalDrag;
 
             hoverDashRelease = false;
@@ -689,7 +689,8 @@ public class PlayerController : MonoBehaviour
         }
 
         //Add Gravity
-        moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
+        moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.fixedDeltaTime);
+        //Debug.Log(Physics.gravity.y * gravityScale * Time.fixedDeltaTime);
 
         // Move the controller
         if (myState == State.Dashing)
@@ -699,7 +700,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (!onLedge)
         {
-            //controller.Move(moveDirection * Time.deltaTime);
+            //controller.Move(moveDirection * Time.fixedDeltaTime);
             rb.velocity = moveDirection;
             //SET LIMITS ON MAX HOVER VELOCITY
             //Debug.Log(rb.velocity.y);
@@ -766,7 +767,7 @@ public class PlayerController : MonoBehaviour
     public void rotateTo(Vector3 dir)
     {
         Quaternion newRotation = Quaternion.LookRotation(dir);
-        playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
+        playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.fixedDeltaTime);
     }
 
     public void rotateTo(Vector3 dir, float speed)
@@ -829,7 +830,7 @@ public class PlayerController : MonoBehaviour
         while (isGrounded())
         {
             //Debug.Log("MOVING");
-            transform.position += Vector3.up * Time.deltaTime;
+            transform.position += Vector3.up * Time.fixedDeltaTime;
         }
     }
 
@@ -838,7 +839,7 @@ public class PlayerController : MonoBehaviour
         while (!isGrounded())
         {
             //Debug.Log("MOVING");
-            transform.position -= Vector3.up * Time.deltaTime;
+            transform.position -= Vector3.up * Time.fixedDeltaTime;
         }
     }
 
