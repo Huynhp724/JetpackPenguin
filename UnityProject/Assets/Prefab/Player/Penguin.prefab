@@ -386,7 +386,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1354065d323455e4db821954430fd335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minorCheckPoints: {fileID: 0}
   rootModelObj: {fileID: 21075786319331486}
   invincibilityFrames: 3
   respawnTime: 2
@@ -458,7 +457,9 @@ MonoBehaviour:
   dashGravity: 1
   gravityScale: 5
   slopePadding: 0.5
+  wallPadding: 0.3
   antiBump: 1
+  clingTime: 1
   groundAngle: 0
   maxGroundAngle: 0
   myState: 0
@@ -475,7 +476,10 @@ MonoBehaviour:
   charCol: {fileID: 102793626}
   ground:
     serializedVersion: 2
-    m_Bits: 4097
+    m_Bits: 12289
+  walls:
+    serializedVersion: 2
+    m_Bits: 1
   chargeText: {fileID: 0}
   jetPack: {fileID: 1329826877457266954}
   freezeTrigger: {fileID: 4734986861262612753}
@@ -505,7 +509,7 @@ MonoBehaviour:
   targetPointUI: {fileID: 0}
   grabCastT: {fileID: 1329826877476597607}
   pickUpRange: 3
-  blockThrowVelocity: 10
+  blockThrowVelocity: 30
 --- !u!54 &5484457912418153956
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10884,11 +10888,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: 423d42bf0a79ad44eb961db66ca1f56f,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: d760e70f0bfaaf442b946036965ca537, type: 2}
     - target: {fileID: -4216859302048453862, guid: 423d42bf0a79ad44eb961db66ca1f56f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10944,6 +10943,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d760e70f0bfaaf442b946036965ca537, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 423d42bf0a79ad44eb961db66ca1f56f, type: 3}
 --- !u!4 &7154247248217758105 stripped
