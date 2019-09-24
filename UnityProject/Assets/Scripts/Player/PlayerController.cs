@@ -783,7 +783,8 @@ public class PlayerController : MonoBehaviour
 
     void BouncePluck() {
         anim.SetTrigger("Jump");
-        rb.AddForce(Vector3.up * 300f, ForceMode.Impulse);
+        moveDirection.y = jumpForce;
+        hasDoubleJump = true;
     }
 
     public State GetCurrentState()
@@ -887,7 +888,7 @@ public class PlayerController : MonoBehaviour
             perpDir = hit.normal;
             slopeDir = Vector3.Cross(hit.normal, charCol.transform.right);
             //Debug.DrawRay(charCol.gameObject.transform.position + playerModel.transform.forward, Vector3.Cross(hit.normal, charCol.transform.right) * 3f, Color.red);
-            Debug.Log("SLOPE: " + slopeDir.y);
+            //Debug.Log("SLOPE: " + slopeDir.y);
             if (slopeDir.y > 0 && groundAngle != 0 && groundAngle < maxGroundAngle && !jumping)
             {
                 //Debug.Log("MOVING DOWN");
