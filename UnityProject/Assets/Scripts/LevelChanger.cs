@@ -11,7 +11,7 @@ public class LevelChanger : MonoBehaviour
     public static LevelChanger Instance { get; private set; }
 
 
-    public string previousLevelName = "", nextLevelName = "";
+    public string nextLevelName = "";
     int entryPoint;
     bool needOldLocation = false;
     bool startFade = false;
@@ -30,10 +30,6 @@ public class LevelChanger : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-    }
-
     void Start()
     {
         fader = GetComponent<ScreenFader>();
@@ -42,16 +38,7 @@ public class LevelChanger : MonoBehaviour
     public void SetLevelInfo(string nxtLvl, Vector3 lastScenePosition, int entryValue) {
         nextLevelName = nxtLvl;
         entryPoint = entryValue;
-        
-
-        if (previousLevelName == nxtLvl)
-        {
-            needOldLocation = true;
-            Debug.Log("Next is the same as previous scene");
-        }
-        else {
-            pos = lastScenePosition;
-        }
+        Debug.Log("Entry point is: " + entryValue);
 
         StartCoroutine(WaitToFadeOut());
         //NextLevel();
@@ -60,9 +47,9 @@ public class LevelChanger : MonoBehaviour
 
     public void NextLevel() {
         //fader.Fade("out");
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
-        Destroy(player);
+       // GameObject player = GameObject.FindGameObjectWithTag("Player");
+        //GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
+        //Destroy(player);
         //StartCoroutine(LoadScene());
         StartCoroutine(LoadScenePlacePluck());
     }
@@ -71,22 +58,8 @@ public class LevelChanger : MonoBehaviour
         //pos = gameObject.transform.position;
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(nextLevelName);
-        previousLevelName = currentLevelName;
-        currentLevelName = nextLevelName;
-        nextLevelName = "";
 
         FindLocation();
-
-        if (needOldLocation)
-        {
-            SetOldLocation();
-        }
-        else
-        {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.transform.position = newPos;
-            Debug.Log("position has been set");
-        }
 
         fader.Fade("in");
 
@@ -95,10 +68,6 @@ public class LevelChanger : MonoBehaviour
     IEnumerator LoadScenePlacePluck() {
         SceneManager.LoadScene(nextLevelName);
         yield return new WaitForSeconds(1f);
-        
-        previousLevelName = currentLevelName;
-        currentLevelName = nextLevelName;
-        nextLevelName = "";
 
         FindLocation();
 
@@ -133,11 +102,5 @@ public class LevelChanger : MonoBehaviour
                 
             }
         }
-    }
-
-    void SetOldLocation() {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        player.transform.position = pos;
-        Debug.Log("position has been set");
     }
 }

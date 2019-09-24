@@ -6,7 +6,7 @@ using BehaviorDesigner.Runtime;
 
 public class PathFollower : MonoBehaviour
 {
-    public float speed;
+    float speed;
     public PathCreator pathCreator;
     public bool followPath = true;
 
@@ -14,10 +14,13 @@ public class PathFollower : MonoBehaviour
 
     float distanceTraveled;
     BehaviorTree bTree;
+    EnemyHealth health;
     // Start is called before the first frame update
     void Start()
     {
-        bTree = GetComponent<BehaviorTree>();   
+        bTree = GetComponent<BehaviorTree>();
+        health = GetComponent<EnemyHealth>();
+        speed = health.stats.speed;
     }
 
     // Update is called once per frame
@@ -36,8 +39,7 @@ public class PathFollower : MonoBehaviour
         }
     }
 
-    public void SetFollowPath(float newSpeed, bool follow) {
-        speed = newSpeed;
+    public void SetFollowPath(bool follow) {
         followPath = follow;
     }
 

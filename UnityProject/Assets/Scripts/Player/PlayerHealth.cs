@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public GameObject minorCheckPoints;
+    
     public GameObject rootModelObj;
     public float invincibilityFrames;
     public float respawnTime;
 
     bool isInvincible = false;
+    GameObject minorCheckPoints;
 
     PlayerStats stats;
     ScreenFader fader;
@@ -36,6 +37,14 @@ public class PlayerHealth : MonoBehaviour
             flick.SwitchAllRenderers(false);
             stats.ResetStats();
             FindMajorCheckpoint();
+        }
+
+        if (minorCheckPoints == null) {
+            try
+            {
+                minorCheckPoints = GameObject.FindGameObjectWithTag("MinorCheckpoint");
+            }
+            catch { }
         }
     }
 
