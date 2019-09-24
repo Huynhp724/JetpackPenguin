@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public GameObject minorCheckPoints;
+    
     public GameObject rootModelObj;
     public float invincibilityFrames;
     public float respawnTime;
 
     bool isInvincible = false;
+    GameObject minorCheckPoints;
 
     PlayerStats stats;
     ScreenFader fader;
@@ -36,6 +37,14 @@ public class PlayerHealth : MonoBehaviour
             flick.SwitchAllRenderers(false);
             stats.ResetStats();
             FindMajorCheckpoint();
+        }
+
+        if (minorCheckPoints == null) {
+            try
+            {
+                minorCheckPoints = GameObject.FindGameObjectWithTag("MinorCheckpoint");
+            }
+            catch { }
         }
     }
 
@@ -84,6 +93,7 @@ public class PlayerHealth : MonoBehaviour
                     stats.lives -= 1;
                     stats.hitPoints = 3;
                     flick.SetFlickering();
+                    FindClosestMinorCheckpoint();
                 }
                 else {
                     stats.lives -= 1;
@@ -97,6 +107,37 @@ public class PlayerHealth : MonoBehaviour
             StartCoroutine(Invincible());
 
         }
+    }
+
+    public void FellToDeath()
+    {
+        if (!stats.GetIsDead()) {
+            if (stats.hitPoints > 1)
+            {
+                stats.hitPoints -= 1;
+                flick.SetFlickering();
+                FindClosestMinorCheckpoint();
+
+            }
+            else
+            {
+                if (stats.lives > 1)
+                {
+                    stats.lives -= 1;
+                    stats.hitPoints = 3;
+                    flick.SetFlickering();
+                    FindClosestMinorCheckpoint();
+                }
+                else
+                {
+                    stats.lives -= 1;
+                    stats.hitPoints -= 1;
+                    stats.SetIsDead(true);
+                }
+
+            }
+        }
+
     }
 
     
