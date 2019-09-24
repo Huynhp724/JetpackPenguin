@@ -93,6 +93,7 @@ public class PlayerHealth : MonoBehaviour
                     stats.lives -= 1;
                     stats.hitPoints = 3;
                     flick.SetFlickering();
+                    FindClosestMinorCheckpoint();
                 }
                 else {
                     stats.lives -= 1;
@@ -106,6 +107,37 @@ public class PlayerHealth : MonoBehaviour
             StartCoroutine(Invincible());
 
         }
+    }
+
+    public void FellToDeath()
+    {
+        if (!stats.GetIsDead()) {
+            if (stats.hitPoints > 1)
+            {
+                stats.hitPoints -= 1;
+                flick.SetFlickering();
+                FindClosestMinorCheckpoint();
+
+            }
+            else
+            {
+                if (stats.lives > 1)
+                {
+                    stats.lives -= 1;
+                    stats.hitPoints = 3;
+                    flick.SetFlickering();
+                    FindClosestMinorCheckpoint();
+                }
+                else
+                {
+                    stats.lives -= 1;
+                    stats.hitPoints -= 1;
+                    stats.SetIsDead(true);
+                }
+
+            }
+        }
+
     }
 
     
