@@ -52,7 +52,7 @@ public class PlayerAbilities : MonoBehaviour
     private bool hasFirstTarget = false;
     private bool stickHasMoved = false;
     private Transform heldIceBlock;
-    private float sphereCastRadius;
+    private float sphereCastRadius = 0.2f;
 
     private void Awake()
     {
@@ -94,7 +94,7 @@ public class PlayerAbilities : MonoBehaviour
 
             //Spherecast for an ice block and pick up if button is pressed.
             RaycastHit iceBlockHit;
-            if (heldIceBlock == null && Physics.SphereCast(grabCastT.position, sphereCastRadius, grabCastT.forward, out iceBlockHit, pickUpRange, LayerMask.GetMask("IceBlock")) && player.GetButtonDown("Throw Bomb"))
+            if (heldIceBlock == null && Physics.SphereCast(transform.position, sphereCastRadius, playerModel.transform.forward, out iceBlockHit, pickUpRange, LayerMask.GetMask("IceBlock")) && player.GetButtonDown("Throw Bomb"))
             {
                 pickupIceBlock(iceBlockHit.transform);
             }
@@ -109,7 +109,7 @@ public class PlayerAbilities : MonoBehaviour
     private void pickupIceBlock(Transform iceblock)
     {
         iceblock.position = transform.position + (Vector3.up * 2);
-        iceblock.rotation = grabCastT.rotation;
+        iceblock.rotation = playerModel.transform.rotation;
         iceblock.SetParent(playerModel.transform);
         iceblock.GetComponent<Rigidbody>().useGravity = false;
         iceblock.GetComponent<Rigidbody>().isKinematic = true;
@@ -123,7 +123,7 @@ public class PlayerAbilities : MonoBehaviour
         iceRB.useGravity = true;
         iceRB.isKinematic = false;
         heldIceBlock.SetParent(null);
-        iceRB.velocity = grabCastT.forward * blockThrowVelocity + GetComponent<Rigidbody>().velocity;
+        iceRB.velocity = playerModel.transform.forward * blockThrowVelocity + GetComponent<Rigidbody>().velocity;
         heldIceBlock = null;
         playerController.setHoldingBlock(false);
     }

@@ -6,7 +6,7 @@ using Rewired;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum State { Idle, Flapping, Dashing }
+    public enum State { Idle, Flapping, Dashing, Clinging }
 
     public float moveForce = 1.0f;             //player move force into max move speed
     public float maxMoveSpeed = 15.0f;         //player's max move speed
@@ -49,7 +49,10 @@ public class PlayerController : MonoBehaviour
     [Range(0.0f, 10.0f)]
     public float gravityScale = 1f;         //how strong the gravity is for Pluck
     public float slopePadding = 0.5f;
+    public float wallPadding = 0.2f;
     public float antiBump = 1f;
+
+    public float clingTime = 1;             //how many seconds you can cling to a wall before you start sliding down
 
     public float groundAngle;
     public float maxGroundAngle;
@@ -72,6 +75,7 @@ public class PlayerController : MonoBehaviour
     public Transform grabCastT;
 
     bool jumping = false;
+    bool wallJumping = false;
     bool pressJump = false;
     bool pressJumpInAir = false;
     bool holdFlapping = false;
@@ -97,7 +101,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     public Collider charCol;
     public LayerMask ground;
+    public LayerMask walls;
     private RaycastHit hit;
+    private RaycastHit wallHit;
 
     public Text chargeText;
 
@@ -158,122 +164,136 @@ public class PlayerController : MonoBehaviour
 
         vertInput = player.GetAxis("Move Vertical");
         horiInput = player.GetAxis("Move Horizontal");
-       
-        //ON THE GROUND
-        if (isGrounded())
+
+        if (myState == State.Clinging)
         {
-            onGround = true;
-            //Debug.Log("IS GROUND");
-            hasDashed = false;
-            hasDoubleJump = true;
-      
-            if (myState == State.Flapping)
-            {
-                holdFlapping = false;
-                myState = State.Idle;
-            }
-            else if (myState == State.Dashing)
-            {
-
-            }
-
-            /*
-             * CHANGE HARD CODED RECHARGE RATE LATER
-             */
-            if (!player.GetButton("Charge")) {
-                currentFuel += 5f;
-                if (currentFuel > maxFuel) currentFuel = maxFuel;
-            }
-
-            //Jumping
-            if (player.GetButtonDown("Jump") && myState == State.Idle)
-            {
-                pressJump = true;
-   
-            }
-        }
-        //IN THE AIR
-        else
-        {
-            onGround = false;
-            if (myState == State.Idle)
-            {
-                //Press A to double jump and enter flapping state while idle in the air if you are falling
-                if (hasDoubleJump && player.GetButtonDown("Jump") && !player.GetButton("Hover"))
-                {
-                    pressJumpInAir = true;
-                }
-                else if (player.GetButton("Jump") && moveDirection.y < 0 && !player.GetButton("Hover") && !pressJumpInAir)
-                {
-                    jumping = false;
-                    myState = State.Flapping;
-                }
-            }
-            else if (myState == State.Flapping)
-            {
-                /*
-                 * Make it so flapping gets weaker after a brief time then you just fall regularly
-                 */
-                //Hold down A to hover down slowly
-                if (player.GetButton("Jump") && moveDirection.y < 0)
-                {
-                    holdFlapping = true;
-                }
-                //Let go of A to return to free fall
-                if (player.GetButtonUp("Jump"))
-                {
-                    myState = State.Idle;
-                }
-            }
-            else if(myState == State.Dashing)
-            {
-                
-            }
-
-            //ledge grabbing
-            RaycastHit ledgeGrabHit;
-            if (!onLedge && Physics.Raycast(grabCastT.position, transform.forward, out ledgeGrabHit, 2f, LayerMask.GetMask("LedgeGrab")))
-            {
-                onLedge = true;
-                GrabableLedge ledge = ledgeGrabHit.transform.GetComponent<GrabableLedge>();
-                transform.position = ledgePos = ledge.GetGrabPosition(ledgeGrabHit.point);
-                transform.rotation = ledge.GetGrabRotation(ledgeGrabHit.point);
-            }
-
-            if (onLedge)
-            {
-                if (player.GetButtonDown("Jump"))
-                {
-                    onLedge = false;
-                    moveDirection = Vector3.zero;
-                    moveDirection += -transform.forward * .25f;
-                    moveDirection.y += jumpForce * 1.3f;
-                    anim.SetTrigger("Jump");
-                }
-            }
-        }
-
-        //If currently dashing (whether in the air or on the ground) 
-        if (myState == State.Dashing)
-        {
-            anim.SetBool("Slide", true);
-            //Jump to get out of dashing
             if (player.GetButtonDown("Jump"))
             {
-                dashJump = true;
-                anim.SetBool("Slide", false);
-              
+                pressJump = true;
+
             }
+
         }
         else
         {
-            anim.SetBool("Slide", false);
-        }
+            //ON THE GROUND
+            if (isGrounded())
+            {
+                onGround = true;
+                //Debug.Log("IS GROUND");
+                hasDashed = false;
+                hasDoubleJump = true;
 
-        //PENGUIN DASH START
-        if (player.GetButtonDown("Slide") && myState != State.Dashing && !hasDashed && !holdingBlock)
-        {
-            initDash = true;
+                if (myState == State.Flapping)
+                {
+                    holdFlapping = false;
+                    myState = State.Idle;
+                }
+                else if (myState == State.Dashing)
+                {
+
+                }
+
+                /*
+                 * CHANGE HARD CODED RECHARGE RATE LATER
+                 */
+                if (!player.GetButton("Charge"))
+                {
+                    currentFuel += 5f;
+                    if (currentFuel > maxFuel) currentFuel = maxFuel;
+                }
+
+                //Jumping
+                if (player.GetButtonDown("Jump") && myState == State.Idle)
+                {
+                    pressJump = true;
+
+                }
+            }
+            //IN THE AIR
+            else
+            {
+                onGround = false;
+                if (myState == State.Idle)
+                {
+                    //Press A to double jump and enter flapping state while idle in the air if you are falling
+                    if (hasDoubleJump && player.GetButtonDown("Jump") && !player.GetButton("Hover"))
+                    {
+                        pressJumpInAir = true;
+                    }
+                    else if (player.GetButton("Jump") && moveDirection.y < 0 && !player.GetButton("Hover") && !pressJumpInAir)
+                    {
+                        jumping = false;
+                        wallJumping = false;
+                        myState = State.Flapping;
+                    }
+                }
+                else if (myState == State.Flapping)
+                {
+                    /*
+                     * Make it so flapping gets weaker after a brief time then you just fall regularly
+                     */
+                    //Hold down A to hover down slowly
+                    if (player.GetButton("Jump") && moveDirection.y < 0)
+                    {
+                        holdFlapping = true;
+                    }
+                    //Let go of A to return to free fall
+                    if (player.GetButtonUp("Jump"))
+                    {
+                        myState = State.Idle;
+                    }
+                }
+                else if (myState == State.Dashing)
+                {
+
+                }
+
+                /*//ledge grabbing
+                RaycastHit ledgeGrabHit;
+                if (!onLedge && Physics.Raycast(grabCastT.position, transform.forward, out ledgeGrabHit, 2f, LayerMask.GetMask("LedgeGrab")))
+                {
+                    onLedge = true;
+                    GrabableLedge ledge = ledgeGrabHit.transform.GetComponent<GrabableLedge>();
+                    transform.position = ledgePos = ledge.GetGrabPosition(ledgeGrabHit.point);
+                    transform.rotation = ledge.GetGrabRotation(ledgeGrabHit.point);
+                }
+
+                if (onLedge)
+                {
+                    if (player.GetButtonDown("Jump"))
+                    {
+                        onLedge = false;
+                        moveDirection = Vector3.zero;
+                        moveDirection += -transform.forward * .25f;
+                        moveDirection.y += jumpForce * 1.3f;
+                        anim.SetTrigger("Jump");
+                    }
+                }*/
+            }
+
+            //If currently dashing (whether in the air or on the ground) 
+            if (myState == State.Dashing)
+            {
+                anim.SetBool("Slide", true);
+                //Jump to get out of dashing
+                if (player.GetButtonDown("Jump"))
+                {
+                    dashJump = true;
+                    anim.SetBool("Slide", false);
+
+                }
+            }
+            else
+            {
+                anim.SetBool("Slide", false);
+            }
+
+            //PENGUIN DASH START
+            if (player.GetButtonDown("Slide") && myState != State.Dashing && myState != State.Clinging && !hasDashed && !holdingBlock)
+            {
+                initDash = true;
+            }
         }
 
         //Hovering with the jetpack
@@ -318,6 +338,11 @@ public class PlayerController : MonoBehaviour
 
         calculateGroundAngle();
         anim.SetFloat("HoriInput", horiInput);
+
+        if (myState == State.Clinging)
+        {
+            rb.velocity = Vector3.zero;
+        }
 
         //Regular Movement
         if (myState != State.Dashing)
@@ -405,10 +430,29 @@ public class PlayerController : MonoBehaviour
         //Jumping
         if (pressJump)
         {
-            jumping = true;
-            moveOffGround();
-            moveDirection.y += jumpForce;
-            anim.SetTrigger("Jump");
+            if (myState == State.Clinging)
+            {
+                jumping = true;
+                //rb.AddForce(wallHit.normal.normalized * jumpForce);
+                Vector3 tempDir = wallHit.normal.normalized * jumpForce * 1.25f;
+               
+                moveDirection.y = jumpForce;
+                moveDirection.x = tempDir.x;
+                moveDirection.z = tempDir.z;
+                moveDirection.y += tempDir.y;
+
+                Debug.Log(moveDirection);
+                anim.SetTrigger("Jump");
+                myState = State.Idle;
+                Debug.Log("JUMP AWAY");
+            }
+            else
+            {
+                jumping = true;
+                moveOffGround();
+                moveDirection.y += jumpForce;
+                anim.SetTrigger("Jump");
+            }
 
             pressJump = false;
         }
@@ -448,6 +492,9 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Flapping", false);
             if (!momentumJump) { rb.drag = airDrag; }
             else { rb.drag = airDrag * .65f; }
+
+            checkWalls();
+
             if (myState == State.Idle)
             {
                 
@@ -636,9 +683,14 @@ public class PlayerController : MonoBehaviour
         //Hovering with the jetpack
         if (isHovering)
         {
+            if(myState == State.Clinging)
+            {
+                moveDirection.y = 0;
+                myState = State.Idle;
+            }
             if (myState != State.Dashing)
             {
-                moveOffGround();
+                //moveOffGround();
                 myState = State.Idle;
                 if (moveDirection.y < maxHoverVelocityY) moveDirection.y += jetpackForce * Time.fixedDeltaTime;
                 //Debug.Log("Y: " + moveDirection.y);
@@ -699,6 +751,11 @@ public class PlayerController : MonoBehaviour
         //Charge jumping - Release
         if (chargeRelease)
         {
+            if (myState == State.Clinging)
+            {
+                moveDirection.y = 0;
+                myState = State.Idle;
+            }
             //rb.drag = chargeDrag;
             if (currentCharge > 0)
             {
@@ -730,12 +787,12 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(Physics.gravity.y * gravityScale * Time.fixedDeltaTime);
 
         // Move the controller
-        if (myState == State.Dashing)
+
+        if (myState == State.Clinging)
         {
-            //Vector3 dest = (controller.transform.position + currentSlideSphere.transform.position + new Vector3(0, .5f, 0)) / 2;
-            //controller.transform.position = Vector3.Lerp(controller.transform.position, currentSlideSphere.transform.position + new Vector3(0, 0.5f, 0), 1f);
+         
         }
-        else if (!onLedge)
+        else if (myState != State.Dashing)
         {
             //controller.Move(moveDirection * Time.fixedDeltaTime);
             rb.velocity = moveDirection;
@@ -759,10 +816,7 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        else
-        {
-            transform.position = ledgePos;
-        }
+  
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -870,7 +924,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void calculateGroundAngle()
+    private void checkWalls()
+    {
+        if (myState != State.Dashing && !jumping)
+        {
+            Debug.DrawRay(charCol.gameObject.transform.position, charCol.transform.forward * (charCol.bounds.extents.x + wallPadding), Color.yellow);
+            if (Physics.Raycast(charCol.gameObject.transform.position, charCol.transform.forward, out wallHit, charCol.bounds.extents.x + wallPadding, walls) && !isHovering)
+            {
+                Debug.Log("CLINGABLE");
+                myState = State.Clinging;
+            }
+        }
+    }
+
+    private void calculateGroundAngle()
     {
         //Debug.DrawRay(charCol.transform.position + playerModel.transform.forward, Vector3.down * (charCol.bounds.extents.y / 2 + slopePadding), Color.yellow);
         /*if (!isGrounded())
