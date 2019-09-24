@@ -82,7 +82,7 @@ public class EnemyHealth : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void CreateIceBlock() {
+    public void CreateIceBlock() {
         GameObject newObj = Instantiate(freezedStatePrefab, transform);
         newObj.transform.parent = null;
         newObj.transform.localPosition = transform.localPosition;
