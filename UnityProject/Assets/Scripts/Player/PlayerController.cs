@@ -19,7 +19,8 @@ public class PlayerController : MonoBehaviour
     //public float hoverDrag = 2f;            //how much drag when hover flying
     public float chargeDrag = 2f;           //how much drag when charge dashing
     private float normalDrag;               //how much drag you have normally
-    public float rotateSpeed = 2f;          
+    public float rotateSpeed = 2f;
+    public float dashRotateSpeed = 20f;     //how fast you rotate into your dash
     public float jetpackForce = 10.0f;       //how strong the jetpack is
     public float hoverDashScale = 1.5f;      //modifier of the jetpack hover force when used in dashing
     public float maxHoverVelocityY = 10.0f;  //how fast the jetpack can ultimately go when hovering vertically
@@ -70,6 +71,7 @@ public class PlayerController : MonoBehaviour
 
     public Transform grabCastT;
 
+    bool jumping = false;
     bool pressJump = false;
     bool pressJumpInAir = false;
     bool holdFlapping = false;
@@ -89,11 +91,13 @@ public class PlayerController : MonoBehaviour
     private float vertInput;
     private float horiInput;
     private Vector3 slopeDir;        //direction of slopes
+    private Vector3 perpDir;        //direction perpendicular to ground
     public Transform pivot;
-    public GameObject playerModel;
+    //public GameObject playerModel;
     private Rigidbody rb;
     public Collider charCol;
     public LayerMask ground;
+    private RaycastHit hit;
 
     public Text chargeText;
 
@@ -154,7 +158,7 @@ public class PlayerController : MonoBehaviour
 
         vertInput = player.GetAxis("Move Vertical");
         horiInput = player.GetAxis("Move Horizontal");
-
+       
         //ON THE GROUND
         if (isGrounded())
         {
@@ -162,6 +166,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("IS GROUND");
             hasDashed = false;
             hasDoubleJump = true;
+      
             if (myState == State.Flapping)
             {
                 holdFlapping = false;
@@ -200,6 +205,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (player.GetButton("Jump") && moveDirection.y < 0 && !player.GetButton("Hover") && !pressJumpInAir)
                 {
+                    jumping = false;
                     myState = State.Flapping;
                 }
             }
@@ -309,7 +315,9 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void FixedUpdate()
     {
-      
+
+        calculateGroundAngle();
+        anim.SetFloat("HoriInput", horiInput);
 
         //Regular Movement
         if (myState != State.Dashing)
@@ -320,17 +328,16 @@ public class PlayerController : MonoBehaviour
             if (new Vector3(moveDirection.x, 0, moveDirection.z).magnitude <= new Vector3(maxMoveSpeed, 0, maxMoveSpeed).magnitude + 0.1f)
             {
                 //Calculate slope angle if on ground
-                calculateGroundAngle();
                 //rb.drag = normalDrag;
                 //Debug.Log("DON'T CARRY OVER");
                 if (isGrounded())
                 {
                 
-                    Debug.DrawRay(transform.position, transform.forward + new Vector3(0, -slopeDir.y, 0), Color.green);
+                    //Debug.DrawRay(transform.position, transform.forward + new Vector3(0, -slopeDir.y, 0), Color.green);
                     //Debug.Log("MOVE VERT: " + vertInput);
 
                     Vector3 targetDir = (transform.forward * vertInput * maxMoveSpeed) + (transform.right * horiInput * maxMoveSpeed) + new Vector3(0, moveDirection.y, 0);
-                    if (groundAngle != 0)
+                    if (groundAngle != 0 && groundAngle < maxGroundAngle)
                     {
                         //slopeDir = slopeDir.normalized;
                         //targetDir = (slopeDir* vertInput * maxMoveSpeed) + (transform.right * horiInput * maxMoveSpeed) + new Vector3(0, moveDirection.y, 0);
@@ -348,7 +355,7 @@ public class PlayerController : MonoBehaviour
                         //Vector3 tempDir = Vector3.Cross(slopeDir, targetDir);
                         //targetDir = tempDir * maxMoveSpeed;
                     }
-                    moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * Time.deltaTime);
+                    moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * Time.fixedDeltaTime);
                        
                     //moveDirection = moveDirection.normalized * moveSpeed;
                 }
@@ -365,7 +372,7 @@ public class PlayerController : MonoBehaviour
                     else
                     {
                         Vector3 targetDir = (transform.forward * vertInput * maxAirMoveSpeed) + (transform.right * horiInput * maxAirMoveSpeed) + new Vector3(0, moveDirection.y, 0);
-                        moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * Time.deltaTime);
+                        moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * Time.fixedDeltaTime);
                         //moveDirection = moveDirection.normalized * airMoveSpeed;
                     }
 
@@ -390,17 +397,18 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                anim.SetFloat("Speed", 1f);
-
+                anim.SetFloat("Speed", new Vector3(moveDirection.x, 0, moveDirection.z).magnitude);
             }
+
         }
 
         //Jumping
         if (pressJump)
         {
+            jumping = true;
             moveOffGround();
             moveDirection.y += jumpForce;
-            //anim.SetTrigger("Jump");
+            anim.SetTrigger("Jump");
 
             pressJump = false;
         }
@@ -408,8 +416,8 @@ public class PlayerController : MonoBehaviour
         //Double jump
         if (pressJumpInAir)
         {
-
-            anim.SetTrigger("Jump");
+            jumping = true;
+            anim.SetTrigger("DoubleJump");
             moveDirection.y = doubleJumpForce;
             //reset horizontal momentum with double jump
             moveDirection.x = 0;
@@ -423,6 +431,7 @@ public class PlayerController : MonoBehaviour
         //ON THE GROUND
         if (isGrounded())
         {
+            anim.SetBool("Grounded", true);
             rb.drag = normalDrag;
             if (moveDirection.y < 0)
             {
@@ -436,6 +445,7 @@ public class PlayerController : MonoBehaviour
         //IN THE AIR
         else
         {
+            anim.SetBool("Flapping", false);
             if (!momentumJump) { rb.drag = airDrag; }
             else { rb.drag = airDrag * .65f; }
             if (myState == State.Idle)
@@ -444,9 +454,10 @@ public class PlayerController : MonoBehaviour
             }
             else if (myState == State.Flapping)
             {
+                anim.SetBool("Flapping", true);
                 if (holdFlapping)
                 {
-                    moveDirection.y -= Physics.gravity.y * gravityScale * flapStrength * Time.deltaTime;
+                    moveDirection.y -= Physics.gravity.y * gravityScale * flapStrength * Time.fixedDeltaTime;
                     holdFlapping = false;
                 }
             }
@@ -461,39 +472,67 @@ public class PlayerController : MonoBehaviour
                     //currentSlideSphere.GetComponent<Rigidbody>().useGravity = true;
                     //currentSlideSphere.GetComponent<Rigidbody>().AddForce(new Vector3(0, Physics.gravity.y * gravityScale * dashGravity, 0));
                     //rb.useGravity = true;
-                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + (Physics.gravity.y * gravityScale * Time.deltaTime), rb.velocity.z);
-                    Debug.Log(rb.velocity.y);
+                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + (Physics.gravity.y * gravityScale * Time.fixedDeltaTime), rb.velocity.z);
+                    Debug.Log(Physics.gravity.y * gravityScale * Time.fixedDeltaTime);
                     //rb.drag = normalDrag;
                     //Debug.Log(currentSlideSphere.GetComponent<Rigidbody>().velocity.y);
                 }
             }
         }
-
+        //Debug.DrawRay(charCol.transform.position, charCol.transform.forward * 2f, Color.blue);
         //If currently dashing (whether in the air or on the ground) 
         if (myState == State.Dashing)
         {
-            Debug.DrawRay(charCol.transform.position, charCol.transform.up * 2f, Color.blue);
+            anim.SetFloat("Speed", rb.velocity.magnitude);
+            //Debug.DrawRay(charCol.transform.position, transform.forward * 2f, Color.blue);
             if (chargeDashing) rb.drag = chargeDrag;
+            //Vector3 newDir = Vector3.RotateTowards(charCol.transform.up, slopeDir, dashRotateSpeed * Time.fixedDeltaTime, rb.velocity.magnitude);
+            //charCol.transform.localRotation = Quaternion.Euler(Quaternion.LookRotation(newDir).eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+            if (rb.velocity.magnitude >= minLeanVelocity)
+            {
+                Quaternion rot;
+                if (slopeDir.y > 0 && groundAngle != 0)
+                {
+                    Debug.Log("GOING DOWN");
+                    rot = Quaternion.Slerp(charCol.transform.rotation, Quaternion.LookRotation(-perpDir, Vector3.down), dashRotateSpeed * Time.fixedDeltaTime);
+                    //charCol.transform.RotateAround(charCol.transform.position, charCol.transform.right, dashRotateSpeed * Time.fixedDeltaTime);
+                    //Debug.DrawRay(charCol.gameObject.transform.position, charCol.transform.forward * 3f, Color.green);
+                    charCol.transform.rotation = rot;
+                }
+                else
+                {
+                    rot = Quaternion.Slerp(charCol.transform.rotation, Quaternion.LookRotation(-perpDir, Vector3.up), dashRotateSpeed * Time.fixedDeltaTime);
+                    //charCol.transform.rotation = rot;
+                    if (groundAngle == 0) charCol.transform.rotation = Quaternion.Euler(rot.eulerAngles.x, charCol.transform.rotation.eulerAngles.y, charCol.transform.rotation.eulerAngles.z);
+                    else charCol.transform.rotation = rot;
+                }
+            }
+            //charCol.transform.rotation = Quaternion.Euler(rot.eulerAngles.x, charCol.transform.rotation.eulerAngles.y, charCol.transform.rotation.eulerAngles.z);
+            Debug.DrawRay(charCol.gameObject.transform.position, charCol.transform.forward * 3f, Color.green);
+            Debug.DrawRay(charCol.gameObject.transform.position, -perpDir * 5f, Color.red);
+
             //lean in your slide
             if (rb.velocity.magnitude >= minLeanVelocity)
             {
-
-                rb.AddForce(playerModel.transform.right * leanForce * horiInput * Time.deltaTime);
+                //anim.SetFloat("HoriInput", horiInput);
+                rb.AddForce(charCol.transform.right * leanForce * horiInput * Time.fixedDeltaTime);
+                Debug.DrawRay(charCol.gameObject.transform.position, charCol.transform.right * leanForce * horiInput * Time.fixedDeltaTime, Color.red);
 
             }
             else
             {
                 //Allows player to control the direction they're facing
-                transform.RotateAround(transform.position, playerModel.transform.up, horiInput * turningForce * Time.deltaTime);
+                charCol.transform.RotateAround(transform.position, charCol.transform.forward, -horiInput * turningForce * Time.fixedDeltaTime);
                 //rb.drag = normalDrag;
             }
 
             //Jump to get out of dashing
             if (dashJump)
             {
-
-                Quaternion colRotation = charCol.gameObject.transform.rotation;
-                charCol.gameObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                jumping = true;
+                anim.SetTrigger("Jump");
+                //Quaternion colRotation = charCol.gameObject.transform.rotation;
+                charCol.transform.localRotation = Quaternion.Euler(0f, charCol.transform.localEulerAngles.y, 0f);
                 chargeDashing = false;
 
                 //Destroy(currentSlideSphere);
@@ -533,24 +572,21 @@ public class PlayerController : MonoBehaviour
         //PENGUIN DASH START
         if (initDash)
         {
+            anim.SetTrigger("StartSlide");
             myState = State.Dashing;
-            //rb.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-            Quaternion colRotation = charCol.gameObject.transform.rotation;
+  
+            //Quaternion colRotation = charCol.gameObject.transform.rotation;
             //charCol.gameObject.transform.rotation = Quaternion.Slerp(charCol.gameObject.transform.rotation, Quaternion.Euler(colRotation.eulerAngles.x + 90, colRotation.eulerAngles.y, colRotation.eulerAngles.z), rotateSpeed);
-            if (slopeDir.y > 0)
+            /*if (slopeDir.y > 0)
             {
-                charCol.gameObject.transform.RotateAround(charCol.transform.position, playerModel.transform.right, 90 + groundAngle);
+                gameObject.transform.RotateAround(charCol.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), playerModel.transform.right, 90 + groundAngle);
             }
             else
             {
-                charCol.gameObject.transform.RotateAround(charCol.transform.position, playerModel.transform.right, 90 - groundAngle);
-            }
+                gameObject.transform.RotateAround(charCol.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), playerModel.transform.right, 90 - groundAngle);
+            }*/
 
-            /*currentSlideSphere = Instantiate(slideSphere, transform.position, Quaternion.identity);
-            currentSlideSphere.GetComponent<Rigidbody>().mass = gameObject.GetComponent<Rigidbody>().mass;
-            currentSlideSphere.GetComponent<Rigidbody>().drag = gameObject.GetComponent<Rigidbody>().drag;
-            currentSlideSphere.GetComponent<Rigidbody>().angularDrag = gameObject.GetComponent<Rigidbody>().angularDrag;
-            currentSlideSphere.GetComponent<Rigidbody>().AddForce(playerModel.transform.forward * dashSpeed, ForceMode.Impulse);*/
+           
             rb.velocity = new Vector3(0, 0, 0);
 
             //DASH IN THE DIRECTION THE PLAYER'S CONTROL STICK IS
@@ -575,11 +611,11 @@ public class PlayerController : MonoBehaviour
             {
                 if (isGrounded())
                 {
-                    rb.AddForce(playerModel.transform.forward * dashSpeed, ForceMode.Impulse);
+                    rb.AddForce(charCol.transform.forward * dashSpeed, ForceMode.Impulse);
                 }
                 else
                 {
-                    rb.AddForce(playerModel.transform.forward * airDashSpeed, ForceMode.Impulse);
+                    rb.AddForce(charCol.transform.forward * airDashSpeed, ForceMode.Impulse);
                     //rb.useGravity = false;
 
                 }
@@ -604,18 +640,19 @@ public class PlayerController : MonoBehaviour
             {
                 moveOffGround();
                 myState = State.Idle;
-                if (moveDirection.y < maxHoverVelocityY) moveDirection.y += jetpackForce * Time.deltaTime;
+                if (moveDirection.y < maxHoverVelocityY) moveDirection.y += jetpackForce * Time.fixedDeltaTime;
                 //Debug.Log("Y: " + moveDirection.y);
             }
             //Hovering while dashing
             else
             {
-                rb.AddForce(playerModel.transform.right * steeringForce * horiInput * Time.deltaTime);
+                Debug.DrawRay(charCol.transform.position, charCol.transform.right * horiInput * 2f, Color.red);
+                rb.AddForce(charCol.transform.right * steeringForce * horiInput * Time.fixedDeltaTime);
 
                 if (new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude <= maxHoverVelocityX)
                 {
                     //Debug.Log(new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude);
-                    rb.AddForce(charCol.transform.up * jetpackForce * hoverDashScale * Time.deltaTime, ForceMode.Impulse);
+                    rb.AddForce(charCol.transform.up * jetpackForce * hoverDashScale * Time.fixedDeltaTime, ForceMode.Impulse);
                 }
                 else
                 {
@@ -623,8 +660,8 @@ public class PlayerController : MonoBehaviour
                     rb.velocity = Vector3.ClampMagnitude(new Vector3(rb.velocity.x, 0, rb.velocity.z), maxHoverVelocityX) + new Vector3(0, rb.velocity.y, 0);
                 }
 
-                transform.RotateAround(transform.position, playerModel.transform.up, horiInput * turningForce * Time.deltaTime);
-                //moveDirection.y -= Physics.gravity.y * gravityScale * Time.deltaTime;
+                transform.RotateAround(transform.position, charCol.transform.forward, -horiInput * turningForce * Time.fixedDeltaTime);
+                //moveDirection.y -= Physics.gravity.y * gravityScale * Time.fixedDeltaTime;
                 //rb.useGravity = false;
                 //rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             }
@@ -638,7 +675,7 @@ public class PlayerController : MonoBehaviour
             //currentSlideSphere.GetComponent<Rigidbody>().AddForce(new Vector3(0, Physics.gravity.y * gravityScale * dashGravity, 0));
 
             //rb.useGravity = true;
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + Physics.gravity.y * gravityScale * Time.deltaTime, rb.velocity.z);
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + Physics.gravity.y * gravityScale * Time.fixedDeltaTime, rb.velocity.z);
             //rb.drag = normalDrag;
 
             hoverDashRelease = false;
@@ -676,7 +713,7 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     chargeDashing = true;
-                    rb.AddForce(playerModel.transform.forward * currentCharge * chargeForceDashScale, ForceMode.Impulse);
+                    rb.AddForce(charCol.transform.up * currentCharge * chargeForceDashScale, ForceMode.Impulse);
                     /*if (currentSlideSphere != null)
                     {
                         Rigidbody sphereRB = currentSlideSphere.GetComponent<Rigidbody>();
@@ -689,7 +726,8 @@ public class PlayerController : MonoBehaviour
         }
 
         //Add Gravity
-        moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
+        moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.fixedDeltaTime);
+        //Debug.Log(Physics.gravity.y * gravityScale * Time.fixedDeltaTime);
 
         // Move the controller
         if (myState == State.Dashing)
@@ -699,7 +737,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (!onLedge)
         {
-            //controller.Move(moveDirection * Time.deltaTime);
+            //controller.Move(moveDirection * Time.fixedDeltaTime);
             rb.velocity = moveDirection;
             //SET LIMITS ON MAX HOVER VELOCITY
             //Debug.Log(rb.velocity.y);
@@ -766,13 +804,13 @@ public class PlayerController : MonoBehaviour
     public void rotateTo(Vector3 dir)
     {
         Quaternion newRotation = Quaternion.LookRotation(dir);
-        playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
+        charCol.transform.rotation = Quaternion.Slerp(charCol.transform.rotation, newRotation, rotateSpeed * Time.fixedDeltaTime);
     }
 
     public void rotateTo(Vector3 dir, float speed)
     {
         Quaternion newRotation = Quaternion.LookRotation(dir);
-        playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, speed);
+        charCol.transform.rotation = Quaternion.Slerp(charCol.transform.rotation, newRotation, speed);
     }
 
     private bool isGrounded()
@@ -780,7 +818,7 @@ public class PlayerController : MonoBehaviour
         //Debug.DrawRay(charCol.gameObject.transform.position, -Vector3.up * (charCol.bounds.extents.y + 0.1f));
         if (myState != State.Dashing)
         {
-            if (Physics.CheckSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.1f, 0), charCol.bounds.extents.y / 2, ground))
+            if (Physics.CheckSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.2f, 0), charCol.bounds.extents.y / 2, ground))
             {
                 return true;
             }
@@ -788,7 +826,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             if (Physics.CheckCapsule (charCol.gameObject.transform.position - -charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4 - new Vector3(0, 0.1f, 0),
-                charCol.gameObject.transform.position - charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 3 - new Vector3(0, 0.1f, 0),
+                charCol.gameObject.transform.position - charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 3 - new Vector3(0, 0.2f, 0),
                 charCol.bounds.extents.y, ground))
             {
                 return true;
@@ -801,26 +839,15 @@ public class PlayerController : MonoBehaviour
 
     public bool CheckIsGrounded()
     {
-        //Debug.DrawRay(charCol.gameObject.transform.position, -Vector3.up * (charCol.bounds.extents.y + 0.1f));
-        if (myState != State.Dashing)
+        
+        if (onGround)
         {
-            if (Physics.CheckSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.1f, 0), charCol.bounds.extents.y / 2, ground))
-            {
-                return true;
-            }
+            return true;
         }
         else
         {
-            if (Physics.CheckCapsule(charCol.gameObject.transform.position - -charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4 - new Vector3(0, 0.1f, 0),
-                charCol.gameObject.transform.position - charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 3 - new Vector3(0, 0.1f, 0),
-                charCol.bounds.extents.y, ground))
-            {
-                return true;
-            }
+            return false;
         }
-        //Debug.Log("NOT GROUND");
-
-        return false;
     }
 
     //moves the player up until it is recognized as off the ground
@@ -829,7 +856,7 @@ public class PlayerController : MonoBehaviour
         while (isGrounded())
         {
             //Debug.Log("MOVING");
-            transform.position += Vector3.up * Time.deltaTime;
+            transform.position += Vector3.up * Time.fixedDeltaTime;
         }
     }
 
@@ -838,31 +865,33 @@ public class PlayerController : MonoBehaviour
         while (!isGrounded())
         {
             //Debug.Log("MOVING");
-            transform.position -= Vector3.up * Time.deltaTime;
+            transform.position -= Vector3.up * Time.fixedDeltaTime;
         }
     }
 
     void calculateGroundAngle()
     {
-        Debug.DrawRay(charCol.transform.position + playerModel.transform.forward, Vector3.down * (charCol.bounds.extents.y / 2 + 0.2f), Color.yellow);
+        //Debug.DrawRay(charCol.transform.position + playerModel.transform.forward, Vector3.down * (charCol.bounds.extents.y / 2 + slopePadding), Color.yellow);
         /*if (!isGrounded())
         {
             groundAngle = 90;
             return;
         }*/
 
-        RaycastHit hit;
         if(Physics.Raycast(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), Vector3.down, out hit, charCol.bounds.extents.y/2 + slopePadding, ground))
         {
-            Debug.Log("HITTING GROUND");
-            Debug.DrawRay(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), Vector3.down * hit.distance, Color.yellow);
-            Debug.DrawRay(charCol.gameObject.transform.position + playerModel.transform.forward, Vector3.Cross(hit.normal, playerModel.transform.right) * 1f, Color.blue);
+          
+            //Debug.Log("HITTING GROUND");
+            //Debug.DrawRay(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), Vector3.down * hit.distance, Color.yellow);
             groundAngle = Vector3.Angle(hit.normal, Vector3.up);
-            slopeDir = Vector3.Cross(hit.normal, playerModel.transform.right);
-            //Debug.Log("SLOPE: " + slopeDir);
-            if(slopeDir.y > 0 && groundAngle != 0)
+            perpDir = hit.normal;
+            slopeDir = Vector3.Cross(hit.normal, charCol.transform.right);
+            //Debug.DrawRay(charCol.gameObject.transform.position + playerModel.transform.forward, Vector3.Cross(hit.normal, charCol.transform.right) * 3f, Color.red);
+            Debug.Log("SLOPE: " + slopeDir.y);
+            if (slopeDir.y > 0 && groundAngle != 0 && groundAngle < maxGroundAngle && !jumping)
             {
-                Debug.Log("MOVING DOWN");
+                //Debug.Log("MOVING DOWN");
+                anim.SetBool("Grounded", true);
                 moveToGround();
             }
             //Debug.Log("SLOPE: " + slopeDir);
@@ -871,16 +900,17 @@ public class PlayerController : MonoBehaviour
         {
             if (isGrounded())
             {
-                Debug.DrawRay(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), Vector3.down * (charCol.bounds.extents.y / 2 + slopePadding), Color.red);
+                //Debug.DrawRay(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), Vector3.down * (charCol.bounds.extents.y / 2 + slopePadding), Color.red);
                 Debug.Log("ERROR: ON THE GROUND BUT NOT DETECTING GROUND");
             }
-            else
-            {
-                groundAngle = 0;
-            }
-        
+            anim.SetBool("Grounded", false);
+            groundAngle = 0;
+            slopeDir = Vector3.Cross(Vector3.up, charCol.transform.right);
+            perpDir = Vector3.up;
+
         }
- 
+        //Debug.DrawRay(charCol.gameObject.transform.position + playerModel.transform.forward, perpDir * 3f, Color.red);
+
     }
     void OnDrawGizmosSelected()
     {
@@ -888,9 +918,8 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.1f,0), charCol.bounds.extents.y/2);
         Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(charCol.gameObject.transform.position - charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 3 - new Vector3(0, 0.1f, 0), charCol.bounds.extents.y);
-        //Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(-playerModel.transform.forward.x * 0.5f, charCol.bounds.extents.y + 0.1f, -playerModel.transform.forward.z * 0.05f), (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4);
-        Gizmos.DrawSphere(charCol.gameObject.transform.position - -charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4 - new Vector3(0, 0.1f, 0), charCol.bounds.extents.y);
+        //Gizmos.DrawSphere(charCol.gameObject.transform.position - charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 3 - new Vector3(0, 0.1f, 0), charCol.bounds.extents.y);
+        //Gizmos.DrawSphere(charCol.gameObject.transform.position - -charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4 - new Vector3(0, 0.1f, 0), charCol.bounds.extents.y);
 
     }
 
