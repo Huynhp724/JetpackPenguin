@@ -155,6 +155,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 7154247248217758105}
   - {fileID: 3896099146611552909}
   - {fileID: 6454393105298768866}
   - {fileID: 6383195553647881417}
@@ -202,7 +203,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 648767274}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.8039999, y: 1.4150004, z: 0.08199428}
+  m_LocalPosition: {x: 0.8039999, y: 1.4150009, z: 0.08199428}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3896099146611552909}
@@ -471,7 +472,6 @@ MonoBehaviour:
   momentumJump: 0
   moveDirection: {x: 0, y: 0, z: 0}
   pivot: {fileID: 0}
-  playerModel: {fileID: 21075786319331486}
   charCol: {fileID: 102793626}
   ground:
     serializedVersion: 2
@@ -765,7 +765,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4734986861262612753}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.0310006, z: -0.7700063}
+  m_LocalPosition: {x: 0, y: -1.0310001, z: -0.7700063}
   m_LocalScale: {x: 0.5, y: 3.2, z: 0.3000001}
   m_Children: []
   m_Father: {fileID: 3896099146611552909}
@@ -10467,6 +10467,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 102793625}
     m_Modifications:
+    - target: {fileID: 6454393106935608594, guid: 803c9d9c1c3df324aae90a9f19028c7c,
+        type: 3}
+      propertyPath: m_Name
+      value: PF_Snow_Jet_Particles (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10505,7 +10510,7 @@ PrefabInstance:
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
@@ -10532,11 +10537,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.5
       objectReference: {fileID: 0}
-    - target: {fileID: 6454393106935608594, guid: 803c9d9c1c3df324aae90a9f19028c7c,
-        type: 3}
-      propertyPath: m_Name
-      value: PF_Snow_Jet_Particles (1)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 803c9d9c1c3df324aae90a9f19028c7c, type: 3}
 --- !u!4 &6454393105298768866 stripped
@@ -10552,6 +10552,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1329826876155729632}
     m_Modifications:
+    - target: {fileID: -927199367670048503, guid: 053cc3641b66ea54bbb045d57c5b2e03,
+        type: 3}
+      propertyPath: m_Name
+      value: JPP04ANIMATION
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 053cc3641b66ea54bbb045d57c5b2e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 053cc3641b66ea54bbb045d57c5b2e03,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10605,16 +10615,6 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 053cc3641b66ea54bbb045d57c5b2e03,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 053cc3641b66ea54bbb045d57c5b2e03,
-        type: 3}
-      propertyPath: m_Name
-      value: JPP04ANIMATION
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 053cc3641b66ea54bbb045d57c5b2e03,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6057140222963153312, guid: 053cc3641b66ea54bbb045d57c5b2e03,
@@ -10789,6 +10789,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 102793625}
     m_Modifications:
+    - target: {fileID: 6454393106935608594, guid: 803c9d9c1c3df324aae90a9f19028c7c,
+        type: 3}
+      propertyPath: m_Name
+      value: PF_Snow_Jet_Particles (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10827,7 +10832,7 @@ PrefabInstance:
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
@@ -10854,11 +10859,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.5
       objectReference: {fileID: 0}
-    - target: {fileID: 6454393106935608594, guid: 803c9d9c1c3df324aae90a9f19028c7c,
-        type: 3}
-      propertyPath: m_Name
-      value: PF_Snow_Jet_Particles (2)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 803c9d9c1c3df324aae90a9f19028c7c, type: 3}
 --- !u!4 &6383195553647881417 stripped
@@ -10867,6 +10867,91 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 74088238077745638}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2752342832123245187
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 102793625}
+    m_Modifications:
+    - target: {fileID: -927199367670048503, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+        type: 3}
+      propertyPath: m_Name
+      value: JPP06ANIMATION
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d760e70f0bfaaf442b946036965ca537, type: 2}
+    - target: {fileID: -4216859302048453862, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.0060005
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 423d42bf0a79ad44eb961db66ca1f56f, type: 3}
+--- !u!4 &7154247248217758105 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 423d42bf0a79ad44eb961db66ca1f56f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2752342832123245187}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4287283903396429998
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10874,6 +10959,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1329826876155729632}
     m_Modifications:
+    - target: {fileID: -927199367670048503, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
+        type: 3}
+      propertyPath: m_Name
+      value: JPP_@ANIMATION_01
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10927,16 +11022,6 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
-        type: 3}
-      propertyPath: m_Name
-      value: JPP_@ANIMATION_01
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6057140222963153312, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
@@ -11661,6 +11746,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: JPP_05_ANIMATION
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 8b11b0eb7b233884a99c60a551f483ed,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 8b11b0eb7b233884a99c60a551f483ed,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11699,7 +11789,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 8b11b0eb7b233884a99c60a551f483ed,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 8b11b0eb7b233884a99c60a551f483ed,
         type: 3}
@@ -11748,6 +11838,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 102793625}
     m_Modifications:
+    - target: {fileID: 6454393106935608594, guid: 803c9d9c1c3df324aae90a9f19028c7c,
+        type: 3}
+      propertyPath: m_Name
+      value: PF_Snow_Jet_Particles (3)
+      objectReference: {fileID: 0}
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11786,7 +11881,7 @@ PrefabInstance:
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
@@ -11812,11 +11907,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6454393106935608594, guid: 803c9d9c1c3df324aae90a9f19028c7c,
-        type: 3}
-      propertyPath: m_Name
-      value: PF_Snow_Jet_Particles (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 803c9d9c1c3df324aae90a9f19028c7c, type: 3}
