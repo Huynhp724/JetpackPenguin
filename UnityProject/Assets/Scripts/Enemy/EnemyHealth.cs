@@ -79,6 +79,10 @@ public class EnemyHealth : MonoBehaviour
     }
 
     public void LoseLife() {
+        if(GetComponent<EnemySpawner>() != null)
+        {
+            GetComponent<EnemySpawner>().Spawn();
+        }
         Destroy(gameObject);
     }
 
