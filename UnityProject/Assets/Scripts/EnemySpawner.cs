@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     public void Spawn() {
-        GameObject go = Instantiate(enemyToSpawn, spawnPosition);
+        GameObject go = Instantiate(enemyToSpawn, spawnPosition.position, spawnPosition.transform.rotation);
         go.transform.parent = null;
         SetUp(go);
         

@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 8546721066454707222}
   - component: {fileID: 8546721066454707220}
   - component: {fileID: 8546721066454707223}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Snout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 8546721066462819079}
   - component: {fileID: 8546721066462819077}
   - component: {fileID: 8546721066462819076}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: eye_Lid_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 8546721066522639874}
   - component: {fileID: 8546721066522639872}
   - component: {fileID: 8546721066522639875}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: eye_Lid_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 8546721066674003853}
   - component: {fileID: 8546721066674003859}
   - component: {fileID: 8546721066674003858}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: eye_black_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 8546721066819413661}
   - component: {fileID: 8546721066819413667}
   - component: {fileID: 8546721066819413666}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: eye_ball_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 8546721067032451458}
   - component: {fileID: 8546721067032451456}
   - component: {fileID: 8546721067032451459}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: flipper_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 8546721067191194214}
   - component: {fileID: 8546721067191194212}
   - component: {fileID: 8546721067191194215}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: eye_ball_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -631,7 +631,7 @@ GameObject:
   - component: {fileID: 8546721067272944286}
   - component: {fileID: 8546721067272944284}
   - component: {fileID: 8546721067272944287}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -901,7 +901,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8546721067491415600}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: AA_Seal_Model_LS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -947,7 +947,7 @@ GameObject:
   - component: {fileID: 8546721067494056133}
   - component: {fileID: 8546721067494056139}
   - component: {fileID: 8546721067494056138}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: jaw_lower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1025,7 +1025,7 @@ GameObject:
   - component: {fileID: 8546721067783866551}
   - component: {fileID: 8546721067783866549}
   - component: {fileID: 8546721067783866548}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: flipper_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1103,7 +1103,7 @@ GameObject:
   - component: {fileID: 8546721067806158165}
   - component: {fileID: 8546721067806158171}
   - component: {fileID: 8546721067806158170}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: eye_Black_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1181,7 +1181,7 @@ GameObject:
   - component: {fileID: 8546721068047965591}
   - component: {fileID: 8546721068047965589}
   - component: {fileID: 8546721068047965588}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: brow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1259,7 +1259,7 @@ GameObject:
   - component: {fileID: 8546721068276163280}
   - component: {fileID: 8546721068276163286}
   - component: {fileID: 8546721068276163281}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: nose1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1337,7 +1337,7 @@ GameObject:
   - component: {fileID: 8546721068278860724}
   - component: {fileID: 8546721068278860730}
   - component: {fileID: 8546721068278860725}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1384,6 +1384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goBackToPathAfterDistance: 20
+  sealType: 0
 --- !u!1 &8546721068451542426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1395,7 +1396,7 @@ GameObject:
   - component: {fileID: 8546721068451542427}
   - component: {fileID: 8546721068451542425}
   - component: {fileID: 8546721068451542424}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Body1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

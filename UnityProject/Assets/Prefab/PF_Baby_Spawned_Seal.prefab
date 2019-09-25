@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 1557036807235437490}
   - component: {fileID: 1557036807235437488}
   - component: {fileID: 1557036807235437489}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: brow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 1557036807526300917}
   - component: {fileID: 1557036807526300915}
   - component: {fileID: 1557036807526300916}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: nose1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 1557036807533188497}
   - component: {fileID: 1557036807533188511}
   - component: {fileID: 1557036807533188496}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,6 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goBackToPathAfterDistance: 20
+  sealType: 0
 --- !u!1 &1557036807634561983
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +270,7 @@ GameObject:
   - component: {fileID: 1557036807634561982}
   - component: {fileID: 1557036807634561980}
   - component: {fileID: 1557036807634561981}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Body1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +346,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1557036807748503573}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: AA_Seal_Model_LS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +392,7 @@ GameObject:
   - component: {fileID: 1557036807755284192}
   - component: {fileID: 1557036807755284206}
   - component: {fileID: 1557036807755284207}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: jaw_lower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -469,7 +470,7 @@ GameObject:
   - component: {fileID: 1557036808044828306}
   - component: {fileID: 1557036808044828304}
   - component: {fileID: 1557036808044828305}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: flipper_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -547,7 +548,7 @@ GameObject:
   - component: {fileID: 1557036808130032496}
   - component: {fileID: 1557036808130032510}
   - component: {fileID: 1557036808130032511}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: eye_Black_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -625,7 +626,7 @@ GameObject:
   - component: {fileID: 1557036808367474599}
   - component: {fileID: 1557036808367474597}
   - component: {fileID: 1557036808367474598}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: flipper_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -703,7 +704,7 @@ GameObject:
   - component: {fileID: 1557036808593067075}
   - component: {fileID: 1557036808593067073}
   - component: {fileID: 1557036808593067074}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: eye_ball_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -781,7 +782,7 @@ GameObject:
   - component: {fileID: 1557036808670553275}
   - component: {fileID: 1557036808670553273}
   - component: {fileID: 1557036808670553274}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1099,7 +1100,7 @@ GameObject:
   - component: {fileID: 1557036808926392883}
   - component: {fileID: 1557036808926392881}
   - component: {fileID: 1557036808926392882}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Snout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1177,7 +1178,7 @@ GameObject:
   - component: {fileID: 1557036808938695970}
   - component: {fileID: 1557036808938695968}
   - component: {fileID: 1557036808938695969}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: eye_Lid_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1255,7 +1256,7 @@ GameObject:
   - component: {fileID: 1557036808994250791}
   - component: {fileID: 1557036808994250789}
   - component: {fileID: 1557036808994250790}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: eye_Lid_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1333,7 +1334,7 @@ GameObject:
   - component: {fileID: 1557036809145352616}
   - component: {fileID: 1557036809145352630}
   - component: {fileID: 1557036809145352631}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: eye_black_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1411,7 +1412,7 @@ GameObject:
   - component: {fileID: 1557036809227925688}
   - component: {fileID: 1557036809227925638}
   - component: {fileID: 1557036809227925639}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: eye_ball_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
