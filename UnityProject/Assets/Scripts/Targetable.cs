@@ -11,8 +11,13 @@ public class Targetable : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponent<Renderer>();
         player = FindObjectOfType<PlayerAbilities>();
+        renderer = GetComponent<Renderer>();
+        if(renderer == null)
+        {
+            renderer = GetComponentInChildren<Renderer>();
+        }
+        
     }
 
     // Update is called once per frame
@@ -30,6 +35,14 @@ public class Targetable : MonoBehaviour
         {
             player.removeFromTargets(gameObject);
             isTargeted = false;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (isTargeted)
+        {
+            player.removeFromTargets(gameObject);
         }
     }
 }

@@ -865,6 +865,7 @@ GameObject:
   - component: {fileID: 1557036808743969002}
   - component: {fileID: 1557036808743969013}
   - component: {fileID: 1207672660964997946}
+  - component: {fileID: 5461156446828328169}
   m_Layer: 14
   m_Name: PF_Baby_Spawned_Seal
   m_TagString: Untagged
@@ -1059,6 +1060,18 @@ MonoBehaviour:
   enemyToSpawn: {fileID: 0}
   spawnPosition: {fileID: 0}
   pathToFollow: {fileID: 0}
+--- !u!114 &5461156446828328169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557036808743969003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e6151fb5a9404742ac2d6f4a5bbdf3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1557036808774008288
 GameObject:
   m_ObjectHideFlags: 0
