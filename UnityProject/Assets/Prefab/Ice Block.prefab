@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5623452744358927491}
   - component: {fileID: 5623452744358927492}
   - component: {fileID: 5623452744358927493}
+  - component: {fileID: -5701441737857835268}
   m_Layer: 13
   m_Name: Ice Block
   m_TagString: Untagged
@@ -109,3 +110,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &-5701441737857835268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5623452744358927494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805871fb36aca9845895aa375f882658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ground:
+    serializedVersion: 2
+    m_Bits: 4097
