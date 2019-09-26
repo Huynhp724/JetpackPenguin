@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour { 
 
-    public int currentFish;
-    public Text fishText;
+    public int currentCrystals = 0;
+    public int currentBigCrystals;
+    public Text crystalText;
     public Text winText;
 
     // TODO consider pulling out the the control mapping to its own control/settings manager.
@@ -20,6 +21,12 @@ public class GameManager : MonoBehaviour {
     public float bumperThreshold = Mathf.Epsilon;
 
     private string currentController = "";
+    private PlayerController playerControl;
+
+    private void Start()
+    {
+        playerControl = FindObjectOfType<PlayerController>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -64,9 +71,15 @@ public class GameManager : MonoBehaviour {
         }*/
     }
 
-    public void AddFish(int x)
+    public void AddCrystal(int x)
     {
-        currentFish += x;
-        fishText.text = "Crystals: " + currentFish;
+        currentCrystals += x;
+        crystalText.text = "Crystals: " + currentCrystals;
+    }
+
+    public void AddBigCrystal()
+    {
+        currentBigCrystals++;
+        playerControl.maxFuel += 50f;
     }
 }

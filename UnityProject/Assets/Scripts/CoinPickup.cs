@@ -40,7 +40,7 @@ public class CoinPickup : MonoBehaviour
     IEnumerator PickUp(GameObject player)
     {
         pickedUp = true;
-        FindObjectOfType<GameManager>().AddFish(1);
+        FindObjectOfType<GameManager>().AddCrystal(1);
         transform.SetParent(player.transform);
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y + pickedUpDistance, player.transform.position.z);
         yield return new WaitForSecondsRealtime(.5f);
