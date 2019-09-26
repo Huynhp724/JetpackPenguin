@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HUD : MonoBehaviour
 {
     [SerializeField] Slider fuelGauge;
-    [SerializeField] Slider healthBar;
+    [SerializeField] Image healthWheel;
     [SerializeField] Text lives;
     private PlayerController playerControl;
     private PlayerStats playerStats;
@@ -23,7 +23,7 @@ public class HUD : MonoBehaviour
     void Update()
     {
         fuelGauge.value = playerControl.currentFuel / playerControl.maxFuel;
-        healthBar.value = playerStats.getHealthPercent();
+        healthWheel.fillAmount = playerStats.getHealthPercent();
         lives.text = "Lives: " + playerStats.lives;
     }
 }

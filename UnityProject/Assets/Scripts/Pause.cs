@@ -46,6 +46,7 @@ public class Pause : MonoBehaviour
         playerController.enabled = false;
         playerController.GetComponent<Rigidbody>().isKinematic = true;
         cam.enabled = false;
+        Time.timeScale = 0;
     }
 
     public void unpause()
@@ -56,5 +57,6 @@ public class Pause : MonoBehaviour
         playerController.enabled = true;
         playerController.GetComponent<Rigidbody>().isKinematic = false;
         cam.enabled = true;
+        Time.timeScale = 1;
     }
 }
