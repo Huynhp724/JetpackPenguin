@@ -79,10 +79,14 @@ public class EnemyHealth : MonoBehaviour
     }
 
     public void LoseLife() {
+        if(GetComponent<EnemySpawner>() != null)
+        {
+            GetComponent<EnemySpawner>().Spawn();
+        }
         Destroy(gameObject);
     }
 
-    void CreateIceBlock() {
+    public void CreateIceBlock() {
         GameObject newObj = Instantiate(freezedStatePrefab, transform);
         newObj.transform.parent = null;
         newObj.transform.localPosition = transform.localPosition;

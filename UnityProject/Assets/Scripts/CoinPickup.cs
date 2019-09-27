@@ -6,6 +6,10 @@ public class CoinPickup : MonoBehaviour
 {
     [SerializeField] float rotateSpeed = 1f;
     [SerializeField] float bobDegree = .75f;
+    [SerializeField] float bobSpeed = 1f;
+    [SerializeField] float pickedUpDistance = 2f;
+
+    private bool pickedUp = false;
 
     private float intialY;
 
@@ -18,16 +22,28 @@ public class CoinPickup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.up, rotateSpeed);
-        transform.position = new Vector3(transform.position.x, intialY + (Mathf.Sin(Time.time) * bobDegree), transform.position.z);
+        if (!pickedUp)
+        {
+            transform.Rotate(Vector3.up, rotateSpeed);
+            transform.position = new Vector3(transform.position.x, intialY + (Mathf.Sin(Time.time * bobSpeed) * bobDegree), transform.position.z);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-            FindObjectOfType<GameManager>().AddFish(1);
-            Destroy(gameObject);
+            StartCoroutine(PickUp(other.gameObject));
         }
+    }
+
+    IEnumerator PickUp(GameObject player)
+    {
+        pickedUp = true;
+        FindObjectOfType<GameManager>().AddCrystal(1);
+        transform.SetParent(player.transform);
+        transform.position = new Vector3(player.transform.position.x, player.transform.position.y + pickedUpDistance, player.transform.position.z);
+        yield return new WaitForSecondsRealtime(.5f);
+        Destroy(gameObject);
     }
 }

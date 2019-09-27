@@ -825,7 +825,7 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("Landed on an enemy");
             EnemyHealth enemyHealth = collision.gameObject.GetComponentInParent<EnemyHealth>();
-            enemyHealth.IsSquished();
+            enemyHealth.LoseHp();
             BouncePluck();
 
         }

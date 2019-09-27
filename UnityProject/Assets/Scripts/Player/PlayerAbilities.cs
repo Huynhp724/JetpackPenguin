@@ -108,7 +108,7 @@ public class PlayerAbilities : MonoBehaviour
 
     private void pickupIceBlock(Transform iceblock)
     {
-        iceblock.position = transform.position + (Vector3.up * 2);
+        iceblock.position = transform.position + (Vector3.up * (1 + (iceblock.lossyScale.y/2)));
         iceblock.rotation = playerModel.transform.rotation;
         iceblock.SetParent(playerModel.transform);
         iceblock.GetComponent<Rigidbody>().useGravity = false;

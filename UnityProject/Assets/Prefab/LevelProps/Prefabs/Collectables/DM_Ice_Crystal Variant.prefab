@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 1
-  bobDegree: 0.5
---- !u!1001 &8136928161067344705
+  bobDegree: 0.25
+  bobSpeed: 2.5
+  pickedUpDistance: 1.7
+--- !u!1001 &4545770977475491754
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
