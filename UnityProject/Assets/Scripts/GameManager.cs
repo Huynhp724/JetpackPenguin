@@ -69,6 +69,15 @@ public class GameManager : MonoBehaviour {
         {
             winText.gameObject.SetActive(true);
         }*/
+        //DEBUG cheat code to get more fuel. REMOVE from full builds.
+        if(Input.GetKeyDown(KeyCode.Alpha7) && Input.GetKeyDown(KeyCode.Alpha8) && Input.GetKeyDown(KeyCode.Alpha9) && Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            AddBigCrystal();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4) && Input.GetKeyDown(KeyCode.Alpha5) && Input.GetKeyDown(KeyCode.Alpha6) && Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            playerControl.transform.position = new Vector3(140, 0, 185);
+        }
     }
 
     public void AddCrystal(int x)

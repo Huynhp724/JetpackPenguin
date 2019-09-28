@@ -8,6 +8,8 @@ public class HUD : MonoBehaviour
     [SerializeField] Slider fuelGauge;
     [SerializeField] Image healthWheel;
     [SerializeField] Text lives;
+    [SerializeField] Transform crystal;
+    [SerializeField] float rotateSpeed = 1f;
     private PlayerController playerControl;
     private PlayerStats playerStats;
 
@@ -25,5 +27,6 @@ public class HUD : MonoBehaviour
         fuelGauge.value = playerControl.currentFuel / playerControl.maxFuel;
         healthWheel.fillAmount = playerStats.getHealthPercent();
         lives.text = "Lives: " + playerStats.lives;
+        crystal.Rotate(Vector3.up, rotateSpeed);
     }
 }
