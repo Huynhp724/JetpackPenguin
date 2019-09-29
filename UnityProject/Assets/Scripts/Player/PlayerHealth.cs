@@ -52,6 +52,26 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void GainLife() {
+        if (!stats.GetIsDead()) {
+            stats.lives++;
+            if (stats.lives > 2) {
+                stats.lives = 2;
+                // change UI
+            }
+        }
+    }
+
+    public void GainHitpoint() {
+        if (!stats.GetIsDead()) {
+            stats.hitPoints++;
+            if (stats.hitPoints > 3) {
+                stats.hitPoints = 3;
+                // chnage UI
+            }
+        }
+    }
+
 
     public void LoseALife(bool checkPoint) {
         Debug.Log("Lose a life");

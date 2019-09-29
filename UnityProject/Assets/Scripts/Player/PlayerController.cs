@@ -821,10 +821,10 @@ public class PlayerController : MonoBehaviour
 
     public void PluckDied() {
         myState = State.Idle;
-        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        transform.rotation = Quaternion.Euler(-90f, 0f, -90f);
         
         anim.SetBool("Slide", false);
-        //anim.SetTrigger("Jump");
+        // also turn off jetpack here please
 
     }
 
