@@ -8,12 +8,13 @@ public class CrumblingPlatform : MonoBehaviour
     [SerializeField] float timeToComeBack = 5f;
 
     private BoxCollider[] colliders;
-    private MeshRenderer renderer;
+    private MeshRenderer[] renderers;
 
     private void Awake()
     {
         colliders = GetComponents<BoxCollider>();
-        renderer = GetComponent<MeshRenderer>();
+        renderers = GetComponentsInChildren<MeshRenderer>();
+        
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -30,13 +31,20 @@ public class CrumblingPlatform : MonoBehaviour
             {
                 collider.enabled = false;
             }
-            renderer.enabled = false;
+            foreach (Renderer render in renderers)
+            {
+                render.enabled = false;
+            }
+            
         }
         yield return new WaitForSecondsRealtime(timeToComeBack);
         foreach (BoxCollider collider in colliders)
         {
             collider.enabled = true;
         }
-        renderer.enabled = true;
+        foreach (Renderer render in renderers)
+        {
+            render.enabled = true;
+        }
     }
 }
