@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8871704927413907530}
   - component: {fileID: 219072754769568316}
   - component: {fileID: 179458091340089087}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: ShardCollectable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,6 +74,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SM_Crystal_Shards
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 23802df52de931a48b5d3a60520001ca,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: -9138384822779237652, guid: 23802df52de931a48b5d3a60520001ca,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1750205787798303951, guid: 23802df52de931a48b5d3a60520001ca,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: -82215856867642255, guid: 23802df52de931a48b5d3a60520001ca,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137466638116355569, guid: 23802df52de931a48b5d3a60520001ca,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 23802df52de931a48b5d3a60520001ca,
         type: 3}
