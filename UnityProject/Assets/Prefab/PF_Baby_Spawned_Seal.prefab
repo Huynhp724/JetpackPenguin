@@ -882,7 +882,7 @@ Transform:
   m_GameObject: {fileID: 1557036808743969003}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -23.67, y: 0.64, z: -4.42}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 432701661179564573}
   - {fileID: 1557036808774008303}
@@ -904,6 +904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBounceBack: 10
+  headCollider: {fileID: 0}
 --- !u!114 &1557036808743969000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -932,7 +933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 0404cc32bd1ab104d89001339309172b, type: 2}
   squishPosition: {fileID: 1557036808774008303}
-  freezedStatePrefab: {fileID: 5623452744358927494, guid: ca878f07a3b129747b36b9d0770ad0ac,
+  freezedStatePrefab: {fileID: 1900960522957551218, guid: 74789ec6b0c03fa428861b94693ffd7c,
     type: 3}
   isFreezing: 0
 --- !u!114 &1557036808743969001

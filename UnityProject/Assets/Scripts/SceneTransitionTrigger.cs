@@ -21,4 +21,8 @@ public class SceneTransitionTrigger : MonoBehaviour
             LevelChanger.Instance.SetLevelInfo(nextSceneName, reentryPosition, entryTarget);
         }
     }
+
+    public void FirstTransition() {
+        LevelChanger.Instance.SetLevelInfo(nextSceneName, reentryPosition, entryTarget);
+    }
 }
