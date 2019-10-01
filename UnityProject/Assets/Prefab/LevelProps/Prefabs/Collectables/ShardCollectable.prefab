@@ -49,6 +49,7 @@ MonoBehaviour:
   bobDegree: 0.75
   bobSpeed: 1
   pickedUpDistance: 2
+  pickupEnum: 1
 --- !u!135 &179458091340089087
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -61,7 +62,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.19613998
-  m_Center: {x: 0, y: 0.043950103, z: -0.1904231}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2600706004243208392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87,7 +88,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 23802df52de931a48b5d3a60520001ca,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.206
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 23802df52de931a48b5d3a60520001ca,
         type: 3}
