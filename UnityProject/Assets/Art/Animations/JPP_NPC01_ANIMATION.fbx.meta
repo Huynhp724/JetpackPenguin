@@ -15,7 +15,47 @@ ModelImporter:
   - first:
       74: 5756863658509422207
     second: NPC Talk
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Beak
+    second: {fileID: 2100000, guid: c1ecfaf115b134b48b106dfb92e4f7a5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body1
+    second: {fileID: 2100000, guid: 1d7029221e8e413479e44fcd638a6b52, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Feet
+    second: {fileID: 2100000, guid: 846757fb3b8d0b14a9bcf2d421b2e5d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hair1
+    second: {fileID: 2100000, guid: b4d68662049979d4ca2f461a0e65f934, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wings
+    second: {fileID: 2100000, guid: db9bc9b611f315b4d91045bee9114398, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye_Black
+    second: {fileID: 2100000, guid: b85ae940648b9ff44876df4fe54875a6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye_Lids
+    second: {fileID: 2100000, guid: 3f7c742cb3a217942957e8c034705547, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye_White
+    second: {fileID: 2100000, guid: 3e88252e29584784292b6df3e9f7ec76, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

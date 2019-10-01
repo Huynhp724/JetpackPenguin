@@ -34,10 +34,9 @@ public class CoinPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        PlayerHealth playerHealth = other.GetComponentInParent<PlayerHealth>();
+        if (playerHealth)
         {
-            PlayerHealth playerHealth = other.GetComponentInParent<PlayerHealth>();
-
 
             if (pickupEnum == Pickup.LIFEHEALTH)
             {
