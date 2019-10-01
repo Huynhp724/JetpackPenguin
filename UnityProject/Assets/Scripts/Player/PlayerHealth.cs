@@ -36,6 +36,9 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (fader == null) {
+            fader = FindObjectOfType<ScreenFader>();
+        }
         if (stats.GetIsDead()) {
             Debug.Log("I am dead");
             flick.SwitchAllRenderers(false);
