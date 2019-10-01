@@ -15,11 +15,13 @@ public class CoinPickup : MonoBehaviour
     private bool pickedUp = false;
 
     private float intialY;
+    private GameManager gm;
 
     // Start is called before the first frame update
     void Start()
     {
         intialY = transform.position.y;
+        gm = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -34,10 +36,11 @@ public class CoinPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Collectable triggered. Collided with: " + other.gameObject);
         PlayerHealth playerHealth = other.GetComponentInParent<PlayerHealth>();
         if (playerHealth)
         {
-
+            Debug.Log("It is player.");
             if (pickupEnum == Pickup.LIFEHEALTH)
             {
                 playerHealth.GainLife();
@@ -47,7 +50,8 @@ public class CoinPickup : MonoBehaviour
                 playerHealth.GainHitpoint();
             }
             else if (pickupEnum == Pickup.CRYSTAL) {
-                FindObjectOfType<GameManager>().AddCrystal(1);
+                Debug.Log("It is a crystal.");
+                //gm.AddCrystal(1);
             }
 
             StartCoroutine(PickUp(other.gameObject));
@@ -56,6 +60,7 @@ public class CoinPickup : MonoBehaviour
 
     IEnumerator PickUp(GameObject player)
     {
+        Debug.Log("Pick up coroutine");
         pickedUp = true;
         
         transform.SetParent(player.transform);
