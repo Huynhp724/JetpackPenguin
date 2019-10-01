@@ -4694,6 +4694,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
+        type: 3}
+      propertyPath: entryTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
+        type: 3}
+      propertyPath: nextSceneName
+      value: MicroLevel1
+      objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4758,16 +4768,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
-        type: 3}
-      propertyPath: entryTarget
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
-        type: 3}
-      propertyPath: nextSceneName
-      value: MicroLevel1
       objectReference: {fileID: 0}
     - target: {fileID: 6276765854510250105, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
@@ -4909,10 +4909,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneTransitionTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
+        type: 3}
+      propertyPath: entryTarget
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
+        type: 3}
+      propertyPath: nextSceneName
+      value: LevelDesign
+      objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.84
+      value: -8.31
       objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
@@ -4922,27 +4932,27 @@ PrefabInstance:
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.44
+      value: 2.47
       objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.51827663
+      value: -0.6031383
       objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.85521305
+      value: 0.7976366
       objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
@@ -4957,7 +4967,7 @@ PrefabInstance:
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -62.433002
+      value: -74.19
       objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
@@ -4973,16 +4983,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
-        type: 3}
-      propertyPath: entryTarget
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
-        type: 3}
-      propertyPath: nextSceneName
-      value: LevelDesign
       objectReference: {fileID: 0}
     - target: {fileID: 6276765854510250105, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
