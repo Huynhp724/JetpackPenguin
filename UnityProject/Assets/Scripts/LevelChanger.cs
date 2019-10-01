@@ -33,7 +33,7 @@ public class LevelChanger : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(player.transform.position);
+       // Debug.Log(player.transform.position);
     }
 
     void Start()
@@ -73,9 +73,9 @@ public class LevelChanger : MonoBehaviour
 
     IEnumerator LoadScenePlacePluck() {
         SceneManager.LoadScene(nextLevelName);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
 
-        FindLocation();
+        //FindLocation();
 
         StartCoroutine(WaitToFadeIn());
 

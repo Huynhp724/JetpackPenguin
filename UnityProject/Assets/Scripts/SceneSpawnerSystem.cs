@@ -10,10 +10,7 @@ public class SceneSpawnerSystem : MonoBehaviour
 
     GameObject player;
 
-    private void Awake()
-    {
-        
-    }
+
 
 
     private void OnEnable()
@@ -33,6 +30,11 @@ public class SceneSpawnerSystem : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     // Start is called before the first frame update
