@@ -249,6 +249,19 @@ MonoBehaviour:
   waypointTolerance: 2
   timeToWaitAtWaypoints: 1
   speed: 2
+--- !u!65 &2163389505775582211
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6720461817659562351}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.780983, y: 1.1233158, z: 6.1722794}
+  m_Center: {x: -0.13033678, y: 1.2276945, z: -0.057636265}
 --- !u!1 &8506439653819721670
 GameObject:
   m_ObjectHideFlags: 0
