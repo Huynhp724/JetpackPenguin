@@ -59,6 +59,12 @@ public class Seal : MonoBehaviour
         }
     }
 
+    public void OnTriggerExit(Collider other)
+    {
+        StopAllCoroutines();
+        bTree.SendEvent("Stop Charge");
+    }
+
     public void Charge() {
         //Vector3.Lerp(transform.position, player.transform.position, stats.speed * Time.deltaTime);
         bTree.SendEvent("Charge");
