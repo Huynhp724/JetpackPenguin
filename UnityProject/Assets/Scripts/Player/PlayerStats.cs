@@ -41,4 +41,14 @@ public class PlayerStats : MonoBehaviour
         return hpPercent / setHitPoints;
     }
 
+    public void TurnPlayerController(PlayerController controller) {
+        StartCoroutine(TogglePlayerController(controller));
+
+    }
+
+    IEnumerator TogglePlayerController(PlayerController pc) {
+        yield return new WaitForSeconds(1.5f);
+        pc.enabled = true;
+    }
+
 }

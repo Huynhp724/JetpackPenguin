@@ -16,6 +16,8 @@ public class PlayerHealth : MonoBehaviour
     ScreenFader fader;
     FlickerRenderer flick;
     PlayerInteraction playerInteraction;
+    Animator anim;
+    PlayerController playerController;
 
     
 
@@ -26,6 +28,8 @@ public class PlayerHealth : MonoBehaviour
         fader = FindObjectOfType<ScreenFader>();
         flick = GetComponentInChildren<FlickerRenderer>();
         playerInteraction = GetComponent<PlayerInteraction>();
+        anim = GetComponentInChildren<Animator>();
+        playerController = GetComponent<PlayerController>();
 
     }
 
@@ -45,6 +49,26 @@ public class PlayerHealth : MonoBehaviour
                 minorCheckPoints = GameObject.FindGameObjectWithTag("MinorCheckpoint");
             }
             catch { }
+        }
+    }
+
+    public void GainLife() {
+        if (!stats.GetIsDead()) {
+            stats.lives++;
+            if (stats.lives > 2) {
+                stats.lives = 2;
+                // change UI
+            }
+        }
+    }
+
+    public void GainHitpoint() {
+        if (!stats.GetIsDead()) {
+            stats.hitPoints++;
+            if (stats.hitPoints > 3) {
+                stats.hitPoints = 3;
+                // chnage UI
+            }
         }
     }
 
@@ -183,6 +207,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
         fader.Fade("out");
+        playerController.PluckDied();
         StartCoroutine(Fade(point));
     }
 

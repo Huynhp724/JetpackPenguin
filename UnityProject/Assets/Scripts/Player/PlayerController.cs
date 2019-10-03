@@ -819,6 +819,15 @@ public class PlayerController : MonoBehaviour
   
     }
 
+    public void PluckDied() {
+        myState = State.Idle;
+        transform.rotation = Quaternion.Euler(-90f, 0f, -90f);
+        
+        anim.SetBool("Slide", false);
+        // also turn off jetpack here please
+
+    }
+
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Head") && (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")))
@@ -845,6 +854,8 @@ public class PlayerController : MonoBehaviour
     {
         return myState;
     }
+
+    
 
     public void setIsAiming(bool aim)
     {

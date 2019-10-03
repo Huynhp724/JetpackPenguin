@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyCollider : MonoBehaviour
 {
     public float playerBounceBack;
+    public GameObject headCollider;
 
     EnemyHealth enemyHealth;
     EnemyStats enemyStats;
@@ -25,7 +26,8 @@ public class EnemyCollider : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-
+            headCollider.SetActive(false);
+            StartCoroutine(ToggleHeadCollider());
             PlayerController controller = other.GetComponentInParent<PlayerController>();
             if (controller.GetCurrentState() == PlayerController.State.Dashing)
             {
@@ -49,6 +51,7 @@ public class EnemyCollider : MonoBehaviour
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player")) {
+            StartCoroutine(ToggleHeadCollider());
             PlayerController controller = collision.gameObject.GetComponentInParent<PlayerController>();
             if (controller.GetCurrentState() == PlayerController.State.Dashing)
             {
@@ -65,6 +68,7 @@ public class EnemyCollider : MonoBehaviour
 
 
             PlayerHealth health = collision.gameObject.GetComponentInParent<PlayerHealth>();
+            PlayerStats playerStats = collision.gameObject.GetComponentInParent<PlayerStats>();
             health.LoseHitpoint();
 
             Vector3 directionToPush = gameObject.transform.position - collision.gameObject.transform.position;
@@ -74,13 +78,14 @@ public class EnemyCollider : MonoBehaviour
 
             //playerAnim.SetTrigger();
             controller.enabled = false;
-            StartCoroutine(TogglePlayerController(controller));
+            playerStats.TurnPlayerController(controller);
         }
     }
 
-    IEnumerator TogglePlayerController(PlayerController controller) {
-        yield return new WaitForSeconds(1.5f);
-        controller.enabled = true;
+
+    IEnumerator ToggleHeadCollider() {
+        yield return new WaitForSeconds(2f);
+        headCollider.SetActive(true);
     }
 
 }
