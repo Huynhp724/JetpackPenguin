@@ -1,0 +1,1073 @@
+fileFormatVersion: 2
+guid: 2ecffcbb2c3a9f94f8b1bd89d958ba4a
+ModelImporter:
+<<<<<<< Updated upstream
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Beak_Lower
+    100004: Beak_Upper
+    100006: Body
+    100008: Eye_L
+    100010: Eye_R
+    100012: Eyeball_L
+    100014: Eyeball_R
+    100016: EyeLid_L
+    100018: EyeLid_L1
+    100020: EyeLid_L2
+    100022: EyeLid_L3
+    100024: EyeLid_L4
+    100026: EyeLid_L5
+    100028: EyeLid_L6
+    100030: EyeLid_R
+    100032: Foot_L
+    100034: Foot_R
+    100036: Iris_L
+    100038: Iris_R
+    100040: Wing_L
+    100042: Wing_R
+    400000: //RootNode
+    400002: Beak_Lower
+    400004: Beak_Upper
+    400006: Body
+    400008: Eye_L
+    400010: Eye_R
+    400012: Eyeball_L
+    400014: Eyeball_R
+    400016: EyeLid_L
+    400018: EyeLid_L1
+    400020: EyeLid_L2
+    400022: EyeLid_L3
+    400024: EyeLid_L4
+    400026: EyeLid_L5
+    400028: EyeLid_L6
+    400030: EyeLid_R
+    400032: Foot_L
+    400034: Foot_R
+    400036: Iris_L
+    400038: Iris_R
+    400040: Wing_L
+    400042: Wing_R
+    2100000: Feet
+    2100002: eye_Lids
+    2100004: Beak
+    2100006: Body1
+    2100008: Wings
+    2100010: eye_Black
+    2100012: eye_White
+    2100014: lambert1
+    2300000: Beak_Lower
+    2300002: Beak_Upper
+    2300004: Body
+    2300006: Eyeball_L
+    2300008: Eyeball_R
+    2300010: EyeLid_L
+    2300012: EyeLid_L1
+    2300014: EyeLid_L2
+    2300016: EyeLid_L3
+    2300018: EyeLid_L4
+    2300020: EyeLid_L5
+    2300022: EyeLid_L6
+    2300024: EyeLid_R
+    2300026: Foot_L
+    2300028: Foot_R
+    2300030: Iris_L
+    2300032: Iris_R
+    2300034: Wing_L
+    2300036: Wing_R
+    3300000: Beak_Lower
+    3300002: Beak_Upper
+    3300004: Body
+    3300006: Eyeball_L
+    3300008: Eyeball_R
+    3300010: EyeLid_L
+    3300012: EyeLid_L1
+    3300014: EyeLid_L2
+    3300016: EyeLid_L3
+    3300018: EyeLid_L4
+    3300020: EyeLid_L5
+    3300022: EyeLid_L6
+    3300024: EyeLid_R
+    3300026: Foot_L
+    3300028: Foot_R
+    3300030: Iris_L
+    3300032: Iris_R
+    3300034: Wing_L
+    3300036: Wing_R
+    4300000: Foot_L
+    4300002: Foot_R
+    4300004: EyeLid_R
+    4300006: Beak_Lower
+    4300008: EyeLid_L
+    4300010: Beak_Upper
+    4300012: Body
+    4300014: Wing_R
+    4300016: Wing_L
+    4300018: Iris_L
+    4300020: Eyeball_L
+    4300022: Eyeball_R
+    4300024: Iris_R
+    4300026: EyeLid_L1
+    4300028: EyeLid_L2
+    4300030: EyeLid_L3
+    4300032: EyeLid_L4
+    4300034: EyeLid_L5
+    4300036: EyeLid_L6
+=======
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: Beak_Lower
+  - first:
+      1: 100004
+    second: Beak_Upper
+  - first:
+      1: 100006
+    second: Body
+  - first:
+      1: 100008
+    second: Eye_L
+  - first:
+      1: 100010
+    second: Eye_R
+  - first:
+      1: 100012
+    second: Eyeball_L
+  - first:
+      1: 100014
+    second: Eyeball_R
+  - first:
+      1: 100016
+    second: EyeLid_L
+  - first:
+      1: 100018
+    second: EyeLid_L1
+  - first:
+      1: 100020
+    second: EyeLid_L2
+  - first:
+      1: 100022
+    second: EyeLid_L3
+  - first:
+      1: 100024
+    second: EyeLid_L4
+  - first:
+      1: 100026
+    second: EyeLid_L5
+  - first:
+      1: 100028
+    second: EyeLid_L6
+  - first:
+      1: 100030
+    second: EyeLid_R
+  - first:
+      1: 100032
+    second: Foot_L
+  - first:
+      1: 100034
+    second: Foot_R
+  - first:
+      1: 100036
+    second: Iris_L
+  - first:
+      1: 100038
+    second: Iris_R
+  - first:
+      1: 100040
+    second: Wing_L
+  - first:
+      1: 100042
+    second: Wing_R
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: Beak_Lower
+  - first:
+      4: 400004
+    second: Beak_Upper
+  - first:
+      4: 400006
+    second: Body
+  - first:
+      4: 400008
+    second: Eye_L
+  - first:
+      4: 400010
+    second: Eye_R
+  - first:
+      4: 400012
+    second: Eyeball_L
+  - first:
+      4: 400014
+    second: Eyeball_R
+  - first:
+      4: 400016
+    second: EyeLid_L
+  - first:
+      4: 400018
+    second: EyeLid_L1
+  - first:
+      4: 400020
+    second: EyeLid_L2
+  - first:
+      4: 400022
+    second: EyeLid_L3
+  - first:
+      4: 400024
+    second: EyeLid_L4
+  - first:
+      4: 400026
+    second: EyeLid_L5
+  - first:
+      4: 400028
+    second: EyeLid_L6
+  - first:
+      4: 400030
+    second: EyeLid_R
+  - first:
+      4: 400032
+    second: Foot_L
+  - first:
+      4: 400034
+    second: Foot_R
+  - first:
+      4: 400036
+    second: Iris_L
+  - first:
+      4: 400038
+    second: Iris_R
+  - first:
+      4: 400040
+    second: Wing_L
+  - first:
+      4: 400042
+    second: Wing_R
+  - first:
+      21: 2100000
+    second: Feet
+  - first:
+      21: 2100002
+    second: eye_Lids
+  - first:
+      21: 2100004
+    second: Beak
+  - first:
+      21: 2100006
+    second: Body1
+  - first:
+      21: 2100008
+    second: Wings
+  - first:
+      21: 2100010
+    second: eye_Black
+  - first:
+      21: 2100012
+    second: eye_White
+  - first:
+      21: 2100014
+    second: lambert1
+  - first:
+      23: 2300000
+    second: Beak_Lower
+  - first:
+      23: 2300002
+    second: Beak_Upper
+  - first:
+      23: 2300004
+    second: Body
+  - first:
+      23: 2300006
+    second: Eyeball_L
+  - first:
+      23: 2300008
+    second: Eyeball_R
+  - first:
+      23: 2300010
+    second: EyeLid_L
+  - first:
+      23: 2300012
+    second: EyeLid_L1
+  - first:
+      23: 2300014
+    second: EyeLid_L2
+  - first:
+      23: 2300016
+    second: EyeLid_L3
+  - first:
+      23: 2300018
+    second: EyeLid_L4
+  - first:
+      23: 2300020
+    second: EyeLid_L5
+  - first:
+      23: 2300022
+    second: EyeLid_L6
+  - first:
+      23: 2300024
+    second: EyeLid_R
+  - first:
+      23: 2300026
+    second: Foot_L
+  - first:
+      23: 2300028
+    second: Foot_R
+  - first:
+      23: 2300030
+    second: Iris_L
+  - first:
+      23: 2300032
+    second: Iris_R
+  - first:
+      23: 2300034
+    second: Wing_L
+  - first:
+      23: 2300036
+    second: Wing_R
+  - first:
+      33: 3300000
+    second: Beak_Lower
+  - first:
+      33: 3300002
+    second: Beak_Upper
+  - first:
+      33: 3300004
+    second: Body
+  - first:
+      33: 3300006
+    second: Eyeball_L
+  - first:
+      33: 3300008
+    second: Eyeball_R
+  - first:
+      33: 3300010
+    second: EyeLid_L
+  - first:
+      33: 3300012
+    second: EyeLid_L1
+  - first:
+      33: 3300014
+    second: EyeLid_L2
+  - first:
+      33: 3300016
+    second: EyeLid_L3
+  - first:
+      33: 3300018
+    second: EyeLid_L4
+  - first:
+      33: 3300020
+    second: EyeLid_L5
+  - first:
+      33: 3300022
+    second: EyeLid_L6
+  - first:
+      33: 3300024
+    second: EyeLid_R
+  - first:
+      33: 3300026
+    second: Foot_L
+  - first:
+      33: 3300028
+    second: Foot_R
+  - first:
+      33: 3300030
+    second: Iris_L
+  - first:
+      33: 3300032
+    second: Iris_R
+  - first:
+      33: 3300034
+    second: Wing_L
+  - first:
+      33: 3300036
+    second: Wing_R
+  - first:
+      43: 4300000
+    second: Foot_L
+  - first:
+      43: 4300002
+    second: Foot_R
+  - first:
+      43: 4300004
+    second: EyeLid_R
+  - first:
+      43: 4300006
+    second: Beak_Lower
+  - first:
+      43: 4300008
+    second: EyeLid_L
+  - first:
+      43: 4300010
+    second: Beak_Upper
+  - first:
+      43: 4300012
+    second: Body
+  - first:
+      43: 4300014
+    second: Wing_R
+  - first:
+      43: 4300016
+    second: Wing_L
+  - first:
+      43: 4300018
+    second: Iris_L
+  - first:
+      43: 4300020
+    second: Eyeball_L
+  - first:
+      43: 4300022
+    second: Eyeball_R
+  - first:
+      43: 4300024
+    second: Iris_R
+  - first:
+      43: 4300026
+    second: EyeLid_L1
+  - first:
+      43: 4300028
+    second: EyeLid_L2
+  - first:
+      43: 4300030
+    second: EyeLid_L3
+  - first:
+      43: 4300032
+    second: EyeLid_L4
+  - first:
+      43: 4300034
+    second: EyeLid_L5
+  - first:
+      43: 4300036
+    second: EyeLid_L6
+>>>>>>> Stashed changes
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Beak
+    second: {fileID: 2100000, guid: d46a0d17432692a4fae1f23c297dba8d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body1
+    second: {fileID: 2100000, guid: c1a81bb184975c4468b17bab41c5fe4d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Feet
+    second: {fileID: 2100000, guid: c422785cbe56f134494c89cff5082602, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wings
+    second: {fileID: 2100000, guid: b01d3753306a8d74786ef5b218c8c92d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye_Black
+    second: {fileID: 2100000, guid: bfb04ea023324484cb55fe884291a8b9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye_Lids
+    second: {fileID: 2100000, guid: 8684eaf5f2fdcc64ca26a9e5b8654667, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye_White
+    second: {fileID: 2100000, guid: 7239a417bccb8cb49bbca8fcf8aa2651, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+<<<<<<< Updated upstream
+    animationCompression: 1
+=======
+    animationCompression: 3
+>>>>>>> Stashed changes
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+<<<<<<< Updated upstream
+=======
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+>>>>>>> Stashed changes
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+<<<<<<< Updated upstream
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+=======
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+>>>>>>> Stashed changes
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+<<<<<<< Updated upstream
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+=======
+>>>>>>> Stashed changes
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+<<<<<<< Updated upstream
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+=======
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  copyAvatar: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: JPP_@ANIMATION_01(Clone)
+      parentName: 
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: globalControl01_CC
+      parentName: JPP_@ANIMATION_01(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: globalControl02_CC
+      parentName: globalControl01_CC
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: globalControl03_CC
+      parentName: globalControl02_CC
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: controls_GRP
+      parentName: globalControl03_CC
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: headTip_CC_GRP
+      parentName: controls_GRP
+      position: {x: 0.000035976598, y: 1.9219236, z: 0.000000035610444}
+      rotation: {x: -1.3877789e-16, y: -1.3877789e-16, z: -3.0531133e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: headTip_CC
+      parentName: headTip_CC_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: r_wing_CC_GRP
+      parentName: controls_GRP
+      position: {x: 1.2801499, y: 1.3125501, z: -0.20630899}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: r_wing_CC
+      parentName: r_wing_CC_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: l_wing_CC_GRP
+      parentName: controls_GRP
+      position: {x: -1.280078, y: 1.312555, z: -0.20630938}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: l_wing_CC
+      parentName: l_wing_CC_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: neck_CC_GRP
+      parentName: controls_GRP
+      position: {x: 0.000035991667, y: 1.4762361, z: -0.0024091338}
+      rotation: {x: -2.0315416e-19, y: 2.6065268e-19, z: -1.6653345e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: neck_CC
+      parentName: neck_CC_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: torso_CC_GRP
+      parentName: controls_GRP
+      position: {x: 0.00003604889, y: 0.8929643, z: -0.000000019073486}
+      rotation: {x: 8.326673e-17, y: -1.110223e-16, z: -1.110223e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: torso_CC
+      parentName: torso_CC_GRP
+      position: {x: -4.3368086e-21, y: -1.4210854e-16, z: 8.470329e-24}
+      rotation: {x: 0, y: -5.551115e-17, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: chest_CC_GRP
+      parentName: controls_GRP
+      position: {x: 0.00003604889, y: 1.2390459, z: -0.000000019073486}
+      rotation: {x: 2.775553e-17, y: -2.2377935e-16, z: -2.2204459e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: chest_CC
+      parentName: chest_CC_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -4.3368087e-19, y: -4.3368087e-19, z: -1.1101891e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hips_CC_GRP
+      parentName: controls_GRP
+      position: {x: 0.000035991667, y: 0.33851692, z: -0.0045142365}
+      rotation: {x: 3.469447e-18, y: 3.469447e-18, z: -1.6667576e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hips_CC
+      parentName: hips_CC_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: COG_CC_GRP
+      parentName: controls_GRP
+      position: {x: 0.000035972593, y: 0.42944327, z: -0.0014809227}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: COG_CC
+      parentName: COG_CC_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: abdomin_CC_GRP
+      parentName: controls_GRP
+      position: {x: 0.000035991667, y: 0.62265027, z: 1.3322676e-17}
+      rotation: {x: 3.469447e-18, y: 3.469447e-18, z: -1.6667576e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: abdomin_CC
+      parentName: abdomin_CC_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: l_ankle_CC_GRP
+      parentName: controls_GRP
+      position: {x: -0.277635, y: 0.0874282, z: -0.0738863}
+      rotation: {x: 4.9678707e-17, y: 1.0733054e-16, z: -1.110223e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: l_ankle_CC
+      parentName: l_ankle_CC_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: r_ankle_CC_GRP
+      parentName: controls_GRP
+      position: {x: 0.27770677, y: 0.08742823, z: -0.07388625}
+      rotation: {x: -4.5385484e-17, y: -6.1331737e-18, z: -2.7755578e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: r_ankle_CC
+      parentName: r_ankle_CC_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: l_toe_CC_GRP
+      parentName: controls_GRP
+      position: {x: -0.277456, y: 0.035781298, z: 0.190716}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: l_toe_CC
+      parentName: l_toe_CC_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0.026176948, w: 0.99965733}
+      scale: {x: 1, y: 1, z: 1}
+    - name: r_toe_CC_GRP
+      parentName: controls_GRP
+      position: {x: 0.27752754, y: 0.03578127, z: 0.19071579}
+      rotation: {x: -1.303957e-13, y: 4.6887985e-38, z: -6.9388946e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: r_toe_CC
+      parentName: r_toe_CC_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: joints_GRP
+      parentName: globalControl03_CC
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ROOT_COG_JNT
+      parentName: joints_GRP
+      position: {x: 0.000035972593, y: 0.42944327, z: -0.0014809227}
+      rotation: {x: 0.51475334, y: -0.49786767, z: 0.50169694, w: -0.4852392}
+      scale: {x: 1.0000023, y: 1.0000038, z: 1.0000023}
+    - name: pelvis_JNT
+      parentName: ROOT_COG_JNT
+      position: {x: 0.09077469, y: 0.0060622534, z: 0.000077962046}
+      rotation: {x: -0.22654304, y: 0.6505562, z: -0.636136, w: -0.34754267}
+      scale: {x: 1.0000014, y: 1.0000015, z: 0.99999917}
+    - name: l_knee_JNT
+      parentName: pelvis_JNT
+      position: {x: -0.14395493, y: 0.287601, z: -0.07344556}
+      rotation: {x: 0.04896509, y: -0.9798956, z: 0.1931682, w: 0.009652578}
+      scale: {x: 1.0000008, y: 1.0000008, z: 1.0000023}
+    - name: l_ankle_JNT
+      parentName: l_knee_JNT
+      position: {x: 0.1076701, y: 0.0000006618883, z: -0.0000001651323}
+      rotation: {x: 0.4115111, y: 0.37495074, z: -0.49548537, w: 0.666757}
+      scale: {x: 1.0000004, y: 1.0000008, z: 1}
+    - name: l_toe_JNT
+      parentName: l_ankle_JNT
+      position: {x: 0.26959562, y: -0.000000098683486, z: -0.00000022418061}
+      rotation: {x: 0.000032573935, y: 0.00033712384, z: -0.09623274, w: 0.9953588}
+      scale: {x: 1.0000005, y: 1.0000007, z: 1.0000005}
+    - name: r_knee_JNT
+      parentName: pelvis_JNT
+      position: {x: -0.14395522, y: -0.28760144, z: -0.0734456}
+      rotation: {x: 0.18245879, y: -0.07411709, z: 0.31437406, w: 0.92864656}
+      scale: {x: 1.0000007, y: 1.0000008, z: 1}
+    - name: r_ankle_JNT
+      parentName: r_knee_JNT
+      position: {x: -0.10766984, y: 7.105427e-17, z: -3.5527136e-17}
+      rotation: {x: 0.377414, y: 0.44823352, z: -0.47725984, w: 0.6548805}
+      scale: {x: 1.0000007, y: 0.99999994, z: 1}
+    - name: r_toe_JNT
+      parentName: r_ankle_JNT
+      position: {x: -0.2695954, y: 8.881784e-18, z: -1.4210854e-16}
+      rotation: {x: 0.000032514326, y: 0.00033713868, z: -0.09623269, w: 0.9953588}
+      scale: {x: 1.0000006, y: 0.9999999, z: 1.0000005}
+    - name: spine01_JNT
+      parentName: ROOT_COG_JNT
+      position: {x: -0.19305019, y: -0.007921435, z: -0.000038080107}
+      rotation: {x: -0.7160312, y: -0.011940002, z: -0.011637304, w: -0.69786924}
+      scale: {x: 0.99999917, y: 0.99999976, z: 0.99999976}
+    - name: spine02_JNT
+      parentName: spine01_JNT
+      position: {x: -0.27031407, y: 6.174093e-15, z: -5.2321477e-18}
+      rotation: {x: -0.000000059604638, y: 0.000000040046867, z: 0.00000007916241,
+        w: 1}
+      scale: {x: 1.0000012, y: 1.0000012, z: 0.99999994}
+    - name: jetPack_JNT
+      parentName: spine02_JNT
+      position: {x: -0.062257156, y: -0.000156722, z: -0.7183964}
+      rotation: {x: -1.7172884e-16, y: 1.3738316e-16, z: 0.7071068, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: spine03_JNT
+      parentName: spine02_JNT
+      position: {x: -0.34608153, y: -8.673617e-21, z: 4.2351646e-24}
+      rotation: {x: 0.7070893, y: -0.0035908383, z: 0.0035908765, w: 0.707106}
+      scale: {x: 1.0000023, y: 1.0000031, z: 1.0000031}
+    - name: spine04_JNT
+      parentName: spine03_JNT
+      position: {x: -0.23720247, y: 6.8389737e-15, z: 9.178422e-17}
+      rotation: {x: -0.9999697, y: 0.007780878, z: 0.00000001536682, w: 0.00001502058}
+      scale: {x: 1.0000001, y: 1.0000005, z: 1.0000002}
+    - name: head_JNT
+      parentName: spine04_JNT
+      position: {x: -0.2355742, y: 0.014152959, z: -0.0000000710332}
+      rotation: {x: 0.49864522, y: -0.50134796, z: 0.49864843, w: 0.50135106}
+      scale: {x: 1.0000001, y: 0.99999994, z: 0.99999994}
+    - name: beak_lo_JNT
+      parentName: head_JNT
+      position: {x: -0.000000023841856, y: -0.140783, z: 0.25706106}
+      rotation: {x: -0.000000059604638, y: -0.00000008940696, z: -0.0000001490116,
+        w: -1}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000007}
+    - name: beak_hi_JNT
+      parentName: head_JNT
+      position: {x: -0.000000019073486, y: -0.076643296, z: 0.26109782}
+      rotation: {x: -0.000000059604638, y: -0.00000008940696, z: -0.0000001490116,
+        w: -1}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000007}
+    - name: headTip_JNT
+      parentName: head_JNT
+      position: {x: -0.00000002460787, y: 0.21004027, z: 0.015288541}
+      rotation: {x: -0.000000029802322, y: 0.000000029802322, z: -0.7071069, w: 0.70710677}
+      scale: {x: 1.0000011, y: 1.000001, z: 1}
+    - name: r_pupil_JNT
+      parentName: head_JNT
+      position: {x: 0.15101501, y: -0.04085327, z: 0.2660335}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000006, y: 1.0000004, z: 1.0000005}
+    - name: l_eye_JNT
+      parentName: head_JNT
+      position: {x: -0.15100001, y: -0.040853117, z: 0.17397039}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000024, y: 1.0000014, z: 1.0000019}
+    - name: l_pupil_JNT
+      parentName: head_JNT
+      position: {x: -0.15100001, y: -0.04085327, z: 0.2660335}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000006, y: 1.0000004, z: 1.0000005}
+    - name: r_eye_JNT
+      parentName: head_JNT
+      position: {x: 0.15101501, y: -0.040853422, z: 0.17397039}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000024, y: 1.0000014, z: 1.0000019}
+    - name: r_wing01_JNT
+      parentName: spine03_JNT
+      position: {x: -0.06893266, y: 0.03200385, z: -0.42427322}
+      rotation: {x: -0.50850916, y: 0.5142563, z: -0.48612288, w: -0.4905543}
+      scale: {x: 1.0000002, y: 0.99999994, z: 1.0000005}
+    - name: r_wing02_JNT
+      parentName: r_wing01_JNT
+      position: {x: -0.06472873, y: -2.842171e-16, z: -2.8865798e-17}
+      rotation: {x: 0.000045388933, y: 0.02508324, z: 0.00072908396, w: 0.99968517}
+      scale: {x: 1.0000005, y: 1, z: 1.0000004}
+    - name: r_wing03_JNT
+      parentName: r_wing02_JNT
+      position: {x: -0.06294575, y: 2.842171e-16, z: -3.0642155e-16}
+      rotation: {x: 0.00006989526, y: -0.03659311, z: -0.00477243, w: 0.9993189}
+      scale: {x: 1.0000007, y: 1, z: 1.0000006}
+    - name: r_wing04_JNT
+      parentName: r_wing03_JNT
+      position: {x: -0.07636193, y: 0, z: 5.3290704e-17}
+      rotation: {x: -0.00051723793, y: 0.10100127, z: 0.004155531, w: 0.9948775}
+      scale: {x: 1.0000015, y: 1.0000001, z: 1.0000018}
+    - name: r_wing05_JNT
+      parentName: r_wing04_JNT
+      position: {x: -0.19061267, y: -5.684342e-16, z: 1.7763567e-16}
+      rotation: {x: -0.0002886284, y: -0.023401419, z: 0.0003018462, w: 0.9997261}
+      scale: {x: 1.0000013, y: 0.99999934, z: 1.000001}
+    - name: r_wing06_JNT
+      parentName: r_wing05_JNT
+      position: {x: -0.16868114, y: 2.842171e-16, z: -2.1316282e-16}
+      rotation: {x: 0.00004929432, y: -0.014985666, z: -0.0024043333, w: 0.99988484}
+      scale: {x: 1.0000014, y: 1.0000006, z: 1.0000014}
+    - name: r_wing07_JNT
+      parentName: r_wing06_JNT
+      position: {x: -0.14039928, y: 0, z: 7.105427e-17}
+      rotation: {x: 0.000078807694, y: -0.023523763, z: 0.0023503245, w: 0.9997206}
+      scale: {x: 1.0000002, y: 1, z: 1.0000004}
+    - name: r_wing08_JNT
+      parentName: r_wing07_JNT
+      position: {x: -0.11042885, y: 2.842171e-16, z: 1.7763567e-16}
+      rotation: {x: 0.0025210928, y: -0.034955848, z: -0.0028263794, w: 0.99938166}
+      scale: {x: 1.0000006, y: 0.99999994, z: 1.0000001}
+    - name: r_wing09_JNT
+      parentName: r_wing08_JNT
+      position: {x: -0.08854485, y: -7.105427e-16, z: -5.3290704e-17}
+      rotation: {x: 0.00031982886, y: -0.022379644, z: 0.014284717, w: 0.9996475}
+      scale: {x: 1.0000005, y: 1.0000001, z: 1.0000005}
+    - name: l_wing01_JNT
+      parentName: spine03_JNT
+      position: {x: -0.068932846, y: 0.0319837, z: 0.42427477}
+      rotation: {x: 0.5142447, y: 0.50849754, z: 0.49056643, w: -0.486135}
+      scale: {x: 1.0000002, y: 1, z: 1}
+    - name: l_wing02_JNT
+      parentName: l_wing01_JNT
+      position: {x: 0.06472873, y: -0.000000037846046, z: -5.36355e-10}
+      rotation: {x: 0.000045388933, y: 0.02508324, z: 0.00072899455, w: 0.9996851}
+      scale: {x: 1.0000005, y: 1.0000002, z: 0.99999994}
+    - name: l_wing03_JNT
+      parentName: l_wing02_JNT
+      position: {x: 0.06294573, y: 0.00000008794771, z: -3.3132458e-10}
+      rotation: {x: 0.00006993792, y: -0.03659322, z: -0.0047722207, w: 0.99931884}
+      scale: {x: 1.0000008, y: 1.0000008, z: 0.99999994}
+    - name: l_wing04_JNT
+      parentName: l_wing03_JNT
+      position: {x: 0.07636194, y: -0.000000008503361, z: 0.0000000018396901}
+      rotation: {x: -0.0005172143, y: 0.10100121, z: 0.0041557746, w: 0.9948775}
+      scale: {x: 1.0000008, y: 1.0000012, z: 1.0000004}
+    - name: l_wing05_JNT
+      parentName: l_wing04_JNT
+      position: {x: 0.19061267, y: -0.00000009887676, z: -1.058282e-10}
+      rotation: {x: -0.0002886391, y: -0.023399988, z: 0.0003012845, w: 0.9997262}
+      scale: {x: 0.99999946, y: 0.9999994, z: 0.9999999}
+    - name: l_wing06_JNT
+      parentName: l_wing05_JNT
+      position: {x: 0.16868116, y: -0.000000006097284, z: 0.000000003459648}
+      rotation: {x: 0.000049302234, y: -0.014985668, z: -0.0024041147, w: 0.99988484}
+      scale: {x: 1.0000008, y: 1.0000012, z: 1.0000001}
+    - name: l_wing07_JNT
+      parentName: l_wing06_JNT
+      position: {x: 0.14040108, y: 0.000000028645578, z: 0.0000008310381}
+      rotation: {x: 0.00007873785, y: -0.023523835, z: 0.0023502335, w: 0.9997205}
+      scale: {x: 1.0000013, y: 1.000001, z: 0.99999994}
+    - name: l_wing08_JNT
+      parentName: l_wing07_JNT
+      position: {x: 0.110428885, y: 0.00000001590815, z: 0.000000018758994}
+      rotation: {x: 0.002521293, y: -0.03495899, z: -0.0028261014, w: 0.99938166}
+      scale: {x: 1.0000008, y: 1.0000011, z: 1.0000001}
+    - name: l_wing09_JNT
+      parentName: l_wing08_JNT
+      position: {x: 0.08854482, y: 0.0000000589828, z: -0.000000010368923}
+      rotation: {x: 0.00031977068, y: -0.02237969, z: 0.014284766, w: 0.9996475}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
+    - name: geometry_GRP
+      parentName: JPP_@ANIMATION_01(Clone)
+      position: {x: -0.0000018930435, y: 0.96181786, z: -0.0000000023841857}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: l_foot_REN
+      parentName: geometry_GRP
+      position: {x: 0.0000018930435, y: -0.96181786, z: 0.0000000023841857}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: r_foot_REN
+      parentName: geometry_GRP
+      position: {x: 0.0000018930435, y: -0.96181786, z: 0.0000000023841857}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: beak_lo_REN
+      parentName: geometry_GRP
+      position: {x: 0.0000018930435, y: -0.96181786, z: 0.0000000023841857}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: beak_hi_REN
+      parentName: geometry_GRP
+      position: {x: 0.0000018930435, y: -0.96181786, z: 0.0000000023841857}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: body_REN
+      parentName: geometry_GRP
+      position: {x: 0.0000018930435, y: -0.96181786, z: 0.0000000023841857}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: r_wing_REN
+      parentName: geometry_GRP
+      position: {x: 0.0000018930435, y: -0.96181786, z: 0.0000000023841857}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: l_wing_REN
+      parentName: geometry_GRP
+      position: {x: 0.0000018930435, y: -0.96181786, z: 0.0000000023841857}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: l_eye_GRP
+      parentName: geometry_GRP
+      position: {x: 0.00003786087, y: -2.5080426, z: 0.000000047683713}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: l_iris_REN
+      parentName: l_eye_GRP
+      position: {x: -0.000035967827, y: 1.5462246, z: -0.00000004529953}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: l_eyeball_REN
+      parentName: l_eye_GRP
+      position: {x: -0.000035967827, y: 1.5462246, z: -0.00000004529953}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: l_eyelid_REN
+      parentName: l_eye_GRP
+      position: {x: -0.000035967827, y: 1.5462246, z: -0.00000004529953}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: r_eye_GRP
+      parentName: geometry_GRP
+      position: {x: 0.00003786087, y: -2.5080426, z: 0.000000047683713}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: r_eyeball_REN
+      parentName: r_eye_GRP
+      position: {x: -0.000035967827, y: 1.5462246, z: -0.00000004529953}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: r_iris_REN
+      parentName: r_eye_GRP
+      position: {x: -0.000035967827, y: 1.5462246, z: -0.00000004529953}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: r_eyelid_REN
+      parentName: r_eye_GRP
+      position: {x: -0.000035967827, y: 1.5462246, z: -0.00000004529953}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: eyelid_extras_GRP
+      parentName: geometry_GRP
+      position: {x: 0.0000018930435, y: -0.96181786, z: 0.0000000023841857}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: l_eyelid01
+      parentName: eyelid_extras_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: l_eyelid02
+      parentName: eyelid_extras_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: r_eyelid01
+      parentName: eyelid_extras_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: r_eyelid02
+      parentName: eyelid_extras_GRP
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+>>>>>>> Stashed changes
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+<<<<<<< Updated upstream
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+=======
+    globalScale: 1
+    rootMotionBoneName: geometry_GRP
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: c4609c94f4df8f346bfa76b6f11eb8d5,
+    type: 3}
+  animationType: 2
+>>>>>>> Stashed changes
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
