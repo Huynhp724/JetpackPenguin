@@ -36,64 +36,74 @@ public class AudioController : MonoBehaviour
         lastpos = transform.position;
     }
 
+    private void FixedUpdate()
+    {
+        if (pc.onGround && pc.GetCurrentState() != PlayerController.State.Dashing) {
+            if (pc.getHoriInput() != 0 || pc.getVertInput() != 0)
+            {
+                if (aud.clip != walkCycle)
+                {
+                    aud.clip = walkCycle;
+                    aud.volume = 1.0f;
+                    aud.Play();
+                }
+            }
+            if (aud.clip == walkCycle && pc.getHoriInput() == 0 && pc.getVertInput() == 0) {
+                aud.Stop();
+            }
+        }
+
+        if (pc.getPressJump()) {
+            aud.volume = 0.2f;
+            aud.PlayOneShot(jump);
+        }
+        if (pc.getPressJumpInAir()) {
+            aud.volume = 0.2f;
+            aud.PlayOneShot(jump);
+        }
+        if (pc.getDashJump())
+        {
+            aud.volume = 0.2f;
+            aud.PlayOneShot(jump);
+        }
+        if (pc.getHovering() && aud.clip != jetHover)
+        {
+            aud.clip = jetHover;
+            aud.volume = 0.6f;
+            aud.Play();
+        }
+        else if(aud.clip == jetHover && !pc.getHovering() ){
+            
+            //aud.Stop(); //This is commented out because pc.getHovering() is not constant. The player controller does not keep track properly. Known Bug.
+        }
+        if (pc.getChargeRelease()) {
+            aud.volume = 0.8f;
+            aud.PlayOneShot(jetJump);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        curpos = this.gameObject.transform.position;
+        
         state = pc.GetCurrentState();
-        if (state == PlayerController.State.Idle)
-        { //if state is idle
-            if (!pc.onGround && lastgrounded)
-            {
-                //aud.clip = jump;
-                lastgrounded = false;
-                aud.PlayOneShot(jump);
-                aud.volume = 0.4f;
-            }
-            
-            if (pc.onGround) {
-                if (curpos == lastpos)
-                {
-                    aud.Stop();
-                    //Debug.Log("Not Moving");
-
-
-                }
-                else
-                {
-                    //Debug.Log("Moving");
-                    if (!aud.isPlaying)
-                    {
-                        aud.clip = walkCycle;
-                        aud.Play();
-                        aud.volume = 1.3f;
-                    }
-                }
-                lastgrounded = true;
-                
-            }
-        }
-        else if (state == PlayerController.State.Dashing)
+        if (state == PlayerController.State.Dashing)
         {
 
 
-            if (!aud.isPlaying || aud.clip != slide)
-            {
-                aud.clip = slide;
-                aud.Play();
-                aud.volume = 1.0f;
-            }
+            
         }
         else if (state == PlayerController.State.Flapping)
         {
             if (!aud.isPlaying || aud.clip != hoverFlap)
             {
                 aud.clip = hoverFlap;
-                aud.Play();
                 aud.volume = 0.4f;
+                aud.Play();
+                
             }
         }
 
-        lastpos = this.gameObject.transform.position;
+        
     }
 }
