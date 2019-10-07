@@ -16,6 +16,12 @@ public class EssentialsSingleton : MonoBehaviour
         else {
             Destroy(gameObject);
         }
+
+        GameManager gm = GetComponentInChildren<GameManager>();
+        if(gm == null)
+        {
+            Debug.Log("Game manager missing. Adding one.");
+        }
     }
 
 

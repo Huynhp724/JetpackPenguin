@@ -25,7 +25,11 @@ public class DeathVolume : MonoBehaviour
             PlayerHealth health = other.GetComponentInParent<PlayerHealth>();
             health.FellToDeath();
         }
-        else {
+        else if (other.CompareTag("Structure")) {
+            // yyuh
+        }
+        else
+        {
             Debug.Log(other);
             StartCoroutine(Destroy(other));
         }
