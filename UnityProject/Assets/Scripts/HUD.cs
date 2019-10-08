@@ -33,7 +33,7 @@ public class HUD : MonoBehaviour
         fuelGauge.value = playerControl.currentFuel / playerControl.maxFuel;
         healthWheel.fillAmount = playerStats.getHealthPercent();
         lives.text = "Lives: " + playerStats.lives;
-        crystalText.text = "Crystals: " + playerStats.getCrystals();
+        crystalText.text = "x " + playerStats.getCrystals();
         crystal.Rotate(Vector3.up, rotateSpeed);
     }
 }
