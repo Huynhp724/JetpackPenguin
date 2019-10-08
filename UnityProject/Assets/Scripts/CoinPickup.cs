@@ -66,6 +66,7 @@ public class CoinPickup : MonoBehaviour
     {
         Debug.Log("Pick up coroutine");
         pickedUp = true;
+        asource.volume = 0.7f;
         asource.PlayOneShot(pickupSound);
         transform.SetParent(player.transform);
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y + pickedUpDistance, player.transform.position.z);
