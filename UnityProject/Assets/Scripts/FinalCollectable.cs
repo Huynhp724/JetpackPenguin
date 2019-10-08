@@ -8,14 +8,17 @@ public class FinalCollectable : MonoBehaviour
     [SerializeField] float bobDegree = .75f;
     [SerializeField] float bobSpeed = 1f;
     [SerializeField] float pickedUpDistance = 2f;
+    [SerializeField] AudioClip pickupSound;
 
     private bool pickedUp = false;
+    private AudioSource asource;
 
     private float intialY;
 
     // Start is called before the first frame update
     void Start()
     {
+        asource = GetComponent<AudioSource>();
         intialY = transform.position.y;
     }
 
@@ -39,6 +42,9 @@ public class FinalCollectable : MonoBehaviour
 
     IEnumerator PickUp(GameObject player)
     {
+
+        asource.PlayOneShot(pickupSound);
+
         pickedUp = true;
         FindObjectOfType<GameManager>().AddBigCrystal();
         transform.SetParent(player.transform);

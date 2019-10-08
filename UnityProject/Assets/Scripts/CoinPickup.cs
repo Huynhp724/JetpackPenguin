@@ -10,16 +10,20 @@ public class CoinPickup : MonoBehaviour
     [SerializeField] float bobDegree = .75f;
     [SerializeField] float bobSpeed = 1f;
     [SerializeField] float pickedUpDistance = 2f;
+
+    [SerializeField] AudioClip pickupSound;
     public Pickup pickupEnum = Pickup.CRYSTAL;
 
     private bool pickedUp = false;
 
     private float intialY;
     private GameManager gm;
+    private AudioSource asource;
 
     // Start is called before the first frame update
     void Start()
     {
+        asource = GetComponent<AudioSource>();
         intialY = transform.position.y;
         gm = FindObjectOfType<GameManager>();
     }
@@ -62,7 +66,7 @@ public class CoinPickup : MonoBehaviour
     {
         Debug.Log("Pick up coroutine");
         pickedUp = true;
-        
+        asource.PlayOneShot(pickupSound);
         transform.SetParent(player.transform);
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y + pickedUpDistance, player.transform.position.z);
         yield return new WaitForSecondsRealtime(.5f);

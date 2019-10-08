@@ -74,6 +74,11 @@ public class PlayerController : MonoBehaviour
 
     public Transform grabCastT;
 
+    [Header("Pluck Audio Clips")]
+    [SerializeField] AudioClip pluckDeath;
+
+    AudioSource asource;
+
     bool jumping = false;
     bool wallJumping = false;
     bool pressJump = false;
@@ -134,6 +139,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        asource = GetComponent<AudioSource>();
         flames = gameObject.GetComponentsInChildren<ParticleSystem>();
         Debug.Log(flames.Length);
     }
@@ -825,6 +831,8 @@ public class PlayerController : MonoBehaviour
     }
 
     public void PluckDied() {
+        asource.volume = 1.0f;
+        asource.PlayOneShot(pluckDeath);
         myState = State.Idle;
         transform.rotation = Quaternion.Euler(-90f, 0f, -90f);
         
