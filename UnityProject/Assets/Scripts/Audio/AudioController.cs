@@ -112,7 +112,7 @@ public class AudioController : MonoBehaviour
             }
         }
 
-        if (aud.clip == hoverFlap && pc.onGround()) {
+        if (aud.clip == hoverFlap && pc.onGround) {
             aud.Stop();
         }
 

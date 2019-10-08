@@ -27,6 +27,16 @@ public class ScreenManager : MonoBehaviour
     const string k_OpenTransitionName = "Open";
     const string k_ClosedStateName = "Closed";
 
+    GameObject currentlySelected;
+
+    private void Update()
+    {
+        if (eventSystem.currentSelectedGameObject != null && eventSystem.currentSelectedGameObject != currentlySelected)
+            currentlySelected = eventSystem.currentSelectedGameObject;
+        else if (currentlySelected != null && eventSystem.currentSelectedGameObject == null)
+            eventSystem.SetSelectedGameObject(currentlySelected);
+    }
+
     public void OnEnable()
     {
         //We cache the Hash to the "Open" Parameter, so we can feed to Animator.SetBool.
@@ -68,7 +78,8 @@ public class ScreenManager : MonoBehaviour
 
     public void OpenPanelBasic(GameObject panel)
     {
-        eventSystem.firstSelectedGameObject = panel.GetComponentInChildren<Button>().gameObject;
+        eventSystem.SetSelectedGameObject(panel.GetComponentInChildren<Button>().gameObject);
+        
         panel.SetActive(true);
     }
 
