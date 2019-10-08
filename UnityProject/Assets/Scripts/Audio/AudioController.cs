@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using Rewired;
 
 public class AudioController : MonoBehaviour
 {
+    public AudioClip pause;
+
     [Header("Pluck Audio Clips")] //Collection of AudioClips to play for Pluck's sounds.
     public AudioClip walkCycle;
     public AudioClip runCycle;
@@ -36,8 +39,11 @@ public class AudioController : MonoBehaviour
         lastpos = transform.position;
     }
 
+
     private void FixedUpdate()
     {
+
+
         if (pc.onGround && pc.GetCurrentState() != PlayerController.State.Dashing) {
             if (pc.getHoriInput() != 0 || pc.getVertInput() != 0)
             {
@@ -85,7 +91,9 @@ public class AudioController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+
+
         state = pc.GetCurrentState();
         if (state == PlayerController.State.Dashing)
         {
@@ -102,6 +110,10 @@ public class AudioController : MonoBehaviour
                 aud.Play();
                 
             }
+        }
+
+        if (aud.clip == hoverFlap && pc.onGround) {
+            aud.Stop();
         }
 
         
