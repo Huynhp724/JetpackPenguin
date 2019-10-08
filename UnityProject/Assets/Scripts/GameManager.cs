@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour { 
 
-    public int currentFish;
-    public Text fishText;
+    public int currentCrystals = 0;
+    public int currentBigCrystals;
+    public Text crystalText;
     public Text winText;
 
     // TODO consider pulling out the the control mapping to its own control/settings manager.
@@ -18,12 +19,45 @@ public class GameManager : MonoBehaviour {
     public string hover = "Hover";
     public string charge = "Charge";
     public float bumperThreshold = Mathf.Epsilon;
+    public float pitchShift = 1.0f;
+    public bool shiftStart = false;
+    
 
     private string currentController = "";
+    private PlayerController playerControl;
+    public float shiftInterval = 10.0f;
+    private float shiftIncrement = 0.0f;
+    private float shiftVal = 0.0f;
+
+
+    private void Start()
+    {
+        playerControl = FindObjectOfType<PlayerController>();
+    }
 
     // Update is called once per frame
     void Update()
     {
+        shiftVal += shiftIncrement;
+        if (shiftStart && shiftIncrement != 0.0f)
+        {
+            pitchShift += 0.1f;
+            shiftVal = 0.0f;
+            shiftStart = false;
+        }
+        else if (shiftStart && shiftIncrement == 0.0f)
+        {
+            shiftIncrement = 0.1f;
+        }
+        else if (shiftVal > shiftInterval) {
+            shiftVal = 0.0f;
+            pitchShift = 1.0f;
+            shiftStart = false;
+            shiftIncrement = 0.0f;
+        }
+
+        
+        /*
         foreach (string name in Input.GetJoystickNames())
         {
             if (name.Length > 1)
@@ -32,11 +66,11 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        print(currentController + " is connected.");
+        //print(currentController + " is connected.");
 
         if (currentController.Length == 19) //PS4 is named "Wireless Controller" = 19 chars
         {
-            Debug.Log("Using PS4 Controller");
+            //Debug.Log("Using PS4 Controller");
             jump = "Jump_PS4";
             slide = "Slide_PS4";
             cameraX = "CameraX_PS4";
@@ -48,7 +82,7 @@ public class GameManager : MonoBehaviour {
         //Then use xbox as default
         else
         {
-            Debug.Log("Using Xbox Controller");
+            //Debug.Log("Using Xbox Controller");
             jump = "Jump";
             slide = "Slide";
             cameraX = "CameraX";
@@ -61,10 +95,26 @@ public class GameManager : MonoBehaviour {
         {
             winText.gameObject.SetActive(true);
         }*/
+        //DEBUG cheat code to get more fuel. REMOVE from full builds.
+        if(Input.GetKeyDown(KeyCode.Alpha7) && Input.GetKeyDown(KeyCode.Alpha8) && Input.GetKeyDown(KeyCode.Alpha9) && Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            AddBigCrystal();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4) && Input.GetKeyDown(KeyCode.Alpha5) && Input.GetKeyDown(KeyCode.Alpha6) && Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            playerControl.transform.position = new Vector3(140, 0, 185);
+        }
     }
 
-    public void AddFish(int x)
+    public void AddCrystal(int x)
     {
-        currentFish += x;
+        currentCrystals += x;
+        crystalText.text = "Crystals: " + currentCrystals;
+    }
+
+    public void AddBigCrystal()
+    {
+        currentBigCrystals++;
+        playerControl.maxFuel += 50f;
     }
 }

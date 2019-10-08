@@ -6,18 +6,22 @@ using BehaviorDesigner.Runtime;
 
 public class PathFollower : MonoBehaviour
 {
-    public float speed;
+    float speed;
     public PathCreator pathCreator;
     public bool followPath = true;
 
-    public Vector3 lastPosition;
+    Vector3 lastPosition;
 
     float distanceTraveled;
     BehaviorTree bTree;
+    EnemyHealth health;
     // Start is called before the first frame update
     void Start()
     {
-        bTree = GetComponent<BehaviorTree>();   
+        bTree = GetComponent<BehaviorTree>();
+        health = GetComponent<EnemyHealth>();
+        speed = health.stats.speed;
+        lastPosition = transform.GetChild(0).position;
     }
 
     // Update is called once per frame
@@ -29,19 +33,21 @@ public class PathFollower : MonoBehaviour
             transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled);
             transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled);
         }
-        else {
-            lastPosition = pathCreator.path.GetClosestPointOnPath(transform.position);
-            //Debug.Log(lastPosition);
 
-        }
     }
 
-    public void SetFollowPath(float newSpeed, bool follow) {
-        speed = newSpeed;
+    public void SetFollowPath(bool follow) {
         followPath = follow;
     }
 
     public void GetLastPathPosition() {
-        bTree.SetVariableValue("VectorPosition", lastPosition);
+        bTree.SetVariableValue("VectorPosition", pathCreator.path.GetPoint(0));
+    }
+
+    public void StartFollowPath() {
+        distanceTraveled = 0f;
+        transform.position = pathCreator.path.GetPointAtDistance(distanceTraveled);
+        transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTraveled);
+        followPath = true;
     }
 }

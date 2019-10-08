@@ -11,10 +11,12 @@ public class LevelChanger : MonoBehaviour
     public static LevelChanger Instance { get; private set; }
 
 
-    public string previousLevelName = "", nextLevelName = "";
-    GameObject player;
+    public string nextLevelName = "";
+    public int entryPoint;
     bool needOldLocation = false;
+    bool startFade = false;
     ScreenFader fader;
+    GameObject player;
 
     private void Awake()
     {
@@ -29,58 +31,84 @@ public class LevelChanger : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+       // Debug.Log(player.transform.position);
+    }
+
     void Start()
     {
         fader = GetComponent<ScreenFader>();
     }
 
-    public void SetLevelInfo(string nxtLvl, Vector3 lastScenePosition) {
+    public void SetLevelInfo(string nxtLvl, Vector3 lastScenePosition, int entryValue) {
         nextLevelName = nxtLvl;
-        
+        entryPoint = entryValue;
+        Debug.Log("Entry point is: " + entryValue);
 
-        if (previousLevelName == nxtLvl)
-        {
-            needOldLocation = true;
-            Debug.Log("Next is the same as previous scene");
-        }
-        else {
-            pos = lastScenePosition;
-        }
-
-        NextLevel();
+        StartCoroutine(WaitToFadeOut());
+        //NextLevel();
     }
 
 
     public void NextLevel() {
-        fader.Fade("out");
-        StartCoroutine(LoadScene());
+        //fader.Fade("out");
+       // GameObject player = GameObject.FindGameObjectWithTag("Player");
+        //GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
+        //Destroy(player);
+        //StartCoroutine(LoadScene());
+        StartCoroutine(LoadScenePlacePluck());
     }
 
     IEnumerator LoadScene() {
         //pos = gameObject.transform.position;
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(nextLevelName);
-        previousLevelName = currentLevelName;
-        currentLevelName = nextLevelName;
-        nextLevelName = "";
-        if (needOldLocation)
-        {
-            SetOldLocation();
-        }
-        else
-        {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.transform.position = newPos;
-            Debug.Log("position has been set");
-        }
+
+        FindLocation();
 
         fader.Fade("in");
 
     }
 
-    void SetOldLocation() {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        player.transform.position = pos;
-        Debug.Log("position has been set");
+    IEnumerator LoadScenePlacePluck() {
+        SceneManager.LoadScene(nextLevelName);
+        yield return new WaitForSeconds(2f);
+
+        //FindLocation();
+
+        StartCoroutine(WaitToFadeIn());
+
+    }
+
+    IEnumerator WaitToFadeOut() {
+        fader.Fade("out");
+        yield return new WaitForSeconds(2f);
+        NextLevel();
+        
+    }
+
+    IEnumerator WaitToFadeIn()
+    {
+        yield return new WaitForSeconds(2f);
+        fader.Fade("in");
+
+    }
+
+    void FindLocation() {
+        GameObject[] entryDoors = GameObject.FindGameObjectsWithTag("EntryPoint");
+        foreach (GameObject obj in entryDoors) {
+            SceneTransitionTrigger trigger = obj.GetComponent<SceneTransitionTrigger>();
+            Debug.Log(obj.name + " " + obj.transform.localPosition);
+            if (trigger.entryTarget == entryPoint) {
+                Transform transtionTranform = obj.transform.GetChild(0);
+                Debug.Log(obj.transform.localPosition);
+                player = GameObject.FindGameObjectWithTag("Player");
+                player.transform.localPosition = transtionTranform.position;
+                //GameObject Camera = GameObject.FindGameObjectWithTag("MainCamera");
+                //Camera.transform.localPosition = transtionTranform.position;
+                
+            }
+        }
     }
 }

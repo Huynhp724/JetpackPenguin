@@ -9,6 +9,7 @@ public class EnemyStats : ScriptableObject
     public int hp;
     public float speed;
     public float rotSpeed;
+    public float freezeTimerPerHP;
     public float squishDetectionDistance;
     public int numOfSnowballsToFreeze;
     public bool immuneToDash = false;

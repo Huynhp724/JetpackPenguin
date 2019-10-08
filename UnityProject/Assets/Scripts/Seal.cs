@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime;
 
+public enum SealType { BABY, FAT, SHOOTER, BOSS };
+
 public class Seal : MonoBehaviour
 {
-    public GameObject player;
+    GameObject player;
     public float goBackToPathAfterDistance;
+    public SealType sealType;
 
-    bool keepTrackOfDistnace = false;
+    bool keepTrackOfDistnace = false, charge;
     float distnace;
     Transform parentObject;
     BehaviorTree bTree;
+    EnemyStats stats;
 
     public GameObject GetPlayer() {
         return player;
@@ -19,7 +23,9 @@ public class Seal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         bTree = GetComponentInParent<BehaviorTree>();
+        stats = GetComponentInParent<EnemyHealth>().stats;
         parentObject = gameObject.transform.parent;
     }
 
@@ -34,6 +40,10 @@ public class Seal : MonoBehaviour
                 keepTrackOfDistnace = false;
             }
         }
+
+        if (charge) {
+            transform.position = Vector3.Lerp(transform.position, player.transform.position, stats.speed * 2 * Time.deltaTime);
+        }
     }
 
     public void OnTriggerEnter(Collider other)
@@ -41,6 +51,28 @@ public class Seal : MonoBehaviour
         if (other.CompareTag("Player")) {
             bTree.SendEvent("Chase");
             keepTrackOfDistnace = true;
+
+            if (sealType == SealType.FAT)
+            {
+                StartCoroutine(ChargeTimer());
+            }
         }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        StopAllCoroutines();
+        bTree.SendEvent("Stop Charge");
+    }
+
+    public void Charge() {
+        //Vector3.Lerp(transform.position, player.transform.position, stats.speed * Time.deltaTime);
+        bTree.SendEvent("Charge");
+    }
+
+    IEnumerator ChargeTimer() {
+        Charge();
+        yield return new WaitForSeconds(3.5f);
+        StartCoroutine(ChargeTimer());
     }
 }

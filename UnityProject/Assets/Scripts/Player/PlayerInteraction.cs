@@ -16,6 +16,7 @@ public class PlayerInteraction : MonoBehaviour
     Player player;
     PlayerController playerController;
     Rigidbody rb;
+    Animator anim;
 
 
 
@@ -24,6 +25,7 @@ public class PlayerInteraction : MonoBehaviour
         player = ReInput.players.GetPlayer(0);
         playerController = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
     }
     // Start is called before the first frame update
     void Start()
@@ -36,8 +38,11 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (canInteractWithNPC)
         {
-            if ((player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.Q)) && (playerController.GetCurrentState() != PlayerController.State.Dashing))
+            if ((player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.Q)) &&
+                (playerController.GetCurrentState() != PlayerController.State.Dashing) && 
+                (playerController.GetCurrentState() != PlayerController.State.Flapping) && (playerController.onGround))
             {
+                anim.SetFloat("Speed", 0f);
                 EnablePlayerController(false);
                 npcInInteraction.SendDialogeInfo();
                 uiController.SetSpeakingInteractionButton(false);

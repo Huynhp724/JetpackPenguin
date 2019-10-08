@@ -6,10 +6,11 @@ using Rewired;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum State { Idle, Flapping, Dashing }
+    public enum State { Idle, Flapping, Dashing, Clinging }
 
-    public float moveSpeed = 15.0f;
-    public float airMoveSpeed = 10.0f;
+    public float moveForce = 1.0f;             //player move force into max move speed
+    public float maxMoveSpeed = 15.0f;         //player's max move speed
+    public float maxAirMoveSpeed = 10.0f;          //player's max air move speed
     [Range(0.0f, 100.0f)]
     public float airDashSpeed = 30.0f;         //how fast you dash in the air
     [Range(0.0f, 100.0f)]
@@ -18,7 +19,8 @@ public class PlayerController : MonoBehaviour
     //public float hoverDrag = 2f;            //how much drag when hover flying
     public float chargeDrag = 2f;           //how much drag when charge dashing
     private float normalDrag;               //how much drag you have normally
-    public float rotateSpeed = 2f;          
+    public float rotateSpeed = 2f;
+    public float dashRotateSpeed = 20f;     //how fast you rotate into your dash
     public float jetpackForce = 10.0f;       //how strong the jetpack is
     public float hoverDashScale = 1.5f;      //modifier of the jetpack hover force when used in dashing
     public float maxHoverVelocityY = 10.0f;  //how fast the jetpack can ultimately go when hovering vertically
@@ -46,8 +48,13 @@ public class PlayerController : MonoBehaviour
                                             //this is different from flapStrength because here the closer the value is to 0, the more gravity is reduced
     [Range(0.0f, 10.0f)]
     public float gravityScale = 1f;         //how strong the gravity is for Pluck
+    public float slopePadding = 0.5f;
+    public float wallPadding = 0.2f;
+    public float antiBump = 1f;
 
-    private float groundAngle;
+    public float clingTime = 1;             //how many seconds you can cling to a wall before you start sliding down
+
+    public float groundAngle;
     public float maxGroundAngle;
 
     [SerializeField]
@@ -67,6 +74,13 @@ public class PlayerController : MonoBehaviour
 
     public Transform grabCastT;
 
+    [Header("Pluck Audio Clips")]
+    [SerializeField] AudioClip pluckDeath;
+
+    AudioSource asource;
+
+    bool jumping = false;
+    bool wallJumping = false;
     bool pressJump = false;
     bool pressJumpInAir = false;
     bool holdFlapping = false;
@@ -82,31 +96,36 @@ public class PlayerController : MonoBehaviour
     public bool momentumJump = false;
 
     //public CharacterController controller;
-    private Vector3 moveDirection;
+    public Vector3 moveDirection;
     private float vertInput;
     private float horiInput;
+    private Vector3 slopeDir;        //direction of slopes
+    private Vector3 perpDir;        //direction perpendicular to ground
     public Transform pivot;
-    public GameObject playerModel;
-    public GameObject feetPivot;
+    //public GameObject playerModel;
     private Rigidbody rb;
     public Collider charCol;
     public LayerMask ground;
+    public LayerMask walls;
+    private RaycastHit hit;
+    private RaycastHit wallHit;
 
     public Text chargeText;
 
     ParticleSystem[] flames;
     public GameObject jetPack;
+    public GameObject freezeTrigger;
 
     private Player player;
     private Animator anim;
 
-    //REMOVE LATER
-    public GameObject mainCam;
-    public GameObject followCam;
-    public GameObject canvas;
-    public GameObject manager;
-
     private bool isAiming = false;
+    private bool holdingBlock = false;
+
+
+
+
+
 
     private void Awake()
     {
@@ -115,15 +134,14 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         //charCol = GetComponent<Collider>();
         normalDrag = rb.drag;
-        DontDestroyOnLoad(mainCam);
-        DontDestroyOnLoad(followCam);
+
     }
 
     private void Start()
     {
-        flames = jetPack.GetComponentsInChildren<ParticleSystem>();
+        asource = GetComponent<AudioSource>();
+        flames = gameObject.GetComponentsInChildren<ParticleSystem>();
         Debug.Log(flames.Length);
-
     }
 
     //turns the jetpack particle effects on/off
@@ -132,6 +150,7 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("FIRE: " + emit);
         if (emit)
         {
+            freezeTrigger.SetActive(true);
             for(int i = 0; i < flames.Length; i++)
             {
                 flames[i].Play();
@@ -139,6 +158,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            freezeTrigger.SetActive(false);
             for (int i = 0; i < flames.Length; i++)
             {
                 flames[i].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
@@ -151,122 +171,140 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log(isGrounded());
         //Debug.Log(myState);
+        Debug.DrawRay(charCol.transform.position, -Vector3.up * (gameObject.GetComponentInChildren<Collider>().bounds.extents.y + 0.1f));
 
         vertInput = player.GetAxis("Move Vertical");
         horiInput = player.GetAxis("Move Horizontal");
 
-        //ON THE GROUND
-        if (isGrounded())
+        if (myState == State.Clinging)
         {
-            onGround = true;
-            Debug.Log("IS GROUND");
-            hasDashed = false;
-            hasDoubleJump = true;
-            if (myState == State.Flapping)
-            {
-                holdFlapping = false;
-                myState = State.Idle;
-            }
-            else if (myState == State.Dashing)
-            {
-
-            }
-
-            /*
-             * CHANGE HARD CODED RECHARGE RATE LATER
-             */
-            if (!player.GetButton("Charge")) {
-                currentFuel += 5f;
-                if (currentFuel > maxFuel) currentFuel = maxFuel;
-            }
-
-            //Jumping
-            if (player.GetButtonDown("Jump") && myState == State.Idle)
-            {
-                pressJump = true;
-   
-            }
-        }
-        //IN THE AIR
-        else
-        {
-            onGround = false;
-            if (myState == State.Idle)
-            {
-                //Press A to double jump and enter flapping state while idle in the air if you are falling
-                if (hasDoubleJump && player.GetButtonDown("Jump") && !player.GetButton("Hover"))
-                {
-                    pressJumpInAir = true;
-                }
-                else if (player.GetButton("Jump") && moveDirection.y < 0 && !player.GetButton("Hover") && !pressJumpInAir)
-                {
-                    myState = State.Flapping;
-                }
-            }
-            else if (myState == State.Flapping)
-            {
-                /*
-                 * Make it so flapping gets weaker after a brief time then you just fall regularly
-                 */
-                //Hold down A to hover down slowly
-                if (player.GetButton("Jump") && moveDirection.y < 0)
-                {
-                    holdFlapping = true;
-                }
-                //Let go of A to return to free fall
-                if (player.GetButtonUp("Jump"))
-                {
-                    myState = State.Idle;
-                }
-            }
-            else if(myState == State.Dashing)
-            {
-                
-            }
-
-            //ledge grabbing
-            RaycastHit ledgeGrabHit;
-            if (!onLedge && Physics.Raycast(grabCastT.position, transform.forward, out ledgeGrabHit, 2f, LayerMask.GetMask("LedgeGrab")))
-            {
-                onLedge = true;
-                GrabableLedge ledge = ledgeGrabHit.transform.GetComponent<GrabableLedge>();
-                transform.position = ledgePos = ledge.GetGrabPosition(ledgeGrabHit.point);
-                transform.rotation = ledge.GetGrabRotation(ledgeGrabHit.point);
-            }
-
-            if (onLedge)
-            {
-                if (player.GetButtonDown("Jump"))
-                {
-                    onLedge = false;
-                    moveDirection = Vector3.zero;
-                    moveDirection += -transform.forward * .25f;
-                    moveDirection.y += jumpForce * 1.3f;
-                    anim.SetTrigger("Jump");
-                }
-            }
-        }
-
-        //If currently dashing (whether in the air or on the ground) 
-        if (myState == State.Dashing)
-        {
-            anim.SetBool("Slide", true);
-            //Jump to get out of dashing
             if (player.GetButtonDown("Jump"))
             {
-                dashJump = true;
-              
+                pressJump = true;
+
             }
+
         }
         else
         {
-            anim.SetBool("Slide", false);
-        }
+            //ON THE GROUND
+            if (isGrounded())
+            {
+                onGround = true;
+                //Debug.Log("IS GROUND");
+                hasDashed = false;
+                hasDoubleJump = true;
 
-        //PENGUIN DASH START
-        if (player.GetButtonDown("Slide") && myState != State.Dashing && !hasDashed)
-        {
-            initDash = true;
+                if (myState == State.Flapping)
+                {
+                    holdFlapping = false;
+                    myState = State.Idle;
+                }
+                else if (myState == State.Dashing)
+                {
+
+                }
+
+                /*
+                 * CHANGE HARD CODED RECHARGE RATE LATER
+                 */
+                if (!player.GetButton("Charge"))
+                {
+                    currentFuel += 5f;
+                    if (currentFuel > maxFuel) currentFuel = maxFuel;
+                }
+
+                //Jumping
+                if (player.GetButtonDown("Jump") && myState == State.Idle)
+                {
+                    pressJump = true;
+
+                }
+            }
+            //IN THE AIR
+            else
+            {
+                onGround = false;
+                if (myState == State.Idle)
+                {
+                    //Press A to double jump and enter flapping state while idle in the air if you are falling
+                    if (hasDoubleJump && player.GetButtonDown("Jump") && !player.GetButton("Hover"))
+                    {
+                        pressJumpInAir = true;
+                    }
+                    else if (player.GetButton("Jump") && moveDirection.y < 0 && !player.GetButton("Hover") && !pressJumpInAir)
+                    {
+                        jumping = false;
+                        wallJumping = false;
+                        myState = State.Flapping;
+                    }
+                }
+                else if (myState == State.Flapping)
+                {
+                    /*
+                     * Make it so flapping gets weaker after a brief time then you just fall regularly
+                     */
+                    //Hold down A to hover down slowly
+                    if (player.GetButton("Jump") && moveDirection.y < 0)
+                    {
+                        holdFlapping = true;
+                    }
+                    //Let go of A to return to free fall
+                    if (player.GetButtonUp("Jump"))
+                    {
+                        myState = State.Idle;
+                    }
+                }
+                else if (myState == State.Dashing)
+                {
+
+                }
+
+                /*//ledge grabbing
+                RaycastHit ledgeGrabHit;
+                if (!onLedge && Physics.Raycast(grabCastT.position, transform.forward, out ledgeGrabHit, 2f, LayerMask.GetMask("LedgeGrab")))
+                {
+                    onLedge = true;
+                    GrabableLedge ledge = ledgeGrabHit.transform.GetComponent<GrabableLedge>();
+                    transform.position = ledgePos = ledge.GetGrabPosition(ledgeGrabHit.point);
+                    transform.rotation = ledge.GetGrabRotation(ledgeGrabHit.point);
+                }
+
+                if (onLedge)
+                {
+                    if (player.GetButtonDown("Jump"))
+                    {
+                        onLedge = false;
+                        moveDirection = Vector3.zero;
+                        moveDirection += -transform.forward * .25f;
+                        moveDirection.y += jumpForce * 1.3f;
+                        anim.SetTrigger("Jump");
+                    }
+                }*/
+            }
+
+            //If currently dashing (whether in the air or on the ground) 
+            if (myState == State.Dashing)
+            {
+                anim.SetBool("Slide", true);
+                //Jump to get out of dashing
+                if (player.GetButtonDown("Jump"))
+                {
+                    dashJump = true;
+                    anim.SetBool("Slide", false);
+
+                }
+            }
+            else
+            {
+                anim.SetBool("Slide", false);
+            }
+
+            //PENGUIN DASH START
+            if (player.GetButtonDown("Slide") && myState != State.Dashing && myState != State.Clinging && !hasDashed && !holdingBlock)
+            {
+                initDash = true;
+            }
         }
 
         //Hovering with the jetpack
@@ -308,22 +346,53 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void FixedUpdate()
     {
-       
+
+        calculateGroundAngle();
+        anim.SetFloat("HoriInput", horiInput);
+
+        if (myState == State.Clinging)
+        {
+            rb.velocity = Vector3.zero;
+        }
+
         //Regular Movement
         if (myState != State.Dashing)
         {
             //Debug.Log(new Vector3(moveDirection.x, 0, moveDirection.z).magnitude);
             //carry over horizontal momentum on ground
             //Debug.Log("MOVE SPEED: " + moveSpeed);
-            if (new Vector3(moveDirection.x, 0, moveDirection.z).magnitude <= new Vector3(moveSpeed, 0, moveSpeed).magnitude + 0.1f)
+            if (new Vector3(moveDirection.x, 0, moveDirection.z).magnitude <= new Vector3(maxMoveSpeed, 0, maxMoveSpeed).magnitude + 0.1f)
             {
-
+                //Calculate slope angle if on ground
                 //rb.drag = normalDrag;
                 //Debug.Log("DON'T CARRY OVER");
                 if (isGrounded())
                 {
+                
+                    //Debug.DrawRay(transform.position, transform.forward + new Vector3(0, -slopeDir.y, 0), Color.green);
                     //Debug.Log("MOVE VERT: " + vertInput);
-                    moveDirection = (transform.forward * vertInput * moveSpeed) + (transform.right * horiInput * moveSpeed) + new Vector3(0, moveDirection.y, 0);
+
+                    Vector3 targetDir = (transform.forward * vertInput * maxMoveSpeed) + (transform.right * horiInput * maxMoveSpeed) + new Vector3(0, moveDirection.y, 0);
+                    if (groundAngle != 0 && groundAngle < maxGroundAngle)
+                    {
+                        //slopeDir = slopeDir.normalized;
+                        //targetDir = (slopeDir* vertInput * maxMoveSpeed) + (transform.right * horiInput * maxMoveSpeed) + new Vector3(0, moveDirection.y, 0);
+                        //Debug.Log("ADDING: " + slopeDir.y * -1);
+                        //targetDir += new Vector3(0, -slopeDir.y, 0);
+
+                        moveDirection.y = rb.velocity.y;
+                        //Vector3 temp = slopeDir.normalized * maxMoveSpeed;
+                        //Debug.Log(temp.y);
+                        //if (slopeDir.y > 0) moveDirection.y = -antiBump;
+                  
+                        Debug.DrawRay(transform.position, targetDir, Color.red);
+
+                        //targetDir = new Vector3(vertInput, 0, -horiInput);
+                        //Vector3 tempDir = Vector3.Cross(slopeDir, targetDir);
+                        //targetDir = tempDir * maxMoveSpeed;
+                    }
+                    moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * Time.fixedDeltaTime);
+                       
                     //moveDirection = moveDirection.normalized * moveSpeed;
                 }
                 else
@@ -331,14 +400,15 @@ public class PlayerController : MonoBehaviour
 
                     if (momentumJump && horiInput == 0 && vertInput == 0)
                     {
-                        moveDirection += new Vector3(rb.velocity.x, 0, rb.velocity.z);
-                        Debug.Log("MOMENTUM: " + moveDirection);
+                        //moveDirection += new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                        //Debug.Log("MOMENTUM: " + moveDirection);
                         //moveDirection.x = rb.velocity.x;
                         //moveDirection.z = rb.velocity.z;
                     }
                     else
                     {
-                        moveDirection = (transform.forward * vertInput * airMoveSpeed) + (transform.right * horiInput * airMoveSpeed) + new Vector3(0, moveDirection.y, 0);
+                        Vector3 targetDir = (transform.forward * vertInput * maxAirMoveSpeed) + (transform.right * horiInput * maxAirMoveSpeed) + new Vector3(0, moveDirection.y, 0);
+                        moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * Time.fixedDeltaTime);
                         //moveDirection = moveDirection.normalized * airMoveSpeed;
                     }
 
@@ -357,23 +427,43 @@ public class PlayerController : MonoBehaviour
 
             //Debug.Log("Move Vertical: " + vertInput * moveSpeed);
             //Debug.Log("Move Horizontal : " + horiInput * moveSpeed);
-            if (vertInput * moveSpeed == 0 && horiInput * moveSpeed == 0)
+            if (vertInput * moveForce == 0 && horiInput * moveForce == 0)
             {
                 anim.SetFloat("Speed", 0f);
             }
             else
             {
-                anim.SetFloat("Speed", 1f);
-
+                anim.SetFloat("Speed", new Vector3(moveDirection.x, 0, moveDirection.z).magnitude);
             }
+
         }
 
         //Jumping
         if (pressJump)
         {
-            moveOffGround();
-            moveDirection.y += jumpForce;
-            //anim.SetTrigger("Jump");
+            if (myState == State.Clinging)
+            {
+                jumping = true;
+                //rb.AddForce(wallHit.normal.normalized * jumpForce);
+                Vector3 tempDir = wallHit.normal.normalized * jumpForce * 1.25f;
+               
+                moveDirection.y = jumpForce;
+                moveDirection.x = tempDir.x;
+                moveDirection.z = tempDir.z;
+                moveDirection.y += tempDir.y;
+
+                Debug.Log(moveDirection);
+                anim.SetTrigger("Jump");
+                myState = State.Idle;
+                Debug.Log("JUMP AWAY");
+            }
+            else
+            {
+                jumping = true;
+                moveOffGround();
+                moveDirection.y += jumpForce;
+                anim.SetTrigger("Jump");
+            }
 
             pressJump = false;
         }
@@ -381,8 +471,8 @@ public class PlayerController : MonoBehaviour
         //Double jump
         if (pressJumpInAir)
         {
-
-            anim.SetTrigger("Jump");
+            jumping = true;
+            anim.SetTrigger("DoubleJump");
             moveDirection.y = doubleJumpForce;
             //reset horizontal momentum with double jump
             moveDirection.x = 0;
@@ -396,6 +486,7 @@ public class PlayerController : MonoBehaviour
         //ON THE GROUND
         if (isGrounded())
         {
+            anim.SetBool("Grounded", true);
             rb.drag = normalDrag;
             if (moveDirection.y < 0)
             {
@@ -409,62 +500,97 @@ public class PlayerController : MonoBehaviour
         //IN THE AIR
         else
         {
+            anim.SetBool("Flapping", false);
             if (!momentumJump) { rb.drag = airDrag; }
             else { rb.drag = airDrag * .65f; }
+
+            checkWalls();
+
             if (myState == State.Idle)
             {
                 
             }
             else if (myState == State.Flapping)
             {
+                anim.SetBool("Flapping", true);
                 if (holdFlapping)
                 {
-                    moveDirection.y -= Physics.gravity.y * gravityScale * flapStrength * Time.deltaTime;
+                    moveDirection.y -= Physics.gravity.y * gravityScale * flapStrength * Time.fixedDeltaTime;
                     holdFlapping = false;
                 }
             }
             else if (myState == State.Dashing)
             {
-                Debug.Log("NO Y");
+                //Debug.Log("NO Y");
                 //Vector3 tempVel = currentSlideSphere.GetComponent<Rigidbody>().velocity;
                 //Debug.Log(tempVel.magnitude);
                 if (rb.velocity.magnitude < airDashSpeed * airDashLength)
                 {
+                    Debug.Log("NO Y");
                     //currentSlideSphere.GetComponent<Rigidbody>().useGravity = true;
                     //currentSlideSphere.GetComponent<Rigidbody>().AddForce(new Vector3(0, Physics.gravity.y * gravityScale * dashGravity, 0));
                     //rb.useGravity = true;
-                    rb.AddForce(new Vector3(0, Physics.gravity.y * gravityScale, 0));
+                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + (Physics.gravity.y * gravityScale * Time.fixedDeltaTime), rb.velocity.z);
+                    Debug.Log(Physics.gravity.y * gravityScale * Time.fixedDeltaTime);
                     //rb.drag = normalDrag;
                     //Debug.Log(currentSlideSphere.GetComponent<Rigidbody>().velocity.y);
                 }
             }
         }
-
+        //Debug.DrawRay(charCol.transform.position, charCol.transform.forward * 2f, Color.blue);
         //If currently dashing (whether in the air or on the ground) 
         if (myState == State.Dashing)
         {
+            anim.SetFloat("Speed", rb.velocity.magnitude);
+            //Debug.DrawRay(charCol.transform.position, transform.forward * 2f, Color.blue);
             if (chargeDashing) rb.drag = chargeDrag;
+            //Vector3 newDir = Vector3.RotateTowards(charCol.transform.up, slopeDir, dashRotateSpeed * Time.fixedDeltaTime, rb.velocity.magnitude);
+            //charCol.transform.localRotation = Quaternion.Euler(Quaternion.LookRotation(newDir).eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+            if (rb.velocity.magnitude >= minLeanVelocity)
+            {
+                Quaternion rot;
+                if (slopeDir.y > 0 && groundAngle != 0)
+                {
+                    Debug.Log("GOING DOWN");
+                    rot = Quaternion.Slerp(charCol.transform.rotation, Quaternion.LookRotation(-perpDir, Vector3.down), dashRotateSpeed * Time.fixedDeltaTime);
+                    //charCol.transform.RotateAround(charCol.transform.position, charCol.transform.right, dashRotateSpeed * Time.fixedDeltaTime);
+                    //Debug.DrawRay(charCol.gameObject.transform.position, charCol.transform.forward * 3f, Color.green);
+                    charCol.transform.rotation = rot;
+                }
+                else
+                {
+                    rot = Quaternion.Slerp(charCol.transform.rotation, Quaternion.LookRotation(-perpDir, Vector3.up), dashRotateSpeed * Time.fixedDeltaTime);
+                    //charCol.transform.rotation = rot;
+                    if (groundAngle == 0) charCol.transform.rotation = Quaternion.Euler(rot.eulerAngles.x, charCol.transform.rotation.eulerAngles.y, charCol.transform.rotation.eulerAngles.z);
+                    else charCol.transform.rotation = rot;
+                }
+            }
+            //charCol.transform.rotation = Quaternion.Euler(rot.eulerAngles.x, charCol.transform.rotation.eulerAngles.y, charCol.transform.rotation.eulerAngles.z);
+            Debug.DrawRay(charCol.gameObject.transform.position, charCol.transform.forward * 3f, Color.green);
+            Debug.DrawRay(charCol.gameObject.transform.position, -perpDir * 5f, Color.red);
+
             //lean in your slide
             if (rb.velocity.magnitude >= minLeanVelocity)
             {
-
-                rb.AddForce(playerModel.transform.right * leanForce * horiInput);
+                //anim.SetFloat("HoriInput", horiInput);
+                rb.AddForce(charCol.transform.right * leanForce * horiInput * Time.fixedDeltaTime);
+                Debug.DrawRay(charCol.gameObject.transform.position, charCol.transform.right * leanForce * horiInput * Time.fixedDeltaTime, Color.red);
 
             }
             else
             {
                 //Allows player to control the direction they're facing
-                transform.RotateAround(transform.position, playerModel.transform.up, horiInput * turningForce * Time.deltaTime);
+                charCol.transform.RotateAround(transform.position, charCol.transform.forward, -horiInput * turningForce * Time.fixedDeltaTime);
                 //rb.drag = normalDrag;
             }
 
             //Jump to get out of dashing
             if (dashJump)
             {
-
+                jumping = true;
+                anim.SetTrigger("Jump");
                 //Quaternion colRotation = charCol.gameObject.transform.rotation;
-                charCol.gameObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-                //charCol.gameObject.transform.RotateAround(feetPivot.transform.position, playerModel.transform.right, 90);
+                charCol.transform.localRotation = Quaternion.Euler(0f, charCol.transform.localEulerAngles.y, 0f);
                 chargeDashing = false;
 
                 //Destroy(currentSlideSphere);
@@ -476,7 +602,7 @@ public class PlayerController : MonoBehaviour
                     moveDirection.x = rb.velocity.x;
                     moveDirection.z = rb.velocity.z;
                     //Debug.Log("MOVE DIRECTION: " + moveDirection);
-                    if (new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude > moveSpeed + 0.1f)
+                    if (new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude > maxMoveSpeed + 0.1f)
                     {
                         //dash jump with a proportionate height to your horizontal momentum
                         moveDirection.y = jumpForce;
@@ -504,17 +630,21 @@ public class PlayerController : MonoBehaviour
         //PENGUIN DASH START
         if (initDash)
         {
+            anim.SetTrigger("StartSlide");
             myState = State.Dashing;
-            //rb.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-            Quaternion colRotation = charCol.gameObject.transform.rotation;
+  
+            //Quaternion colRotation = charCol.gameObject.transform.rotation;
             //charCol.gameObject.transform.rotation = Quaternion.Slerp(charCol.gameObject.transform.rotation, Quaternion.Euler(colRotation.eulerAngles.x + 90, colRotation.eulerAngles.y, colRotation.eulerAngles.z), rotateSpeed);
-            charCol.gameObject.transform.RotateAround(charCol.transform.position, playerModel.transform.right, 90);
+            /*if (slopeDir.y > 0)
+            {
+                gameObject.transform.RotateAround(charCol.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), playerModel.transform.right, 90 + groundAngle);
+            }
+            else
+            {
+                gameObject.transform.RotateAround(charCol.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), playerModel.transform.right, 90 - groundAngle);
+            }*/
 
-            /*currentSlideSphere = Instantiate(slideSphere, transform.position, Quaternion.identity);
-            currentSlideSphere.GetComponent<Rigidbody>().mass = gameObject.GetComponent<Rigidbody>().mass;
-            currentSlideSphere.GetComponent<Rigidbody>().drag = gameObject.GetComponent<Rigidbody>().drag;
-            currentSlideSphere.GetComponent<Rigidbody>().angularDrag = gameObject.GetComponent<Rigidbody>().angularDrag;
-            currentSlideSphere.GetComponent<Rigidbody>().AddForce(playerModel.transform.forward * dashSpeed, ForceMode.Impulse);*/
+           
             rb.velocity = new Vector3(0, 0, 0);
 
             //DASH IN THE DIRECTION THE PLAYER'S CONTROL STICK IS
@@ -539,11 +669,11 @@ public class PlayerController : MonoBehaviour
             {
                 if (isGrounded())
                 {
-                    rb.AddForce(playerModel.transform.forward * dashSpeed, ForceMode.Impulse);
+                    rb.AddForce(charCol.transform.forward * dashSpeed, ForceMode.Impulse);
                 }
                 else
                 {
-                    rb.AddForce(playerModel.transform.forward * airDashSpeed, ForceMode.Impulse);
+                    rb.AddForce(charCol.transform.forward * airDashSpeed, ForceMode.Impulse);
                     //rb.useGravity = false;
 
                 }
@@ -564,22 +694,28 @@ public class PlayerController : MonoBehaviour
         //Hovering with the jetpack
         if (isHovering)
         {
-            moveOffGround();
+            if(myState == State.Clinging)
+            {
+                moveDirection.y = 0;
+                myState = State.Idle;
+            }
             if (myState != State.Dashing)
             {
+                //moveOffGround();
                 myState = State.Idle;
-                if (moveDirection.y < maxHoverVelocityY) moveDirection.y += jetpackForce;
+                if (moveDirection.y < maxHoverVelocityY) moveDirection.y += jetpackForce * Time.fixedDeltaTime;
                 //Debug.Log("Y: " + moveDirection.y);
             }
             //Hovering while dashing
             else
             {
-                rb.AddForce(playerModel.transform.right * steeringForce * horiInput);
+                Debug.DrawRay(charCol.transform.position, charCol.transform.right * horiInput * 2f, Color.red);
+                rb.AddForce(charCol.transform.right * steeringForce * horiInput * Time.fixedDeltaTime);
 
                 if (new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude <= maxHoverVelocityX)
                 {
                     //Debug.Log(new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude);
-                    rb.AddForce(playerModel.transform.forward * jetpackForce * hoverDashScale, ForceMode.Impulse);
+                    rb.AddForce(charCol.transform.up * jetpackForce * hoverDashScale * Time.fixedDeltaTime, ForceMode.Impulse);
                 }
                 else
                 {
@@ -587,10 +723,10 @@ public class PlayerController : MonoBehaviour
                     rb.velocity = Vector3.ClampMagnitude(new Vector3(rb.velocity.x, 0, rb.velocity.z), maxHoverVelocityX) + new Vector3(0, rb.velocity.y, 0);
                 }
 
-                transform.RotateAround(transform.position, playerModel.transform.up, horiInput * turningForce * Time.deltaTime);
-                //moveDirection.y -= Physics.gravity.y * gravityScale * Time.deltaTime;
+                transform.RotateAround(transform.position, charCol.transform.forward, -horiInput * turningForce * Time.fixedDeltaTime);
+                //moveDirection.y -= Physics.gravity.y * gravityScale * Time.fixedDeltaTime;
                 //rb.useGravity = false;
-                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                //rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             }
             currentFuel -= .5f;
 
@@ -600,9 +736,9 @@ public class PlayerController : MonoBehaviour
         {
             //currentSlideSphere.GetComponent<Rigidbody>().useGravity = true;
             //currentSlideSphere.GetComponent<Rigidbody>().AddForce(new Vector3(0, Physics.gravity.y * gravityScale * dashGravity, 0));
-           
+
             //rb.useGravity = true;
-            rb.AddForce(new Vector3(0, Physics.gravity.y * gravityScale, 0));
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + Physics.gravity.y * gravityScale * Time.fixedDeltaTime, rb.velocity.z);
             //rb.drag = normalDrag;
 
             hoverDashRelease = false;
@@ -626,6 +762,11 @@ public class PlayerController : MonoBehaviour
         //Charge jumping - Release
         if (chargeRelease)
         {
+            if (myState == State.Clinging)
+            {
+                moveDirection.y = 0;
+                myState = State.Idle;
+            }
             //rb.drag = chargeDrag;
             if (currentCharge > 0)
             {
@@ -640,7 +781,7 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     chargeDashing = true;
-                    rb.AddForce(playerModel.transform.forward * currentCharge * chargeForceDashScale, ForceMode.Impulse);
+                    rb.AddForce(charCol.transform.up * currentCharge * chargeForceDashScale, ForceMode.Impulse);
                     /*if (currentSlideSphere != null)
                     {
                         Rigidbody sphereRB = currentSlideSphere.GetComponent<Rigidbody>();
@@ -653,17 +794,18 @@ public class PlayerController : MonoBehaviour
         }
 
         //Add Gravity
-        moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
+        moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale * Time.fixedDeltaTime);
+        //Debug.Log(Physics.gravity.y * gravityScale * Time.fixedDeltaTime);
 
         // Move the controller
-        if (myState == State.Dashing)
+
+        if (myState == State.Clinging)
         {
-            //Vector3 dest = (controller.transform.position + currentSlideSphere.transform.position + new Vector3(0, .5f, 0)) / 2;
-            //controller.transform.position = Vector3.Lerp(controller.transform.position, currentSlideSphere.transform.position + new Vector3(0, 0.5f, 0), 1f);
+         
         }
-        else if (!onLedge)
+        else if (myState != State.Dashing)
         {
-            //controller.Move(moveDirection * Time.deltaTime);
+            //controller.Move(moveDirection * Time.fixedDeltaTime);
             rb.velocity = moveDirection;
             //SET LIMITS ON MAX HOVER VELOCITY
             //Debug.Log(rb.velocity.y);
@@ -685,10 +827,40 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        else
+  
+    }
+
+    public void PluckDied() {
+        asource.volume = 1.0f;
+        asource.PlayOneShot(pluckDeath);
+        myState = State.Idle;
+        transform.rotation = Quaternion.Euler(-90f, 0f, -90f);
+        
+        anim.SetBool("Slide", false);
+        // also turn off jetpack here please
+
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Head") && (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")))
         {
-            transform.position = ledgePos;
+            //Debug.Log("Landed on an enemy");
+            EnemyHealth enemyHealth = collision.gameObject.GetComponentInParent<EnemyHealth>();
+            enemyHealth.LoseHp();
+            BouncePluck();
+
         }
+        else if (collision.collider.CompareTag("Head") && (collision.gameObject.layer == LayerMask.NameToLayer("NPC"))) {
+            Debug.Log("Landed on an npc");
+            BouncePluck();
+        }
+    }
+
+    void BouncePluck() {
+        anim.SetTrigger("Jump");
+        moveDirection.y = jumpForce;
+        hasDoubleJump = true;
     }
 
     public State GetCurrentState()
@@ -696,39 +868,65 @@ public class PlayerController : MonoBehaviour
         return myState;
     }
 
+    
+
     public void setIsAiming(bool aim)
     {
         isAiming = aim;
     }
 
+    public void setHoldingBlock(bool holding)
+    {
+        holdingBlock = holding;
+    }
+
     public void rotateTo(Vector3 dir)
     {
         Quaternion newRotation = Quaternion.LookRotation(dir);
-        playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
+        charCol.transform.rotation = Quaternion.Slerp(charCol.transform.rotation, newRotation, rotateSpeed * Time.fixedDeltaTime);
     }
 
     public void rotateTo(Vector3 dir, float speed)
     {
         Quaternion newRotation = Quaternion.LookRotation(dir);
-        playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, speed);
+        charCol.transform.rotation = Quaternion.Slerp(charCol.transform.rotation, newRotation, speed);
     }
 
     private bool isGrounded()
     {
-        Debug.DrawRay(charCol.gameObject.transform.position, -Vector3.up * (charCol.bounds.extents.y + 0.1f));
-        RaycastHit hit;
-        //return Physics.SphereCast(transform.position, gameObject.GetComponentInChildren<Collider>().bounds.extents.x, -Vector3.up, out hit, gameObject.GetComponentInChildren<Collider>().bounds.extents.y + 0.1f);
-        /*if(Physics.SphereCast(charCol.gameObject.transform.position, charCol.bounds.extents.y / 2, -Vector3.up, out hit, charCol.bounds.extents.y / 2 + 0.1f, ground))
+        //Debug.DrawRay(charCol.gameObject.transform.position, -Vector3.up * (charCol.bounds.extents.y + 0.1f));
+        if (myState != State.Dashing)
         {
-            return true;
-        }*/
-        if(Physics.CheckSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y/2 + 0.1f, 0), charCol.bounds.extents.y/2, ground))
+            if (Physics.CheckSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.2f, 0), charCol.bounds.extents.y / 2, ground))
+            {
+                return true;
+            }
+        }
+        else
+        {
+            if (Physics.CheckCapsule (charCol.gameObject.transform.position - -charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4 - new Vector3(0, 0.1f, 0),
+                charCol.gameObject.transform.position - charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 3 - new Vector3(0, 0.2f, 0),
+                charCol.bounds.extents.y, ground))
+            {
+                return true;
+            }
+        }
+        //Debug.Log("NOT GROUND");
+     
+        return false;
+    }
+
+    public bool CheckIsGrounded()
+    {
+        
+        if (onGround)
         {
             return true;
         }
-
-        //Debug.Log("NOT GROUND");
-        return false;
+        else
+        {
+            return false;
+        }
     }
 
     //moves the player up until it is recognized as off the ground
@@ -736,19 +934,75 @@ public class PlayerController : MonoBehaviour
     {
         while (isGrounded())
         {
-            Debug.Log("MOVING");
-            transform.position += Vector3.up * Time.deltaTime;
+            //Debug.Log("MOVING");
+            transform.position += Vector3.up * Time.fixedDeltaTime;
         }
     }
 
-    void calculateGroundAngle()
+    private void moveToGround()
     {
-        if (!isGrounded())
+        while (!isGrounded())
+        {
+            //Debug.Log("MOVING");
+            transform.position -= Vector3.up * Time.fixedDeltaTime;
+        }
+    }
+
+    private void checkWalls()
+    {
+        if (myState != State.Dashing && !jumping)
+        {
+            Debug.DrawRay(charCol.gameObject.transform.position, charCol.transform.forward * (charCol.bounds.extents.x + wallPadding), Color.yellow);
+            if (Physics.Raycast(charCol.gameObject.transform.position, charCol.transform.forward, out wallHit, charCol.bounds.extents.x + wallPadding, walls) && !isHovering)
+            {
+                Debug.Log("CLINGABLE");
+                myState = State.Clinging;
+            }
+        }
+    }
+
+    private void calculateGroundAngle()
+    {
+        //Debug.DrawRay(charCol.transform.position + playerModel.transform.forward, Vector3.down * (charCol.bounds.extents.y / 2 + slopePadding), Color.yellow);
+        /*if (!isGrounded())
         {
             groundAngle = 90;
             return;
+        }*/
+
+        if(Physics.Raycast(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), Vector3.down, out hit, charCol.bounds.extents.y/2 + slopePadding, ground))
+        {
+          
+            //Debug.Log("HITTING GROUND");
+            //Debug.DrawRay(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), Vector3.down * hit.distance, Color.yellow);
+            groundAngle = Vector3.Angle(hit.normal, Vector3.up);
+            perpDir = hit.normal;
+            slopeDir = Vector3.Cross(hit.normal, charCol.transform.right);
+            //Debug.DrawRay(charCol.gameObject.transform.position + playerModel.transform.forward, Vector3.Cross(hit.normal, charCol.transform.right) * 3f, Color.red);
+            //Debug.Log("SLOPE: " + slopeDir.y);
+            if (slopeDir.y > 0 && groundAngle != 0 && groundAngle < maxGroundAngle && !jumping)
+            {
+                //Debug.Log("MOVING DOWN");
+                anim.SetBool("Grounded", true);
+                moveToGround();
+            }
+            //Debug.Log("SLOPE: " + slopeDir);
         }
-        //groundAngle = Vector3.Angle(hitinfo.normal, transform.forward);
+        else
+        {
+            if (isGrounded())
+            {
+                //Debug.DrawRay(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2, 0), Vector3.down * (charCol.bounds.extents.y / 2 + slopePadding), Color.red);
+                Debug.Log("ERROR: ON THE GROUND BUT NOT DETECTING GROUND");
+            }
+            anim.SetBool("Grounded", false);
+            groundAngle = 0;
+            slopeDir = Vector3.Cross(Vector3.up, charCol.transform.right);
+            perpDir = Vector3.up;
+
+        }
+        //Debug.DrawRay(charCol.gameObject.transform.position + playerModel.transform.forward, perpDir * 3f, Color.red);
+
     }
     void OnDrawGizmosSelected()
     {
@@ -756,9 +1010,8 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.1f,0), charCol.bounds.extents.y/2);
         Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(-playerModel.transform.forward.x * 0.5f, 0.1f, -playerModel.transform.forward.z * 0.05f), charCol.bounds.extents.z / 2);
-        //Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(-playerModel.transform.forward.x * 0.5f, charCol.bounds.extents.y + 0.1f, -playerModel.transform.forward.z * 0.05f), (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4);
-        Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(-playerModel.transform.forward.x * 0.5f, 0.1f, -playerModel.transform.forward.z * 0.05f), (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4);
+        //Gizmos.DrawSphere(charCol.gameObject.transform.position - charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 3 - new Vector3(0, 0.1f, 0), charCol.bounds.extents.y);
+        //Gizmos.DrawSphere(charCol.gameObject.transform.position - -charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4 - new Vector3(0, 0.1f, 0), charCol.bounds.extents.y);
 
     }
 
@@ -771,4 +1024,40 @@ public class PlayerController : MonoBehaviour
     {
         return rb.velocity.magnitude;
     }
+
+    //Getter methods for access outside the player controller
+    //get if player presses jump on ground
+    public bool getPressJump()
+    {
+        return pressJump;
+    }
+    //get if player presses jump in air
+    public bool getPressJumpInAir()
+    {
+        return pressJumpInAir;
+    }
+    //get's horizontal input of player
+    public float getHoriInput()
+    {
+        return horiInput;
+    }
+    //gets vertical input of player
+    public float getVertInput()
+    {
+        return vertInput;
+    }
+    //gets if player is hovering with jetpack
+    public bool getHovering()
+    {
+        return isHovering;
+    }
+    //gets when player releases charge
+    public bool getChargeRelease() {
+        return chargeRelease;
+    }
+    //gets if jump was used while dashing
+    public bool getDashJump() {
+        return dashJump;
+    }
+
 }

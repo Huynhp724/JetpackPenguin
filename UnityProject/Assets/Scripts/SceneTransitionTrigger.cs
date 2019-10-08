@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SceneTransitionTrigger : MonoBehaviour
 {
-    public string playerTag;
     public string nextSceneName;
+    public int entryTarget;
 
 
     Vector3 reentryPosition;
@@ -17,8 +17,12 @@ public class SceneTransitionTrigger : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(playerTag)) {
-            LevelChanger.Instance.SetLevelInfo(nextSceneName, reentryPosition);
+        if (other.CompareTag("Player")) {
+            LevelChanger.Instance.SetLevelInfo(nextSceneName, reentryPosition, entryTarget);
         }
+    }
+
+    public void FirstTransition() {
+        LevelChanger.Instance.SetLevelInfo(nextSceneName, reentryPosition, entryTarget);
     }
 }

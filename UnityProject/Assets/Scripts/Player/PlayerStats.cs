@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    public PlayerAttackStats playerAttackStats;
     public int lives;
     public int hitPoints;
 
     int setLives, setHitPoints;
 
-    private static bool playerExists;
+    //private static bool playerExists;
 
     bool isDead =false;
 
@@ -23,15 +24,6 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-        if (!playerExists)
-        {
-            playerExists = true;
-            DontDestroyOnLoad(gameObject);
-        }
-        else {
-            Destroy(gameObject);
-        }
-
         setLives = lives;
         setHitPoints = hitPoints;
     }
@@ -41,6 +33,22 @@ public class PlayerStats : MonoBehaviour
         lives = setLives;
         hitPoints = setHitPoints;
         
+    }
+
+    public float getHealthPercent()
+    {
+        float hpPercent = hitPoints;
+        return hpPercent / setHitPoints;
+    }
+
+    public void TurnPlayerController(PlayerController controller) {
+        StartCoroutine(TogglePlayerController(controller));
+
+    }
+
+    IEnumerator TogglePlayerController(PlayerController pc) {
+        yield return new WaitForSeconds(1.5f);
+        pc.enabled = true;
     }
 
 }

@@ -22,11 +22,13 @@ public class NPCInteraction : MonoBehaviour
     bool rotateTowardsPlayer;
     Quaternion rotationCheck, previousRotation;
     Dialogue[] dialogueOptions;
+    Animator anim;
 
     private void Awake()
     {
         uiController = FindObjectOfType<UIController>();
         dialogueManager = FindObjectOfType<DialogeManager>();
+        
     }
 
     // Start is called before the first frame update
@@ -34,11 +36,22 @@ public class NPCInteraction : MonoBehaviour
     {
         parentObject = transform.parent.gameObject;
         dialogueOptions = GetComponentsInParent<Dialogue>();
+        anim = transform.parent.GetComponentInChildren<Animator>();
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (hasSomethingToSay)
+        {
+            anim.SetBool("Waving", true);
+        }
+        else {
+            anim.SetBool("Waving", false);
+        }
+
         if (rotateTowardsPlayer)
         {
 
@@ -102,6 +115,7 @@ public class NPCInteraction : MonoBehaviour
             interact.SetInteract(false, null);
 
             rotateTowardsPlayer = false;
+            anim.SetBool("Talking", false);
         }
     }
 
@@ -113,6 +127,9 @@ public class NPCInteraction : MonoBehaviour
     bool RotateTowards()
     {
         rotationCheck = Quaternion.LookRotation(targetObject.transform.position - parentObject.transform.position);
+        Vector3 newVector = rotationCheck.eulerAngles;
+        rotationCheck = Quaternion.Euler(0f, newVector.y, newVector.z);
+        
 
         parentObject.transform.rotation = Quaternion.Slerp(parentObject.transform.rotation, rotationCheck, rotationSpeed * Time.deltaTime);
 
@@ -131,6 +148,8 @@ public class NPCInteraction : MonoBehaviour
     public void SendDialogeInfo() {
         npcExclamationSignal.SetActive(false);
         hasSomethingToSay = false;
+        anim.SetBool("Waving", false);
+        anim.SetBool("Talking", true);
         dialogueManager.StartDialogue(dialogueOptions[dialoguePriorityNumber], faceImage);
 
     }
