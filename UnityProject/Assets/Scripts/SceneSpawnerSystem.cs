@@ -9,7 +9,8 @@ public class SceneSpawnerSystem : MonoBehaviour
     int entryScenePoint;
 
     GameObject player;
-
+    GameObject mainCam;
+    GameObject cmFreeLook;
 
 
 
@@ -17,6 +18,8 @@ public class SceneSpawnerSystem : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         SceneManager.sceneLoaded += OnSceneLoaded;
+        //mainCam = GameObject.FindGameObjectWithTag("MainCamera");
+       // cmFreeLook = GameObject.FindGameObjectWithTag("CMFreeLook");
     }
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
@@ -27,6 +30,8 @@ public class SceneSpawnerSystem : MonoBehaviour
             if (sceneTransitions[i].entryTarget == entryScenePoint) {
                 Transform trans = sceneTransitions[i].transform.GetChild(0);
                 player.transform.position = trans.position;
+                //cmFreeLook.transform.position = trans.position;
+               // mainCam.transform.position = trans.position;
                 break;
             }
         }

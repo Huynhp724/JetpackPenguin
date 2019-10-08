@@ -23,7 +23,7 @@ public class Snowsplosion : MonoBehaviour
                 EnemyHealth enemyHealth = allColliders[i].GetComponentInParent<EnemyHealth>();
                 if (!enemyHealth.stats.immuneToSnowballs) {
                     enemyHealth.CreateIceBlock();
-                    enemyHealth.LoseLife();
+                    Destroy(enemyHealth.gameObject);
                 }
                 break;
             }
