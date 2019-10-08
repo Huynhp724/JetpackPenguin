@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     public float maxHoverVelocityX = 15.0f;  //how fast the jetpack can ultimately go when hovering horizontally
     public float minLeanVelocity = 5.0f;     //the minimum velocity you need to be able to lean in your slide
     public float chargeSpeed = 1f;
+    public float minCharge = 10f;           //min amount of fuel you need to charge before you can charge burst
     public float maxChargeForce = 100.0f;    //the most you can charge before it stops
     public float chargeForceDashScale = 2f;      //how strong the force is (only used during dashing)
     public float leanForce = 10f;           //how much you can lean when sliding
@@ -113,6 +114,8 @@ public class PlayerController : MonoBehaviour
     public Text chargeText;
 
     ParticleSystem[] flames;
+    public GameObject burstEmit;
+    public GameObject chargeBurstVFX;
     public GameObject jetPack;
     public GameObject freezeTrigger;
 
@@ -317,7 +320,7 @@ public class PlayerController : MonoBehaviour
         else if (player.GetButtonUp("Hover") || currentFuel <= 0)
         {
            
-            if (flames[0].isPlaying && currentFuel > 0)
+            if (flames[0].isPlaying)
             {
                 EmitFlames(false);
             }
@@ -768,7 +771,7 @@ public class PlayerController : MonoBehaviour
                 myState = State.Idle;
             }
             //rb.drag = chargeDrag;
-            if (currentCharge > 0)
+            if (currentCharge > minCharge)
             {
                 //if (!flames[0].isPlaying) EmitFlames(true);
                 if (myState != State.Dashing)
@@ -776,6 +779,7 @@ public class PlayerController : MonoBehaviour
                     myState = State.Idle;
                     moveOffGround();
                     moveDirection.y = currentCharge;
+               
                 }
                 //Releasing charge while dashing
                 else
@@ -788,6 +792,13 @@ public class PlayerController : MonoBehaviour
                         sphereRB.AddForce(playerModel.transform.forward * currentCharge, ForceMode.Impulse);
                     }*/
                 }
+                GameObject burst = Instantiate(chargeBurstVFX, burstEmit.transform.position, charCol.transform.rotation, gameObject.transform);
+                currentCharge = 0;
+            }
+            //did not charge for long enough so gets fuel back
+            else
+            {
+                currentFuel += currentCharge;
                 currentCharge = 0;
             }
             chargeRelease = false;
