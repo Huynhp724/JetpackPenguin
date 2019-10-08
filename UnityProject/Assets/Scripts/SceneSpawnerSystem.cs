@@ -16,10 +16,10 @@ public class SceneSpawnerSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        //player = GameObject.FindGameObjectWithTag("Player");
         SceneManager.sceneLoaded += OnSceneLoaded;
-        //mainCam = GameObject.FindGameObjectWithTag("MainCamera");
-       // cmFreeLook = GameObject.FindGameObjectWithTag("CMFreeLook");
+       // mainCam = GameObject.FindGameObjectWithTag("MainCamera");
+        //cmFreeLook = GameObject.FindGameObjectWithTag("CMFreeLook");
     }
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
@@ -28,11 +28,14 @@ public class SceneSpawnerSystem : MonoBehaviour
 
         for (int i = 0; i < sceneTransitions.Length; i++) {
             if (sceneTransitions[i].entryTarget == entryScenePoint) {
-                Transform trans = sceneTransitions[i].transform.GetChild(0);
+                /*Transform trans = sceneTransitions[i].transform.GetChild(0);
                 player.transform.position = trans.position;
-                //cmFreeLook.transform.position = trans.position;
-               // mainCam.transform.position = trans.position;
-                break;
+                cmFreeLook.transform.position = trans.position;
+                mainCam.transform.position = trans.position;
+                break;*/
+
+                sceneTransitions[i].transform.parent.GetChild(1).gameObject.SetActive(true);
+                
             }
         }
     }
