@@ -7,6 +7,7 @@ public class PlayerStats : MonoBehaviour
     public PlayerAttackStats playerAttackStats;
     public int lives;
     public int hitPoints;
+    public GameObject maincam;
 
     int setLives, setHitPoints;
 
@@ -43,6 +44,10 @@ public class PlayerStats : MonoBehaviour
             pitchShift = 1.0f;
             shiftStart = false;
             shiftIncrement = 0.0f;
+        }
+
+        if (Vector3.Distance(transform.position, maincam.transform.position) > 4f) {
+            maincam.transform.localPosition = new Vector3(3f, 11f, -46f);
         }
     }
 
