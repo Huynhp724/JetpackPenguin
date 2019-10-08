@@ -92,7 +92,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     IEnumerator TogglePlayerController(PlayerController pc) {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         pc.enabled = true;
     }
 

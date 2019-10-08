@@ -228,6 +228,10 @@ public class PlayerController : MonoBehaviour
             else
             {
                 onGround = false;
+                if(moveDirection.y < 0)
+                {
+                    jumping = false;
+                }
                 if (myState == State.Idle)
                 {
                     //Press A to double jump and enter flapping state while idle in the air if you are falling
@@ -238,7 +242,7 @@ public class PlayerController : MonoBehaviour
                     else if (player.GetButton("Jump") && moveDirection.y < 0 && !player.GetButton("Hover") && !pressJumpInAir)
                     {
                         jumping = false;
-                        wallJumping = false;
+                        //wallJumping = false;
                         myState = State.Flapping;
                     }
                 }
@@ -357,6 +361,10 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
         }
+        else
+        {
+            anim.SetBool("Clinging", false);
+        }
 
         //Regular Movement
         if (myState != State.Dashing)
@@ -448,7 +456,7 @@ public class PlayerController : MonoBehaviour
             {
                 jumping = true;
                 //rb.AddForce(wallHit.normal.normalized * jumpForce);
-                Vector3 tempDir = wallHit.normal.normalized * jumpForce * 1.25f;
+                Vector3 tempDir = wallHit.normal.normalized * jumpForce * 1.5f;
                
                 moveDirection.y = jumpForce;
                 moveDirection.x = tempDir.x;
@@ -456,7 +464,7 @@ public class PlayerController : MonoBehaviour
                 moveDirection.y += tempDir.y;
 
                 Debug.Log(moveDirection);
-                anim.SetTrigger("Jump");
+                anim.SetTrigger("WallJump");
                 myState = State.Idle;
                 Debug.Log("JUMP AWAY");
             }
@@ -712,6 +720,7 @@ public class PlayerController : MonoBehaviour
             //Hovering while dashing
             else
             {
+                rb.useGravity = false;
                 Debug.DrawRay(charCol.transform.position, charCol.transform.right * horiInput * 2f, Color.red);
                 rb.AddForce(charCol.transform.right * steeringForce * horiInput * Time.fixedDeltaTime);
 
@@ -737,6 +746,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (hoverDashRelease)
         {
+            rb.useGravity = true;
             //currentSlideSphere.GetComponent<Rigidbody>().useGravity = true;
             //currentSlideSphere.GetComponent<Rigidbody>().AddForce(new Vector3(0, Physics.gravity.y * gravityScale * dashGravity, 0));
 
@@ -744,6 +754,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + Physics.gravity.y * gravityScale * Time.fixedDeltaTime, rb.velocity.z);
             //rb.drag = normalDrag;
 
+            //isHovering = false;
             hoverDashRelease = false;
         }
 
@@ -968,6 +979,7 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("CLINGABLE");
                 myState = State.Clinging;
+                anim.SetBool("Clinging", true);
             }
         }
     }

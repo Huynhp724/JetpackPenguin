@@ -21,7 +21,7 @@ public class Refuel : MonoBehaviour
     {
         if(inGeyser == true)
         {
-            Player.GetComponent<PlayerController>().currentFuel = 500;
+            Player.GetComponent<PlayerController>().currentFuel = Player.GetComponent<PlayerController>().maxFuel;
         }
 
     }
