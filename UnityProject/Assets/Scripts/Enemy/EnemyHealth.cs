@@ -47,12 +47,17 @@ public class EnemyHealth : MonoBehaviour
         if (isFreezing) {
             timer -= Time.deltaTime;
             if (timer <= 0f) {
-                LoseHp();
+                IsFrozen();
                 timer = maxTimer;
                 
             }
         }
 
+    }
+
+    public void IsFrozen() {
+        CreateIceBlock();
+        Destroy(gameObject);
     }
 
     public void LoseHp() {
@@ -67,7 +72,7 @@ public class EnemyHealth : MonoBehaviour
 
                 if (isFreezing)
                 {
-                    CreateIceBlock();
+                    //CreateIceBlock();
                     LoseLife();
                 }
                 else
