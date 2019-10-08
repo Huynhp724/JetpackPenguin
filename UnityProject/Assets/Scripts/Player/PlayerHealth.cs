@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     
@@ -41,9 +41,10 @@ public class PlayerHealth : MonoBehaviour
         }
         if (stats.GetIsDead()) {
             Debug.Log("I am dead");
-            flick.SwitchAllRenderers(false);
-            stats.ResetStats();
-            FindMajorCheckpoint();
+            StartCoroutine(WaitToDie());
+            //flick.SwitchAllRenderers(false);
+            //stats.ResetStats();
+            //FindMajorCheckpoint();
         }
 
         if (minorCheckPoints == null) {
@@ -240,6 +241,12 @@ public class PlayerHealth : MonoBehaviour
         playerInteraction.EnablePlayerController(true);
         flick.SwitchAllRenderers(true);
 
+    }
+
+    IEnumerator WaitToDie() {
+        yield return new WaitForSeconds(0.5f);
+        Destroy(transform.parent.gameObject);
+        SceneManager.LoadScene("DeadScene");
     }
 
     public void SetInvincibilty(bool invincible) {

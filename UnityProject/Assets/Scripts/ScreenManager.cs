@@ -31,6 +31,10 @@ public class ScreenManager : MonoBehaviour
 
     private void Update()
     {
+        if(eventSystem == null)
+        {
+            eventSystem = FindObjectOfType<EventSystem>();
+        }
         if (eventSystem.currentSelectedGameObject != null && eventSystem.currentSelectedGameObject != currentlySelected)
             currentlySelected = eventSystem.currentSelectedGameObject;
         else if (currentlySelected != null && eventSystem.currentSelectedGameObject == null)

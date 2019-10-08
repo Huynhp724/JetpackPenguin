@@ -19,13 +19,14 @@ public class CoinPickup : MonoBehaviour
     private float intialY;
     private GameManager gm;
     private AudioSource asource;
+    private PlayerStats stats;
 
     // Start is called before the first frame update
     void Start()
     {
         asource = GetComponent<AudioSource>();
         intialY = transform.position.y;
-        gm = FindObjectOfType<GameManager>();
+       // gm = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -36,6 +37,11 @@ public class CoinPickup : MonoBehaviour
             transform.Rotate(Vector3.up, rotateSpeed);
             transform.position = new Vector3(transform.position.x, intialY + (Mathf.Sin(Time.time * bobSpeed) * bobDegree), transform.position.z);
         }
+
+       // if(gm == null)
+       // {
+      //      gm = FindObjectOfType<GameManager>();
+      //  }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -55,7 +61,8 @@ public class CoinPickup : MonoBehaviour
             }
             else if (pickupEnum == Pickup.CRYSTAL) {
                 Debug.Log("It is a crystal.");
-                gm.AddCrystal(1);
+                stats = playerHealth.GetComponent<PlayerStats>();
+                stats.AddCrystal(1);
             }
 
             StartCoroutine(PickUp(playerHealth.gameObject));
@@ -66,8 +73,8 @@ public class CoinPickup : MonoBehaviour
     {
         Debug.Log("Pick up coroutine");
         pickedUp = true;
-        gm.shiftStart = true;
-        asource.pitch = gm.pitchShift;
+        stats.shiftStart = true;
+        asource.pitch = stats.pitchShift;
         asource.volume = 0.7f;
         asource.PlayOneShot(pickupSound);
         transform.SetParent(player.transform);

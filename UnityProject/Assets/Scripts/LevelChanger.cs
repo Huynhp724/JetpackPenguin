@@ -8,6 +8,7 @@ public class LevelChanger : MonoBehaviour
     public string currentLevelName;
     public Vector3 pos;
     public Vector3 newPos;
+    //public Camera mainCam;
     public static LevelChanger Instance { get; private set; }
 
 
@@ -16,7 +17,9 @@ public class LevelChanger : MonoBehaviour
     bool needOldLocation = false;
     bool startFade = false;
     ScreenFader fader;
-    GameObject player;
+    GameObject player, cam, cmLook;
+
+    public float fadeTime = 1f;
 
     private void Awake()
     {
@@ -45,7 +48,9 @@ public class LevelChanger : MonoBehaviour
         nextLevelName = nxtLvl;
         entryPoint = entryValue;
         Debug.Log("Entry point is: " + entryValue);
-
+        player = GameObject.FindGameObjectWithTag("Player");
+        cam = GameObject.FindGameObjectWithTag("MainCamera");
+        cmLook = GameObject.FindGameObjectWithTag("CMFreeLook");
         StartCoroutine(WaitToFadeOut());
         //NextLevel();
     }
@@ -72,8 +77,12 @@ public class LevelChanger : MonoBehaviour
     }
 
     IEnumerator LoadScenePlacePluck() {
+        Destroy(player);
+        Destroy(cam);
+        Destroy(cmLook);
         SceneManager.LoadScene(nextLevelName);
-        yield return new WaitForSeconds(2f);
+
+        yield return new WaitForSeconds(fadeTime);
 
         //FindLocation();
 
@@ -83,14 +92,14 @@ public class LevelChanger : MonoBehaviour
 
     IEnumerator WaitToFadeOut() {
         fader.Fade("out");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(fadeTime);
         NextLevel();
         
     }
 
     IEnumerator WaitToFadeIn()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(fadeTime);
         fader.Fade("in");
 
     }
@@ -105,8 +114,8 @@ public class LevelChanger : MonoBehaviour
                 Debug.Log(obj.transform.localPosition);
                 player = GameObject.FindGameObjectWithTag("Player");
                 player.transform.localPosition = transtionTranform.position;
-                //GameObject Camera = GameObject.FindGameObjectWithTag("MainCamera");
-                //Camera.transform.localPosition = transtionTranform.position;
+                GameObject Camera = GameObject.FindGameObjectWithTag("MainCamera");
+                Camera.transform.localPosition = transtionTranform.position;
                 
             }
         }
