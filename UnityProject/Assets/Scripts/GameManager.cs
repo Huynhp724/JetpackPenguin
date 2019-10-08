@@ -108,8 +108,14 @@ public class GameManager : MonoBehaviour {
 
     public void AddCrystal(int x)
     {
+        Debug.Log("Adding " + x + " to crystals.");
         currentCrystals += x;
-        crystalText.text = "x " + currentCrystals;
+        //crystalText.text = "Crystals: " + currentCrystals;
+    }
+
+    public int getCrystals()
+    {
+        return currentCrystals;
     }
 
     public void AddBigCrystal()
