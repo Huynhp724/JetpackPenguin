@@ -5,21 +5,23 @@ using UnityEngine;
 public class Refuel : MonoBehaviour
 {
     public GameObject Player;
+    public GameObject ring;
     public float thrust;
 
-    private bool inGeyser;
+    private bool contact;
     void Start()
     {
         if (Player == null)
         {
             Player = GameObject.FindWithTag("Player");
         }
+        ring.SetActive(true);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(inGeyser == true)
+        if (contact == true)
         {
             Player.GetComponent<PlayerController>().currentFuel = 500;
         }
@@ -28,9 +30,9 @@ public class Refuel : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
-            inGeyser = true;
+            contact = true;
         }
     }
 
@@ -38,7 +40,16 @@ public class Refuel : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            inGeyser = false;
+            contact = false;
+            ring.SetActive(false);
+            StartCoroutine(Respawn(30.0f));
         }
     }
+
+    private IEnumerator Respawn(float timer)
+    {
+        yield return new WaitForSeconds(timer);
+        ring.SetActive(true);
+    }
+
 }
