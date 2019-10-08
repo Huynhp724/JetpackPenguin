@@ -19,9 +19,16 @@ public class GameManager : MonoBehaviour {
     public string hover = "Hover";
     public string charge = "Charge";
     public float bumperThreshold = Mathf.Epsilon;
+    public float pitchShift = 1.0f;
+    public bool shiftStart = false;
+    
 
     private string currentController = "";
     private PlayerController playerControl;
+    public float shiftInterval = 10.0f;
+    private float shiftIncrement = 0.0f;
+    private float shiftVal = 0.0f;
+
 
     private void Start()
     {
@@ -31,6 +38,25 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        shiftVal += shiftIncrement;
+        if (shiftStart && shiftIncrement != 0.0f)
+        {
+            pitchShift += 0.1f;
+            shiftVal = 0.0f;
+            shiftStart = false;
+        }
+        else if (shiftStart && shiftIncrement == 0.0f)
+        {
+            shiftIncrement = 0.1f;
+        }
+        else if (shiftVal > shiftInterval) {
+            shiftVal = 0.0f;
+            pitchShift = 1.0f;
+            shiftStart = false;
+            shiftIncrement = 0.0f;
+        }
+
+        
         /*
         foreach (string name in Input.GetJoystickNames())
         {

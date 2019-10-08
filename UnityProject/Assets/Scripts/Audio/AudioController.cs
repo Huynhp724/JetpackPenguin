@@ -92,11 +92,7 @@ public class AudioController : MonoBehaviour
     void Update()
     {
 
-        if (ReInput.players.GetPlayer(0).GetButtonDown("Pause"))
-        {
-            aud.volume = 1.0f;
-            aud.PlayOneShot(pause);
-        }
+
 
         state = pc.GetCurrentState();
         if (state == PlayerController.State.Dashing)
@@ -114,6 +110,10 @@ public class AudioController : MonoBehaviour
                 aud.Play();
                 
             }
+        }
+
+        if (aud.clip == hoverFlap && pc.onGround()) {
+            aud.Stop();
         }
 
         
