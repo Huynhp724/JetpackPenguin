@@ -5,6 +5,8 @@ using UnityEngine;
 public class IceBlock : MonoBehaviour
 {
     public LayerMask ground;
+    [SerializeField] Transform bottomOfBlock;
+    [SerializeField] Transform topOfBlock;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -21,5 +23,12 @@ public class IceBlock : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    public float getHalfSize()
+    {
+        
+        print(topOfBlock.position.y + " : " + bottomOfBlock.position.y);
+        return topOfBlock.position.y - bottomOfBlock.position.y;
     }
 }
