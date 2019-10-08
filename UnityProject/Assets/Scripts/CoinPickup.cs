@@ -40,9 +40,9 @@ public class CoinPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collectable triggered. Collided with: " + other.gameObject);
+        //Debug.Log("Collectable triggered. Collided with: " + other.gameObject);
         PlayerHealth playerHealth = other.GetComponentInParent<PlayerHealth>();
-        if (playerHealth)
+        if (playerHealth && !pickedUp)
         {
             Debug.Log("It is player.");
             if (pickupEnum == Pickup.LIFEHEALTH)
@@ -55,10 +55,10 @@ public class CoinPickup : MonoBehaviour
             }
             else if (pickupEnum == Pickup.CRYSTAL) {
                 Debug.Log("It is a crystal.");
-                //gm.AddCrystal(1);
+                gm.AddCrystal(1);
             }
 
-            StartCoroutine(PickUp(other.gameObject));
+            StartCoroutine(PickUp(playerHealth.gameObject));
         }
     }
 
