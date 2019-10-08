@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 148735897911795712}
   - component: {fileID: 173902315400597868}
   - component: {fileID: 165369753203005968}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: eye_Black_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 149141927495384042}
   - component: {fileID: 173418359979343048}
   - component: {fileID: 165763826452146166}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: jaw_lower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 148424952935210526}
   - component: {fileID: 173553291935671934}
   - component: {fileID: 165408524734955380}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: eye_ball_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 148735627568218468}
   - component: {fileID: 174228193678667142}
   - component: {fileID: 165661139473084168}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Snout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 149010558891781862}
   - component: {fileID: 173736430771923772}
   - component: {fileID: 165728196508962044}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: nose1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 148059434131439198}
   - component: {fileID: 173735167482391810}
   - component: {fileID: 165269684521958796}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: brow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -482,7 +482,7 @@ GameObject:
   - component: {fileID: 8844369244681714997}
   - component: {fileID: 4608677936196995841}
   - component: {fileID: 8631392769840633139}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Frozen_FatSeal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -501,8 +501,6 @@ Transform:
   m_LocalScale: {x: 516.1131, y: 516.1131, z: 516.1131}
   m_Children:
   - {fileID: 148222636890299126}
-  - {fileID: 1916061346382542997}
-  - {fileID: 4466071061506508555}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -580,8 +578,6 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 4097
-  bottomOfBlock: {fileID: 1916061346382542997}
-  topOfBlock: {fileID: 4466071061506508555}
 --- !u!54 &8631392769840633139
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -609,7 +605,7 @@ GameObject:
   - component: {fileID: 148345636352272800}
   - component: {fileID: 173882112848847108}
   - component: {fileID: 165621480452618134}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: eye_Lid_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -687,7 +683,7 @@ GameObject:
   - component: {fileID: 148322000036154116}
   - component: {fileID: 174034922114980214}
   - component: {fileID: 165976798369025952}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -765,7 +761,7 @@ GameObject:
   - component: {fileID: 148594440848342122}
   - component: {fileID: 173648685575803646}
   - component: {fileID: 165872413590950474}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: eye_ball_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -843,7 +839,7 @@ GameObject:
   - component: {fileID: 148213044193497602}
   - component: {fileID: 173625315340528938}
   - component: {fileID: 165800514908978930}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: flipper_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -921,7 +917,7 @@ GameObject:
   - component: {fileID: 148337918307142364}
   - component: {fileID: 173952079972991242}
   - component: {fileID: 165730156751154842}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Body1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -999,7 +995,7 @@ GameObject:
   - component: {fileID: 148605654889001394}
   - component: {fileID: 173970927003571316}
   - component: {fileID: 166055561249866588}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: flipper_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1077,7 +1073,7 @@ GameObject:
   - component: {fileID: 148736649627027076}
   - component: {fileID: 173948079714476838}
   - component: {fileID: 165988068090025246}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: eye_black_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1155,7 +1151,7 @@ GameObject:
   - component: {fileID: 148249487668298336}
   - component: {fileID: 174215954889515494}
   - component: {fileID: 165118014886156668}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: eye_Lid_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1231,7 +1227,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 148222636890299126}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: AA_Seal_Model_LS (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1265,64 +1261,4 @@ Transform:
   - {fileID: 148322000036154116}
   m_Father: {fileID: 148708393082579586}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &427655110181050037
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4466071061506508555}
-  m_Layer: 13
-  m_Name: top
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4466071061506508555
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 427655110181050037}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.005, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 148708393082579586}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4503288620599373227
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1916061346382542997}
-  m_Layer: 13
-  m_Name: Bottom
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1916061346382542997
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4503288620599373227}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.005, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 148708393082579586}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
