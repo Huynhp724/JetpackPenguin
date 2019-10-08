@@ -379,9 +379,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Press
+  m_Text: 'Press Y/
 
-    Space'
+    Press ''e'''
 --- !u!1 &297236172
 GameObject:
   m_ObjectHideFlags: 0
@@ -3142,11 +3142,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8799896540758015865}
     m_Modifications:
-    - target: {fileID: 1650652731570171402, guid: 7671626152fda9d4faf99cb590032dbe,
-        type: 3}
-      propertyPath: m_Name
-      value: Target Point
-      objectReference: {fileID: 0}
     - target: {fileID: 1650652731570171405, guid: 7671626152fda9d4faf99cb590032dbe,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3251,6 +3246,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650652731570171402, guid: 7671626152fda9d4faf99cb590032dbe,
+        type: 3}
+      propertyPath: m_Name
+      value: Target Point
       objectReference: {fileID: 0}
     - target: {fileID: 1650652731570171404, guid: 7671626152fda9d4faf99cb590032dbe,
         type: 3}

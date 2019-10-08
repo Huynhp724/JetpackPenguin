@@ -567,9 +567,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0260d78ad477b0f44bccd70ca0cda800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 0}
+  eventSystem: {fileID: 1807969099}
   essentials: {fileID: 0}
   initiallyOpen: {fileID: 1995485231}
+  currentlySelected: {fileID: 0}
 --- !u!4 &451782436
 Transform:
   m_ObjectHideFlags: 0

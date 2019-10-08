@@ -38,7 +38,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (canInteractWithNPC)
         {
-            if ((player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.Q)) &&
+            if ((player.GetButtonDown("Interact")) &&
                 (playerController.GetCurrentState() != PlayerController.State.Dashing) && 
                 (playerController.GetCurrentState() != PlayerController.State.Flapping) && (playerController.onGround))
             {
