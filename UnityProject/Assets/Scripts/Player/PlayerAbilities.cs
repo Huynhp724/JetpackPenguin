@@ -34,6 +34,7 @@ public class PlayerAbilities : MonoBehaviour
     [SerializeField] float pickUpRange = 3f;
     [Tooltip("How far and fast a picked up iceblock will be thrown.")]
     [SerializeField] float blockThrowVelocity = 10f;
+    [SerializeField] float blockOverHeadMinimum = 1f;
 
 
     private float throwVelocity;
@@ -106,9 +107,15 @@ public class PlayerAbilities : MonoBehaviour
         }
     }
 
+    //Put the iceblock above the player's head.
     private void pickupIceBlock(Transform iceblock)
     {
-        iceblock.position = transform.position + (Vector3.up * (1 + (iceblock.lossyScale.y/2)));
+        float iceblockDisplacement = (1 + (iceblock.GetComponent<IceBlock>().getHalfSize() / 2));
+        if(iceblockDisplacement <= blockOverHeadMinimum)
+        {
+            iceblockDisplacement = blockOverHeadMinimum;
+        }
+        iceblock.position = transform.position + (Vector3.up * iceblockDisplacement);
         iceblock.rotation = playerModel.transform.rotation;
         iceblock.SetParent(playerModel.transform);
         iceblock.GetComponent<Rigidbody>().useGravity = false;
@@ -117,6 +124,7 @@ public class PlayerAbilities : MonoBehaviour
         playerController.setHoldingBlock(true);
     }
 
+    //Throw the iceblock
     private void throwIceBlock()
     {
         Rigidbody iceRB = heldIceBlock.GetComponent<Rigidbody>();
