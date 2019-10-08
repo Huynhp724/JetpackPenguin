@@ -18,6 +18,8 @@ public class LevelChanger : MonoBehaviour
     ScreenFader fader;
     GameObject player;
 
+    public float fadeTime = 1f;
+
     private void Awake()
     {
         if (Instance == null) {
@@ -73,7 +75,7 @@ public class LevelChanger : MonoBehaviour
 
     IEnumerator LoadScenePlacePluck() {
         SceneManager.LoadScene(nextLevelName);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(fadeTime);
 
         //FindLocation();
 
@@ -83,14 +85,14 @@ public class LevelChanger : MonoBehaviour
 
     IEnumerator WaitToFadeOut() {
         fader.Fade("out");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(fadeTime);
         NextLevel();
         
     }
 
     IEnumerator WaitToFadeIn()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(fadeTime);
         fader.Fade("in");
 
     }

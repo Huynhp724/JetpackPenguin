@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour {
     public void AddCrystal(int x)
     {
         currentCrystals += x;
-        crystalText.text = "Crystals: " + currentCrystals;
+        crystalText.text = "x " + currentCrystals;
     }
 
     public void AddBigCrystal()

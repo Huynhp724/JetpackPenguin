@@ -700,7 +700,7 @@ RectTransform:
   m_Children:
   - {fileID: 297236175}
   m_Father: {fileID: 8799896540758015865}
-  m_RootOrder: 7
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -894,7 +894,7 @@ RectTransform:
   - {fileID: 425737310}
   - {fileID: 85471312}
   m_Father: {fileID: 8799896540758015865}
-  m_RootOrder: 4
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1071,7 +1071,7 @@ RectTransform:
   - {fileID: 1565271258}
   - {fileID: 1378073718}
   m_Father: {fileID: 8799896540758015865}
-  m_RootOrder: 8
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1244,7 +1244,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8799896540758015865}
-  m_RootOrder: 6
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1161001026
 MonoBehaviour:
@@ -1290,6 +1290,8 @@ MonoBehaviour:
   fuelGauge: {fileID: 3374749961516706705}
   healthWheel: {fileID: 6198955482199653290}
   lives: {fileID: 6213566044225432325}
+  crystal: {fileID: 0}
+  rotateSpeed: 1
 --- !u!1 &1298656664
 GameObject:
   m_ObjectHideFlags: 0
@@ -1935,7 +1937,7 @@ RectTransform:
   - {fileID: 1570030212}
   - {fileID: 1298656665}
   m_Father: {fileID: 8799896540758015865}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2296,11 +2298,11 @@ RectTransform:
   - {fileID: 737337041265813629}
   - {fileID: 6871756717934888533}
   m_Father: {fileID: 8799896540758015865}
-  m_RootOrder: 9
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 32.6, y: -275}
+  m_AnchoredPosition: {x: 32.600098, y: -275}
   m_SizeDelta: {x: 50, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3374749961516706705
@@ -2423,7 +2425,7 @@ RectTransform:
   - {fileID: 3565045041612205043}
   - {fileID: 4183843645733328972}
   m_Father: {fileID: 8799896540758015865}
-  m_RootOrder: 11
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -2573,7 +2575,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8799896540758015865}
-  m_RootOrder: 10
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -2609,8 +2611,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 40
+    m_Font: {fileID: 12800000, guid: 7ad449ebc6e73ff46bf3367a5bbdde1d, type: 3}
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -2811,14 +2813,14 @@ RectTransform:
   - {fileID: 8799896541944659420}
   - {fileID: 8799896540461789676}
   - {fileID: 8799896541947875858}
+  - {fileID: 5062817955142678427}
+  - {fileID: 560179563443663668}
+  - {fileID: 3256229664805059458}
   - {fileID: 776095649}
   - {fileID: 1879390741}
   - {fileID: 1161001027}
   - {fileID: 352315953}
   - {fileID: 929886250}
-  - {fileID: 5062817955142678427}
-  - {fileID: 560179563443663668}
-  - {fileID: 3256229664805059458}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2966,19 +2968,19 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7ad449ebc6e73ff46bf3367a5bbdde1d, type: 3}
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 60
-    m_Alignment: 2
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Crystals
+  m_Text: x 0
 --- !u!1 &8799896542036991442
 GameObject:
   m_ObjectHideFlags: 0
@@ -3013,7 +3015,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 7.6, y: -407}
+  m_AnchoredPosition: {x: 7.6000977, y: -407}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &8799896542036991441
@@ -3045,7 +3047,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7ad449ebc6e73ff46bf3367a5bbdde1d, type: 3}
     m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
