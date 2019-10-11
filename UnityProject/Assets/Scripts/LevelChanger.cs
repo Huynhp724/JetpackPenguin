@@ -80,7 +80,8 @@ public class LevelChanger : MonoBehaviour
 
         yield return null;
 
-        Destroy(player.transform.parent.gameObject);
+        if(player)
+            Destroy(player.transform.parent.gameObject);
         //Destroy(cam);
         //Destroy(cmLook);
         SceneManager.LoadScene(nextLevelName);

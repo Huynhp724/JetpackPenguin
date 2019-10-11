@@ -46,7 +46,7 @@ public class PlayerStats : MonoBehaviour
             shiftIncrement = 0.0f;
         }
 
-        if (Vector3.Distance(transform.position, maincam.transform.position) > 4f) {
+        if (maincam && Vector3.Distance(transform.position, maincam.transform.position) > 4f) {
             maincam.transform.localPosition = new Vector3(3f, 11f, -46f);
         }
     }

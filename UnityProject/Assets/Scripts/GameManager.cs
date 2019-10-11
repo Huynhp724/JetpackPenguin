@@ -102,7 +102,11 @@ public class GameManager : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Alpha4) && Input.GetKeyDown(KeyCode.Alpha5) && Input.GetKeyDown(KeyCode.Alpha6) && Input.GetKeyDown(KeyCode.Alpha7))
         {
-            playerControl.transform.position = new Vector3(140, 0, 185);
+            
+            Application.LoadLevel("PuzzleLevel");
+            Destroy(playerControl.transform.parent.gameObject);
+            //playerControl.transform.parent.position = new Vector3(140, 34, 211);
+            //playerControl.transform.position = new Vector3(18, 3, -330);
         }
     }
 
