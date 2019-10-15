@@ -11,7 +11,7 @@ public class HUD : MonoBehaviour
     [SerializeField] Text crystalText;
     [SerializeField] Transform crystal;
     [SerializeField] float rotateSpeed = 1f;
-    [SerializeField] WorldManager wm;
+    [SerializeField] WorldManager wm; 
     private PlayerController playerControl;
     private PlayerStats playerStats;
 

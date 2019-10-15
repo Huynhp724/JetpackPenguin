@@ -18,9 +18,12 @@ public class CollectableMagnet : MonoBehaviour
     {
         tracking = true;
         PlayerHealth playerHealth = other.GetComponentInParent<PlayerHealth>();
-        player = playerHealth.gameObject;
-        GetComponentInParent<CoinPickup>().magnet = true;
-        GetComponentInParent<CoinPickup>().magnetTarget = player;
+        if (playerHealth)
+        {
+            player = playerHealth.gameObject;
+            GetComponentInParent<CoinPickup>().magnet = true;
+            GetComponentInParent<CoinPickup>().magnetTarget = player;
+        }
 
     }
 }
