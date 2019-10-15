@@ -15,6 +15,8 @@ public class CoinPickup : MonoBehaviour
     public Pickup pickupEnum = Pickup.CRYSTAL;
 
     private bool pickedUp = false;
+    public bool magnet;
+    public GameObject magnetTarget;
 
     private float intialY;
     private WorldManager wm;
@@ -27,12 +29,20 @@ public class CoinPickup : MonoBehaviour
         asource = GetComponent<AudioSource>();
         intialY = transform.position.y;
         wm = FindObjectOfType<WorldManager>();
+        magnet = false;
+       // gm = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!pickedUp)
+        if (magnet && !pickedUp)
+        {
+            float temp = Mathf.Max(magnetTarget.GetComponent<Rigidbody>().velocity.magnitude / 100f, 0.3f);
+            transform.position = Vector3.Lerp(transform.position, Vector3.MoveTowards(transform.position, magnetTarget.transform.position, 1f), temp); ;
+        }
+
+        if (!magnet)
         {
             transform.Rotate(Vector3.up, rotateSpeed);
             transform.position = new Vector3(transform.position.x, intialY + (Mathf.Sin(Time.time * bobSpeed) * bobDegree), transform.position.z);
