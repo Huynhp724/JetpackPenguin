@@ -42,7 +42,7 @@ public class PlayerHealth : MonoBehaviour
         if (stats.GetIsDead()) {
             Debug.Log("I am dead");
             StartCoroutine(WaitToDie());
-            //flick.SwitchAllRenderers(false);
+            flick.SwitchAllRenderers(false);
             //stats.ResetStats();
             //FindMajorCheckpoint();
         }

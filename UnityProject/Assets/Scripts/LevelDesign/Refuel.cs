@@ -23,7 +23,7 @@ public class Refuel : MonoBehaviour
     {
         if (contact == true)
         {
-            Player.GetComponent<PlayerController>().currentFuel = 500;
+            Player.GetComponent<PlayerController>().currentFuel = Player.GetComponent<PlayerController>().maxFuel;
         }
 
     }

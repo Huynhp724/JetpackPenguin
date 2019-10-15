@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     public float maxHoverVelocityX = 15.0f;  //how fast the jetpack can ultimately go when hovering horizontally
     public float minLeanVelocity = 5.0f;     //the minimum velocity you need to be able to lean in your slide
     public float chargeSpeed = 1f;
+    public float minCharge = 10f;           //min amount of fuel you need to charge before you can charge burst
     public float maxChargeForce = 100.0f;    //the most you can charge before it stops
     public float chargeForceDashScale = 2f;      //how strong the force is (only used during dashing)
     public float leanForce = 10f;           //how much you can lean when sliding
@@ -113,6 +114,8 @@ public class PlayerController : MonoBehaviour
     public Text chargeText;
 
     ParticleSystem[] flames;
+    public GameObject burstEmit;
+    public GameObject chargeBurstVFX;
     public GameObject jetPack;
     public GameObject freezeTrigger;
 
@@ -225,6 +228,10 @@ public class PlayerController : MonoBehaviour
             else
             {
                 onGround = false;
+                if(moveDirection.y < 0)
+                {
+                    jumping = false;
+                }
                 if (myState == State.Idle)
                 {
                     //Press A to double jump and enter flapping state while idle in the air if you are falling
@@ -235,7 +242,7 @@ public class PlayerController : MonoBehaviour
                     else if (player.GetButton("Jump") && moveDirection.y < 0 && !player.GetButton("Hover") && !pressJumpInAir)
                     {
                         jumping = false;
-                        wallJumping = false;
+                        //wallJumping = false;
                         myState = State.Flapping;
                     }
                 }
@@ -317,7 +324,7 @@ public class PlayerController : MonoBehaviour
         else if (player.GetButtonUp("Hover") || currentFuel <= 0)
         {
            
-            if (flames[0].isPlaying && currentFuel > 0)
+            if (flames[0].isPlaying)
             {
                 EmitFlames(false);
             }
@@ -353,6 +360,10 @@ public class PlayerController : MonoBehaviour
         if (myState == State.Clinging)
         {
             rb.velocity = Vector3.zero;
+        }
+        else
+        {
+            anim.SetBool("Clinging", false);
         }
 
         //Regular Movement
@@ -445,7 +456,7 @@ public class PlayerController : MonoBehaviour
             {
                 jumping = true;
                 //rb.AddForce(wallHit.normal.normalized * jumpForce);
-                Vector3 tempDir = wallHit.normal.normalized * jumpForce * 1.25f;
+                Vector3 tempDir = wallHit.normal.normalized * jumpForce * 1.5f;
                
                 moveDirection.y = jumpForce;
                 moveDirection.x = tempDir.x;
@@ -453,7 +464,7 @@ public class PlayerController : MonoBehaviour
                 moveDirection.y += tempDir.y;
 
                 Debug.Log(moveDirection);
-                anim.SetTrigger("Jump");
+                anim.SetTrigger("WallJump");
                 myState = State.Idle;
                 Debug.Log("JUMP AWAY");
             }
@@ -709,6 +720,7 @@ public class PlayerController : MonoBehaviour
             //Hovering while dashing
             else
             {
+                rb.useGravity = false;
                 Debug.DrawRay(charCol.transform.position, charCol.transform.right * horiInput * 2f, Color.red);
                 rb.AddForce(charCol.transform.right * steeringForce * horiInput * Time.fixedDeltaTime);
 
@@ -734,6 +746,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (hoverDashRelease)
         {
+            rb.useGravity = true;
             //currentSlideSphere.GetComponent<Rigidbody>().useGravity = true;
             //currentSlideSphere.GetComponent<Rigidbody>().AddForce(new Vector3(0, Physics.gravity.y * gravityScale * dashGravity, 0));
 
@@ -741,6 +754,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + Physics.gravity.y * gravityScale * Time.fixedDeltaTime, rb.velocity.z);
             //rb.drag = normalDrag;
 
+            //isHovering = false;
             hoverDashRelease = false;
         }
 
@@ -768,7 +782,7 @@ public class PlayerController : MonoBehaviour
                 myState = State.Idle;
             }
             //rb.drag = chargeDrag;
-            if (currentCharge > 0)
+            if (currentCharge > minCharge)
             {
                 //if (!flames[0].isPlaying) EmitFlames(true);
                 if (myState != State.Dashing)
@@ -776,6 +790,7 @@ public class PlayerController : MonoBehaviour
                     myState = State.Idle;
                     moveOffGround();
                     moveDirection.y = currentCharge;
+               
                 }
                 //Releasing charge while dashing
                 else
@@ -788,6 +803,13 @@ public class PlayerController : MonoBehaviour
                         sphereRB.AddForce(playerModel.transform.forward * currentCharge, ForceMode.Impulse);
                     }*/
                 }
+                GameObject burst = Instantiate(chargeBurstVFX, burstEmit.transform.position, charCol.transform.rotation, gameObject.transform);
+                currentCharge = 0;
+            }
+            //did not charge for long enough so gets fuel back
+            else
+            {
+                currentFuel += currentCharge;
                 currentCharge = 0;
             }
             chargeRelease = false;
@@ -957,6 +979,7 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("CLINGABLE");
                 myState = State.Clinging;
+                anim.SetBool("Clinging", true);
             }
         }
     }

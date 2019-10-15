@@ -77,16 +77,25 @@ public class LevelChanger : MonoBehaviour
     }
 
     IEnumerator LoadScenePlacePluck() {
-        Destroy(player);
-        Destroy(cam);
-        Destroy(cmLook);
+
+        yield return null;
+
+        if(player)
+            Destroy(player.transform.parent.gameObject);
+        //Destroy(cam);
+        //Destroy(cmLook);
         SceneManager.LoadScene(nextLevelName);
 
-        yield return new WaitForSeconds(fadeTime);
+        yield return new WaitForSeconds(2f);
+
+        StartCoroutine(WaitToFadeIn());
+
+
+
 
         //FindLocation();
 
-        StartCoroutine(WaitToFadeIn());
+
 
     }
 
@@ -114,8 +123,8 @@ public class LevelChanger : MonoBehaviour
                 Debug.Log(obj.transform.localPosition);
                 player = GameObject.FindGameObjectWithTag("Player");
                 player.transform.localPosition = transtionTranform.position;
-                GameObject Camera = GameObject.FindGameObjectWithTag("MainCamera");
-                Camera.transform.localPosition = transtionTranform.position;
+                //GameObject Camera = GameObject.FindGameObjectWithTag("MainCamera");
+                //Camera.transform.localPosition = transtionTranform.position;
                 
             }
         }
