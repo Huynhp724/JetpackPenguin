@@ -17,7 +17,7 @@ public class CoinPickup : MonoBehaviour
     private bool pickedUp = false;
 
     private float intialY;
-    private GameManager gm;
+    private WorldManager wm;
     private AudioSource asource;
     private PlayerStats stats;
 
@@ -26,7 +26,7 @@ public class CoinPickup : MonoBehaviour
     {
         asource = GetComponent<AudioSource>();
         intialY = transform.position.y;
-       // gm = FindObjectOfType<GameManager>();
+        wm = FindObjectOfType<WorldManager>();
     }
 
     // Update is called once per frame
@@ -61,8 +61,8 @@ public class CoinPickup : MonoBehaviour
             }
             else if (pickupEnum == Pickup.CRYSTAL) {
                 Debug.Log("It is a crystal.");
-                stats = playerHealth.GetComponent<PlayerStats>();
-                stats.AddCrystal(1);
+                //stats = playerHealth.GetComponent<PlayerStats>();
+                wm.AddCrystal(1);
             }
 
             StartCoroutine(PickUp(playerHealth.gameObject));
@@ -73,8 +73,8 @@ public class CoinPickup : MonoBehaviour
     {
         Debug.Log("Pick up coroutine");
         pickedUp = true;
-        stats.shiftStart = true;
-        asource.pitch = stats.pitchShift;
+        wm.shiftStart = true;
+        asource.pitch = wm.pitchShift;
         asource.volume = 0.7f;
         asource.PlayOneShot(pickupSound);
         transform.SetParent(player.transform);
