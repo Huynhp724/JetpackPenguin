@@ -8,7 +8,7 @@ public class SceneSpawnerSystem : MonoBehaviour
     public SceneTransitionTrigger[] sceneTransitions;
     int entryScenePoint;
 
-    GameObject player;
+    public GameObject player;
     GameObject mainCam;
     GameObject cmFreeLook;
 
@@ -34,7 +34,7 @@ public class SceneSpawnerSystem : MonoBehaviour
                 mainCam.transform.position = trans.position;
                 break;*/
 
-                sceneTransitions[i].transform.parent.GetChild(1).gameObject.SetActive(true);
+                player.transform.position = sceneTransitions[i].transform.GetChild(0).position;
                 
             }
         }
@@ -43,17 +43,5 @@ public class SceneSpawnerSystem : MonoBehaviour
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
