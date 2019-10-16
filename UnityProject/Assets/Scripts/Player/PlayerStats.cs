@@ -47,9 +47,9 @@ public class PlayerStats : MonoBehaviour
             shiftIncrement = 0.0f;
         }
         */
-        if (maincam && Vector3.Distance(transform.position, maincam.transform.position) > 4f) {
+       /* if (maincam && Vector3.Distance(transform.position, maincam.transform.position) > 4f) {
             maincam.transform.localPosition = new Vector3(3f, 11f, -46f);
-        }
+        }*/
     }
     /*
     public void AddCrystal(int x)
@@ -63,7 +63,7 @@ public class PlayerStats : MonoBehaviour
     {
         return currentCrystals;
     }
-    */
+    
     public bool GetIsDead() {
         return isDead;
     }
@@ -89,7 +89,7 @@ public class PlayerStats : MonoBehaviour
         float hpPercent = hitPoints;
         return hpPercent / setHitPoints;
     }
-
+    */
     public void TurnPlayerController(PlayerController controller) {
         StartCoroutine(TogglePlayerController(controller));
 

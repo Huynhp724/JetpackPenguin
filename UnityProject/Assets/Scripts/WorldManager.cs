@@ -4,28 +4,24 @@ using UnityEngine;
 
 public class WorldManager : MonoBehaviour
 {
-    public WorldStats worldStats;
-    //Player
-    public GameObject Player;
-    public PlayerAttackStats playerAttackStats;
-    public GameObject maincam;
+    [SerializeField] WorldStats worldStats;
+    //[SerializeField] PlayerAttackStats playerAttackStats;
     //Audio
     public float pitchShift = 1.0f;
     public bool shiftStart = false;
     public float shiftInterval = 10.0f;
     private float shiftIncrement = 0.0f;
     private float shiftVal = 0.0f;
-    //Crystals
-    public int currentCrystals;
-    //Health
-    public int lives;
-    public int hitPoints;
-    public int maxHitPoints;
+    //For reset
+    [SerializeField] bool resetOnAwake = false;
     
 
     private void Awake()
     {
-        LoadStats();
+        if(resetOnAwake)
+        {
+            resetStats();
+        }
     }
 
     // Update is called once per frame
@@ -54,35 +50,65 @@ public class WorldManager : MonoBehaviour
     public void AddCrystal(int x)
     {
         Debug.Log("Adding " + x + " to crystals.");
-        currentCrystals += x;
+        worldStats.crystalsFound += x;
         //crystalText.text = "Crystals: " + currentCrystals;
     }
 
     public int getCrystals()
     {
-        return currentCrystals;
+        return worldStats.crystalsFound;
+    }
+
+    public void setCrystals(int x)
+    {
+        worldStats.crystalsFound = x;
+    }
+
+    public int getHealthPoints()
+    {
+        return worldStats.playerHealth;
+    }
+
+    public void addHealthPoint(int hp)
+    {
+        if (worldStats.playerHealth + hp > worldStats.maxHealth)
+            worldStats.playerHealth = worldStats.maxHealth;
+        else
+            worldStats.playerHealth += hp;
+    }
+
+    public void resetHealth()
+    {
+        worldStats.playerHealth = worldStats.maxHealth;
     }
 
     public float getHealthPercent()
     {
-        float hpPercent = hitPoints;
-        return hpPercent / maxHitPoints;
+        float hpPercent = worldStats.playerHealth;
+        return hpPercent / worldStats.maxHealth;
     }
 
-    public void LoadStats()
+    public float getLives()
     {
-        PlayerStats stats = Player.GetComponent<PlayerStats>();
-        stats.lives = worldStats.lives;
-        stats.hitPoints = worldStats.playerHealth;
-        currentCrystals = worldStats.playerPoints;
+        return worldStats.lives;
     }
 
-    public void SaveStats() {
-        PlayerStats stats = Player.GetComponent<PlayerStats>();
-        worldStats.lives = stats.lives;
-        worldStats.playerHealth = stats.hitPoints;
-        worldStats.playerPoints = currentCrystals;
+    public void resetLives()
+    {
+        worldStats.lives = worldStats.baseLives;
+    }
+
+    //Can add or subtract if negative
+    public void addLives(int lives)
+    {
+        worldStats.lives += lives;
     }
 
 
+    private void resetStats()
+    {
+        worldStats.crystalsFound = 0;
+        worldStats.playerHealth = worldStats.maxHealth;
+        worldStats.lives = worldStats.baseLives;
+    }
 }

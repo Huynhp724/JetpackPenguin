@@ -9,10 +9,12 @@ public class PlayerHealth : MonoBehaviour
     public float invincibilityFrames;
     public float respawnTime;
 
+    bool isDead = false;
     bool isInvincible = false;
     GameObject minorCheckPoints;
 
-    PlayerStats stats;
+    //PlayerStats stats;
+    WorldManager worldManager;
     ScreenFader fader;
     FlickerRenderer flick;
     PlayerInteraction playerInteraction;
@@ -24,7 +26,7 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        stats = GetComponent<PlayerStats>();
+        worldManager = FindObjectOfType<WorldManager>();
         fader = FindObjectOfType<ScreenFader>();
         flick = GetComponentInChildren<FlickerRenderer>();
         playerInteraction = GetComponent<PlayerInteraction>();
@@ -39,7 +41,7 @@ public class PlayerHealth : MonoBehaviour
         if (fader == null) {
             fader = FindObjectOfType<ScreenFader>();
         }
-        if (stats.GetIsDead()) {
+        if (isDead) {
             Debug.Log("I am dead");
             StartCoroutine(WaitToDie());
             flick.SwitchAllRenderers(false);
@@ -57,33 +59,33 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void GainLife() {
-        if (!stats.GetIsDead()) {
-            stats.lives++;
-            if (stats.lives > 2) {
+        if (!isDead) {
+            worldManager.addLives(1);
+            /*if (stats.lives > 2) {
                 stats.lives = 2;
                 // change UI
-            }
+            }*/
         }
     }
 
     public void GainHitpoint() {
-        if (!stats.GetIsDead()) {
-            stats.hitPoints++;
-            if (stats.hitPoints > 3) {
+        if (!isDead) {
+            worldManager.addHealthPoint(1);
+           /* if (stats.hitPoints > 3) {
                 stats.hitPoints = 3;
                 // chnage UI
-            }
+            }*/
         }
     }
 
 
     public void LoseALife(bool checkPoint) {
         Debug.Log("Lose a life");
-        if (!stats.GetIsDead())
+        if (!isDead)
         {
-            if (stats.lives > 1)
+            if (worldManager.getLives() > 1)
             {
-                stats.lives -= 1;
+                worldManager.addLives(-1);
 
                 if (checkPoint)
                 {
@@ -94,9 +96,9 @@ public class PlayerHealth : MonoBehaviour
             }
             else
             {
-                stats.lives -= 1;
-                stats.hitPoints = 0;
-                stats.SetIsDead(true);
+                worldManager.addLives(-1);
+                //stats.hitPoints = 0;
+                isDead = true;
                 return;
 
             }
@@ -108,25 +110,25 @@ public class PlayerHealth : MonoBehaviour
 
     public void LoseHitpoint() {
         Debug.Log("Lose a health point");
-        if (!stats.GetIsDead() && !isInvincible) {
-            if (stats.hitPoints > 1)
+        if (!isDead && !isInvincible) {
+            if (worldManager.getHealthPoints() > 1)
             {
-                stats.hitPoints -= 1;
+                worldManager.addHealthPoint(-1);
                 flick.SetFlickering();
 
             }
             else {
-                if (stats.lives > 1)
+                if (worldManager.getLives() > 1)
                 {
-                    stats.lives -= 1;
-                    stats.hitPoints = 3;
+                    worldManager.addLives(-1);
+                    worldManager.resetHealth();
                     flick.SetFlickering();
                     FindClosestMinorCheckpoint();
                 }
                 else {
-                    stats.lives -= 1;
-                    stats.hitPoints -= 1;
-                    stats.SetIsDead(true);
+                    worldManager.addLives(-1);
+                    worldManager.addHealthPoint(-1);
+                    isDead = true;
                 }
 
             }
@@ -139,28 +141,28 @@ public class PlayerHealth : MonoBehaviour
 
     public void FellToDeath()
     {
-        if (!stats.GetIsDead()) {
-            if (stats.hitPoints > 1)
+        if (!isDead) {
+            if (worldManager.getHealthPoints() > 1)
             {
-                stats.hitPoints -= 1;
+                worldManager.addLives(-1);
                 flick.SetFlickering();
                 FindClosestMinorCheckpoint();
 
             }
             else
             {
-                if (stats.lives > 1)
+                if (worldManager.getLives() > 1)
                 {
-                    stats.lives -= 1;
-                    stats.hitPoints = 3;
+                    worldManager.addLives(-1);
+                    worldManager.resetHealth();
                     flick.SetFlickering();
                     FindClosestMinorCheckpoint();
                 }
                 else
                 {
-                    stats.lives -= 1;
-                    stats.hitPoints -= 1;
-                    stats.SetIsDead(true);
+                    worldManager.addLives(-1);
+                    worldManager.addHealthPoint(-1);
+                    isDead = true;
                 }
 
             }
@@ -178,13 +180,15 @@ public class PlayerHealth : MonoBehaviour
 
     public void LoseEntireLives(bool checkPoint) {
         Debug.Log("Lose all your lives");
-        stats.lives = 0;
-        stats.hitPoints = 0;
-        stats.SetIsDead(true);
+        //stats.lives = 0;
+        //stats.hitPoints = 0;
+        isDead = true;
         if (checkPoint)
         {
             flick.SwitchAllRenderers(false);
-            stats.ResetStats();
+            isDead = false;
+            worldManager.resetHealth();
+            worldManager.resetLives();
             FindMajorCheckpoint();
 
         }

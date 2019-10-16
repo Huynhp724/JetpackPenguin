@@ -13,14 +13,12 @@ public class HUD : MonoBehaviour
     [SerializeField] float rotateSpeed = 1f;
     [SerializeField] WorldManager wm; 
     private PlayerController playerControl;
-    private PlayerStats playerStats;
 
 
     // Start is called before the first frame update
     void Start()
     {
         playerControl = FindObjectOfType<PlayerController>();
-        playerStats = FindObjectOfType<PlayerStats>();
     }
 
     // Update is called once per frame
@@ -32,7 +30,7 @@ public class HUD : MonoBehaviour
         }
         fuelGauge.value = playerControl.currentFuel / playerControl.maxFuel;
         healthWheel.fillAmount = wm.getHealthPercent();
-        lives.text = "Lives: " + wm.lives;
+        lives.text = "Lives: " + wm.getLives();
         crystalText.text = "x " + wm.getCrystals();
         crystal.Rotate(Vector3.up, rotateSpeed);
     }

@@ -6,8 +6,9 @@ using UnityEngine;
 public class WorldStats : ScriptableObject
 {
     public int playerHealth;
-    public int playerPoints;
-    public float playerFuel;
+    public int crystalsFound;
+    public float maxFuel;
     public int lives;
+    public int baseLives;
     public int maxHealth;
 }
