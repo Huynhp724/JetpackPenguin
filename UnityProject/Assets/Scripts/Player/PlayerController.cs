@@ -125,7 +125,7 @@ public class PlayerController : MonoBehaviour
     private bool isAiming = false;
     private bool holdingBlock = false;
 
-
+    private WorldManager wm;
 
 
 
@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         //charCol = GetComponent<Collider>();
         normalDrag = rb.drag;
-
+        wm = FindObjectOfType<WorldManager>();
     }
 
     private void Start()
@@ -172,6 +172,9 @@ public class PlayerController : MonoBehaviour
     //DO ALL THE INPUT READING HERE, MOVE THE RIGIDBODY IN FIXEDUPDATE
     void Update()
     {
+        //TODO: Update on change, not every frame
+        maxFuel = wm.getMaxFuel();
+
         //Debug.Log(isGrounded());
         //Debug.Log(myState);
         Debug.DrawRay(charCol.transform.position, -Vector3.up * (gameObject.GetComponentInChildren<Collider>().bounds.extents.y + 0.1f));
