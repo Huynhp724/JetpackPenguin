@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        /*
         shiftVal += shiftIncrement;
         if (shiftStart && shiftIncrement != 0.0f)
         {
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviour {
             shiftStart = false;
             shiftIncrement = 0.0f;
         }
-
+        */
         
         /*
         foreach (string name in Input.GetJoystickNames())

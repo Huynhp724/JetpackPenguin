@@ -15,9 +15,11 @@ public class CoinPickup : MonoBehaviour
     public Pickup pickupEnum = Pickup.CRYSTAL;
 
     private bool pickedUp = false;
+    public bool magnet;
+    public GameObject magnetTarget;
 
     private float intialY;
-    private GameManager gm;
+    private WorldManager wm;
     private AudioSource asource;
     private PlayerStats stats;
 
@@ -26,13 +28,21 @@ public class CoinPickup : MonoBehaviour
     {
         asource = GetComponent<AudioSource>();
         intialY = transform.position.y;
+        wm = FindObjectOfType<WorldManager>();
+        magnet = false;
        // gm = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!pickedUp)
+        if (magnet && !pickedUp)
+        {
+            float temp = Mathf.Max(magnetTarget.GetComponent<Rigidbody>().velocity.magnitude / 100f, 0.3f);
+            transform.position = Vector3.Lerp(transform.position, Vector3.MoveTowards(transform.position, magnetTarget.transform.position, 1f), temp); ;
+        }
+
+        if (!magnet)
         {
             transform.Rotate(Vector3.up, rotateSpeed);
             transform.position = new Vector3(transform.position.x, intialY + (Mathf.Sin(Time.time * bobSpeed) * bobDegree), transform.position.z);
@@ -61,8 +71,8 @@ public class CoinPickup : MonoBehaviour
             }
             else if (pickupEnum == Pickup.CRYSTAL) {
                 Debug.Log("It is a crystal.");
-                stats = playerHealth.GetComponent<PlayerStats>();
-                stats.AddCrystal(1);
+                //stats = playerHealth.GetComponent<PlayerStats>();
+                wm.AddCrystal(1);
             }
 
             StartCoroutine(PickUp(playerHealth.gameObject));
@@ -73,8 +83,8 @@ public class CoinPickup : MonoBehaviour
     {
         Debug.Log("Pick up coroutine");
         pickedUp = true;
-        stats.shiftStart = true;
-        asource.pitch = stats.pitchShift;
+        wm.shiftStart = true;
+        asource.pitch = wm.pitchShift;
         asource.volume = 0.7f;
         asource.PlayOneShot(pickupSound);
         transform.SetParent(player.transform);

@@ -77,11 +77,16 @@ public class EnemyCollider : MonoBehaviour
             Animator playerAnim = collision.gameObject.GetComponentInChildren<Animator>();
 
             //playerAnim.SetTrigger();
-            controller.enabled = false;
-            playerStats.TurnPlayerController(controller);
+            StartCoroutine(TogglePlayerController(controller));
         }
     }
 
+    IEnumerator TogglePlayerController(PlayerController pc)
+    {
+        pc.enabled = false;
+        yield return new WaitForSeconds(1f);
+        pc.enabled = true;
+    }
 
     IEnumerator ToggleHeadCollider() {
         yield return new WaitForSeconds(2f);

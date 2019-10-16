@@ -15,7 +15,7 @@ public class PlayerStats : MonoBehaviour
 
     bool isDead =false;
 
-    public GameManager gm;
+    public WorldManager wm;
 
     // Likely temp for Alpha
     public float pitchShift = 1.0f;
@@ -23,10 +23,11 @@ public class PlayerStats : MonoBehaviour
     public float shiftInterval = 10.0f;
     private float shiftIncrement = 0.0f;
     private float shiftVal = 0.0f;
-    public int currentCrystals = 0;
+    //public int currentCrystals = 0;
 
     private void Update()
     {
+        /*
         shiftVal += shiftIncrement;
         if (shiftStart && shiftIncrement != 0.0f)
         {
@@ -45,12 +46,12 @@ public class PlayerStats : MonoBehaviour
             shiftStart = false;
             shiftIncrement = 0.0f;
         }
-
-        if (maincam && Vector3.Distance(transform.position, maincam.transform.position) > 4f) {
+        */
+       /* if (maincam && Vector3.Distance(transform.position, maincam.transform.position) > 4f) {
             maincam.transform.localPosition = new Vector3(3f, 11f, -46f);
-        }
+        }*/
     }
-
+    /*
     public void AddCrystal(int x)
     {
         Debug.Log("Adding " + x + " to crystals.");
@@ -62,7 +63,7 @@ public class PlayerStats : MonoBehaviour
     {
         return currentCrystals;
     }
-
+    
     public bool GetIsDead() {
         return isDead;
     }
@@ -73,9 +74,7 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-        setLives = lives;
-        setHitPoints = hitPoints;
-        gm = FindObjectOfType<GameManager>();
+        wm = FindObjectOfType<WorldManager>();
     }
 
     public void ResetStats() {
@@ -90,7 +89,7 @@ public class PlayerStats : MonoBehaviour
         float hpPercent = hitPoints;
         return hpPercent / setHitPoints;
     }
-
+    */
     public void TurnPlayerController(PlayerController controller) {
         StartCoroutine(TogglePlayerController(controller));
 
@@ -101,13 +100,13 @@ public class PlayerStats : MonoBehaviour
         pc.enabled = true;
     }
 
-    public GameManager GetGameManager()
+   /* public GameManager GetGameManager()
     {
-        if(gm == null)
+        if(wm == null)
         {
-            gm = FindObjectOfType<GameManager>();
+            wm = FindObjectOfType<GameManager>();
         }
-        return gm;
-    }
+        return wm;
+    }*/
 
 }
