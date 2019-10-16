@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 112000000, guid: ba079541af8a3344cb7efe62fa7cf8d3,
     type: 2}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -7343,11 +7343,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (24)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7417,6 +7412,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (24)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -8641,11 +8641,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (10)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8716,6 +8711,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 15.147931
       objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (10)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
 --- !u!4 &126519594 stripped
@@ -8731,11 +8731,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (7)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8805,6 +8800,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (7)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -8995,11 +8995,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (21)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9069,6 +9064,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (21)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -9433,11 +9433,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (13)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9507,6 +9502,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (13)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -15648,11 +15648,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (4)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15723,6 +15718,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 15.147931
       objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (4)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
 --- !u!1001 &256514461
@@ -15732,11 +15732,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (19)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15806,6 +15801,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (19)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -15996,11 +15996,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (20)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16070,6 +16065,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (20)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -16458,11 +16458,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (27)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16532,6 +16527,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (27)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -16722,11 +16722,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (33)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16796,6 +16791,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (33)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -19112,11 +19112,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19186,6 +19181,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -19370,11 +19370,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (30)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19444,6 +19439,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (30)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -31784,11 +31784,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (22)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -31858,6 +31853,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (22)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -31964,11 +31964,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -32038,6 +32033,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -32701,6 +32701,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneTransitionTrigger (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
+        type: 3}
+      propertyPath: nextSceneName
+      value: LevelDesign
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
+        type: 3}
+      propertyPath: entryTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -32771,16 +32781,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
-        type: 3}
-      propertyPath: nextSceneName
-      value: LevelDesign
-      objectReference: {fileID: 0}
-    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
-        type: 3}
-      propertyPath: entryTarget
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6276765854510250105, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -32813,6 +32813,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdd6e6434cf62f3428dfce142b1a3d4f, type: 3}
+--- !u!114 &729060208 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 729060207}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bec3b71b829c5e48ad2c501a0802568, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &730318880 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
@@ -35364,11 +35376,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (15)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -35438,6 +35445,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (15)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -35554,11 +35566,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (9)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -35629,6 +35636,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 15.147931
       objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (9)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
 --- !u!1001 &886468261
@@ -35638,11 +35650,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (25)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -35712,6 +35719,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (25)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -36166,11 +36178,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (8)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -36240,6 +36247,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (8)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -36892,11 +36904,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (5)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -36966,6 +36973,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -37085,37 +37097,42 @@ PrefabInstance:
     - target: {fileID: 592424168893299007, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.81118125
+      value: 0.6805277
       objectReference: {fileID: 0}
     - target: {fileID: 592424168893299007, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.22285073
+      value: 9.396297e-10
       objectReference: {fileID: 0}
     - target: {fileID: 592424168893299007, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 83.70592
+      value: -9.972755
       objectReference: {fileID: 0}
     - target: {fileID: 592424168893299007, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 252.10962
+      value: -0.7376404
       objectReference: {fileID: 0}
     - target: {fileID: 592424168893299007, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.14322793
+      value: 8.726963e-10
       objectReference: {fileID: 0}
     - target: {fileID: 592424168893299007, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7299993
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 592424168893299007, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.52135247
+      value: 0.73272234
+      objectReference: {fileID: 0}
+    - target: {fileID: 592424168893299007, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 592424168883169571, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
@@ -37175,12 +37192,12 @@ PrefabInstance:
     - target: {fileID: 8880474176345078090, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.04462622
+      value: 0.019408926
       objectReference: {fileID: 0}
     - target: {fileID: 8880474176345078090, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.056669522
+      value: -0.018044082
       objectReference: {fileID: 0}
     - target: {fileID: 8880474176345078090, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
@@ -37190,12 +37207,12 @@ PrefabInstance:
     - target: {fileID: 8880474176345078090, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7837079
+      value: 0.68028885
       objectReference: {fileID: 0}
     - target: {fileID: 8880474176345078090, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6169271
+      value: 0.73246497
       objectReference: {fileID: 0}
     - target: {fileID: 8880474176345078090, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
@@ -37210,22 +37227,22 @@ PrefabInstance:
     - target: {fileID: 8880474175688230933, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.1432365
+      value: -0.008681921
       objectReference: {fileID: 0}
     - target: {fileID: 8880474175688230933, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.8111797
+      value: -0.7672324
       objectReference: {fileID: 0}
     - target: {fileID: 8880474175688230933, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.22284566
+      value: 0.010402007
       objectReference: {fileID: 0}
     - target: {fileID: 8880474175688230933, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.5213547
+      value: -0.64122605
       objectReference: {fileID: 0}
     - target: {fileID: 8880474175688230933, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
@@ -37241,78 +37258,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8880474175293492520, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 83.70592
-      objectReference: {fileID: 0}
-    - target: {fileID: 8880474175293492520, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 252.10962
-      objectReference: {fileID: 0}
-    - target: {fileID: 8880474175293492520, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.7299993
-      objectReference: {fileID: 0}
-    - target: {fileID: 1895110386273324943, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 85.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 1895110386273324943, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 251.64
-      objectReference: {fileID: 0}
-    - target: {fileID: 1895110386273324943, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.73
       objectReference: {fileID: 0}
     - target: {fileID: 5632698834821620675, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8880474175335052151, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8880474175335052151, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.23670281
-      objectReference: {fileID: 0}
-    - target: {fileID: 8880474175335052151, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7259461
-      objectReference: {fileID: 0}
-    - target: {fileID: 8880474175335052151, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.30069736
-      objectReference: {fileID: 0}
-    - target: {fileID: 8880474175335052151, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.57145005
-      objectReference: {fileID: 0}
-    - target: {fileID: 8880474175335052151, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8880474175335052151, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 592424169700861937, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
@@ -37326,6 +37273,121 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880474175293492520, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.972755
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880474175293492520, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.7376404
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880474175293492520, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880474175293492520, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880474175293492520, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880474175293492520, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880474175335052151, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880474175335052151, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000001328572
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880474175335052151, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.68052804
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880474175335052151, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0000011933902
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880474175335052151, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.73272204
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880474175335052151, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880474175335052151, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2432063470229068980, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 250.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2432063470229068980, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 57.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2432063470229068980, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 13.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1895110386273324943, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1895110386273324943, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1895110386273324943, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1895110386273324943, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1895110386273324943, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1895110386273324943, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1895110386273324943, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7600573951104587117, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
@@ -37342,8 +37404,19 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 592424169700861937, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e4f6a276dc20d34bae2886ac0b7290a, type: 3}
+--- !u!1 &951220176 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3663550089751907849, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+    type: 3}
+  m_PrefabInstance: {fileID: 951220175}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &951809300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37727,11 +37800,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -37801,6 +37869,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -39029,6 +39102,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneTransitionTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
+        type: 3}
+      propertyPath: entryTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
+        type: 3}
+      propertyPath: nextSceneName
+      value: MicroLevelTwo
+      objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046809, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -39094,16 +39177,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
-        type: 3}
-      propertyPath: entryTarget
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
-        type: 3}
-      propertyPath: nextSceneName
-      value: MicroLevelTwo
-      objectReference: {fileID: 0}
     - target: {fileID: 6276765854510250105, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -39121,6 +39194,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdd6e6434cf62f3428dfce142b1a3d4f, type: 3}
+--- !u!114 &1041072949 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1041072948}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bec3b71b829c5e48ad2c501a0802568, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1045655321
 GameObject:
   m_ObjectHideFlags: 0
@@ -40004,11 +40089,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (29)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -40078,6 +40158,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (29)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -46363,11 +46448,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (17)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -46437,6 +46517,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (17)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -46543,11 +46628,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (11)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -46617,6 +46697,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (11)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -46723,11 +46808,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -46797,6 +46877,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -47064,6 +47149,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83ec98ce4a473a743a30d7256c53f358, type: 3}
+--- !u!1 &1395893381
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1395893383}
+  - component: {fileID: 1395893382}
+  m_Layer: 0
+  m_Name: SceneTransitionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1395893382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395893381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf9ed352dec78d4baca4017a5fcbfa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneTransitions:
+  - {fileID: 729060208}
+  - {fileID: 1041072949}
+  player: {fileID: 951220176}
+--- !u!4 &1395893383
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395893381}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 126.53636, y: -12.648416, z: 170.27444}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1411583242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47155,11 +47287,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (35)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -47229,6 +47356,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (35)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -48296,11 +48428,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (34)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -48370,6 +48497,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (34)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -49212,11 +49344,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (32)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -49286,6 +49413,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (32)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -52982,11 +53114,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (37)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -53056,6 +53183,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (37)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -53168,11 +53300,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (26)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -53242,6 +53369,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (26)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -54740,11 +54872,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (16)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -54814,6 +54941,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (16)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -55967,11 +56099,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (31)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -56041,6 +56168,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (31)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -58084,11 +58216,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (12)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -58158,6 +58285,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (12)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -64512,11 +64644,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (18)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -64586,6 +64713,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (18)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -64670,11 +64802,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (36)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -64744,6 +64871,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (36)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -64952,11 +65084,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (6)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -65026,6 +65153,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (6)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -65126,11 +65258,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (23)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -65200,6 +65327,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (23)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -65312,11 +65444,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (14)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -65386,6 +65513,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (14)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
@@ -66131,11 +66263,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2021413683}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable (28)
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -66205,6 +66332,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.147931
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable (28)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
