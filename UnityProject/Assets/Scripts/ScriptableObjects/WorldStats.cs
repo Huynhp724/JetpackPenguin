@@ -11,4 +11,6 @@ public class WorldStats : ScriptableObject
     public int lives;
     public int baseLives;
     public int maxHealth;
+    public Hashtable levelDesignCollectablesTable;
+    public int finalCrystalsCollected;
 }

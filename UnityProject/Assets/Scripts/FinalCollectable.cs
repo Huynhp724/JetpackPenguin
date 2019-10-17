@@ -46,7 +46,7 @@ public class FinalCollectable : MonoBehaviour
         asource.PlayOneShot(pickupSound);
 
         pickedUp = true;
-        FindObjectOfType<GameManager>().AddBigCrystal();
+        FindObjectOfType<WorldManager>().addFinalCrystal();
         transform.SetParent(player.transform);
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y + pickedUpDistance, player.transform.position.z);
         yield return new WaitForSecondsRealtime(.5f);
