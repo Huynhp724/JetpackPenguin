@@ -106,10 +106,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63ef56a5ab5c714e95af15714fc9b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionLength: 0.5
+  explosionLength: 1
   iceBombEffectLayer:
     serializedVersion: 2
-    m_Bits: 16384
+    m_Bits: 4294967295
 --- !u!82 &7366851567494770798
 AudioSource:
   m_ObjectHideFlags: 0
