@@ -8,16 +8,15 @@ public class Waterfall : MonoBehaviour
     public GameObject waterfallModel;
     public float revertToWaterfallTime;
 
-    public LayerMask waterLayer, iceLayer;
 
-    int ice, waterfall;
+    int ice = 0; // default layer
+    int waterfall = 17; // waterfall layer
 
 
     // Start is called before the first frame update
     void Start()
     {
-        ice = iceLayer.value;
-        waterfall = waterLayer.value;
+
     }
 
     // Update is called once per frame
