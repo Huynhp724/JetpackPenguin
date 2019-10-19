@@ -45,6 +45,17 @@ public class WorldManager : MonoBehaviour
             shiftStart = false;
             shiftIncrement = 0.0f;
         }
+
+        //CHEAT CODES
+        if (Input.GetKeyDown(KeyCode.Alpha7) && Input.GetKeyDown(KeyCode.Alpha8) && Input.GetKeyDown(KeyCode.Alpha9) && Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            worldStats.maxFuel += 50f;
+        }
+    }
+
+    public float getMaxFuel()
+    {
+        return worldStats.maxFuel;
     }
 
     public void AddCrystal(int x)
@@ -104,11 +115,18 @@ public class WorldManager : MonoBehaviour
         worldStats.lives += lives;
     }
 
+    public void addFinalCrystal()
+    {
+        worldStats.maxFuel += 50f;
+        worldStats.finalCrystalsCollected++;
+    }
 
     private void resetStats()
     {
         worldStats.crystalsFound = 0;
         worldStats.playerHealth = worldStats.maxHealth;
         worldStats.lives = worldStats.baseLives;
+        worldStats.maxFuel = 0;
+        worldStats.finalCrystalsCollected = 0;
     }
 }
