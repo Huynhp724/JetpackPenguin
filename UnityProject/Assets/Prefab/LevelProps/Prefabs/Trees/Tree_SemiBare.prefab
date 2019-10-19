@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bf2168deeaced524591fbf592a3240a0, type: 2}
+  - {fileID: 2100000, guid: 18921b28de234b24a85f29f74a2da3c5, type: 2}
   - {fileID: 2100000, guid: 9082bab0bcd14b747b830b11628ca358, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -67,6 +67,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0

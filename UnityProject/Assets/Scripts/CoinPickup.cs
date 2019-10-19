@@ -10,16 +10,20 @@ public class CoinPickup : MonoBehaviour
     [SerializeField] float bobDegree = .75f;
     [SerializeField] float bobSpeed = 1f;
     [SerializeField] float pickedUpDistance = 2f;
+
+    [SerializeField] AudioClip pickupSound;
     public Pickup pickupEnum = Pickup.CRYSTAL;
 
     private bool pickedUp = false;
 
     private float intialY;
     private GameManager gm;
+    private AudioSource asource;
 
     // Start is called before the first frame update
     void Start()
     {
+        asource = GetComponent<AudioSource>();
         intialY = transform.position.y;
         gm = FindObjectOfType<GameManager>();
     }
@@ -36,9 +40,9 @@ public class CoinPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collectable triggered. Collided with: " + other.gameObject);
+        //Debug.Log("Collectable triggered. Collided with: " + other.gameObject);
         PlayerHealth playerHealth = other.GetComponentInParent<PlayerHealth>();
-        if (playerHealth)
+        if (playerHealth && !pickedUp)
         {
             Debug.Log("It is player.");
             if (pickupEnum == Pickup.LIFEHEALTH)
@@ -51,10 +55,10 @@ public class CoinPickup : MonoBehaviour
             }
             else if (pickupEnum == Pickup.CRYSTAL) {
                 Debug.Log("It is a crystal.");
-                //gm.AddCrystal(1);
+                gm.AddCrystal(1);
             }
 
-            StartCoroutine(PickUp(other.gameObject));
+            StartCoroutine(PickUp(playerHealth.gameObject));
         }
     }
 
@@ -62,7 +66,10 @@ public class CoinPickup : MonoBehaviour
     {
         Debug.Log("Pick up coroutine");
         pickedUp = true;
-        
+        gm.shiftStart = true;
+        asource.pitch = gm.pitchShift;
+        asource.volume = 0.7f;
+        asource.PlayOneShot(pickupSound);
         transform.SetParent(player.transform);
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y + pickedUpDistance, player.transform.position.z);
         yield return new WaitForSecondsRealtime(.5f);

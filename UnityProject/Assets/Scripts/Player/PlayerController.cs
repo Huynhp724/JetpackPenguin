@@ -74,6 +74,11 @@ public class PlayerController : MonoBehaviour
 
     public Transform grabCastT;
 
+    [Header("Pluck Audio Clips")]
+    [SerializeField] AudioClip pluckDeath;
+
+    AudioSource asource;
+
     bool jumping = false;
     bool wallJumping = false;
     bool pressJump = false;
@@ -117,6 +122,11 @@ public class PlayerController : MonoBehaviour
     private bool isAiming = false;
     private bool holdingBlock = false;
 
+
+
+
+
+
     private void Awake()
     {
         player = ReInput.players.GetPlayer(0);
@@ -129,6 +139,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        asource = GetComponent<AudioSource>();
         flames = gameObject.GetComponentsInChildren<ParticleSystem>();
         Debug.Log(flames.Length);
     }
@@ -820,6 +831,8 @@ public class PlayerController : MonoBehaviour
     }
 
     public void PluckDied() {
+        asource.volume = 1.0f;
+        asource.PlayOneShot(pluckDeath);
         myState = State.Idle;
         transform.rotation = Quaternion.Euler(-90f, 0f, -90f);
         
@@ -1011,4 +1024,40 @@ public class PlayerController : MonoBehaviour
     {
         return rb.velocity.magnitude;
     }
+
+    //Getter methods for access outside the player controller
+    //get if player presses jump on ground
+    public bool getPressJump()
+    {
+        return pressJump;
+    }
+    //get if player presses jump in air
+    public bool getPressJumpInAir()
+    {
+        return pressJumpInAir;
+    }
+    //get's horizontal input of player
+    public float getHoriInput()
+    {
+        return horiInput;
+    }
+    //gets vertical input of player
+    public float getVertInput()
+    {
+        return vertInput;
+    }
+    //gets if player is hovering with jetpack
+    public bool getHovering()
+    {
+        return isHovering;
+    }
+    //gets when player releases charge
+    public bool getChargeRelease() {
+        return chargeRelease;
+    }
+    //gets if jump was used while dashing
+    public bool getDashJump() {
+        return dashJump;
+    }
+
 }
