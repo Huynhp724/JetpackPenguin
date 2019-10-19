@@ -18,20 +18,25 @@ public class HUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (wm == null)
+        {
+            wm = FindObjectOfType<WorldManager>();
+        }
         playerControl = FindObjectOfType<PlayerController>();
+        wm.updateUI += OnUpdateUI;
+    }
+
+    void OnUpdateUI(float hpPercent, int crystals, int life)
+    {
+        healthWheel.fillAmount = hpPercent;
+        lives.text = "Lives: " + life;
+        crystalText.text = "x " + crystals;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (wm == null)
-        {
-            wm = FindObjectOfType<WorldManager>();
-        }
         fuelGauge.value = playerControl.currentFuel / playerControl.maxFuel;
-        healthWheel.fillAmount = wm.getHealthPercent();
-        lives.text = "Lives: " + wm.getLives();
-        crystalText.text = "x " + wm.getCrystals();
         crystal.Rotate(Vector3.up, rotateSpeed);
     }
 }

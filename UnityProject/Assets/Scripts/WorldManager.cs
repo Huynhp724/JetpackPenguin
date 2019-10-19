@@ -14,7 +14,9 @@ public class WorldManager : MonoBehaviour
     private float shiftVal = 0.0f;
     //For reset
     [SerializeField] bool resetOnAwake = false;
-    
+
+    public delegate void UpdateUI(float hpPercent, int crystals, int lives); // declares new delegate type
+    public event UpdateUI updateUI;
 
     private void Awake()
     {
@@ -62,7 +64,7 @@ public class WorldManager : MonoBehaviour
     {
         Debug.Log("Adding " + x + " to crystals.");
         worldStats.crystalsFound += x;
-        //crystalText.text = "Crystals: " + currentCrystals;
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
     }
 
     public int getCrystals()
@@ -73,6 +75,7 @@ public class WorldManager : MonoBehaviour
     public void setCrystals(int x)
     {
         worldStats.crystalsFound = x;
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
     }
 
     public int getHealthPoints()
@@ -86,11 +89,14 @@ public class WorldManager : MonoBehaviour
             worldStats.playerHealth = worldStats.maxHealth;
         else
             worldStats.playerHealth += hp;
+
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
     }
 
     public void resetHealth()
     {
         worldStats.playerHealth = worldStats.maxHealth;
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
     }
 
     public float getHealthPercent()
@@ -107,12 +113,14 @@ public class WorldManager : MonoBehaviour
     public void resetLives()
     {
         worldStats.lives = worldStats.baseLives;
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
     }
 
     //Can add or subtract if negative
     public void addLives(int lives)
     {
         worldStats.lives += lives;
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
     }
 
     public void addFinalCrystal()
@@ -128,5 +136,6 @@ public class WorldManager : MonoBehaviour
         worldStats.lives = worldStats.baseLives;
         worldStats.maxFuel = 0;
         worldStats.finalCrystalsCollected = 0;
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
     }
 }
