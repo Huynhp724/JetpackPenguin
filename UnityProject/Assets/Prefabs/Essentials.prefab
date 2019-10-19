@@ -880,6 +880,11 @@ PrefabInstance:
       propertyPath: _dontDestroyOnLoad
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1768329899719504336, guid: 0cd2929990eae4f459bfe9a84d55ce00,
+        type: 3}
+      propertyPath: _userData.configVars.runInEditMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cd2929990eae4f459bfe9a84d55ce00, type: 3}
 --- !u!4 &1203279172174088317 stripped
@@ -978,32 +983,32 @@ PrefabInstance:
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.012699013
+      value: 0.012442216
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.1258733
+      value: 0.15858576
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0075559653
+      value: -0.007971487
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9919363
+      value: 0.98723465
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858432434212, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.026500752
+      value: -0.026500834
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858432434212, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000023407118
+      value: -0.00000023407024
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858432434212, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
@@ -1060,10 +1065,30 @@ PrefabInstance:
       propertyPath: m_Orbits.Array.data[1].m_Radius
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8288169857334309961, guid: 7a3d376ec22700344b99280ceee408ec,
+        type: 3}
+      propertyPath: m_YAxis.m_InputAxisName
+      value: Camera Y
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288169857334309961, guid: 7a3d376ec22700344b99280ceee408ec,
+        type: 3}
+      propertyPath: m_XAxis.m_InputAxisName
+      value: Camera X
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288169857334309961, guid: 7a3d376ec22700344b99280ceee408ec,
+        type: 3}
+      propertyPath: m_YAxis.m_InvertAxis
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8288169857334309959, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_Damping
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288169857334309959, guid: 7a3d376ec22700344b99280ceee408ec,
+        type: 3}
+      propertyPath: m_CollideAgainst.m_Bits
+      value: 4097
       objectReference: {fileID: 0}
     - target: {fileID: 8288169857764725834, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
