@@ -19,23 +19,23 @@ public class CrumblingPlatform : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        StartCoroutine(crumble(collision));
+        //PlayerController player = collision.GetComponentInParent<PlayerController>();
+        if(collision.CompareTag("Player"))
+        {
+            StartCoroutine(crumble());
+        }
     }
 
-    IEnumerator crumble(Collider collision)
+    IEnumerator crumble()
     {
         yield return new WaitForSecondsRealtime(timeToCrumble);
-        if (collision.gameObject.tag == "Player")
+        foreach (BoxCollider collider in colliders)
         {
-            foreach (BoxCollider collider in colliders)
-            {
-                collider.enabled = false;
-            }
-            foreach (Renderer render in renderers)
-            {
-                render.enabled = false;
-            }
-            
+            collider.enabled = false;
+        }
+        foreach (Renderer render in renderers)
+        {
+            render.enabled = false;
         }
         yield return new WaitForSecondsRealtime(timeToComeBack);
         foreach (BoxCollider collider in colliders)
