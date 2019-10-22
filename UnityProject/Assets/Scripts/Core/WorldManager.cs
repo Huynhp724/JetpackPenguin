@@ -74,6 +74,10 @@ public class WorldManager : MonoBehaviour
     {
         Debug.Log("Adding " + x + " to crystals.");
         worldStats.crystalsFound += x;
+        if (worldStats.crystalsFound >= 100) {
+            worldStats.crystalsFound = 0;
+            addLives(1);
+        }
         updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
     }
 
