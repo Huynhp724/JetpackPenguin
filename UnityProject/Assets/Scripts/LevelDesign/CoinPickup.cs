@@ -17,7 +17,7 @@ public class CoinPickup : MonoBehaviour
     private bool pickedUp = false;
     public bool magnet;
     public GameObject magnetTarget;
-    public Vector3 id;
+    public string id;
 
     private float intialY;
     private WorldManager wm;
@@ -27,7 +27,8 @@ public class CoinPickup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        id = transform.position;
+        id = transform.position.ToString();
+        Debug.Log("Id is " + id);
         asource = GetComponent<AudioSource>();
         intialY = transform.position.y;
         wm = FindObjectOfType<WorldManager>();
@@ -89,6 +90,7 @@ public class CoinPickup : MonoBehaviour
     IEnumerator PickUp(GameObject player)
     {
         Debug.Log("Pick up coroutine");
+        wm.setCollected(id);
         pickedUp = true;
         wm.shiftStart = true;
         asource.pitch = wm.pitchShift;
