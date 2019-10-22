@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 7359736995187653403, guid: 19eb55203201bb942888b43178b5f0da,
         type: 3}
       propertyPath: m_Name
-      value: CliffWallPreFab (PlatformWall)
+      value: CliffWallPreFab (PlatformWall) Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3168791642854453951, guid: 19eb55203201bb942888b43178b5f0da,
         type: 3}
@@ -66,6 +66,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5303901534441226583, guid: 19eb55203201bb942888b43178b5f0da,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19eb55203201bb942888b43178b5f0da, type: 3}
