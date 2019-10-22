@@ -143,4 +143,8 @@ public class WorldManager : MonoBehaviour
         worldStats.finalCrystalsCollected = 0;
         updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
     }
+
+    public bool checkCollected(Vector3 id) {
+        return false;
+    }
 }
