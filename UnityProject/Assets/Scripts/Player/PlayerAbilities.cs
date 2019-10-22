@@ -104,6 +104,10 @@ public class PlayerAbilities : MonoBehaviour
             {
                 throwIceBlock();
             }
+            else if(heldIceBlock != null && player.GetButtonDown("Drop"))
+            {
+                dropIceBlock();
+            }
         }
     }
 
@@ -120,6 +124,8 @@ public class PlayerAbilities : MonoBehaviour
         iceblock.SetParent(playerModel.transform);
         iceblock.GetComponent<Rigidbody>().useGravity = false;
         iceblock.GetComponent<Rigidbody>().isKinematic = true;
+        iceblock.GetComponent<BoxCollider>().enabled = false;
+        iceblock.GetComponent<IceBlock>().pickedUp = true;
         heldIceBlock = iceblock;
         playerController.setHoldingBlock(true);
     }
@@ -130,8 +136,24 @@ public class PlayerAbilities : MonoBehaviour
         Rigidbody iceRB = heldIceBlock.GetComponent<Rigidbody>();
         iceRB.useGravity = true;
         iceRB.isKinematic = false;
+        heldIceBlock.GetComponent<BoxCollider>().enabled = true;
         heldIceBlock.SetParent(null);
+        heldIceBlock.GetComponent<IceBlock>().pickedUp = false;
         iceRB.velocity = playerModel.transform.forward * blockThrowVelocity + GetComponent<Rigidbody>().velocity;
+        heldIceBlock = null;
+        playerController.setHoldingBlock(false);
+    }
+
+    //Drop the iceblock
+    private void dropIceBlock()
+    {
+        Rigidbody iceRB = heldIceBlock.GetComponent<Rigidbody>();
+        iceRB.useGravity = true;
+        iceRB.isKinematic = false;
+        heldIceBlock.GetComponent<BoxCollider>().enabled = true;
+        heldIceBlock.SetParent(null);
+        heldIceBlock.GetComponent<IceBlock>().pickedUp = false;
+        heldIceBlock.transform.position += playerModel.transform.forward * 1.5f;
         heldIceBlock = null;
         playerController.setHoldingBlock(false);
     }

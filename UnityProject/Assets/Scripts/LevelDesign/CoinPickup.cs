@@ -17,6 +17,7 @@ public class CoinPickup : MonoBehaviour
     private bool pickedUp = false;
     public bool magnet;
     public GameObject magnetTarget;
+    public Vector3 id;
 
     private float intialY;
     private WorldManager wm;
@@ -26,11 +27,17 @@ public class CoinPickup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        id = transform.position;
         asource = GetComponent<AudioSource>();
         intialY = transform.position.y;
         wm = FindObjectOfType<WorldManager>();
         magnet = false;
-       // gm = FindObjectOfType<GameManager>();
+        // gm = FindObjectOfType<GameManager>();
+        if (wm.checkCollected(id)) {
+            Destroy(gameObject);
+        }
+
+
     }
 
     // Update is called once per frame
