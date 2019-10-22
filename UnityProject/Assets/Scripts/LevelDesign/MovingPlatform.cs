@@ -13,6 +13,7 @@ public class MovingPlatform : MonoBehaviour
     private int nextPathPointIndex = 0;
     private Vector3 nextPathPointPos;
     private float timeAtWaypoint = 0;
+    public Transform oldParent;
 
     void Awake()
     {
@@ -36,14 +37,31 @@ public class MovingPlatform : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         PlayerController playerControl = other.GetComponentInParent<PlayerController>();
-        if(playerControl && timeAtWaypoint + timeToWaitAtWaypoints <= Time.time)
+        if (playerControl)
         {
             print("Player on moving platform");
-            float step = speed * Time.deltaTime; // calculate distance to move
-            playerControl.movePlayer(Vector3.MoveTowards(other.transform.position, nextPathPointPos, step));
+            //float step = speed * Time.deltaTime; // calculate distance to move
+            //playerControl.movePlayer(Vector3.MoveTowards(other.transform.position, nextPathPointPos, step));
+            if (oldParent == null)
+            {
+                oldParent = playerControl.transform.parent.parent;
+            }
+            playerControl.transform.parent.parent = transform;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        PlayerController playerControl = other.GetComponentInParent<PlayerController>();
+        if (playerControl)
+        {
+            print("Player on moving platform");
+            //float step = speed * Time.deltaTime; // calculate distance to move
+            //playerControl.movePlayer(Vector3.MoveTowards(other.transform.position, nextPathPointPos, step));
+            playerControl.transform.parent.parent = null;
         }
     }
 }

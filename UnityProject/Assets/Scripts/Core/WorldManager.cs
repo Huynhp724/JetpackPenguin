@@ -26,6 +26,11 @@ public class WorldManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -137,5 +142,9 @@ public class WorldManager : MonoBehaviour
         worldStats.maxFuel = 0;
         worldStats.finalCrystalsCollected = 0;
         updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+    }
+
+    public bool checkCollected(Vector3 id) {
+        return false;
     }
 }
