@@ -42,8 +42,8 @@ public class Crate : MonoBehaviour
     public void DestroyCrate() {
         mesh.enabled = false;
         col.enabled = false;
-        int numOfSpawnedCollectables = Random.Range(0, 4);
-        //int numOfSpawnedCollectables = 4;
+        //int numOfSpawnedCollectables = Random.Range(0, 4);
+        int numOfSpawnedCollectables = 4;
         int count = 0;
         
         while (numOfSpawnedCollectables > 0) {
