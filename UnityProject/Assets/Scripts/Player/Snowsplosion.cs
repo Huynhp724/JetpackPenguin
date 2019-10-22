@@ -19,10 +19,10 @@ public class Snowsplosion : MonoBehaviour
         allColliders = Physics.OverlapSphere(transform.position, 3f, iceBombEffectLayer);
         for (int i = 0; i < allColliders.Length; i++) {
             Debug.Log("name " +allColliders[i].name);
-            if (allColliders[i].CompareTag("Head") && (allColliders[i].GetComponent<EnemyHealth>() != null))
+            if ((allColliders[i].GetComponent<EnemyHealth>() != null))
             {
                 
-                EnemyHealth enemyHealth = allColliders[i].GetComponentInParent<EnemyHealth>();
+                EnemyHealth enemyHealth = allColliders[i].GetComponent<EnemyHealth>();
                 if (!enemyHealth.stats.immuneToSnowballs)
                 {
                     enemyHealth.CreateIceBlock();

@@ -26,6 +26,11 @@ public class WorldManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+    }
+
     // Update is called once per frame
     void Update()
     {
