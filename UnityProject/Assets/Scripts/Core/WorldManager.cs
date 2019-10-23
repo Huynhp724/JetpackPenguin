@@ -139,8 +139,20 @@ public class WorldManager : MonoBehaviour
 
     public void addFinalCrystal()
     {
-        worldStats.maxFuel += 50f;
+        if(worldStats.finalCrystalsCollected <= 1)
+        {
+            worldStats.maxFuel += 25f;
+        }
+        else
+        {
+            worldStats.maxFuel += 50f;
+        }
         worldStats.finalCrystalsCollected++;
+    }
+
+    public int getFinalCrystals()
+    {
+        return worldStats.finalCrystalsCollected;
     }
 
     private void resetStats()
@@ -150,7 +162,7 @@ public class WorldManager : MonoBehaviour
         worldStats.lives = worldStats.baseLives;
         worldStats.maxFuel = 0;
         worldStats.finalCrystalsCollected = 0;
-        worldStats.levelDesignCollectablesTable = null;
+        worldStats.levelDesignCollectablesTable = new Hashtable { };
         updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
     }
 

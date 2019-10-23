@@ -335,7 +335,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Charge jumping - Charge
-        if (player.GetButton("Charge") && currentFuel > 0)
+        if (player.GetButton("Charge") && currentFuel > 0 && wm.getFinalCrystals() > 1)
         {
             isCharging = true;
             
