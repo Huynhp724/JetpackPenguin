@@ -23,6 +23,9 @@ public class Lava : MonoBehaviour
             Debug.Log("Player fell into lava");
             Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
             rb.AddForce(Vector3.up * lavaForcePush, ForceMode.Impulse);
+
+            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            playerHealth.LoseHitpoint();
         }
     }
 }
