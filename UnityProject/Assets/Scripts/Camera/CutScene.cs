@@ -8,6 +8,7 @@ public class CutScene : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] CutSceneCamera[] cameras;
     [SerializeField] CinemachineBrain cmBrain;
+    [SerializeField] float timeBackToPlayer = 2;
     private PlayerController pc;
     private PlayerAbilities pa;
 
@@ -26,23 +27,21 @@ public class CutScene : MonoBehaviour
 
     IEnumerator NextCamera(int index)
     {
-        print("Camera: " + index);
-        //cmBrain.m_DefaultBlend.m_Time = 5;
-        while(cmBrain.IsBlending)
-        {
-            yield return new WaitForEndOfFrame();
-        }
-        yield return new WaitForSecondsRealtime(cameras[index].timeToWait);
+        print("Camera: " + index);   
+
+        yield return new WaitForSecondsRealtime(cmBrain.m_DefaultBlend.m_Time + cameras[index].timeToWait);
 
         cameras[index].setPriority(OFF);
 
         if (index + 1 < cameras.Length)
         {
+            cmBrain.m_DefaultBlend.m_Time = cameras[index + 1].timeToGetHere;
             cameras[index + 1].setPriority(ON);
             StartCoroutine(NextCamera(index + 1));
         }
         else
         {
+            cmBrain.m_DefaultBlend.m_Time = timeBackToPlayer;
             pc.enabled = true;
             pa.enabled = true;
         }
