@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using UnityEditor;
 
 public class SceneViewCameraTest : EditorWindow
@@ -16,4 +16,4 @@ public class SceneViewCameraTest : EditorWindow
         EditorGUILayout.TextField("SceneViewCameraPosition", "" + SceneView.lastActiveSceneView.camera.transform.position);
         EditorGUILayout.TextField("SceneViewCameraRotation", "" + SceneView.lastActiveSceneView.camera.transform.eulerAngles);
     }
-}
+}*/
