@@ -9,8 +9,11 @@ public class CutScene : MonoBehaviour
     [SerializeField] CutSceneCamera[] cameras;
     [SerializeField] CinemachineBrain cmBrain;
     [SerializeField] float timeBackToPlayer = 2;
+    [SerializeField] bool startOnAwake = false;
+    
     private PlayerController pc;
     private PlayerAbilities pa;
+    private Rigidbody rb;
 
     private int OFF = 5;
     private int ON = 15;
@@ -20,8 +23,20 @@ public class CutScene : MonoBehaviour
     {
         pc = player.GetComponent<PlayerController>();
         pa = player.GetComponent<PlayerAbilities>();
+        rb = player.GetComponent<Rigidbody>();
+
+        if(startOnAwake)
+        {
+            playCutScene();
+        }
+    }
+
+    public void playCutScene()
+    {
+        rb.constraints = RigidbodyConstraints.FreezeAll;
         pc.enabled = false;
         pa.enabled = false;
+        cameras[0].setPriority(ON);
         StartCoroutine(NextCamera(0));
     }
 
@@ -29,7 +44,7 @@ public class CutScene : MonoBehaviour
     {
         print("Camera: " + index);   
 
-        yield return new WaitForSecondsRealtime(cmBrain.m_DefaultBlend.m_Time + cameras[index].timeToWait);
+        yield return new WaitForSecondsRealtime(cmBrain.m_DefaultBlend.m_Time + cameras[index].timeToWait + (cameras[index].noWait? -.5f : 0));
 
         cameras[index].setPriority(OFF);
 
@@ -44,6 +59,8 @@ public class CutScene : MonoBehaviour
             cmBrain.m_DefaultBlend.m_Time = timeBackToPlayer;
             pc.enabled = true;
             pa.enabled = true;
+            rb.constraints = RigidbodyConstraints.None;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
         
     }

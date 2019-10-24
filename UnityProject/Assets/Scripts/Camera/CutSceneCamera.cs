@@ -8,6 +8,7 @@ public class CutSceneCamera : MonoBehaviour
     CinemachineVirtualCamera vc;
     public float timeToWait = 1;
     public float timeToGetHere = 2;
+    public bool noWait = false;
 
     private void Start()
     {
