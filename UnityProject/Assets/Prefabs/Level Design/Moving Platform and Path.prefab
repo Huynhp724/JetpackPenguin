@@ -141,7 +141,6 @@ MonoBehaviour:
   waypointTolerance: 2
   timeToWaitAtWaypoints: 1
   speed: 2
-  oldParent: {fileID: 0}
 --- !u!65 &1998361314
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -234,19 +233,6 @@ Transform:
   m_Father: {fileID: 862849081321044821}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2163389505775582211
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6720461817659562351}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.4633656, y: 0.29999995, z: 5.8}
-  m_Center: {x: -0.014327944, y: 0.8418932, z: -0.057636265}
 --- !u!114 &3141204726911125766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +249,19 @@ MonoBehaviour:
   waypointTolerance: 2
   timeToWaitAtWaypoints: 1
   speed: 2
-  oldParent: {fileID: 0}
+--- !u!65 &2163389505775582211
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6720461817659562351}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.780983, y: 1.1233158, z: 6.1722794}
+  m_Center: {x: -0.13033678, y: 1.2276945, z: -0.057636265}
 --- !u!1 &8506439653819721670
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,31 +373,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709703254810683306, guid: a9022c1cd8e10874681f010ab1f27f71,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 1.4907917
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709703254810683306, guid: a9022c1cd8e10874681f010ab1f27f71,
-        type: 3}
-      propertyPath: m_Center.x
-      value: -0.13033678
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709703254810683306, guid: a9022c1cd8e10874681f010ab1f27f71,
-        type: 3}
-      propertyPath: m_Center.y
-      value: 0.1365202
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709703254810683306, guid: a9022c1cd8e10874681f010ab1f27f71,
-        type: 3}
-      propertyPath: m_Center.z
-      value: -0.057636265
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709703254810683306, guid: a9022c1cd8e10874681f010ab1f27f71,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9022c1cd8e10874681f010ab1f27f71, type: 3}
