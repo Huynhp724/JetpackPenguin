@@ -6,6 +6,7 @@ using UnityEngine;
 public class SnowBomb : MonoBehaviour
 {
     [SerializeField] GameObject snowplosion;
+    [SerializeField] GameObject lavaIicePlane;
     private float gravityMultiplier = 2f;
 
     public void setGravityMultiplier(float gravMul)
@@ -15,6 +16,12 @@ public class SnowBomb : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Lava")) {
+            Instantiate(lavaIicePlane, collision.contacts[0].point, lavaIicePlane.transform.rotation);
+
+            Instantiate(snowplosion, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
         if (collision.gameObject.tag != "Player")
         {
             Instantiate(snowplosion, transform.position, transform.rotation);

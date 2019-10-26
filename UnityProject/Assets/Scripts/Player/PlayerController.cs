@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour
     bool isHovering = false;
     bool hoverDashRelease = false;
     bool chargeRelease = false;
+    bool chargeBoosted = false;
     public bool momentumJump = false;
 
     //public CharacterController controller;
@@ -335,7 +336,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Charge jumping - Charge
-        if (player.GetButton("Charge") && currentFuel > 0)
+        if (player.GetButton("Charge") && currentFuel > 0 && wm.getFinalCrystals() > 1)
         {
             isCharging = true;
             
@@ -508,7 +509,7 @@ public class PlayerController : MonoBehaviour
                 momentumJump = false;
             }
 
-   
+            chargeBoosted = false;
         }
 
         //IN THE AIR
@@ -808,6 +809,7 @@ public class PlayerController : MonoBehaviour
                 }
                 GameObject burst = Instantiate(chargeBurstVFX, burstEmit.transform.position, charCol.transform.rotation, gameObject.transform);
                 currentCharge = 0;
+                chargeBoosted = true;
             }
             //did not charge for long enough so gets fuel back
             else
@@ -1084,6 +1086,11 @@ public class PlayerController : MonoBehaviour
     //gets if jump was used while dashing
     public bool getDashJump() {
         return dashJump;
+    }
+
+    public bool getChargedJumped()
+    {
+        return chargeBoosted;
     }
 
 }

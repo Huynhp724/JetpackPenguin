@@ -24,11 +24,16 @@ public class WorldManager : MonoBehaviour
         {
             resetStats();
         }
+        if (worldStats.levelDesignCollectablesTable == null)
+        {
+            worldStats.levelDesignCollectablesTable = new Hashtable { };
+        }
     }
 
     private void Start()
     {
         updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        
     }
 
     // Update is called once per frame
@@ -69,6 +74,10 @@ public class WorldManager : MonoBehaviour
     {
         Debug.Log("Adding " + x + " to crystals.");
         worldStats.crystalsFound += x;
+        if (worldStats.crystalsFound >= 100) {
+            worldStats.crystalsFound = 0;
+            addLives(1);
+        }
         updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
     }
 
@@ -130,8 +139,20 @@ public class WorldManager : MonoBehaviour
 
     public void addFinalCrystal()
     {
-        worldStats.maxFuel += 50f;
+        if(worldStats.finalCrystalsCollected <= 1)
+        {
+            worldStats.maxFuel += 25f;
+        }
+        else
+        {
+            worldStats.maxFuel += 50f;
+        }
         worldStats.finalCrystalsCollected++;
+    }
+
+    public int getFinalCrystals()
+    {
+        return worldStats.finalCrystalsCollected;
     }
 
     private void resetStats()
@@ -141,10 +162,29 @@ public class WorldManager : MonoBehaviour
         worldStats.lives = worldStats.baseLives;
         worldStats.maxFuel = 0;
         worldStats.finalCrystalsCollected = 0;
+        worldStats.levelDesignCollectablesTable = new Hashtable { };
         updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
     }
 
-    public bool checkCollected(Vector3 id) {
-        return false;
+    public bool checkCollected(string id) {
+
+        if (worldStats.levelDesignCollectablesTable.Contains(id))
+        {
+            Debug.Log(worldStats.levelDesignCollectablesTable[id].ToString());
+            return (bool)worldStats.levelDesignCollectablesTable[id];
+
+        }
+        else {
+            worldStats.levelDesignCollectablesTable.Add(id, false);
+            Debug.Log("Adding colelctable " + id);
+            return false;
+        }
+        
+    }
+
+    public void setCollected(string id) {
+
+            worldStats.levelDesignCollectablesTable[id] = true;
+
     }
 }
