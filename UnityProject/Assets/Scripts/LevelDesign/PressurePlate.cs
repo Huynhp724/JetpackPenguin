@@ -23,23 +23,23 @@ public class PressurePlate : MonoBehaviour
             unPressed();
         }
     }
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.layer == iceBlockLayer)
+        if (other.gameObject.layer == iceBlockLayer)
         {
-            pressed(collision);
+            pressed(other.transform);
         }
     }
-    private void OnCollisionExit(Collision collision)
+
+    private void OnTriggerExit(Collider other)
     {
-        if (collision.gameObject.layer == iceBlockLayer)
+        if (other.gameObject.layer == iceBlockLayer)
         {
             unPressed();
         }
     }
 
-    private void pressed(Collision collision)
+    private void pressed(Transform collision)
     {
         iceBlock = collision.transform.GetComponent<IceBlock>();
         door.SetActive(false);
