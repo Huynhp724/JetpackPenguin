@@ -6,6 +6,7 @@ public class DeathVolume : MonoBehaviour
 {
     public string playerTag;
     public float destroyTime;
+    public bool hurtPenguin = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +23,9 @@ public class DeathVolume : MonoBehaviour
     {
         if (other.CompareTag(playerTag))
         {
+
             PlayerHealth health = other.GetComponentInParent<PlayerHealth>();
-            health.FellToDeath();
+            health.FellToDeath(hurtPenguin);
         }
         else if (other.CompareTag("Structure")) {
             // yyuh
