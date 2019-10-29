@@ -46,7 +46,7 @@ public class CoinPickup : MonoBehaviour
     {
         if (magnet && !pickedUp)
         {
-            float temp = Mathf.Max(magnetTarget.GetComponent<Rigidbody>().velocity.magnitude / 100f, 0.3f);
+            float temp = Mathf.Max(magnetTarget.GetComponent<Rigidbody>().velocity.magnitude / 100f, 0.35f);
             transform.position = Vector3.Lerp(transform.position, Vector3.MoveTowards(transform.position, magnetTarget.transform.position, 1f), temp); ;
         }
 
