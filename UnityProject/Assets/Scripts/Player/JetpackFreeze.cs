@@ -48,7 +48,7 @@ public class JetpackFreeze : MonoBehaviour
 
         Ray ray = new Ray(raycastStartPosiiton.transform.position, Vector3.down);
         RaycastHit hit;
-        Debug.DrawRay(ray.origin, ray.direction * 3f, Color.red);
+        Debug.DrawRay(ray.origin, ray.direction * 5f, Color.red);
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
