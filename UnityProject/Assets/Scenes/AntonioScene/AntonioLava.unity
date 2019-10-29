@@ -169,7 +169,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 001f75428dfee79448f1c24cf5f38cdc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -336,7 +336,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba08afd3c4bafc4dbd7f8484fac5f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lavaForcePush: 100
+  lavaForcePush: 300
+  mainCam: {fileID: 0}
 --- !u!65 &792506552
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -367,7 +368,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 001f75428dfee79448f1c24cf5f38cdc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -475,7 +476,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 001f75428dfee79448f1c24cf5f38cdc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -529,6 +530,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Essentials
+      objectReference: {fileID: 0}
+    - target: {fileID: 592424168893299007, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 592424168893299007, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 592424168893299007, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 592424168883169571, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
@@ -588,32 +604,32 @@ PrefabInstance:
     - target: {fileID: 8880474176345078090, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.026500935
+      value: -0.026500845
       objectReference: {fileID: 0}
     - target: {fileID: 8880474176345078090, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000023405948
+      value: -0.00000023405804
       objectReference: {fileID: 0}
     - target: {fileID: 8880474175688230933, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.012698967
+      value: 0.012696499
       objectReference: {fileID: 0}
     - target: {fileID: 8880474175688230933, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.12586166
+      value: 0.12586185
       objectReference: {fileID: 0}
     - target: {fileID: 8880474175688230933, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0075558187
+      value: -0.0075752
       objectReference: {fileID: 0}
-    - target: {fileID: 5632698834821620675, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+    - target: {fileID: 8880474175688230933, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
+      propertyPath: m_LocalRotation.w
+      value: 0.99193764
       objectReference: {fileID: 0}
     - target: {fileID: 2948387083818723018, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
@@ -623,6 +639,11 @@ PrefabInstance:
     - target: {fileID: 2948387083818723018, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5632698834821620675, guid: 0e4f6a276dc20d34bae2886ac0b7290a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

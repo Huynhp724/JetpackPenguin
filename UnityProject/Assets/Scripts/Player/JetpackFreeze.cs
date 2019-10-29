@@ -8,6 +8,13 @@ public class JetpackFreeze : MonoBehaviour
     public GameObject laveFreezeBlocks;
 
     bool canShootRaycast = true;
+    float restartTime = 0.1f, timer;
+
+    private void Start()
+    {
+        timer = restartTime;
+    }
+
 
 
     public void OnTriggerEnter(Collider other)
@@ -43,19 +50,32 @@ public class JetpackFreeze : MonoBehaviour
         
     }
 
+    private void Update()
+    {
+        if (!canShootRaycast) {
+            timer -= Time.deltaTime;
+            if (timer <= 0f) {
+                canShootRaycast = true;
+                timer = restartTime;
+            }
+        }
+    }
+
     IEnumerator Raycast() {
         yield return new WaitForSeconds(0.1f);
 
         Ray ray = new Ray(raycastStartPosiiton.transform.position, Vector3.down);
         RaycastHit hit;
-        Debug.DrawRay(ray.origin, ray.direction * 3f, Color.red);
+        Debug.DrawRay(ray.origin, ray.direction * 5f, Color.red);
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             Instantiate(laveFreezeBlocks, hit.point, laveFreezeBlocks.transform.rotation);
         }
 
-        canShootRaycast = true;
+
+
+
     }
 
 
