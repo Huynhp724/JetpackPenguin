@@ -7,6 +7,7 @@ public class SceneTransitionTrigger : MonoBehaviour
     public string nextSceneName;
     public int entryTarget;
 
+    int firstTime = 0;
 
     Vector3 reentryPosition;
 
@@ -23,6 +24,10 @@ public class SceneTransitionTrigger : MonoBehaviour
     }
 
     public void FirstTransition() {
-        LevelChanger.Instance.SetLevelInfo(nextSceneName, reentryPosition, entryTarget);
+        if (firstTime == 0)
+        {
+            LevelChanger.Instance.SetLevelInfo(nextSceneName, reentryPosition, entryTarget);
+            firstTime = 1;
+        }
     }
 }
