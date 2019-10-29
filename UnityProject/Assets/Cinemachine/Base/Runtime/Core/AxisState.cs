@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using Cinemachine.Utility;
 using UnityEngine.Serialization;
+using Rewired;
 
 namespace Cinemachine
 {
@@ -114,7 +115,8 @@ namespace Cinemachine
             {
                 try
                 {
-                    m_InputAxisValue = CinemachineCore.GetInputAxis(m_InputAxisName);
+                    if(Application.isPlaying)
+                        m_InputAxisValue = ReInput.players.GetPlayer(0).GetAxis(m_InputAxisName);//CinemachineCore.GetInputAxis(m_InputAxisName);
                 }
                 catch (ArgumentException e)
                 {
