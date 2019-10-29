@@ -15,7 +15,7 @@ public class WorldManager : MonoBehaviour
     //For reset
     [SerializeField] bool resetOnAwake = false;
 
-    public delegate void UpdateUI(float hpPercent, int crystals, int lives); // declares new delegate type
+    public delegate void UpdateUI(float hpPercent, int crystals, int lives, int purpleCrystals); // declares new delegate type
     public event UpdateUI updateUI;
 
     private void Awake()
@@ -32,7 +32,7 @@ public class WorldManager : MonoBehaviour
 
     private void Start()
     {
-        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives, worldStats.PurpleCrystals);
         
     }
 
@@ -78,7 +78,7 @@ public class WorldManager : MonoBehaviour
             worldStats.crystalsFound = 0;
             addLives(1);
         }
-        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives, worldStats.PurpleCrystals);
     }
 
     public int getCrystals()
@@ -86,10 +86,22 @@ public class WorldManager : MonoBehaviour
         return worldStats.crystalsFound;
     }
 
+    public void AddPurpleCrystal(int x)
+    {
+        Debug.Log("Adding " + x + " to Purple crystals.");
+        worldStats.PurpleCrystals += x;
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives, worldStats.PurpleCrystals);
+    }
+
+    public int getPurpleCrystals()
+    {
+        return worldStats.PurpleCrystals;
+    }
+
     public void setCrystals(int x)
     {
         worldStats.crystalsFound = x;
-        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives, worldStats.PurpleCrystals);
     }
 
     public int getHealthPoints()
@@ -104,13 +116,13 @@ public class WorldManager : MonoBehaviour
         else
             worldStats.playerHealth += hp;
 
-        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives, worldStats.PurpleCrystals);
     }
 
     public void resetHealth()
     {
         worldStats.playerHealth = worldStats.maxHealth;
-        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives, worldStats.PurpleCrystals);
     }
 
     public float getHealthPercent()
@@ -127,14 +139,14 @@ public class WorldManager : MonoBehaviour
     public void resetLives()
     {
         worldStats.lives = worldStats.baseLives;
-        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives, worldStats.PurpleCrystals);
     }
 
     //Can add or subtract if negative
     public void addLives(int lives)
     {
         worldStats.lives += lives;
-        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives, worldStats.PurpleCrystals);
     }
 
     public void addFinalCrystal()
@@ -163,7 +175,7 @@ public class WorldManager : MonoBehaviour
         worldStats.maxFuel = 0;
         worldStats.finalCrystalsCollected = 0;
         worldStats.levelDesignCollectablesTable = new Hashtable { };
-        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives, worldStats.PurpleCrystals);
     }
 
     public bool checkCollected(string id) {

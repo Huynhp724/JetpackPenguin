@@ -7,6 +7,7 @@ public class WorldStats : ScriptableObject
 {
     public int playerHealth;
     public int crystalsFound;
+    public int PurpleCrystals;
     public float maxFuel;
     public int lives;
     public int baseLives;

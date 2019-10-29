@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Pickup {LIFEHEALTH, CRYSTAL, HITPOINTHEALTH, COUNT };
+public enum Pickup {LIFEHEALTH, CRYSTAL, HITPOINTHEALTH, COUNT, PURPLE};
 
 public class CoinPickup : MonoBehaviour
 {
@@ -81,6 +81,10 @@ public class CoinPickup : MonoBehaviour
                 Debug.Log("It is a crystal.");
                 //stats = playerHealth.GetComponent<PlayerStats>();
                 wm.AddCrystal(1);
+            }
+            else if(pickupEnum == Pickup.PURPLE)
+            {
+                wm.AddPurpleCrystal(1);
             }
 
             StartCoroutine(PickUp(playerHealth.gameObject));
