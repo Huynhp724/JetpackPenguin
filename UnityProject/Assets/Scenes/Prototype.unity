@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -166,6 +166,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4071c7da273c0e446bf4f67b8b8e19c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotateSpeed: 1
+  bobDegree: 0.75
+  bobSpeed: 1
+  pickedUpDistance: 2
+  pickupSound: {fileID: 0}
+  pickupEnum: 1
 --- !u!135 &37039481
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -722,6 +728,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4071c7da273c0e446bf4f67b8b8e19c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotateSpeed: 1
+  bobDegree: 0.75
+  bobSpeed: 1
+  pickedUpDistance: 2
+  pickupSound: {fileID: 0}
+  pickupEnum: 1
 --- !u!135 &239763697
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1608,6 +1620,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4071c7da273c0e446bf4f67b8b8e19c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotateSpeed: 1
+  bobDegree: 0.75
+  bobSpeed: 1
+  pickedUpDistance: 2
+  pickupSound: {fileID: 0}
+  pickupEnum: 1
 --- !u!135 &474249397
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1862,7 +1880,6 @@ MonoBehaviour:
   player: {fileID: 1242378793}
   AngleVSpd: 2
   AngleHSpd: 2
-  Accel: 15
   ZoomSpd: 5
   maxViewAngle: 65
   minViewAngle: -30
@@ -2706,6 +2723,98 @@ Transform:
   m_Father: {fileID: 297473204}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &916746933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 916746934}
+  - component: {fileID: 916746937}
+  - component: {fileID: 916746936}
+  - component: {fileID: 916746935}
+  m_Layer: 0
+  m_Name: Cube (17)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &916746934
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916746933}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 25.9, y: 0.89, z: -55.06}
+  m_LocalScale: {x: 3.36149, y: 3.4415998, z: 6.0495}
+  m_Children: []
+  m_Father: {fileID: 968396462}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!65 &916746935
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916746933}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &916746936
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916746933}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &916746937
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916746933}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &929886249
 GameObject:
   m_ObjectHideFlags: 0
@@ -2871,6 +2980,7 @@ MonoBehaviour:
   dialogueText: {fileID: 1770043132}
   nameText: {fileID: 2068426912}
   playerInteraction: {fileID: 1242378796}
+  printLetterTime: 0
   typingClips:
   - {fileID: 8300000, guid: bc4ca80dc76de514a9cfb6809fcc03b3, type: 3}
 --- !u!222 &929886254
@@ -7993,6 +8103,7 @@ Transform:
   - {fileID: 950482643}
   - {fileID: 964126601}
   - {fileID: 654730478}
+  - {fileID: 916746934}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13346,6 +13457,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4071c7da273c0e446bf4f67b8b8e19c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotateSpeed: 1
+  bobDegree: 0.75
+  bobSpeed: 1
+  pickedUpDistance: 2
+  pickupSound: {fileID: 0}
+  pickupEnum: 1
 --- !u!135 &1232031243
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -13438,23 +13555,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3dec0ed74953374eb52be3c02fcca6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
+  moveForce: 1
+  maxMoveSpeed: 15
+  maxAirMoveSpeed: 10
+  airDashSpeed: 30
   dashSpeed: 30
+  airDrag: 2
+  chargeDrag: 2
   rotateSpeed: 10
-  rocketSpeed: 0.75
+  dashRotateSpeed: 20
+  jetpackForce: 10
+  hoverDashScale: 1.5
+  maxHoverVelocityY: 10
+  maxHoverVelocityX: 15
+  minLeanVelocity: 5
   chargeSpeed: 1
+  maxChargeForce: 100
+  chargeForceDashScale: 2
+  leanForce: 10
   steeringForce: 120
+  turningForce: 5
   jumpForce: 20
+  doubleJumpForce: 10
+  airDashLength: 0.8
+  dashJumpMod: 1
+  flapStrength: 0
+  dashGravity: 0
   gravityScale: 5
+  slopePadding: 0.5
+  wallPadding: 0.2
+  antiBump: 1
+  clingTime: 1
+  groundAngle: 0
+  maxGroundAngle: 0
+  myState: 0
   maxFuel: 50
   currentCharge: 0
   currentFuel: 50
-  currentDashSpd: 30
-  controller: {fileID: 1242378795}
+  onLedge: 0
+  onGround: 0
+  grabCastT: {fileID: 0}
+  pluckDeath: {fileID: 0}
+  hasDoubleJump: 1
+  momentumJump: 0
+  moveDirection: {x: 0, y: 0, z: 0}
   pivot: {fileID: 809090860}
-  playerModel: {fileID: 741468884}
+  charCol: {fileID: 0}
+  ground:
+    serializedVersion: 2
+    m_Bits: 0
+  walls:
+    serializedVersion: 2
+    m_Bits: 0
   chargeText: {fileID: 2078250550}
   jetPack: {fileID: 529653189}
+  freezeTrigger: {fileID: 0}
 --- !u!143 &1242378795
 CharacterController:
   m_ObjectHideFlags: 0
@@ -13963,6 +14118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4071c7da273c0e446bf4f67b8b8e19c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotateSpeed: 1
+  bobDegree: 0.75
+  bobSpeed: 1
+  pickedUpDistance: 2
+  pickupSound: {fileID: 0}
+  pickupEnum: 1
 --- !u!135 &1349919528
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -14404,8 +14565,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f427e4e764d9084fb24c2dac1db77c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentFish: 0
-  fishText: {fileID: 1902032443}
+  currentCrystals: 0
+  currentBigCrystals: 0
+  crystalText: {fileID: 0}
   winText: {fileID: 435943947}
   jump: Jump
   slide: Slide
@@ -14414,6 +14576,9 @@ MonoBehaviour:
   hover: Hover
   charge: Charge
   bumperThreshold: 1e-45
+  pitchShift: 1
+  shiftStart: 0
+  shiftInterval: 10
 --- !u!4 &1415253904
 Transform:
   m_ObjectHideFlags: 0
@@ -15790,6 +15955,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4071c7da273c0e446bf4f67b8b8e19c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotateSpeed: 1
+  bobDegree: 0.75
+  bobSpeed: 1
+  pickedUpDistance: 2
+  pickupSound: {fileID: 0}
+  pickupEnum: 1
 --- !u!135 &2069274914
 SphereCollider:
   m_ObjectHideFlags: 0
