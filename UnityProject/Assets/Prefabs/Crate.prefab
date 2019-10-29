@@ -264,7 +264,11 @@ MonoBehaviour:
   - {fileID: 6747380071824152250, guid: 6fab25f292711db44abef1740f24d25c, type: 3}
   - {fileID: 4716992658318001618, guid: 08ac329301cc51740be7e3a08673913f, type: 3}
   - {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc, type: 3}
-  bounceObjects: []
+  bounceObjects:
+  - {fileID: 1430882844789231397}
+  - {fileID: 918215695422593178}
+  - {fileID: 6715499487000474666}
+  - {fileID: 3183025172867075512}
   speedNeededToBreak: 5
   explosionForce: 15
   explosionRadius: 5

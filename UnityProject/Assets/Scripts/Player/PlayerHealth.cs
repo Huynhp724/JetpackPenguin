@@ -139,32 +139,38 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    public void FellToDeath()
+    public void FellToDeath(bool hurt)
     {
         if (!isDead) {
-            if (worldManager.getHealthPoints() > 1)
+            if (hurt)
             {
-                worldManager.addLives(-1);
-                flick.SetFlickering();
-                FindClosestMinorCheckpoint();
-
-            }
-            else
-            {
-                if (worldManager.getLives() > 1)
+                if (worldManager.getHealthPoints() > 1)
                 {
                     worldManager.addLives(-1);
-                    worldManager.resetHealth();
                     flick.SetFlickering();
                     FindClosestMinorCheckpoint();
+
                 }
                 else
                 {
-                    worldManager.addLives(-1);
-                    worldManager.addHealthPoint(-1);
-                    isDead = true;
-                }
+                    if (worldManager.getLives() > 1)
+                    {
+                        worldManager.addLives(-1);
+                        worldManager.resetHealth();
+                        flick.SetFlickering();
+                        FindClosestMinorCheckpoint();
+                    }
+                    else
+                    {
+                        worldManager.addLives(-1);
+                        worldManager.addHealthPoint(-1);
+                        isDead = true;
+                    }
 
+                }
+            }
+            else {
+                FindClosestMinorCheckpoint();
             }
         }
 
