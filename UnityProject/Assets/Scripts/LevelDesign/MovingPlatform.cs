@@ -13,7 +13,6 @@ public class MovingPlatform : MonoBehaviour
     private int nextPathPointIndex = 0;
     private Vector3 nextPathPointPos;
     private float timeAtWaypoint = 0;
-    public Transform oldParent;
 
     void Awake()
     {
@@ -37,31 +36,19 @@ public class MovingPlatform : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        PlayerController playerControl = other.GetComponentInParent<PlayerController>();
-        if (playerControl)
+        if (other.CompareTag("Player"))
         {
-            print("Player on moving platform");
-            //float step = speed * Time.deltaTime; // calculate distance to move
-            //playerControl.movePlayer(Vector3.MoveTowards(other.transform.position, nextPathPointPos, step));
-            if (oldParent == null)
+            PlayerController playerControl = other.GetComponentInParent<PlayerController>();
+            if (timeAtWaypoint + timeToWaitAtWaypoints <= Time.time)
             {
-                oldParent = playerControl.transform.parent.parent;
+                print("Player on moving platform");
+                float step = speed * Time.deltaTime; // calculate distance to move
+                Vector3 playerMovePoint = new Vector3(nextPathPointPos.x, other.transform.position.y, nextPathPointPos.z);
+                playerControl.movePlayer(Vector3.MoveTowards(other.transform.position, playerMovePoint, step));
             }
-            playerControl.transform.parent.parent = transform;
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        PlayerController playerControl = other.GetComponentInParent<PlayerController>();
-        if (playerControl)
-        {
-            print("Player on moving platform");
-            //float step = speed * Time.deltaTime; // calculate distance to move
-            //playerControl.movePlayer(Vector3.MoveTowards(other.transform.position, nextPathPointPos, step));
-            playerControl.transform.parent.parent = null;
-        }
-    }
 }
