@@ -5,10 +5,11 @@ using UnityEngine;
 public class PressurePlate : MonoBehaviour
 {
     [SerializeField] GameObject door;
-    [SerializeField] int iceBlockLayer;
+    [SerializeField] int[] layersThatCanPress;
 
     private IceBlock iceBlock;
     private Renderer rend;
+    private int objectsOnPlate = 0;
 
     void Start()
     {
@@ -18,30 +19,46 @@ public class PressurePlate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Have to check if the Ice Block was picked up by the player since OnTriggerExit won't read this.
         if(iceBlock && iceBlock.pickedUp)
         {
-            unPressed();
+            if (--objectsOnPlate <= 0)
+                unPressed();
+            iceBlock = null;
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == iceBlockLayer)
+        foreach(int layer in layersThatCanPress)
         {
-            pressed(other.transform);
+            if (other.gameObject.layer == layer)
+            {
+                pressed(other.transform);
+                objectsOnPlate++;
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == iceBlockLayer)
+        foreach (int layer in layersThatCanPress)
         {
-            unPressed();
+            if (other.gameObject.layer == layer)
+            {
+                if(--objectsOnPlate <= 0)
+                    unPressed();
+
+                if (other.gameObject.layer == 13)
+                    iceBlock = null;
+            }
         }
     }
 
     private void pressed(Transform collision)
     {
-        iceBlock = collision.transform.GetComponent<IceBlock>();
+        if(collision.gameObject.layer == 13)
+            iceBlock = collision.transform.GetComponent<IceBlock>();
         door.SetActive(false);
         transform.GetChild(0).gameObject.SetActive(true);
         rend.enabled = false;
@@ -49,7 +66,6 @@ public class PressurePlate : MonoBehaviour
 
     private void unPressed()
     {
-        iceBlock = null;
         door.SetActive(true);
         transform.GetChild(0).gameObject.SetActive(false);
         rend.enabled = true;

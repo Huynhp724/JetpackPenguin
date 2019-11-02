@@ -180,7 +180,7 @@ public class WorldManager : MonoBehaviour
         worldStats.finalCrystalsCollected = 0;
         worldStats.levelDesignCollectablesTable = new Hashtable { };
         worldStats.PurpleCrystals = 0;
-        updateAllUI();
+        //updateAllUI();
     }
 
     public bool checkCollected(string id) {
@@ -208,6 +208,7 @@ public class WorldManager : MonoBehaviour
     public void updateAllUI()
     {
         updateTempUI(worldStats.lives, worldStats.PurpleCrystals, worldStats.finalCrystalsCollected);
+        updateConstUI(getHealthPercent(), worldStats.crystalsFound);
     }
 
     public void updateCrystals()
