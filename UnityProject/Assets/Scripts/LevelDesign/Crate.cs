@@ -15,8 +15,8 @@ public class Crate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mesh = GetComponent<MeshRenderer>();
-        col = GetComponent<Collider>();
+        mesh = GetComponentInChildren<MeshRenderer>();
+        col = GetComponentInChildren<Collider>();
     }
 
     // Update is called once per frame
