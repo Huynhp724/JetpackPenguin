@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 54043995818639616}
   - component: {fileID: 7394268643990824845}
   - component: {fileID: 6443649502422549170}
+  - component: {fileID: 4148290093316474673}
   m_Layer: 0
   m_Name: Crate
   m_TagString: Crate
@@ -284,6 +285,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e6151fb5a9404742ac2d6f4a5bbdf3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4148290093316474673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4479004762370488042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6587b48f041942341b167fcba205d656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioPrefab: {fileID: 1388270348251091532, guid: 8a060a74ad333ae4aae3d98b8f956444,
+    type: 3}
+  audioPrefabParent: {fileID: 4479004762370488042}
+  mixerTrack: {fileID: -4483961815156528284, guid: 9c5079f6f504721479f784b180e21ab0,
+    type: 2}
+  audioClips:
+  - {fileID: 8300000, guid: 5d3de8f5b48c9ef49ae457b58237f2bd, type: 3}
+  StartVolume: 1
+  StereoPan: 0
+  loop: 0
+  useClipsAsPlaylist: 0
+  playlistClipDelay: 0
+  randomize: 0
+  smartRandomize: 0
+  stopSoundOnFadeOut: 0
+  letClipFinishOnStop: 0
+  FadeInSpeed: 0
+  FadeInEndVolume: 1
+  FadeOutSpeed: 0
+  FadeOutEndVolume: 0
+  RandomVolumeMax: 1
+  RandomVolumeMin: 1
+  RandomPitchMax: 1
+  RandomPitchMin: 1
 --- !u!1 &7804021447990964715
 GameObject:
   m_ObjectHideFlags: 0

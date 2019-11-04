@@ -63,6 +63,8 @@ public class Crate : MonoBehaviour
     }
 
     IEnumerator DeParentAndDestroy() {
+        AudioScript[] audioScript = GetComponents<AudioScript>();
+        audioScript[0].PlaySound(0);
 
         yield return new WaitForSeconds(1f);
 
