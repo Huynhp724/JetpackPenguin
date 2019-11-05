@@ -57,7 +57,9 @@ public class PressurePlate : MonoBehaviour
 
     private void pressed(Transform collision)
     {
-        if(collision.gameObject.layer == 13)
+        AudioScript auds = GetComponent<AudioScript>();
+        auds.PlaySound(0);
+        if (collision.gameObject.layer == 13)
             iceBlock = collision.transform.GetComponent<IceBlock>();
         door.SetActive(false);
         transform.GetChild(0).gameObject.SetActive(true);
