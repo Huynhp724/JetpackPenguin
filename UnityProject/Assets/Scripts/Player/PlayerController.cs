@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
 
     private WorldManager wm;
 
-
+    public AudioScript jumpScript; //put this here to make things easier
 
 
     private void Awake()
@@ -188,6 +188,7 @@ public class PlayerController : MonoBehaviour
             if (player.GetButtonDown("Jump"))
             {
                 pressJump = true;
+                jumpScript.PlaySound(0);
 
             }
 
@@ -225,6 +226,7 @@ public class PlayerController : MonoBehaviour
                 if (player.GetButtonDown("Jump") && myState == State.Idle)
                 {
                     pressJump = true;
+                    jumpScript.PlaySound(0);
 
                 }
             }
@@ -242,6 +244,7 @@ public class PlayerController : MonoBehaviour
                     if (hasDoubleJump && player.GetButtonDown("Jump") && !player.GetButton("Hover"))
                     {
                         pressJumpInAir = true;
+                        jumpScript.PlaySound(0);
                     }
                     else if (player.GetButton("Jump") && moveDirection.y < 0 && !player.GetButton("Hover") && !pressJumpInAir)
                     {
@@ -301,6 +304,7 @@ public class PlayerController : MonoBehaviour
                 //Jump to get out of dashing
                 if (player.GetButtonDown("Jump"))
                 {
+                    jumpScript.PlaySound(0);
                     dashJump = true;
                     anim.SetBool("Slide", false);
 

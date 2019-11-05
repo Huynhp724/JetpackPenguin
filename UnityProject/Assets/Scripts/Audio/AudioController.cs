@@ -23,6 +23,7 @@ public class AudioController : MonoBehaviour
 
     public AudioScript audioScript;
     public AudioScript audioScript2;
+    public AudioScript audioScript3;
 
 
     private PlayerController pc;
@@ -87,17 +88,14 @@ public class AudioController : MonoBehaviour
         }
 
         if (pc.getPressJump()) {
-            aud.volume = 0.2f;
-            aud.PlayOneShot(jump);
+            //jumpScript.PlaySound(0);
         }
         if (pc.getPressJumpInAir()) {
-            aud.volume = 0.2f;
-            aud.PlayOneShot(jump);
+            //audioScript3.PlaySound(0);
         }
         if (pc.getDashJump())
         {
-            aud.volume = 0.2f;
-            aud.PlayOneShot(jump);
+            //audioScript3.PlaySound(0);
         }
         if (pc.getHovering() && aud.clip != jetHover)
         {
