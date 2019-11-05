@@ -198,7 +198,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 728, y: 360}
+  m_AnchoredPosition: {x: 852, y: 302}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4827586528223229221
@@ -726,15 +726,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2107752450692014621}
     m_Modifications:
+    - target: {fileID: 2928050304804885590, guid: 5fae340185823d34ca545bd4ebc76682,
+        type: 3}
+      propertyPath: m_Name
+      value: Final Ice Collectable
+      objectReference: {fileID: 0}
     - target: {fileID: 2232061269035738693, guid: 5fae340185823d34ca545bd4ebc76682,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 265.93054
+      value: 391
       objectReference: {fileID: 0}
     - target: {fileID: 2232061269035738693, guid: 5fae340185823d34ca545bd4ebc76682,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 22.354187
+      value: -47
       objectReference: {fileID: 0}
     - target: {fileID: 2232061269035738693, guid: 5fae340185823d34ca545bd4ebc76682,
         type: 3}
@@ -795,11 +800,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 75
-      objectReference: {fileID: 0}
-    - target: {fileID: 2928050304804885590, guid: 5fae340185823d34ca545bd4ebc76682,
-        type: 3}
-      propertyPath: m_Name
-      value: Final Ice Collectable
       objectReference: {fileID: 0}
     - target: {fileID: 1013945597, guid: 5fae340185823d34ca545bd4ebc76682, type: 3}
       propertyPath: bobDegree
