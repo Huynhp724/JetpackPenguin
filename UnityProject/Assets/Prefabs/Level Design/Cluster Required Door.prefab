@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5502644151463894934}
   - component: {fileID: 5502644151463894935}
   - component: {fileID: 5502644151463894932}
+  - component: {fileID: 5432649803393407595}
   m_Layer: 2
   m_Name: Cluster Required Door
   m_TagString: Untagged
@@ -61,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: c53dd228c3311d34fb6d91a5e6b83357, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -122,6 +123,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 2.8595734}
   m_Center: {x: 0, y: 0, z: -0.9297867}
+--- !u!54 &5432649803393407595
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5502644151463894933}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5502644152534950901
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,17 +400,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 578433983956202111, guid: 5fae340185823d34ca545bd4ebc76682,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1013945597, guid: 5fae340185823d34ca545bd4ebc76682, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1013945597, guid: 5fae340185823d34ca545bd4ebc76682, type: 3}
       propertyPath: bobDegree
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 578433983956202111, guid: 5fae340185823d34ca545bd4ebc76682,
-        type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6737589558984699237, guid: 5fae340185823d34ca545bd4ebc76682,
