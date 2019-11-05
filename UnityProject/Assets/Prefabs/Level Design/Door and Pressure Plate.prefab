@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 6518193684403722741}
   - component: {fileID: 6518193684403722740}
   - component: {fileID: 6518193684403722743}
+  - component: {fileID: 5801886045142751432}
   m_Layer: 0
   m_Name: Pressure Plate
   m_TagString: Untagged
@@ -218,6 +219,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   door: {fileID: 3368239061175490035}
   layersThatCanPress: 0b0000000d0000000e000000
+--- !u!114 &5801886045142751432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6518193684403722742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6587b48f041942341b167fcba205d656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioPrefab: {fileID: 1388270348251091532, guid: 8a060a74ad333ae4aae3d98b8f956444,
+    type: 3}
+  audioPrefabParent: {fileID: 6518193684403722742}
+  mixerTrack: {fileID: -4483961815156528284, guid: 9c5079f6f504721479f784b180e21ab0,
+    type: 2}
+  audioClips:
+  - {fileID: 8300000, guid: ee3b01f1a7ef2ce44a9d2fb38048cba1, type: 3}
+  StartVolume: 1
+  StereoPan: 0
+  loop: 0
+  useClipsAsPlaylist: 0
+  playlistClipDelay: 0
+  randomize: 0
+  smartRandomize: 0
+  stopSoundOnFadeOut: 0
+  letClipFinishOnStop: 0
+  FadeInSpeed: 0
+  FadeInEndVolume: 1
+  FadeOutSpeed: 0
+  FadeOutEndVolume: 0
+  RandomVolumeMax: 1
+  RandomVolumeMin: 1
+  RandomPitchMax: 1
+  RandomPitchMin: 1
 --- !u!1001 &7868407812994688726
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -225,11 +262,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 601956337913371346}
     m_Modifications:
-    - target: {fileID: 4867353959204991781, guid: a77f648848269c94ca2cedbaf7fd5211,
-        type: 3}
-      propertyPath: m_Name
-      value: PF_Metal_Gate
-      objectReference: {fileID: 0}
     - target: {fileID: 4867353959204991780, guid: a77f648848269c94ca2cedbaf7fd5211,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -299,6 +331,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 2.1015
+      objectReference: {fileID: 0}
+    - target: {fileID: 4867353959204991781, guid: a77f648848269c94ca2cedbaf7fd5211,
+        type: 3}
+      propertyPath: m_Name
+      value: PF_Metal_Gate
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a77f648848269c94ca2cedbaf7fd5211, type: 3}
