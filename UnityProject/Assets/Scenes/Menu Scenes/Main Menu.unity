@@ -345,15 +345,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3450764286807265866, guid: c561da210ed196e4fb81c61065f153b0,
-        type: 3}
-      propertyPath: fadeTime
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3450764285159105063, guid: c561da210ed196e4fb81c61065f153b0,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3450764286807265866, guid: c561da210ed196e4fb81c61065f153b0,
+        type: 3}
+      propertyPath: fadeTime
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c561da210ed196e4fb81c61065f153b0, type: 3}
@@ -5532,7 +5532,7 @@ PrefabInstance:
     - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: nextSceneName
-      value: LevelDesign 1
+      value: Level Design Art Pass
       objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
@@ -5542,7 +5542,7 @@ PrefabInstance:
     - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
       propertyPath: nextSceneName
-      value: LevelDesign
+      value: Level Design Art Pass
       objectReference: {fileID: 0}
     - target: {fileID: 6276765854132046810, guid: fdd6e6434cf62f3428dfce142b1a3d4f,
         type: 3}
