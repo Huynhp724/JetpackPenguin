@@ -20,7 +20,11 @@ public class AudioController : MonoBehaviour
     [Header("Jetpack Audio Clips")] //Collection of AudioClips to play for Jetpack sounds.
     public AudioClip jetJump;
     public AudioClip jetHover;
-    
+
+    public AudioScript audioScript;
+    public AudioScript audioScript2;
+    public AudioScript audioScript3;
+
 
     private PlayerController pc;
     private PlayerController.State state; //idle = 0, dashing = 1, flapping = 2, clinging = 3
@@ -29,14 +33,20 @@ public class AudioController : MonoBehaviour
     private Vector3 curpos;
     private Vector3 lastpos;
 
+    private bool isWalking;
+    private bool isDashing;
+
     // Start is called before the first frame update
     void Start()
     {
+        
         pc = GetComponent<PlayerController>();
         aud = GetComponent<AudioSource>();
         lastgrounded = true;
         curpos = transform.position;
         lastpos = transform.position;
+        isWalking = false;
+        isDashing = false;
     }
 
 
@@ -44,33 +54,48 @@ public class AudioController : MonoBehaviour
     {
 
 
-        if (pc.onGround && pc.GetCurrentState() != PlayerController.State.Dashing) {
+        if (pc.onGround && pc.GetCurrentState() != PlayerController.State.Dashing)
+        {
+
             if (pc.getHoriInput() != 0 || pc.getVertInput() != 0)
             {
+                if (!isWalking)
+                {
+                    isWalking = true;
+                    audioScript.PlaySound(0);
+                }
                 if (aud.clip != walkCycle)
                 {
                     aud.clip = walkCycle;
-                    aud.volume = 1.0f;
-                    aud.Play();
+
+
+
                 }
             }
-            if (aud.clip == walkCycle && pc.getHoriInput() == 0 && pc.getVertInput() == 0) {
+            else
+            {
+                isWalking = false;
+                audioScript.StopSound();
+            }
+            if (aud.clip == walkCycle && pc.getHoriInput() == 0 && pc.getVertInput() == 0)
+            {
                 aud.Stop();
             }
         }
+        else {
+            isWalking = false;
+            audioScript.StopSound();
+        }
 
         if (pc.getPressJump()) {
-            aud.volume = 0.2f;
-            aud.PlayOneShot(jump);
+            //jumpScript.PlaySound(0);
         }
         if (pc.getPressJumpInAir()) {
-            aud.volume = 0.2f;
-            aud.PlayOneShot(jump);
+            //audioScript3.PlaySound(0);
         }
         if (pc.getDashJump())
         {
-            aud.volume = 0.2f;
-            aud.PlayOneShot(jump);
+            //audioScript3.PlaySound(0);
         }
         if (pc.getHovering() && aud.clip != jetHover)
         {
@@ -97,11 +122,22 @@ public class AudioController : MonoBehaviour
         state = pc.GetCurrentState();
         if (state == PlayerController.State.Dashing)
         {
+            if (pc.onGround)
+            {
+                if (!isDashing)
+                {
+                    audioScript2.PlaySound(0);
+                    isDashing = true;
+                }
+            }
 
-
-            
         }
-        else if (state == PlayerController.State.Flapping)
+        else {
+            audioScript2.FadeSoundOut();
+            isDashing = false;
+        }
+
+        if (state == PlayerController.State.Flapping)
         {
             if (!aud.isPlaying || aud.clip != hoverFlap)
             {
