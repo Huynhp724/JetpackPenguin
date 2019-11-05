@@ -296,7 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3dec0ed74953374eb52be3c02fcca6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveForce: 12
+  moveForce: 10
   maxMoveSpeed: 15
   maxAirMoveSpeed: 12
   airDashSpeed: 40
@@ -324,7 +324,7 @@ MonoBehaviour:
   flapStrength: 0.95
   dashGravity: 1
   gravityScale: 5
-  slopePadding: 0.5
+  slopePadding: 1
   wallPadding: 0.3
   antiBump: 1
   clingTime: 1
@@ -345,7 +345,7 @@ MonoBehaviour:
   charCol: {fileID: 102793626}
   ground:
     serializedVersion: 2
-    m_Bits: 12289
+    m_Bits: 536577
   walls:
     serializedVersion: 2
     m_Bits: 1
