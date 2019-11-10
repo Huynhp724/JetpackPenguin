@@ -9,7 +9,7 @@ public class PressurePlate : MonoBehaviour
 
     private IceBlock iceBlock;
     private Renderer rend;
-    private int objectsOnPlate = 0;
+    [SerializeField] int objectsOnPlate = 0;
 
     void Start()
     {
@@ -57,6 +57,7 @@ public class PressurePlate : MonoBehaviour
 
     private void pressed(Transform collision)
     {
+        //print("Pressed by: " + collision.gameObject);
         AudioScript auds = GetComponent<AudioScript>();
         auds.PlaySound(0);
         if (collision.gameObject.layer == 13)
