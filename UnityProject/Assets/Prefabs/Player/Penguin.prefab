@@ -29,9 +29,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1259839720964572573}
-  - {fileID: 6454393105298768866}
-  - {fileID: 6383195553647881417}
   - {fileID: 2845512599225747925}
+  - {fileID: 6383195553647881417}
+  - {fileID: 6454393105298768866}
   - {fileID: 1567915788855185601}
   m_Father: {fileID: 1329826876155729632}
   m_RootOrder: 0
@@ -676,7 +676,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1567915788855185601}
-  m_Layer: 11
+  m_Layer: 2
   m_Name: BurstEmit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -708,7 +708,7 @@ GameObject:
   - component: {fileID: 8171776003751031578}
   - component: {fileID: 5658847858811672388}
   - component: {fileID: 5668560933869352251}
-  m_Layer: 11
+  m_Layer: 2
   m_Name: jetpackFreezeTrigger
   m_TagString: Jetpack Freeze
   m_Icon: {fileID: 0}
@@ -771,7 +771,7 @@ PrefabInstance:
     - target: {fileID: 6454393106935608594, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
@@ -811,7 +811,7 @@ PrefabInstance:
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
@@ -837,6 +837,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454393106935608592, guid: 803c9d9c1c3df324aae90a9f19028c7c,
+        type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6454393106935608593, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
@@ -871,7 +876,7 @@ PrefabInstance:
     - target: {fileID: 6454393106935608594, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
@@ -937,6 +942,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454393106935608592, guid: 803c9d9c1c3df324aae90a9f19028c7c,
+        type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6454393106935608593, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
@@ -2054,7 +2064,7 @@ PrefabInstance:
     - target: {fileID: 6454393106935608594, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
@@ -2094,7 +2104,7 @@ PrefabInstance:
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6454393106935608623, guid: 803c9d9c1c3df324aae90a9f19028c7c,
         type: 3}
@@ -2120,6 +2130,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454393106935608592, guid: 803c9d9c1c3df324aae90a9f19028c7c,
+        type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 803c9d9c1c3df324aae90a9f19028c7c, type: 3}
