@@ -198,7 +198,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 852, y: 302}
+  m_AnchoredPosition: {x: 719, y: 362}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4827586528223229221
@@ -344,7 +344,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 463.7, y: 232.9}
+  m_AnchoredPosition: {x: 330, y: 300}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7317333703294117464
@@ -626,11 +626,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7732595888605527775}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -701,6 +696,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 250
       objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable
+      objectReference: {fileID: 0}
     - target: {fileID: 219072754769568316, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_Enabled
@@ -726,11 +726,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2107752450692014621}
     m_Modifications:
-    - target: {fileID: 2928050304804885590, guid: 5fae340185823d34ca545bd4ebc76682,
-        type: 3}
-      propertyPath: m_Name
-      value: Final Ice Collectable
-      objectReference: {fileID: 0}
     - target: {fileID: 2232061269035738693, guid: 5fae340185823d34ca545bd4ebc76682,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -800,6 +795,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2928050304804885590, guid: 5fae340185823d34ca545bd4ebc76682,
+        type: 3}
+      propertyPath: m_Name
+      value: Final Ice Collectable
       objectReference: {fileID: 0}
     - target: {fileID: 1013945597, guid: 5fae340185823d34ca545bd4ebc76682, type: 3}
       propertyPath: bobDegree

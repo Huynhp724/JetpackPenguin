@@ -424,6 +424,11 @@ public class PlayerController : MonoBehaviour
                         //moveDirection.x = rb.velocity.x;
                         //moveDirection.z = rb.velocity.z;
                     }
+                    else if (momentumJump)
+                    {
+                        Vector3 targetDir = (transform.forward * vertInput * maxAirMoveSpeed) + (transform.right * horiInput * maxAirMoveSpeed) + new Vector3(0, moveDirection.y, 0);
+                        moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * 0.15f * Time.fixedDeltaTime);
+                    }
                     else
                     {
                         Vector3 targetDir = (transform.forward * vertInput * maxAirMoveSpeed) + (transform.right * horiInput * maxAirMoveSpeed) + new Vector3(0, moveDirection.y, 0);
@@ -464,7 +469,7 @@ public class PlayerController : MonoBehaviour
             {
                 jumping = true;
                 //rb.AddForce(wallHit.normal.normalized * jumpForce);
-                Vector3 tempDir = wallHit.normal.normalized * jumpForce * 1.5f;
+                Vector3 tempDir = wallHit.normal.normalized * jumpForce * .75f;
                
                 moveDirection.y = jumpForce;
                 moveDirection.x = tempDir.x;
@@ -475,6 +480,7 @@ public class PlayerController : MonoBehaviour
                 anim.SetTrigger("WallJump");
                 myState = State.Idle;
                 Debug.Log("JUMP AWAY");
+                momentumJump = true;
             }
             else
             {
@@ -520,8 +526,11 @@ public class PlayerController : MonoBehaviour
         else
         {
             anim.SetBool("Flapping", false);
-            if (!momentumJump) { rb.drag = airDrag; }
-            else { rb.drag = airDrag * .65f; }
+            if (momentumJump) { rb.drag = airDrag * .65f; }
+            else
+            {
+
+            }
 
             checkWalls();
 
@@ -538,11 +547,14 @@ public class PlayerController : MonoBehaviour
                     holdFlapping = false;
                 }
             }
+         
             else if (myState == State.Dashing)
             {
                 //Debug.Log("NO Y");
                 //Vector3 tempVel = currentSlideSphere.GetComponent<Rigidbody>().velocity;
                 //Debug.Log(tempVel.magnitude);
+
+                //AIR DASH HAS SLOWED DOWN ENOUGH
                 if (rb.velocity.magnitude < airDashSpeed * airDashLength)
                 {
                     Debug.Log("NO Y");
@@ -551,7 +563,11 @@ public class PlayerController : MonoBehaviour
                     //rb.useGravity = true;
                     rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + (Physics.gravity.y * gravityScale * Time.fixedDeltaTime), rb.velocity.z);
                     Debug.Log(Physics.gravity.y * gravityScale * Time.fixedDeltaTime);
-                    //rb.drag = normalDrag;
+                    if(rb.drag != normalDrag)
+                    {
+                        moveDirection.y = 0;
+                    }
+                    rb.drag = normalDrag;
                     //Debug.Log(currentSlideSphere.GetComponent<Rigidbody>().velocity.y);
                 }
             }
@@ -665,6 +681,7 @@ public class PlayerController : MonoBehaviour
 
            
             rb.velocity = new Vector3(0, 0, 0);
+            rb.drag = airDrag;
 
             //DASH IN THE DIRECTION THE PLAYER'S CONTROL STICK IS
             if (horiInput != 0 || vertInput != 0)
@@ -728,7 +745,9 @@ public class PlayerController : MonoBehaviour
             //Hovering while dashing
             else
             {
+                rb.drag = normalDrag;
                 rb.useGravity = false;
+                moveDirection.y = 0;
                 Debug.DrawRay(charCol.transform.position, charCol.transform.right * horiInput * 2f, Color.red);
                 rb.AddForce(charCol.transform.right * steeringForce * horiInput * Time.fixedDeltaTime);
 
@@ -829,10 +848,13 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(Physics.gravity.y * gravityScale * Time.fixedDeltaTime);
 
         // Move the controller
-
         if (myState == State.Clinging)
         {
          
+        }
+        else if(myState == State.Dashing && rb.drag == normalDrag && !onGround)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, moveDirection.y, rb.velocity.z);
         }
         else if (myState != State.Dashing)
         {
@@ -928,7 +950,7 @@ public class PlayerController : MonoBehaviour
         //Debug.DrawRay(charCol.gameObject.transform.position, -Vector3.up * (charCol.bounds.extents.y + 0.1f));
         if (myState != State.Dashing)
         {
-            if (Physics.CheckSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.2f, 0), charCol.bounds.extents.y / 2, ground))
+            if (Physics.CheckSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.2f, 0), charCol.bounds.extents.y / 2.5f, ground))
             {
                 return true;
             }
@@ -1012,11 +1034,13 @@ public class PlayerController : MonoBehaviour
             slopeDir = Vector3.Cross(hit.normal, charCol.transform.right);
             //Debug.DrawRay(charCol.gameObject.transform.position + playerModel.transform.forward, Vector3.Cross(hit.normal, charCol.transform.right) * 3f, Color.red);
             //Debug.Log("SLOPE: " + slopeDir.y);
-            if (slopeDir.y > 0 && groundAngle != 0 && groundAngle < maxGroundAngle && !jumping)
+
+            //IF WALKING DOWN SLOPE
+            if (slopeDir.y > 0 && groundAngle != 0 && groundAngle < maxGroundAngle && !jumping && myState != State.Dashing)
             {
                 //Debug.Log("MOVING DOWN");
                 anim.SetBool("Grounded", true);
-                moveToGround();
+                moveToGround();             
             }
             //Debug.Log("SLOPE: " + slopeDir);
         }
@@ -1040,7 +1064,7 @@ public class PlayerController : MonoBehaviour
     {
         // Draw a yellow sphere at the transform's position
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.1f,0), charCol.bounds.extents.y/2);
+        Gizmos.DrawSphere(charCol.gameObject.transform.position - new Vector3(0, charCol.bounds.extents.y / 2 + 0.2f,0), charCol.bounds.extents.y/2.5f);
         Gizmos.color = Color.blue;
         //Gizmos.DrawSphere(charCol.gameObject.transform.position - charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 3 - new Vector3(0, 0.1f, 0), charCol.bounds.extents.y);
         //Gizmos.DrawSphere(charCol.gameObject.transform.position - -charCol.transform.up * (charCol.bounds.extents.z + charCol.bounds.extents.x) / 4 - new Vector3(0, 0.1f, 0), charCol.bounds.extents.y);

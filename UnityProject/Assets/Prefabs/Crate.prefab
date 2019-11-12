@@ -209,10 +209,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6587b48f041942341b167fcba205d656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioPrefab: {fileID: 0}
-  audioPrefabParent: {fileID: 0}
-  mixerTrack: {fileID: 0}
-  audioClips: []
+  audioPrefab: {fileID: 1388270348251091532, guid: 8a060a74ad333ae4aae3d98b8f956444,
+    type: 3}
+  audioPrefabParent: {fileID: 4479004762370488042}
+  mixerTrack: {fileID: -4483961815156528284, guid: 9c5079f6f504721479f784b180e21ab0,
+    type: 2}
+  audioClips:
+  - {fileID: 8300000, guid: 5d3de8f5b48c9ef49ae457b58237f2bd, type: 3}
   StartVolume: 1
   StereoPan: 0
   loop: 0

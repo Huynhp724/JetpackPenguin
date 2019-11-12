@@ -6,14 +6,19 @@ public class PressurePlate : MonoBehaviour
 {
     [SerializeField] GameObject door;
     [SerializeField] int[] layersThatCanPress;
+    public bool open = false;
+    public bool close = false;
 
     private IceBlock iceBlock;
     private Renderer rend;
-    private int objectsOnPlate = 0;
+    [SerializeField] int objectsOnPlate = 0;
+    Animator gateAnim;
 
     void Start()
     {
         rend = GetComponent<Renderer>();
+        gateAnim = door.GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -25,6 +30,16 @@ public class PressurePlate : MonoBehaviour
             if (--objectsOnPlate <= 0)
                 unPressed();
             iceBlock = null;
+        }
+
+        if (open) {
+            gateAnim.SetTrigger("Open");
+            open = false;
+        }
+
+        if (close) {
+            gateAnim.SetTrigger("Close");
+            close = false;
         }
     }
 
@@ -57,16 +72,21 @@ public class PressurePlate : MonoBehaviour
 
     private void pressed(Transform collision)
     {
-        if(collision.gameObject.layer == 13)
+        //print("Pressed by: " + collision.gameObject);
+        AudioScript auds = GetComponent<AudioScript>();
+        auds.PlaySound(0);
+        if (collision.gameObject.layer == 13)
             iceBlock = collision.transform.GetComponent<IceBlock>();
-        door.SetActive(false);
+        //door.SetActive(false);
+        gateAnim.SetTrigger("Open");
         transform.GetChild(0).gameObject.SetActive(true);
         rend.enabled = false;
     }
 
     private void unPressed()
     {
-        door.SetActive(true);
+        //door.SetActive(true);
+        gateAnim.SetTrigger("Close");
         transform.GetChild(0).gameObject.SetActive(false);
         rend.enabled = true;
     }
