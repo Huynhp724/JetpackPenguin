@@ -469,7 +469,7 @@ public class PlayerController : MonoBehaviour
             {
                 jumping = true;
                 //rb.AddForce(wallHit.normal.normalized * jumpForce);
-                Vector3 tempDir = wallHit.normal.normalized * jumpForce * .75f;
+                Vector3 tempDir = wallHit.normal.normalized * jumpForce * 1f;
                
                 moveDirection.y = jumpForce;
                 moveDirection.x = tempDir.x;
