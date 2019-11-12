@@ -38,12 +38,17 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        PlayerController playerControl = other.GetComponentInParent<PlayerController>();
-        if(playerControl && timeAtWaypoint + timeToWaitAtWaypoints <= Time.time)
+        if (other.CompareTag("Player"))
         {
-            print("Player on moving platform");
-            float step = speed * Time.deltaTime; // calculate distance to move
-            playerControl.movePlayer(Vector3.MoveTowards(other.transform.position, nextPathPointPos, step));
+            PlayerController playerControl = other.GetComponentInParent<PlayerController>();
+            if (timeAtWaypoint + timeToWaitAtWaypoints <= Time.time)
+            {
+                print("Player on moving platform");
+                float step = speed * Time.deltaTime; // calculate distance to move
+                Vector3 playerMovePoint = new Vector3(nextPathPointPos.x, other.transform.position.y, nextPathPointPos.z);
+                playerControl.movePlayer(Vector3.MoveTowards(other.transform.position, playerMovePoint, step));
+            }
         }
     }
+
 }

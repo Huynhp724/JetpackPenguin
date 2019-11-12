@@ -4,12 +4,32 @@ using UnityEngine;
 
 public class JetpackFreeze : MonoBehaviour
 {
+    public GameObject raycastStartPosiiton;
+    public GameObject laveFreezeBlocks;
+
+    bool canShootRaycast = true;
+    float restartTime = 0.1f, timer;
+
+    private void Start()
+    {
+        timer = restartTime;
+    }
+
+
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Head")) {
+        if (other.CompareTag("Head"))
+        {
             EnemyHealth enemyHealth = other.GetComponentInParent<EnemyHealth>();
             enemyHealth.SetFreeze(true);
+        }
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Lava")) {
+            ShootRaycast();
         }
     }
 
@@ -20,5 +40,44 @@ public class JetpackFreeze : MonoBehaviour
             enemyHealth.SetFreeze(false);
         }
     }
+
+    void ShootRaycast() {
+        if (canShootRaycast)
+        {
+            canShootRaycast = false;
+            StartCoroutine(Raycast());
+        }
+        
+    }
+
+    private void Update()
+    {
+        if (!canShootRaycast) {
+            timer -= Time.deltaTime;
+            if (timer <= 0f) {
+                canShootRaycast = true;
+                timer = restartTime;
+            }
+        }
+    }
+
+    IEnumerator Raycast() {
+        yield return new WaitForSeconds(0.1f);
+
+        Ray ray = new Ray(raycastStartPosiiton.transform.position, Vector3.down);
+        RaycastHit hit;
+        Debug.DrawRay(ray.origin, ray.direction * 5f, Color.red);
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            Instantiate(laveFreezeBlocks, hit.point, laveFreezeBlocks.transform.rotation);
+        }
+
+
+
+
+    }
+
+
 
 }

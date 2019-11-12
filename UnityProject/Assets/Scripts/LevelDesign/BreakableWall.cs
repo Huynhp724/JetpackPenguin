@@ -6,6 +6,8 @@ using UnityEngine;
 public class BreakableWall : MonoBehaviour
 {
     [SerializeField] float playerSpeedThreshhold = 5f;
+    [SerializeField] GameObject parent; //TEMP HACK
+    public AudioScript auds;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,7 +18,8 @@ public class BreakableWall : MonoBehaviour
             print(playerSpeed);
             if (playerSpeed > playerSpeedThreshhold)
             {
-                Destroy(gameObject);
+                auds.PlaySound(0);
+                Destroy(parent);
             }
         }
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Pickup {LIFEHEALTH, CRYSTAL, HITPOINTHEALTH, COUNT };
+public enum Pickup {LIFEHEALTH, CRYSTAL, HITPOINTHEALTH, COUNT, PURPLE};
 
 public class CoinPickup : MonoBehaviour
 {
@@ -17,6 +17,7 @@ public class CoinPickup : MonoBehaviour
     private bool pickedUp = false;
     public bool magnet;
     public GameObject magnetTarget;
+    public string id;
 
     private float intialY;
     private WorldManager wm;
@@ -26,11 +27,18 @@ public class CoinPickup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        id = transform.position.ToString();
+        Debug.Log("Id is " + id);
         asource = GetComponent<AudioSource>();
         intialY = transform.position.y;
         wm = FindObjectOfType<WorldManager>();
         magnet = false;
-       // gm = FindObjectOfType<GameManager>();
+        // gm = FindObjectOfType<GameManager>();
+        if (wm.checkCollected(id)) {
+            Destroy(gameObject);
+        }
+
+
     }
 
     // Update is called once per frame
@@ -38,7 +46,7 @@ public class CoinPickup : MonoBehaviour
     {
         if (magnet && !pickedUp)
         {
-            float temp = Mathf.Max(magnetTarget.GetComponent<Rigidbody>().velocity.magnitude / 100f, 0.3f);
+            float temp = Mathf.Max(magnetTarget.GetComponent<Rigidbody>().velocity.magnitude / 100f, 0.35f);
             transform.position = Vector3.Lerp(transform.position, Vector3.MoveTowards(transform.position, magnetTarget.transform.position, 1f), temp); ;
         }
 
@@ -74,6 +82,10 @@ public class CoinPickup : MonoBehaviour
                 //stats = playerHealth.GetComponent<PlayerStats>();
                 wm.AddCrystal(1);
             }
+            else if(pickupEnum == Pickup.PURPLE)
+            {
+                wm.AddPurpleCrystal(1);
+            }
 
             StartCoroutine(PickUp(playerHealth.gameObject));
         }
@@ -82,6 +94,7 @@ public class CoinPickup : MonoBehaviour
     IEnumerator PickUp(GameObject player)
     {
         Debug.Log("Pick up coroutine");
+        wm.setCollected(id);
         pickedUp = true;
         wm.shiftStart = true;
         asource.pitch = wm.pitchShift;

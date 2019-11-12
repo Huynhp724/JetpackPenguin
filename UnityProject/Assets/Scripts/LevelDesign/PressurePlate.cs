@@ -5,28 +5,89 @@ using UnityEngine;
 public class PressurePlate : MonoBehaviour
 {
     [SerializeField] GameObject door;
-    [SerializeField] int iceBlockLayer;
+    [SerializeField] int[] layersThatCanPress;
+    public bool open = false;
+    public bool close = false;
+
+    private IceBlock iceBlock;
+    private Renderer rend;
+    [SerializeField] int objectsOnPlate = 0;
+    Animator gateAnim;
 
     void Start()
     {
-        
+        rend = GetComponent<Renderer>();
+        gateAnim = door.GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // Have to check if the Ice Block was picked up by the player since OnTriggerExit won't read this.
+        if(iceBlock && iceBlock.pickedUp)
+        {
+            if (--objectsOnPlate <= 0)
+                unPressed();
+            iceBlock = null;
+        }
+
+        if (open) {
+            gateAnim.SetTrigger("Open");
+            open = false;
+        }
+
+        if (close) {
+            gateAnim.SetTrigger("Close");
+            close = false;
+        }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.layer == iceBlockLayer)
+        foreach(int layer in layersThatCanPress)
         {
-            collision.transform.position = transform.position + (Vector3.up);
-            collision.transform.rotation = transform.rotation;
-            collision.gameObject.layer = 0; //For now, later may have player able to pick it up again.
-            collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            Destroy(door);
+            if (other.gameObject.layer == layer)
+            {
+                pressed(other.transform);
+                objectsOnPlate++;
+            }
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        foreach (int layer in layersThatCanPress)
+        {
+            if (other.gameObject.layer == layer)
+            {
+                if(--objectsOnPlate <= 0)
+                    unPressed();
+
+                if (other.gameObject.layer == 13)
+                    iceBlock = null;
+            }
+        }
+    }
+
+    private void pressed(Transform collision)
+    {
+        //print("Pressed by: " + collision.gameObject);
+        AudioScript auds = GetComponent<AudioScript>();
+        auds.PlaySound(0);
+        if (collision.gameObject.layer == 13)
+            iceBlock = collision.transform.GetComponent<IceBlock>();
+        //door.SetActive(false);
+        gateAnim.SetTrigger("Open");
+        transform.GetChild(0).gameObject.SetActive(true);
+        rend.enabled = false;
+    }
+
+    private void unPressed()
+    {
+        //door.SetActive(true);
+        gateAnim.SetTrigger("Close");
+        transform.GetChild(0).gameObject.SetActive(false);
+        rend.enabled = true;
     }
 }

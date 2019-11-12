@@ -92,6 +92,7 @@ public class EnemyHealth : MonoBehaviour
     }
 
     public void CreateIceBlock() {
+        print("Creating an Iceblock");
         GameObject newObj = Instantiate(freezedStatePrefab, transform.position, transform.rotation);
         newObj.transform.parent = null;
         //newObj.transform.localPosition = transform.localPosition;

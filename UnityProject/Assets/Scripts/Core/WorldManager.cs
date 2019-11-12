@@ -15,8 +15,11 @@ public class WorldManager : MonoBehaviour
     //For reset
     [SerializeField] bool resetOnAwake = false;
 
-    public delegate void UpdateUI(float hpPercent, int crystals, int lives); // declares new delegate type
-    public event UpdateUI updateUI;
+    public delegate void UpdateTempUI(int lives, int purpleCrystals, int clusters); // declares new delegate type
+    public event UpdateTempUI updateTempUI;
+
+    public delegate void UpdateConstUI(float hpPercent, int crystals); // declares new delegate type
+    public event UpdateConstUI updateConstUI;
 
     private void Awake()
     {
@@ -24,6 +27,16 @@ public class WorldManager : MonoBehaviour
         {
             resetStats();
         }
+        if (worldStats.levelDesignCollectablesTable == null)
+        {
+            worldStats.levelDesignCollectablesTable = new Hashtable { };
+        }
+    }
+
+    private void Start()
+    {
+        updateAllUI();
+
     }
 
     // Update is called once per frame
@@ -64,7 +77,11 @@ public class WorldManager : MonoBehaviour
     {
         Debug.Log("Adding " + x + " to crystals.");
         worldStats.crystalsFound += x;
-        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        if (worldStats.crystalsFound >= 100) {
+            worldStats.crystalsFound = 0;
+            addLives(1);
+        }
+        updateConstUI(getHealthPercent(), worldStats.crystalsFound);
     }
 
     public int getCrystals()
@@ -72,10 +89,22 @@ public class WorldManager : MonoBehaviour
         return worldStats.crystalsFound;
     }
 
+    public void AddPurpleCrystal(int x)
+    {
+        Debug.Log("Adding " + x + " to Purple crystals.");
+        worldStats.PurpleCrystals += x;
+        updateAllUI();
+    }
+
+    public int getPurpleCrystals()
+    {
+        return worldStats.PurpleCrystals;
+    }
+
     public void setCrystals(int x)
     {
         worldStats.crystalsFound = x;
-        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        updateAllUI();
     }
 
     public int getHealthPoints()
@@ -90,13 +119,13 @@ public class WorldManager : MonoBehaviour
         else
             worldStats.playerHealth += hp;
 
-        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        updateAllUI();
     }
 
     public void resetHealth()
     {
         worldStats.playerHealth = worldStats.maxHealth;
-        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        updateAllUI();
     }
 
     public float getHealthPercent()
@@ -113,20 +142,33 @@ public class WorldManager : MonoBehaviour
     public void resetLives()
     {
         worldStats.lives = worldStats.baseLives;
-        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        updateAllUI();
     }
 
     //Can add or subtract if negative
     public void addLives(int lives)
     {
         worldStats.lives += lives;
-        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        updateAllUI();
     }
 
     public void addFinalCrystal()
     {
-        worldStats.maxFuel += 50f;
+        if(worldStats.finalCrystalsCollected <= 1)
+        {
+            worldStats.maxFuel += 25f;
+        }
+        else
+        {
+            worldStats.maxFuel += 50f;
+        }
         worldStats.finalCrystalsCollected++;
+        updateAllUI();
+    }
+
+    public int getFinalCrystals()
+    {
+        return worldStats.finalCrystalsCollected;
     }
 
     private void resetStats()
@@ -136,6 +178,41 @@ public class WorldManager : MonoBehaviour
         worldStats.lives = worldStats.baseLives;
         worldStats.maxFuel = 0;
         worldStats.finalCrystalsCollected = 0;
-        updateUI(getHealthPercent(), worldStats.crystalsFound, worldStats.lives);
+        worldStats.levelDesignCollectablesTable = new Hashtable { };
+        worldStats.PurpleCrystals = 0;
+        //updateAllUI();
+    }
+
+    public bool checkCollected(string id) {
+
+        if (worldStats.levelDesignCollectablesTable.Contains(id))
+        {
+            Debug.Log(worldStats.levelDesignCollectablesTable[id].ToString());
+            return (bool)worldStats.levelDesignCollectablesTable[id];
+
+        }
+        else {
+            worldStats.levelDesignCollectablesTable.Add(id, false);
+            Debug.Log("Adding colelctable " + id);
+            return false;
+        }
+        
+    }
+
+    public void setCollected(string id) {
+
+            worldStats.levelDesignCollectablesTable[id] = true;
+
+    }
+
+    public void updateAllUI()
+    {
+        updateTempUI(worldStats.lives, worldStats.PurpleCrystals, worldStats.finalCrystalsCollected);
+        updateConstUI(getHealthPercent(), worldStats.crystalsFound);
+    }
+
+    public void updateCrystals()
+    {
+        updateConstUI(getHealthPercent(), worldStats.crystalsFound);
     }
 }

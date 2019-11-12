@@ -5,6 +5,7 @@ using UnityEngine;
 public class IceBlock : MonoBehaviour
 {
     public LayerMask ground;
+    public bool pickedUp = false;
     [SerializeField] Transform bottomOfBlock;
     [SerializeField] Transform topOfBlock;
 
