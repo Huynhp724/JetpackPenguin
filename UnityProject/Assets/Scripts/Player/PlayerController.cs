@@ -427,7 +427,7 @@ public class PlayerController : MonoBehaviour
                     else if (momentumJump)
                     {
                         Vector3 targetDir = (transform.forward * vertInput * maxAirMoveSpeed) + (transform.right * horiInput * maxAirMoveSpeed) + new Vector3(0, moveDirection.y, 0);
-                        moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * 0.2f * Time.fixedDeltaTime);
+                        moveDirection = Vector3.Lerp(moveDirection, targetDir, moveForce * 0.15f * Time.fixedDeltaTime);
                     }
                     else
                     {
