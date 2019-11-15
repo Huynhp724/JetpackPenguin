@@ -171,9 +171,14 @@ public class PlayerAbilities : MonoBehaviour
             setTargetCenter();
             hasFirstTarget = true;
         }
-        
+
+        if (target == null && targets.Count > 0)
+        {
+            setTargetCenter();
+        }
+
         // If there are more than 1 target on screen allow the play to move between them.
-        if(targets.Count > 1)
+        if (targets.Count > 1)
         {
             if(stickHasMoved && player.GetAxisTimeActive("Camera X") <= 0)
             {
@@ -355,6 +360,9 @@ public class PlayerAbilities : MonoBehaviour
 
     public void setTargetCenter()
     {
-        target = getClosestTargetToCenter();
+        if (targets.Count > 0)
+        {
+            target = getClosestTargetToCenter();
+        }
     }
 }
