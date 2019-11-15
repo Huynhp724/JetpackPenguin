@@ -26,6 +26,7 @@ public class Snowsplosion : MonoBehaviour
                 if (!enemyHealth.stats.immuneToSnowballs)
                 {
                     enemyHealth.CreateIceBlock();
+                    FindObjectOfType<PlayerAbilities>().setTargetCenter();
                     Destroy(enemyHealth.gameObject);
                 }
                 break;
