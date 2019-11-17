@@ -20,10 +20,11 @@ public class DialogeManager : MonoBehaviour
     public AudioClip[] typingClips;
 
     private Queue<string> sentences;
-    bool isDialoging = false;
+    bool isDialoging = false, stillPrintingSentence = false;
     CanvasGroup canvasGroup;
     AudioSource source;
     Player player;
+    string sentenceBeingSaid;
 
     int count = 0;
 
@@ -43,8 +44,14 @@ public class DialogeManager : MonoBehaviour
     private void Update()
     {
         if (isDialoging) {
-            if ((player.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.Q) ) && count != 0) {
-                DisplayNextSentence();
+            if ((player.GetButtonDown("DialogButton") || Input.GetKeyDown(KeyCode.Q) ) && count != 0) {
+                if (!stillPrintingSentence || sentenceBeingSaid.Equals(dialogueText.text))
+                {
+                    DisplayNextSentence();
+                }
+                else  {
+                    PrintEntireSentence();
+                }
             }
         }
     }
@@ -79,16 +86,18 @@ public class DialogeManager : MonoBehaviour
             EndDialogue();
             return;
         }
-        
-        string sentence = sentences.Dequeue();
+
+        sentenceBeingSaid = sentences.Dequeue();
         source.Stop();
         StopAllCoroutines();
-        StartCoroutine(TypeSentence(sentence));
+        stillPrintingSentence = true;
+        StartCoroutine(TypeSentence(sentenceBeingSaid));
        // isDialoging = true;
         count = 1;
     }
 
     IEnumerator TypeSentence(string sentence) {
+        
         int choice = Random.Range(0, typingClips.Length - 1);
         dialogueText.text = "";
         foreach (char letter in sentence.ToCharArray()) {
@@ -100,6 +109,13 @@ public class DialogeManager : MonoBehaviour
             isDialoging = true;
         }
         
+    }
+
+    public void PrintEntireSentence() {
+        StopAllCoroutines();
+        dialogueText.text = sentenceBeingSaid;
+        stillPrintingSentence = false;
+
     }
 
     /// <summary>
