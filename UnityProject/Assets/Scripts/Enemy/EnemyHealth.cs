@@ -28,22 +28,6 @@ public class EnemyHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*RaycastHit hit;
-        ray = new Ray(squishPosition.position, Vector3.up * stats.squishDetectionDistance);
-        Debug.DrawRay(squishPosition.position, Vector3.up * stats.squishDetectionDistance, Color.cyan);
-        if (Physics.Raycast(ray, out hit))
-        {
-            Debug.Log(hit.collider.name);
-            if (hit.collider.CompareTag("Player"))
-            {
-                PlayerHealth health = hit.collider.GetComponentInParent<PlayerHealth>();
-                health.SetInvincibilty(true);
-                LoseHp();
-
-            }
-
-        }*/
-
         if (isFreezing) {
             timer -= Time.deltaTime;
             if (timer <= 0f) {
