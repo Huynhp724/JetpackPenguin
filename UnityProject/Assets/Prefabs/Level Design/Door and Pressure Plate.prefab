@@ -219,6 +219,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   door: {fileID: 3368239061175490035}
   layersThatCanPress: 0b0000000d0000000e000000
+  open: 0
+  close: 0
+  objectsOnPlate: 0
 --- !u!114 &5801886045142751432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,20 +265,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 601956337913371346}
     m_Modifications:
+    - target: {fileID: 4867353959204991781, guid: a77f648848269c94ca2cedbaf7fd5211,
+        type: 3}
+      propertyPath: m_Name
+      value: PF_Metal_Gate
+      objectReference: {fileID: 0}
     - target: {fileID: 4867353959204991780, guid: a77f648848269c94ca2cedbaf7fd5211,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.96
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4867353959204991780, guid: a77f648848269c94ca2cedbaf7fd5211,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.65
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4867353959204991780, guid: a77f648848269c94ca2cedbaf7fd5211,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -16.99
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4867353959204991780, guid: a77f648848269c94ca2cedbaf7fd5211,
         type: 3}
@@ -332,10 +340,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2.1015
       objectReference: {fileID: 0}
-    - target: {fileID: 4867353959204991781, guid: a77f648848269c94ca2cedbaf7fd5211,
+    - target: {fileID: 4867353960104854936, guid: a77f648848269c94ca2cedbaf7fd5211,
         type: 3}
-      propertyPath: m_Name
-      value: PF_Metal_Gate
+      propertyPath: m_Size.y
+      value: 4.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 4867353960104854936, guid: a77f648848269c94ca2cedbaf7fd5211,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -0.33
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a77f648848269c94ca2cedbaf7fd5211, type: 3}
