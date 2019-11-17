@@ -9,7 +9,7 @@ public class DomeWall : MonoBehaviour
         PlayerController pc = collision.gameObject.GetComponentInParent<PlayerController>();
         if(pc && (pc.getChargedJumped()))
         {
-            Destroy(transform.parent.gameObject);
+            GetComponentInParent<Dome>().destroyDome();
         }
     }
 }
