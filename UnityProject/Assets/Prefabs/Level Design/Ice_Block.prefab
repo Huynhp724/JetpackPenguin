@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 5997717453627535101}
   - component: {fileID: 740461404239791173}
   - component: {fileID: 4089159748974422487}
-  m_Layer: 13
+  m_Layer: 2
   m_Name: trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,8 +277,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8974069684805628069}
   m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.00841, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 1}
+  m_LocalPosition: {x: 0, y: 0.0115, z: 0}
+  m_LocalScale: {x: 0.001, y: 0.001, z: 1}
   m_Children: []
   m_Father: {fileID: 5614365821979234137}
   m_RootOrder: 2
@@ -321,7 +321,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9e5bc0ff73219dd4dbf19d928c0b867a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3c70ff68d5e6f14438fec159a8040c2b, type: 3}
   m_Color: {r: 0, g: 0.7750714, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

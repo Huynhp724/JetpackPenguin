@@ -17,7 +17,9 @@ public class HUD : MonoBehaviour
     [SerializeField] float rotateSpeed = 1f;
     [SerializeField] WorldManager wm;
     [SerializeField] float displayElementsDelay = 2f;
+    [SerializeField] GameObject iceBlockPrompts;
     private PlayerController playerControl;
+    private PlayerAbilities PlayerAbilities;
     private float timeSinceMoved;
     private bool showElements = false;
     
@@ -31,6 +33,7 @@ public class HUD : MonoBehaviour
             wm = FindObjectOfType<WorldManager>();
         }
         playerControl = FindObjectOfType<PlayerController>();
+        PlayerAbilities = playerControl.GetComponent<PlayerAbilities>();
         wm.updateTempUI += OnUpdateTempUI;
         wm.updateConstUI += OnUpdateConstUI;
         wm.updateAllUI();
@@ -71,6 +74,15 @@ public class HUD : MonoBehaviour
             showClusters();
             showLives();
         }
+
+        if(!iceBlockPrompts.activeInHierarchy && PlayerAbilities.heldIceBlock != null)
+        {
+            showButtonPrompts();
+        }
+        else if(iceBlockPrompts.activeInHierarchy && PlayerAbilities.heldIceBlock == null)
+        {
+            hideButtonPrompts();
+        }
     }
 
     //TODO: Have these animate or lerp in and out of the screen.
@@ -108,10 +120,21 @@ public class HUD : MonoBehaviour
         lives.gameObject.SetActive(false);
     }
 
+    void hideButtonPrompts()
+    {
+        iceBlockPrompts.SetActive(false);
+    }
+
+    void showButtonPrompts()
+    {
+        iceBlockPrompts.SetActive(true);
+    }
+
     IEnumerator showTempElements()
     {
         showElements = true;
         yield return new WaitForSecondsRealtime(displayElementsDelay);
         showElements = false;
     }
+
 }

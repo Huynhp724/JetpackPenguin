@@ -10,7 +10,7 @@ public class TriggerObjectOn : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(tag)) {
-            obj.SetActive(true);
+            activateObject();
         }
     }
 
@@ -18,7 +18,17 @@ public class TriggerObjectOn : MonoBehaviour
     {
         if (other.CompareTag(tag))
         {
-            obj.SetActive(false);
+            deactivateObject();
         }
+    }
+
+    public void activateObject()
+    {
+        obj.SetActive(true);
+    }
+
+    public void deactivateObject()
+    {
+        obj.SetActive(false);
     }
 }
