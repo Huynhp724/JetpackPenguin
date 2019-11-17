@@ -12,6 +12,8 @@ public class FinalCollectable : MonoBehaviour
 
     private bool pickedUp = false;
     private AudioSource asource;
+    private WorldManager wm;
+    private string id;
 
     private float intialY;
 
@@ -20,6 +22,13 @@ public class FinalCollectable : MonoBehaviour
     {
         asource = GetComponent<AudioSource>();
         intialY = transform.position.y;
+
+        id = transform.position.ToString();
+        wm = FindObjectOfType<WorldManager>();
+        if (wm.checkCollected(id))
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -46,7 +55,8 @@ public class FinalCollectable : MonoBehaviour
         asource.PlayOneShot(pickupSound);
 
         pickedUp = true;
-        FindObjectOfType<WorldManager>().addFinalCrystal();
+        wm.setCollected(id);
+        wm.addFinalCrystal();
         transform.SetParent(player.transform);
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y + pickedUpDistance, player.transform.position.z);
         yield return new WaitForSecondsRealtime(.5f);

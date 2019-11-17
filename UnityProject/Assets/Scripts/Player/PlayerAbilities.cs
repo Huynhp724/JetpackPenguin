@@ -52,7 +52,7 @@ public class PlayerAbilities : MonoBehaviour
     private bool isAiming = false;
     private bool hasFirstTarget = false;
     private bool stickHasMoved = false;
-    private Transform heldIceBlock;
+    public Transform heldIceBlock;
     private float sphereCastRadius = 0.2f;
 
     private void Awake()
@@ -131,6 +131,7 @@ public class PlayerAbilities : MonoBehaviour
         iceblock.GetComponent<Rigidbody>().isKinematic = true;
         iceblock.GetComponent<BoxCollider>().enabled = false;
         iceblock.GetComponent<IceBlock>().pickedUp = true;
+        iceblock.GetComponentInChildren<TriggerObjectOn>().deactivateObject();
         heldIceBlock = iceblock;
         playerController.setHoldingBlock(true);
     }
