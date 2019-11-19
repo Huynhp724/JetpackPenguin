@@ -7,6 +7,7 @@ public class EnemyHealth : MonoBehaviour
     public EnemyStats stats;
     public Transform squishPosition;
     public GameObject freezedStatePrefab;
+    public GameObject deathParticles;
 
     [HideInInspector] public bool isFreezing = false;
 
@@ -89,5 +90,10 @@ public class EnemyHealth : MonoBehaviour
 
     public void IsSquished() {
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        Instantiate(deathParticles, transform.position, transform.rotation);
     }
 }
