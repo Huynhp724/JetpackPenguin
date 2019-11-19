@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
 
     public Text chargeText;
 
-    ParticleSystem[] flames;
+    public ParticleSystem[] flames;
     public GameObject burstEmit;
     public GameObject chargeBurstVFX;
     public GameObject jetPack;
@@ -130,6 +130,8 @@ public class PlayerController : MonoBehaviour
 
     public AudioScript jumpScript; //put this here to make things easier
 
+    private JetPack_Recharge_Controller rechargeEffect;
+
 
     private void Awake()
     {
@@ -139,12 +141,13 @@ public class PlayerController : MonoBehaviour
         //charCol = GetComponent<Collider>();
         normalDrag = rb.drag;
         wm = FindObjectOfType<WorldManager>();
+        rechargeEffect = GetComponentInChildren<JetPack_Recharge_Controller>();
     }
 
     private void Start()
     {
         asource = GetComponent<AudioSource>();
-        flames = gameObject.GetComponentsInChildren<ParticleSystem>();
+        //flames = gameObject.GetComponentsInChildren<ParticleSystem>();
         Debug.Log(flames.Length);
     }
 
@@ -343,12 +346,14 @@ public class PlayerController : MonoBehaviour
         if (player.GetButton("Charge") && currentFuel > 0 && wm.getFinalCrystals() > 1)
         {
             isCharging = true;
+            rechargeEffect.StartJetPackRechargeParticles();
             
         }
         //Charge jumping - Release
         else if(player.GetButtonUp("Charge"))
         {
             chargeRelease = true;
+            rechargeEffect.StopJetPackRechargeParticles();
         }
 
         if (currentFuel < 0) currentFuel = 0;
@@ -796,8 +801,10 @@ public class PlayerController : MonoBehaviour
             else
             {
                 currentCharge = maxChargeForce;
+                isCharging = false;
+                rechargeEffect.StopJetPackRechargeParticles();
             }
-            isCharging = false;
+            
         }
 
         //Charge jumping - Release

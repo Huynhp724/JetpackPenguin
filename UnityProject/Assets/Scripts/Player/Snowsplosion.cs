@@ -5,12 +5,14 @@ using UnityEngine;
 public class Snowsplosion : MonoBehaviour
 {
     [SerializeField] float explosionLength = 1f;
+    [SerializeField] GameObject explosionParticles;
     public LayerMask iceBombEffectLayer;
 
     Collider[] allColliders;
 
     void Awake()
     {
+        Instantiate(explosionParticles, transform.position, transform.rotation);
         Destroy(gameObject, explosionLength);
         DoSphereCast();
     }

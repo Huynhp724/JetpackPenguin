@@ -7,6 +7,7 @@ public class SnowBomb : MonoBehaviour
 {
     [SerializeField] GameObject snowplosion;
     [SerializeField] GameObject lavaIicePlane;
+    [SerializeField] GameObject freezeLavaParticleEffect;
     private float gravityMultiplier = 2f;
 
     public void setGravityMultiplier(float gravMul)
@@ -18,7 +19,7 @@ public class SnowBomb : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Lava")) {
             Instantiate(lavaIicePlane, collision.contacts[0].point, lavaIicePlane.transform.rotation);
-
+            Instantiate(freezeLavaParticleEffect, collision.contacts[0].point, lavaIicePlane.transform.rotation);
             Instantiate(snowplosion, transform.position, transform.rotation);
             Destroy(gameObject);
         }
