@@ -340,9 +340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9a6ea9c50a9bd45b6eb971608faa83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMagnitude: 1000
-  radius: 13
-  center: {fileID: 2811806992250250415}
 --- !u!1 &2053973142845763027
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,6 +512,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SM_SnowGlobeCol 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 3748d887366d49a45acc11edda890b5f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 3748d887366d49a45acc11edda890b5f,
         type: 3}
