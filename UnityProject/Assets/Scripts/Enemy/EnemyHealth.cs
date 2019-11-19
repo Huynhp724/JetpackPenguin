@@ -7,6 +7,7 @@ public class EnemyHealth : MonoBehaviour
     public EnemyStats stats;
     public Transform squishPosition;
     public GameObject freezedStatePrefab;
+    public GameObject deathParticles;
 
     [HideInInspector] public bool isFreezing = false;
 
@@ -28,22 +29,6 @@ public class EnemyHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*RaycastHit hit;
-        ray = new Ray(squishPosition.position, Vector3.up * stats.squishDetectionDistance);
-        Debug.DrawRay(squishPosition.position, Vector3.up * stats.squishDetectionDistance, Color.cyan);
-        if (Physics.Raycast(ray, out hit))
-        {
-            Debug.Log(hit.collider.name);
-            if (hit.collider.CompareTag("Player"))
-            {
-                PlayerHealth health = hit.collider.GetComponentInParent<PlayerHealth>();
-                health.SetInvincibilty(true);
-                LoseHp();
-
-            }
-
-        }*/
-
         if (isFreezing) {
             timer -= Time.deltaTime;
             if (timer <= 0f) {
@@ -105,5 +90,10 @@ public class EnemyHealth : MonoBehaviour
 
     public void IsSquished() {
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        Instantiate(deathParticles, transform.position, transform.rotation);
     }
 }

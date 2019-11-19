@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2717024324016685721}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 852.3, y: 303.4, z: -0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8404932441732679478}
   - {fileID: 4835700050642832382}
-  m_Father: {fileID: 8225230602959219813}
-  m_RootOrder: 1
+  m_Father: {fileID: 7960959437259967448}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2272660401781793509
 MonoBehaviour:
@@ -165,6 +165,42 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2889960098174555939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7960959437259967448}
+  m_Layer: 16
+  m_Name: Purple Crystal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7960959437259967448
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2889960098174555939}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_Children:
+  - {fileID: 3216541973830491983}
+  m_Father: {fileID: 8225230602959219813}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 719, y: 362}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4827586528223229221
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +311,42 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &6290570593260304182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2107752450692014621}
+  m_Layer: 0
+  m_Name: Ice Cluster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2107752450692014621
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6290570593260304182}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2987284254552405922}
+  m_Father: {fileID: 8225230602959219813}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 330, y: 300}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7317333703294117464
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,8 +549,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 7732595888605527775}
-  - {fileID: 3216541973830491983}
-  - {fileID: 2987284254552405922}
+  - {fileID: 7960959437259967448}
+  - {fileID: 2107752450692014621}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -554,11 +626,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7732595888605527775}
     m_Modifications:
-    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
-        type: 3}
-      propertyPath: m_Name
-      value: ShardCollectable
-      objectReference: {fileID: 0}
     - target: {fileID: 8871704927413907530, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -629,6 +696,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 250
       objectReference: {fileID: 0}
+    - target: {fileID: 1913070148436746735, guid: 8f241f09ecc163f4baa65cdd82e669fc,
+        type: 3}
+      propertyPath: m_Name
+      value: ShardCollectable
+      objectReference: {fileID: 0}
     - target: {fileID: 219072754769568316, guid: 8f241f09ecc163f4baa65cdd82e669fc,
         type: 3}
       propertyPath: m_Enabled
@@ -652,42 +724,37 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 8225230602959219813}
+    m_TransformParent: {fileID: 2107752450692014621}
     m_Modifications:
-    - target: {fileID: 2928050304804885590, guid: 5fae340185823d34ca545bd4ebc76682,
-        type: 3}
-      propertyPath: m_Name
-      value: Final Ice Collectable
-      objectReference: {fileID: 0}
     - target: {fileID: 2232061269035738693, guid: 5fae340185823d34ca545bd4ebc76682,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 850
+      value: 391
       objectReference: {fileID: 0}
     - target: {fileID: 2232061269035738693, guid: 5fae340185823d34ca545bd4ebc76682,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 183
+      value: -47
       objectReference: {fileID: 0}
     - target: {fileID: 2232061269035738693, guid: 5fae340185823d34ca545bd4ebc76682,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.801485
+      value: 6.2
       objectReference: {fileID: 0}
     - target: {fileID: 2232061269035738693, guid: 5fae340185823d34ca545bd4ebc76682,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2232061269035738693, guid: 5fae340185823d34ca545bd4ebc76682,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2232061269035738693, guid: 5fae340185823d34ca545bd4ebc76682,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2232061269035738693, guid: 5fae340185823d34ca545bd4ebc76682,
         type: 3}
@@ -697,7 +764,7 @@ PrefabInstance:
     - target: {fileID: 2232061269035738693, guid: 5fae340185823d34ca545bd4ebc76682,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2232061269035738693, guid: 5fae340185823d34ca545bd4ebc76682,
         type: 3}
@@ -728,6 +795,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2928050304804885590, guid: 5fae340185823d34ca545bd4ebc76682,
+        type: 3}
+      propertyPath: m_Name
+      value: Final Ice Collectable
       objectReference: {fileID: 0}
     - target: {fileID: 1013945597, guid: 5fae340185823d34ca545bd4ebc76682, type: 3}
       propertyPath: bobDegree

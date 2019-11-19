@@ -1,5 +1,38 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &5933778231999272455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895110386273324937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6587b48f041942341b167fcba205d656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioPrefab: {fileID: 0}
+  audioPrefabParent: {fileID: 0}
+  mixerTrack: {fileID: 0}
+  audioClips: []
+  StartVolume: 1
+  StereoPan: 0
+  loop: 0
+  useClipsAsPlaylist: 0
+  playlistClipDelay: 0
+  randomize: 0
+  smartRandomize: 0
+  stopSoundOnFadeOut: 0
+  letClipFinishOnStop: 0
+  FadeInSpeed: 0
+  FadeInEndVolume: 1
+  FadeOutSpeed: 0
+  FadeOutEndVolume: 0
+  RandomVolumeMax: 1
+  RandomVolumeMin: 1
+  RandomPitchMax: 1
+  RandomPitchMin: 1
 --- !u!1 &592424168883169570
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,15 +459,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1692615900}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &3216541975514684307 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3216541973830491983, guid: 19579f4c095a93542b9a98a03d90cd76,
-    type: 3}
-  m_PrefabInstance: {fileID: 1692615900}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2987284254076302206 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2987284254552405922, guid: 19579f4c095a93542b9a98a03d90cd76,
+    type: 3}
+  m_PrefabInstance: {fileID: 1692615900}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3216541975514684307 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3216541973830491983, guid: 19579f4c095a93542b9a98a03d90cd76,
     type: 3}
   m_PrefabInstance: {fileID: 1692615900}
   m_PrefabAsset: {fileID: 0}
@@ -593,6 +626,12 @@ PrefabInstance:
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71c8523c786b4314ba51187cd6b69387, type: 3}
+--- !u!1 &1895110386273324937 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1329826876155729638, guid: 71c8523c786b4314ba51187cd6b69387,
+    type: 3}
+  m_PrefabInstance: {fileID: 592424168671025519}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1895110386273324943 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1329826876155729632, guid: 71c8523c786b4314ba51187cd6b69387,
@@ -605,7 +644,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 592424168671025519}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1895110386273324937}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82bca351df7b0aa40aca9734871cb5a9, type: 3}
@@ -787,32 +826,32 @@ PrefabInstance:
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.012442149
+      value: 0.012609724
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.15858582
+      value: 0.13740917
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.007971507
+      value: -0.007703209
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.98723465
+      value: 0.9904042
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858432434212, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0265008
+      value: -0.026500734
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858432434212, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000002340609
+      value: -0.00000023406162
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858432434212, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}

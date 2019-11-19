@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4867353959204991780}
+  - component: {fileID: 8981446822842513977}
   m_Layer: 0
   m_Name: PF_Metal_Gate
   m_TagString: Untagged
@@ -32,6 +33,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &8981446822842513977
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867353959204991781}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6c7ea78140d7d0045b367ba3e4dead7f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4867353960104854942
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +77,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4867353960104854942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.03, z: -0.059}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4867353959204991780}
@@ -74,7 +94,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.9740753, y: 3.8977232, z: 0.7958679}
+  m_Size: {x: 2.9740753, y: 3.8977232, z: 0.62}
   m_Center: {x: -0.018821716, y: 0.012666225, z: -0.0013885498}
 --- !u!1001 &4867353959053902223
 PrefabInstance:
@@ -83,11 +103,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4867353959204991780}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: f8733b101665a9e409341239efdde4f7,
-        type: 3}
-      propertyPath: m_Name
-      value: SM_Metal_Gate
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: f8733b101665a9e409341239efdde4f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -142,6 +157,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f8733b101665a9e409341239efdde4f7,
+        type: 3}
+      propertyPath: m_Name
+      value: SM_Metal_Gate
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8733b101665a9e409341239efdde4f7, type: 3}

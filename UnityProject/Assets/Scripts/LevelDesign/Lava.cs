@@ -5,7 +5,7 @@ using UnityEngine;
 public class Lava : MonoBehaviour
 {
     public float lavaForcePush = 300;
-    public GameObject mainCam;
+    //public GameObject mainCam;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,8 +27,8 @@ public class Lava : MonoBehaviour
 
 
 
-            mainCam = collision.gameObject.transform.parent.GetChild(1).gameObject;
-            mainCam.transform.Translate(Vector3.up * Time.deltaTime * lavaForcePush);
+            //mainCam = collision.gameObject.transform.parent.GetChild(1).gameObject;
+            //mainCam.transform.Translate(Vector3.up * Time.deltaTime * lavaForcePush);
             rb.AddForce(Vector3.up * lavaForcePush, ForceMode.Impulse);
             //collision.gameObject.transform.Translate(Vector3.up * Time.deltaTime * lavaForcePush);
 

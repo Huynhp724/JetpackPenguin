@@ -98,6 +98,8 @@ MonoBehaviour:
     type: 3}
   lavaIicePlane: {fileID: 4493074624336658474, guid: b8deee527cd6f3941ae2477c52690e4e,
     type: 3}
+  freezeLavaParticleEffect: {fileID: 1471138358552145918, guid: 2cc443107724f9343a33a25a48b40847,
+    type: 3}
 --- !u!96 &2621356206365923210
 TrailRenderer:
   serializedVersion: 2
@@ -106,7 +108,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5671347707330620985}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -116,7 +118,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: adef99f8764e6bd4ea61fd980dbd44e3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -158,7 +160,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.63652545, g: 0.84363085, b: 0.9056604, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}

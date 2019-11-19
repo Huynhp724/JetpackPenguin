@@ -52,7 +52,7 @@ public class PlayerAbilities : MonoBehaviour
     private bool isAiming = false;
     private bool hasFirstTarget = false;
     private bool stickHasMoved = false;
-    private Transform heldIceBlock;
+    public Transform heldIceBlock;
     private float sphereCastRadius = 0.2f;
 
     private void Awake()
@@ -87,6 +87,7 @@ public class PlayerAbilities : MonoBehaviour
         // Not aiming
         else
         {
+            isAiming = false;
             lineRenderer.UnrenderArc();
             throwAngle = maxThrowAngle;
             playerController.setIsAiming(false);
@@ -98,6 +99,10 @@ public class PlayerAbilities : MonoBehaviour
             if (heldIceBlock == null && Physics.SphereCast(transform.position, sphereCastRadius, playerModel.transform.forward, out iceBlockHit, pickUpRange, LayerMask.GetMask("IceBlock")) && player.GetButtonDown("Throw Bomb"))
             {
                 pickupIceBlock(iceBlockHit.transform);
+            }
+            else if(heldIceBlock == null && player.GetButtonDown("Throw Bomb") && timeOfLastThrow + timeBetweenThrows <= Time.time)
+            {
+                throwBombNoAim();
             }
             //If already holding a block then throw the block if the button is pressed.
             else if(heldIceBlock != null && player.GetButtonDown("Throw Bomb"))
@@ -126,6 +131,7 @@ public class PlayerAbilities : MonoBehaviour
         iceblock.GetComponent<Rigidbody>().isKinematic = true;
         iceblock.GetComponent<BoxCollider>().enabled = false;
         iceblock.GetComponent<IceBlock>().pickedUp = true;
+        iceblock.GetComponentInChildren<TriggerObjectOn>().deactivateObject();
         heldIceBlock = iceblock;
         playerController.setHoldingBlock(true);
     }
@@ -163,12 +169,17 @@ public class PlayerAbilities : MonoBehaviour
     {
         if (!hasFirstTarget)
         {
-            target = getClosestTargetToCenter();
+            setTargetCenter();
             hasFirstTarget = true;
         }
-        
+
+        if (target == null && targets.Count > 0)
+        {
+            setTargetCenter();
+        }
+
         // If there are more than 1 target on screen allow the play to move between them.
-        if(targets.Count > 1)
+        if (targets.Count > 1)
         {
             if(stickHasMoved && player.GetAxisTimeActive("Camera X") <= 0)
             {
@@ -297,6 +308,20 @@ public class PlayerAbilities : MonoBehaviour
         }
     }
 
+    private void throwBombNoAim()
+    {
+        throwStartPoint.localRotation = throwStartingPointOrgRotation;
+        playerController.setIsAiming(false);
+        targetPointUI.enabled = false;
+        hasFirstTarget = false;
+
+        // Calculate the velocity based off the desired max height and the speed (gravity) of the projectile.
+        float radianAngle = Mathf.Deg2Rad * throwAngle;
+        throwVelocity = Mathf.Sqrt((2 * arcHeight * Math.Abs(Physics.gravity.y * projectileSpeedMultiplier)) / (Mathf.Sin(radianAngle) * Mathf.Sin(radianAngle)));
+
+        ThrowSnowBombWithArc();
+    }
+
     // While called this method decreases the angle of the throw until reachs the min angle. This will increase the distance travelled.
     private void AdjustAim()
     {
@@ -332,5 +357,13 @@ public class PlayerAbilities : MonoBehaviour
     public float getMaxTargetRange()
     {
         return maxTargetRange;
+    }
+
+    public void setTargetCenter()
+    {
+        if (targets.Count > 0)
+        {
+            target = getClosestTargetToCenter();
+        }
     }
 }
