@@ -9,7 +9,6 @@ public class EnemyCollider : MonoBehaviour
 
     EnemyHealth enemyHealth;
     EnemyStats enemyStats;
-    bool hurtPenguin = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,39 +50,34 @@ public class EnemyCollider : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            if (!hurtPenguin)
+        if (collision.gameObject.CompareTag("Player")) {
+            StartCoroutine(ToggleHeadCollider());
+            PlayerController controller = collision.gameObject.GetComponentInParent<PlayerController>();
+            if (controller.GetCurrentState() == PlayerController.State.Dashing)
             {
-                hurtPenguin = true;
-                StartCoroutine(ToggleHeadCollider());
-                PlayerController controller = collision.gameObject.GetComponentInParent<PlayerController>();
-                if (controller.GetCurrentState() == PlayerController.State.Dashing)
+                PlayerAttackStats stats = collision.gameObject.GetComponentInParent<PlayerStats>().playerAttackStats;
+
+                if (controller.getCurrentSlideSpeed() >= stats.maxSlideVelocity && !enemyStats.immuneToDash)
                 {
-                    PlayerAttackStats stats = collision.gameObject.GetComponentInParent<PlayerStats>().playerAttackStats;
-
-                    if (controller.getCurrentSlideSpeed() >= stats.maxSlideVelocity && !enemyStats.immuneToDash)
-                    {
-                        enemyHealth.LoseLife();
-                        return;
-                    }
+                    enemyHealth.LoseLife();
+                    return;
                 }
-
-
-
-
-                PlayerHealth health = collision.gameObject.GetComponentInParent<PlayerHealth>();
-                PlayerStats playerStats = collision.gameObject.GetComponentInParent<PlayerStats>();
-                health.LoseHitpoint();
-
-                Vector3 directionToPush = gameObject.transform.position - collision.gameObject.transform.position;
-                Rigidbody playerRB = collision.gameObject.GetComponent<Rigidbody>();
-                playerRB.AddForce(directionToPush * -playerBounceBack, ForceMode.Impulse);
-                Animator playerAnim = collision.gameObject.GetComponentInChildren<Animator>();
-
-                //playerAnim.SetTrigger();
-                StartCoroutine(TogglePlayerController(controller));
             }
+
+            
+
+
+            PlayerHealth health = collision.gameObject.GetComponentInParent<PlayerHealth>();
+            PlayerStats playerStats = collision.gameObject.GetComponentInParent<PlayerStats>();
+            health.LoseHitpoint();
+
+            Vector3 directionToPush = gameObject.transform.position - collision.gameObject.transform.position;
+            Rigidbody playerRB = collision.gameObject.GetComponent<Rigidbody>();
+            playerRB.AddForce(directionToPush * -playerBounceBack, ForceMode.Impulse);
+            Animator playerAnim = collision.gameObject.GetComponentInChildren<Animator>();
+
+            //playerAnim.SetTrigger();
+            StartCoroutine(TogglePlayerController(controller));
         }
     }
 
@@ -92,7 +86,6 @@ public class EnemyCollider : MonoBehaviour
         pc.enabled = false;
         yield return new WaitForSeconds(1f);
         pc.enabled = true;
-        hurtPenguin = false;
     }
 
     IEnumerator ToggleHeadCollider() {

@@ -9,19 +9,15 @@ public class CrumblingPlatform : MonoBehaviour
 
     private BoxCollider[] colliders;
     private MeshRenderer[] renderers;
-    private SkinnedMeshRenderer[] renderers2;
 
     private AudioScript audioScript;
-    private AudioSource audioSource;
 
     private void Awake()
     {
         audioScript = GetComponent<AudioScript>();
-        audioSource = GetComponent<AudioSource>();
 
         colliders = GetComponents<BoxCollider>();
         renderers = GetComponentsInChildren<MeshRenderer>();
-        renderers2 = GetComponentsInChildren<SkinnedMeshRenderer>();
         
     }
 
@@ -36,8 +32,7 @@ public class CrumblingPlatform : MonoBehaviour
 
     IEnumerator crumble()
     {
-        audioSource.Play();
-        //audioScript.PlaySound(0);
+        audioScript.PlaySound(0);
         yield return new WaitForSecondsRealtime(timeToCrumble);
         foreach (BoxCollider collider in colliders)
         {
@@ -47,20 +42,12 @@ public class CrumblingPlatform : MonoBehaviour
         {
             render.enabled = false;
         }
-        foreach (Renderer render in renderers2)
-        {
-            render.enabled = false;
-        }
         yield return new WaitForSecondsRealtime(timeToComeBack);
         foreach (BoxCollider collider in colliders)
         {
             collider.enabled = true;
         }
         foreach (Renderer render in renderers)
-        {
-            render.enabled = true;
-        }
-        foreach (Renderer render in renderers2)
         {
             render.enabled = true;
         }

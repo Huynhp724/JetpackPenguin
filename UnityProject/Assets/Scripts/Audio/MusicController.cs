@@ -14,7 +14,7 @@ public class MusicController : MonoBehaviour
     {
         Scene current = SceneManager.GetActiveScene();
         string scenename = current.name;
-        if (scenename == "LevelDesign" || scenename == "Level Design Art Pass")
+        if (scenename == "LevelDesign")
         {
             aud.clip = penguinVilalgeTheme;
         }

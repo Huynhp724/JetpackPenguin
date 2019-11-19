@@ -923,11 +923,6 @@ public class PlayerController : MonoBehaviour
         hasDoubleJump = true;
     }
 
-    public void BouncePluck(float force)
-    {
-        moveDirection.y = force;
-    }
-
     public State GetCurrentState()
     {
         return myState;
