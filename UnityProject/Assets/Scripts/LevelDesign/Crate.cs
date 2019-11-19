@@ -11,6 +11,7 @@ public class Crate : MonoBehaviour
     MeshRenderer mesh;
     Collider col;
     List<GameObject> newObjs = new List<GameObject>();
+    Vector3 velocityFPS, angulerVelocityFPS;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +26,14 @@ public class Crate : MonoBehaviour
         
     }
 
+
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             Rigidbody rb = collision.gameObject.GetComponentInParent<Rigidbody>();
             PlayerController playerCOntroller = collision.gameObject.GetComponentInParent<PlayerController>();
+            
 
             if ((rb.velocity.magnitude >= speedNeededToBreak) && (playerCOntroller.GetCurrentState() == PlayerController.State.Dashing))
             {
