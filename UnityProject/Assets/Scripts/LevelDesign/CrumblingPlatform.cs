@@ -12,10 +12,12 @@ public class CrumblingPlatform : MonoBehaviour
     private SkinnedMeshRenderer[] renderers2;
 
     private AudioScript audioScript;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         audioScript = GetComponent<AudioScript>();
+        audioSource = GetComponent<AudioSource>();
 
         colliders = GetComponents<BoxCollider>();
         renderers = GetComponentsInChildren<MeshRenderer>();
@@ -34,7 +36,8 @@ public class CrumblingPlatform : MonoBehaviour
 
     IEnumerator crumble()
     {
-        audioScript.PlaySound(0);
+        audioSource.Play();
+        //audioScript.PlaySound(0);
         yield return new WaitForSecondsRealtime(timeToCrumble);
         foreach (BoxCollider collider in colliders)
         {
