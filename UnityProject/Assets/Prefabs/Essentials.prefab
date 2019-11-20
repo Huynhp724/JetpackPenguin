@@ -923,7 +923,7 @@ PrefabInstance:
     - target: {fileID: 8288169857334309961, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_Orbits.Array.data[0].m_Radius
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8288169857334309961, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
@@ -933,7 +933,22 @@ PrefabInstance:
     - target: {fileID: 8288169857334309961, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_Orbits.Array.data[1].m_Radius
-      value: 10
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288169857334309961, guid: 7a3d376ec22700344b99280ceee408ec,
+        type: 3}
+      propertyPath: m_Rigs.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288169857334309961, guid: 7a3d376ec22700344b99280ceee408ec,
+        type: 3}
+      propertyPath: m_Rigs.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288169857334309961, guid: 7a3d376ec22700344b99280ceee408ec,
+        type: 3}
+      propertyPath: m_Rigs.Array.data[2]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8288169857334309959, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
@@ -1004,6 +1019,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_XAxis.m_InputAxisName
       value: Camera X
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288169857910625143, guid: 7a3d376ec22700344b99280ceee408ec,
+        type: 3}
+      propertyPath: m_TrackedObjectOffset.y
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288169857910625143, guid: 7a3d376ec22700344b99280ceee408ec,
+        type: 3}
+      propertyPath: m_ScreenY
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a3d376ec22700344b99280ceee408ec, type: 3}
