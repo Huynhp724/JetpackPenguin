@@ -36,9 +36,6 @@ GraphicsSettings:
   - {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10770, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10783, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 16000, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 17000, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 16001, guid: 0000000000000000f000000000000000, type: 0}
   m_PreloadedShaders: []
   m_SpritesDefaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000,
     type: 0}
@@ -47,57 +44,7 @@ GraphicsSettings:
   m_TransparencySortAxis: {x: 0, y: 0, z: 1}
   m_DefaultRenderingPath: 1
   m_DefaultMobileRenderingPath: 1
-  m_TierSettings:
-  - serializedVersion: 5
-    m_BuildTarget: 1
-<<<<<<< HEAD
-    m_Tier: 2
-=======
-    m_Tier: 1
->>>>>>> LevelDesign
-    m_Settings:
-      standardShaderQuality: 2
-      renderingPath: 3
-      hdrMode: 1
-<<<<<<< HEAD
-      realtimeGICPUUsage: 50
-=======
-      realtimeGICPUUsage: 25
->>>>>>> LevelDesign
-      useReflectionProbeBoxProjection: 1
-      useReflectionProbeBlending: 1
-      useHDR: 1
-      useDetailNormalMap: 1
-      useCascadedShadowMaps: 1
-      prefer32BitShadowMaps: 0
-      enableLPPV: 1
-      useDitherMaskForAlphaBlendedShadows: 1
-    m_Automatic: 0
-  - serializedVersion: 5
-    m_BuildTarget: 1
-<<<<<<< HEAD
-    m_Tier: 1
-=======
-    m_Tier: 2
->>>>>>> LevelDesign
-    m_Settings:
-      standardShaderQuality: 2
-      renderingPath: 3
-      hdrMode: 1
-<<<<<<< HEAD
-      realtimeGICPUUsage: 25
-=======
-      realtimeGICPUUsage: 50
->>>>>>> LevelDesign
-      useReflectionProbeBoxProjection: 1
-      useReflectionProbeBlending: 1
-      useHDR: 1
-      useDetailNormalMap: 1
-      useCascadedShadowMaps: 1
-      prefer32BitShadowMaps: 0
-      enableLPPV: 1
-      useDitherMaskForAlphaBlendedShadows: 1
-    m_Automatic: 0
+  m_TierSettings: []
   m_LightmapStripping: 0
   m_FogStripping: 0
   m_InstancingStripping: 0
@@ -111,5 +58,5 @@ GraphicsSettings:
   m_FogKeepExp: 1
   m_FogKeepExp2: 1
   m_AlbedoSwatchInfos: []
-  m_LightsUseLinearIntensity: 1
+  m_LightsUseLinearIntensity: 0
   m_LightsUseColorTemperature: 0
