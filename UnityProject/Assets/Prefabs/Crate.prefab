@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 7394268643990824845}
   - component: {fileID: 6443649502422549170}
   - component: {fileID: 3437378574308807961}
+  - component: {fileID: 7661425687608916101}
   - component: {fileID: 8174402857709824884}
   m_Layer: 0
   m_Name: Crate
@@ -172,6 +173,8 @@ MonoBehaviour:
   speedNeededToBreak: 5
   explosionForce: 15
   explosionRadius: 5
+  col: {fileID: 3437378574308807961}
+  trigger: {fileID: 7661425687608916101}
 --- !u!114 &6443649502422549170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +199,19 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!65 &7661425687608916101
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4479004762370488042}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2, y: 1.2, z: 1.2}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &8174402857709824884
 MonoBehaviour:

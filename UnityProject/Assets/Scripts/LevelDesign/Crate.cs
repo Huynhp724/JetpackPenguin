@@ -7,9 +7,9 @@ public class Crate : MonoBehaviour
     public GameObject[] differentCollictables;
     public Animator[] bounceObjects;
     public float speedNeededToBreak, explosionForce, explosionRadius;
+    public Collider col, trigger;
 
     MeshRenderer mesh;
-    Collider col;
     List<GameObject> newObjs = new List<GameObject>();
     Vector3 velocityFPS, angulerVelocityFPS;
 
@@ -17,7 +17,6 @@ public class Crate : MonoBehaviour
     void Start()
     {
         mesh = GetComponentInChildren<MeshRenderer>();
-        col = GetComponentInChildren<Collider>();
     }
 
     // Update is called once per frame
@@ -27,7 +26,7 @@ public class Crate : MonoBehaviour
     }
 
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -45,6 +44,7 @@ public class Crate : MonoBehaviour
     public void DestroyCrate() {
         mesh.enabled = false;
         col.enabled = false;
+        trigger.enabled = false;
         int numOfSpawnedCollectables = Random.Range(1, 4);
         //int numOfSpawnedCollectables = 4;
         int count = 0;

@@ -44,7 +44,7 @@ public class LevelChanger : MonoBehaviour
         fader = GetComponent<ScreenFader>();
     }
 
-    public void SetLevelInfo(string nxtLvl, Vector3 lastScenePosition, int entryValue) {
+    public void SetLevelInfo(string nxtLvl, int entryValue) {
         nextLevelName = nxtLvl;
         entryPoint = entryValue;
         Debug.Log("Entry point is: " + entryValue);

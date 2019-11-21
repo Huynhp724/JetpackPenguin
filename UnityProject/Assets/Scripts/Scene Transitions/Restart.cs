@@ -5,20 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class Restart : MonoBehaviour
 {
-    LevelChanger lvlChanger;
-    // Start is called before the first frame update
-    void Start()
-    {
-        lvlChanger = LevelChanger.Instance;
-    }
+    public Pause pause;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    public void RestartLevel() {
-        SceneManager.LoadScene(lvlChanger.GetCurrentLevelName());
+    public void RestartClick() {
+        pause.unpause();
     }
 }
