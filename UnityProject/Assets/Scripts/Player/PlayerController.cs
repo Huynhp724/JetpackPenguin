@@ -897,6 +897,8 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(-90f, 0f, -90f);
         
         anim.SetBool("Slide", false);
+        anim.SetFloat("Speed", 0f);
+        anim.SetTrigger("Respawn");
         // also turn off jetpack here please
 
     }
