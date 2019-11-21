@@ -4,11 +4,13 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class ScreenManager : MonoBehaviour
 {
     public EventSystem eventSystem;
     public GameObject essentials;
+    public AudioMixer mixer;
 
     //Screen to open automatically at the start of the Scene
     public Animator initiallyOpen;
@@ -101,6 +103,11 @@ public class ScreenManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void adjustVolume(float value)
+    {
+        mixer.SetFloat("MasterVolume", Mathf.Log10(value) * 20);
     }
 
     //Finds the first Selectable element in the providade hierarchy.
