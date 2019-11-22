@@ -82,8 +82,16 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: 54b52532593d17f45a0b6565a38877c6
+    name: EnvironmentVolume
+  - guid: 7a96b75bc5478fa42a9eac83760fe10d
+    name: InteractableVolume
   - guid: a94d0ad7868f1e04ea529a7cb60641c4
     name: MasterVolume
+  - guid: aa83268e5acddee4da455c87e22c4873
+    name: MusicVolume
+  - guid: e23514cf226be204788d1674770c2762
+    name: PluckVolume
   m_AudioMixerGroupViews:
   - guids:
     - 27fa35feaffcdad43a02ddf84af80170
