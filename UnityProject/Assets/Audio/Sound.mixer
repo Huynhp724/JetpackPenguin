@@ -52,6 +52,20 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &-4186121632427011734
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 7c2c04504c3439a42ae444a1326aab8c
+  m_EffectName: Attenuation
+  m_MixLevel: 5e48724e5fc01754d9b29b37179e3958
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -67,13 +81,24 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 54b52532593d17f45a0b6565a38877c6
+    name: EnvironmentVolume
+  - guid: 7a96b75bc5478fa42a9eac83760fe10d
+    name: InteractableVolume
+  - guid: a94d0ad7868f1e04ea529a7cb60641c4
+    name: MasterVolume
+  - guid: aa83268e5acddee4da455c87e22c4873
+    name: MusicVolume
+  - guid: e23514cf226be204788d1674770c2762
+    name: PluckVolume
   m_AudioMixerGroupViews:
   - guids:
     - 27fa35feaffcdad43a02ddf84af80170
     - 5fcbc8a95753efb4db2fcd2d15dfa892
     - e8ae51304ac1c094191a5efe68bfdea2
     - 7347f56a308db164595d2ea77cd0eea5
+    - c32bb9017c9316540b330979c3a2b415
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -90,6 +115,7 @@ AudioMixerGroupController:
   - {fileID: -6273309334174905761}
   - {fileID: -4483961815156528284}
   - {fileID: 3254134689564701817}
+  - {fileID: 5176395370431326327}
   m_Volume: a94d0ad7868f1e04ea529a7cb60641c4
   m_Pitch: 0a7aee15ba36f684aa557e44961d34dd
   m_Send: 00000000000000000000000000000000
@@ -140,6 +166,25 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: 6674852949735737920}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &5176395370431326327
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Music
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: c32bb9017c9316540b330979c3a2b415
+  m_Children: []
+  m_Volume: aa83268e5acddee4da455c87e22c4873
+  m_Pitch: fb09dd496e95b1d49a5aae7eaca21686
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -4186121632427011734}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
