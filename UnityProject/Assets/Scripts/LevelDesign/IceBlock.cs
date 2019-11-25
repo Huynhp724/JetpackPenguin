@@ -8,6 +8,20 @@ public class IceBlock : MonoBehaviour
     public bool pickedUp = false;
     [SerializeField] Transform bottomOfBlock;
     [SerializeField] Transform topOfBlock;
+    [SerializeField] GameObject ButtonPrompt;
+    [SerializeField] float GravityMultiplier;
+
+    private Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void FixedUpdate()
+    {
+        rb.AddForce(0, -GravityMultiplier, 0);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -28,8 +42,17 @@ public class IceBlock : MonoBehaviour
 
     public float getHalfSize()
     {
-        
         print(topOfBlock.position.y + " : " + bottomOfBlock.position.y);
         return topOfBlock.position.y - bottomOfBlock.position.y;
+    }
+
+    public void activatePrompt()
+    {
+        ButtonPrompt.SetActive(true);
+    }
+
+    public void deactivatePrompt()
+    {
+        ButtonPrompt.SetActive(false);
     }
 }

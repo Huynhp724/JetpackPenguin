@@ -12,7 +12,7 @@ public class BreakableWall : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         PlayerController playerControl = other.gameObject.GetComponentInParent<PlayerController>();
-        if (playerControl)
+        if (playerControl && playerControl.GetCurrentState() == PlayerController.State.Dashing)
         {
             float playerSpeed = playerControl.getCurrentSlideSpeed();
             print(playerSpeed);

@@ -321,31 +321,36 @@ public class AudioScript : MonoBehaviour
 
     public void StopSound()
     {
-        GameObject soundObject = audioPrefabClone;
-        AudioSource audioSource = audioPrefabClone.GetComponent<AudioSource>();
-        if (letClipFinishOnStop == false)
+        try
         {
-            if (useClipsAsPlaylist == true)
+            GameObject soundObject = audioPrefabClone;
+            AudioSource audioSource = audioPrefabClone.GetComponent<AudioSource>();
+            if (letClipFinishOnStop == false)
             {
-                audioSource.Stop();
-                audioPrefabClone.GetComponent<prefabAudioScript>().persistentAudio = false;
+                if (useClipsAsPlaylist == true)
+                {
+                    audioSource.Stop();
+                    audioPrefabClone.GetComponent<prefabAudioScript>().persistentAudio = false;
+                }
+                else
+                {
+                    audioSource.Stop();
+                    Destroy(soundObject);
+                }
             }
             else
             {
-                audioSource.Stop();
-                Destroy(soundObject);
-            }
-        } else
-        {
-            if (useClipsAsPlaylist == true)
-            {
-                audioPrefabClone.GetComponent<prefabAudioScript>().persistentSoundOver = true;
-            }
-            else
-            {
-                audioSource.Stop();
-                Destroy(soundObject);
+                if (useClipsAsPlaylist == true)
+                {
+                    audioPrefabClone.GetComponent<prefabAudioScript>().persistentSoundOver = true;
+                }
+                else
+                {
+                    audioSource.Stop();
+                    Destroy(soundObject);
+                }
             }
         }
+        catch { }
     }
 }
