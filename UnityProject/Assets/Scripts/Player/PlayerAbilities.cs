@@ -54,6 +54,7 @@ public class PlayerAbilities : MonoBehaviour
     private bool stickHasMoved = false;
     public Transform heldIceBlock;
     private float sphereCastRadius = 0.2f;
+    private IceBlock iceBlockLookingAt;
 
     private void Awake()
     {
@@ -96,9 +97,25 @@ public class PlayerAbilities : MonoBehaviour
 
             //Spherecast for an ice block and pick up if button is pressed.
             RaycastHit iceBlockHit;
-            if (heldIceBlock == null && Physics.SphereCast(transform.position, sphereCastRadius, playerModel.transform.forward, out iceBlockHit, pickUpRange, LayerMask.GetMask("IceBlock")) && player.GetButtonDown("Throw Bomb"))
+            if (heldIceBlock == null && Physics.SphereCast(transform.position, sphereCastRadius, playerModel.transform.forward, out iceBlockHit, pickUpRange, LayerMask.GetMask("IceBlock")))
             {
-                pickupIceBlock(iceBlockHit.transform);
+                if (iceBlockLookingAt != iceBlockHit.transform.GetComponent<IceBlock>())
+                {
+                    if(iceBlockLookingAt != null)
+                        iceBlockLookingAt.deactivatePrompt();
+                    iceBlockLookingAt = iceBlockHit.transform.GetComponent<IceBlock>();
+                    iceBlockLookingAt.activatePrompt();
+                }
+            }
+            else if(iceBlockLookingAt != null)
+            {
+                iceBlockLookingAt.deactivatePrompt();
+                iceBlockLookingAt = null;
+            }
+
+            if (iceBlockLookingAt != null && player.GetButtonDown("Throw Bomb"))
+            {
+                pickupIceBlock(iceBlockLookingAt.transform);
             }
             else if(heldIceBlock == null && player.GetButtonDown("Throw Bomb") && timeOfLastThrow + timeBetweenThrows <= Time.time)
             {
@@ -131,8 +148,9 @@ public class PlayerAbilities : MonoBehaviour
         iceblock.GetComponent<Rigidbody>().isKinematic = true;
         iceblock.GetComponent<BoxCollider>().enabled = false;
         iceblock.GetComponent<IceBlock>().pickedUp = true;
-        iceblock.GetComponentInChildren<TriggerObjectOn>().deactivateObject();
         heldIceBlock = iceblock;
+        iceBlockLookingAt.deactivatePrompt();
+        iceBlockLookingAt = null;
         playerController.setHoldingBlock(true);
     }
 
