@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2053973141589346346}
   - component: {fileID: 2053973141589346357}
   - component: {fileID: 2053973141589346347}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Dome Wall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 2053973141616125802}
   - component: {fileID: 2053973141616125813}
   - component: {fileID: 2053973141616125803}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Dome Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 2053973141764295485}
   - component: {fileID: 2053973141764295484}
   - component: {fileID: 2053973141764295474}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Dome Wall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 2053973141791503702}
   - component: {fileID: 2053973141791503697}
   - component: {fileID: 2053973141791503703}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Dome Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 2053973142252935498}
   - component: {fileID: 2053973142252935509}
   - component: {fileID: 6207288093896945256}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Dome
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,10 +323,10 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2053973142252935508}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 13.71
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6207288093896945256
 MonoBehaviour:
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 2053973142845763025}
   - component: {fileID: 2053973142845763024}
   - component: {fileID: 2053973142845763030}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Dome Wall (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,6 +423,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_SnowGlobe
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: b03f0b63bffad0e489c8d658eb10df72,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b03f0b63bffad0e489c8d658eb10df72,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -493,6 +498,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: b03f0b63bffad0e489c8d658eb10df72,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3203de560477d534b9035af251f09027, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b03f0b63bffad0e489c8d658eb10df72, type: 3}
 --- !u!4 &4813133487020193583 stripped
@@ -512,6 +522,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SM_SnowGlobeCol 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 3748d887366d49a45acc11edda890b5f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 3748d887366d49a45acc11edda890b5f,
         type: 3}

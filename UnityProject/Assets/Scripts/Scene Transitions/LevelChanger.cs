@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelChanger : MonoBehaviour
 {
-    public string currentLevelName;
+    string currentLevelName;
     public Vector3 pos;
     public Vector3 newPos;
     //public Camera mainCam;
@@ -36,7 +36,7 @@ public class LevelChanger : MonoBehaviour
 
     private void Update()
     {
-       // Debug.Log(player.transform.position);
+
     }
 
     void Start()
@@ -44,11 +44,10 @@ public class LevelChanger : MonoBehaviour
         fader = GetComponent<ScreenFader>();
     }
 
-    public void SetLevelInfo(string nxtLvl, Vector3 lastScenePosition, int entryValue) {
+    public void SetLevelInfo(string nxtLvl, int entryValue) {
         nextLevelName = nxtLvl;
         entryPoint = entryValue;
         Debug.Log("Entry point is: " + entryValue);
-
         StartCoroutine(WaitToFadeOut());
         //NextLevel();
     }
@@ -79,6 +78,7 @@ public class LevelChanger : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
         player = GameObject.Find("Player");
+        currentLevelName = nextLevelName;
 
         StartCoroutine(WaitToFadeIn());
 
@@ -120,5 +120,9 @@ public class LevelChanger : MonoBehaviour
                 
             }
         }
+    }
+
+    public string GetCurrentLevelName() {
+        return currentLevelName;
     }
 }

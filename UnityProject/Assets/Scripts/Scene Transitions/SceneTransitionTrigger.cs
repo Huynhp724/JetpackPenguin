@@ -19,15 +19,19 @@ public class SceneTransitionTrigger : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) {
-            LevelChanger.Instance.SetLevelInfo(nextSceneName, reentryPosition, entryTarget);
+            LevelChanger.Instance.SetLevelInfo(nextSceneName, entryTarget);
         }
     }
 
     public void FirstTransition() {
         if (firstTime == 0)
         {
-            LevelChanger.Instance.SetLevelInfo(nextSceneName, reentryPosition, entryTarget);
+            LevelChanger.Instance.SetLevelInfo(nextSceneName, entryTarget);
             firstTime = 1;
         }
+    }
+
+    public void RestartLevel() {
+        LevelChanger.Instance.SetLevelInfo(nextSceneName, entryTarget);
     }
 }
