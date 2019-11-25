@@ -9,6 +9,19 @@ public class IceBlock : MonoBehaviour
     [SerializeField] Transform bottomOfBlock;
     [SerializeField] Transform topOfBlock;
     [SerializeField] GameObject ButtonPrompt;
+    [SerializeField] float GravityMultiplier;
+
+    private Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void FixedUpdate()
+    {
+        rb.AddForce(0, -GravityMultiplier, 0);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {

@@ -88,7 +88,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5614365821979399033}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0.5028457, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
@@ -177,6 +177,7 @@ MonoBehaviour:
   bottomOfBlock: {fileID: 5614365821979234137}
   topOfBlock: {fileID: 6751057491083639818}
   ButtonPrompt: {fileID: 8974069684805628069}
+  GravityMultiplier: 3
 --- !u!54 &8424187387990005649
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -188,7 +189,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 1
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112

@@ -19,6 +19,7 @@ public class Pause : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false;
         player = ReInput.players.GetPlayer(0);
         sm = GetComponent<ScreenManager>();
         sm.ClosePanelBasic(pauseMenu.gameObject);
@@ -47,6 +48,7 @@ public class Pause : MonoBehaviour
         playerController.GetComponent<Rigidbody>().isKinematic = true;
         cam.enabled = false;
         Time.timeScale = 0;
+        Cursor.visible = true;
     }
 
     public void unpause()
@@ -58,5 +60,6 @@ public class Pause : MonoBehaviour
         playerController.GetComponent<Rigidbody>().isKinematic = false;
         cam.enabled = true;
         Time.timeScale = 1;
+        Cursor.visible = false;
     }
 }
