@@ -130,8 +130,11 @@ public class PlayerController : MonoBehaviour
 
     public AudioScript jumpScript; //put this here to make things easier
 
-    private JetPack_Recharge_Controller rechargeEffect;
-
+    public JetPack_Recharge_Controller hyperjumpChargeEffect;
+    public JetPack_Recharge_Controller rechargeEffect;
+    public Low_Fuel_Controller lowFuelEffect;
+    public float lowFuelPercent = .30f;
+    public Low_Fuel_Controller noFuelEffect;
 
     private void Awake()
     {
@@ -141,7 +144,6 @@ public class PlayerController : MonoBehaviour
         //charCol = GetComponent<Collider>();
         normalDrag = rb.drag;
         wm = FindObjectOfType<WorldManager>();
-        rechargeEffect = GetComponentInChildren<JetPack_Recharge_Controller>();
     }
 
     private void Start()
@@ -222,7 +224,13 @@ public class PlayerController : MonoBehaviour
                 if (!player.GetButton("Charge"))
                 {
                     currentFuel += 5f;
-                    if (currentFuel > maxFuel) currentFuel = maxFuel;
+                    if (currentFuel > maxFuel)
+                    {
+                        currentFuel = maxFuel;
+                        rechargeEffect.StopJetPackRechargeParticles();
+                    }
+                    else
+                        rechargeEffect.StartJetPackRechargeParticles();
                 }
 
                 //Jumping
@@ -237,7 +245,8 @@ public class PlayerController : MonoBehaviour
             else
             {
                 onGround = false;
-                if(moveDirection.y < 0)
+                rechargeEffect.StopJetPackRechargeParticles();
+                if (moveDirection.y < 0)
                 {
                     jumping = false;
                 }
@@ -346,18 +355,34 @@ public class PlayerController : MonoBehaviour
         if (player.GetButton("Charge") && currentFuel > 0 && wm.getFinalCrystals() > 1)
         {
             isCharging = true;
-            rechargeEffect.StartJetPackRechargeParticles();
+            hyperjumpChargeEffect.StartJetPackRechargeParticles();
             
         }
         //Charge jumping - Release
         else if(player.GetButtonUp("Charge"))
         {
             chargeRelease = true;
-            rechargeEffect.StopJetPackRechargeParticles();
+            hyperjumpChargeEffect.StopJetPackRechargeParticles();
         }
 
         if (currentFuel < 0) currentFuel = 0;
         chargeText.text = "Fuel: " + currentFuel.ToString("F2");
+
+        if (maxFuel != 0 && currentFuel <= 2f)
+        {
+            noFuelEffect.StartJetPackRechargeParticles();
+            lowFuelEffect.StopJetPackRechargeParticles();
+        }
+        else if ((currentFuel / maxFuel) <= lowFuelPercent)
+        {
+            lowFuelEffect.StartJetPackRechargeParticles();
+            noFuelEffect.StopJetPackRechargeParticles();
+        }
+        else
+        {
+            noFuelEffect.StopJetPackRechargeParticles();
+            lowFuelEffect.StopJetPackRechargeParticles();
+        }
 
     }
 
@@ -802,7 +827,7 @@ public class PlayerController : MonoBehaviour
             {
                 currentCharge = maxChargeForce;
                 isCharging = false;
-                rechargeEffect.StopJetPackRechargeParticles();
+                hyperjumpChargeEffect.StopJetPackRechargeParticles();
             }
             
         }

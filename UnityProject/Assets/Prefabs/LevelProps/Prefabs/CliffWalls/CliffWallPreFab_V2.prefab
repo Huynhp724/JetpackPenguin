@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7808461858449363050}
   - component: {fileID: 7292501171090651332}
   - component: {fileID: 4176567868761766633}
-  - component: {fileID: 6749306401562446236}
   - component: {fileID: 4004810767688229988}
   - component: {fileID: 246220836509613633}
   m_Layer: 0
@@ -72,19 +71,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &6749306401562446236
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2416177111458552270}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5703509, y: 0.91702545, z: 1.6361443}
-  m_Center: {x: -0.101219416, y: 5.7090106, z: 0.31807306}
 --- !u!65 &4004810767688229988
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -96,8 +82,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5174036, y: 0.93428856, z: 1.6361443}
-  m_Center: {x: -0.12768549, y: 6.6422834, z: 0.3180782}
+  m_Size: {x: 1.5174036, y: 1.7812985, z: 1.6361443}
+  m_Center: {x: -0.12768236, y: 6.2188005, z: 0.31808043}
 --- !u!65 &246220836509613633
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -303,11 +289,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AA_CliffWall03_CT (1)
       objectReference: {fileID: 0}
-    - target: {fileID: -8023733359516586618, guid: 61f7cc9484f97e54c9232852edc5a0ac,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d14e19d61a324c041af8899ed8e19302, type: 2}
     - target: {fileID: -4216859302048453862, guid: 61f7cc9484f97e54c9232852edc5a0ac,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -373,6 +354,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.86
       objectReference: {fileID: 0}
+    - target: {fileID: -8023733359516586618, guid: 61f7cc9484f97e54c9232852edc5a0ac,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d14e19d61a324c041af8899ed8e19302, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61f7cc9484f97e54c9232852edc5a0ac, type: 3}
 --- !u!4 &5939761229614597287 stripped
@@ -448,11 +434,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -157825318150610632, guid: 6a4dfcf54353b5b4c944bac01c1b4fa7,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d14e19d61a324c041af8899ed8e19302, type: 2}
     - target: {fileID: 6985287465494735213, guid: 6a4dfcf54353b5b4c944bac01c1b4fa7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -468,6 +449,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.883
       objectReference: {fileID: 0}
+    - target: {fileID: -157825318150610632, guid: 6a4dfcf54353b5b4c944bac01c1b4fa7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d14e19d61a324c041af8899ed8e19302, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a4dfcf54353b5b4c944bac01c1b4fa7, type: 3}
 --- !u!4 &5939761230174560625 stripped
@@ -488,11 +474,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AA_CliffWall04_CT
       objectReference: {fileID: 0}
-    - target: {fileID: -7429494897165829546, guid: 22261b6be8957ec48aa83861d4f875a2,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d14e19d61a324c041af8899ed8e19302, type: 2}
     - target: {fileID: -4216859302048453862, guid: 22261b6be8957ec48aa83861d4f875a2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -568,6 +549,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 1.181
       objectReference: {fileID: 0}
+    - target: {fileID: -7429494897165829546, guid: 22261b6be8957ec48aa83861d4f875a2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d14e19d61a324c041af8899ed8e19302, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22261b6be8957ec48aa83861d4f875a2, type: 3}
 --- !u!4 &5939761230558872604 stripped
@@ -583,6 +569,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7808461858449363050}
     m_Modifications:
+    - target: {fileID: 6874943505425155538, guid: 8fcaf53c8a6b66243b9a2a12b1e49414,
+        type: 3}
+      propertyPath: m_Name
+      value: LargeSnowBank_02 (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 5027747192674822682, guid: 8fcaf53c8a6b66243b9a2a12b1e49414,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -653,11 +644,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2.1888926
       objectReference: {fileID: 0}
-    - target: {fileID: 6874943505425155538, guid: 8fcaf53c8a6b66243b9a2a12b1e49414,
-        type: 3}
-      propertyPath: m_Name
-      value: LargeSnowBank_02 (2)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fcaf53c8a6b66243b9a2a12b1e49414, type: 3}
 --- !u!4 &6812152913444770476 stripped
@@ -673,6 +659,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7808461858449363050}
     m_Modifications:
+    - target: {fileID: 6874943505425155538, guid: 8fcaf53c8a6b66243b9a2a12b1e49414,
+        type: 3}
+      propertyPath: m_Name
+      value: LargeSnowBank_02 (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 5027747192674822682, guid: 8fcaf53c8a6b66243b9a2a12b1e49414,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -742,11 +733,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6874943505425155538, guid: 8fcaf53c8a6b66243b9a2a12b1e49414,
-        type: 3}
-      propertyPath: m_Name
-      value: LargeSnowBank_02 (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fcaf53c8a6b66243b9a2a12b1e49414, type: 3}
