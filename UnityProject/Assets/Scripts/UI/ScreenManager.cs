@@ -10,8 +10,6 @@ public class ScreenManager : MonoBehaviour
 {
     public EventSystem eventSystem;
     public GameObject essentials;
-    public AudioMixer mixer;
-    public GameObject buttons;
 
     //Screen to open automatically at the start of the Scene
     public Animator initiallyOpen;
@@ -104,28 +102,6 @@ public class ScreenManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    public void adjustMasterVolume(float value)
-    {
-        mixer.SetFloat("MasterVolume", Mathf.Log10(value) * 20);
-    }
-
-    public void adjustSFXVolume(float value)
-    {
-        mixer.SetFloat("PluckVolume", Mathf.Log10(value) * 20);
-        mixer.SetFloat("InteractableVolume", Mathf.Log10(value) * 20);
-        mixer.SetFloat("EnvironmentVolume", Mathf.Log10(value) * 20);
-    }
-
-    public void toggleButtons(bool isVisible)
-    {
-        buttons.SetActive(isVisible);
-    }
-
-    public void adjustMusicVolume(float value)
-    {
-        mixer.SetFloat("MusicVolume", Mathf.Log10(value) * 20);
     }
 
     //Finds the first Selectable element in the providade hierarchy.

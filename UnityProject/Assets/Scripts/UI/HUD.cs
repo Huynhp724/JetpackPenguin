@@ -18,10 +18,16 @@ public class HUD : MonoBehaviour
     [SerializeField] WorldManager wm;
     [SerializeField] float displayElementsDelay = 2f;
     [SerializeField] GameObject iceBlockPrompts;
+    [SerializeField] GameObject buttonPrompts;
+    [SerializeField] Text yText;
+    [SerializeField] Text xText;
     private PlayerController playerControl;
     private PlayerAbilities PlayerAbilities;
     private float timeSinceMoved;
     private bool showElements = false;
+    private string tempXText = "";
+    private string tempYText = "";
+    private bool isDisplayingIceBlockPrompts = false;
     
 
 
@@ -75,11 +81,11 @@ public class HUD : MonoBehaviour
             showLives();
         }
 
-        if(!iceBlockPrompts.activeInHierarchy && PlayerAbilities.heldIceBlock != null)
+        if(!isDisplayingIceBlockPrompts && PlayerAbilities.heldIceBlock != null)
         {
             showButtonPrompts();
         }
-        else if(iceBlockPrompts.activeInHierarchy && PlayerAbilities.heldIceBlock == null)
+        else if(isDisplayingIceBlockPrompts && PlayerAbilities.heldIceBlock == null)
         {
             hideButtonPrompts();
         }
@@ -122,12 +128,31 @@ public class HUD : MonoBehaviour
 
     void hideButtonPrompts()
     {
+        if (buttonPrompts.activeInHierarchy)
+        {
+            xText.text = tempXText;
+            yText.text = tempYText;
+        }
         iceBlockPrompts.SetActive(false);
+
+        isDisplayingIceBlockPrompts = false;
     }
 
     void showButtonPrompts()
     {
-        iceBlockPrompts.SetActive(true);
+        if (buttonPrompts.activeInHierarchy)
+        {
+            tempXText = xText.text;
+            tempYText = yText.text;
+            xText.text = "Throw Block";
+            yText.text = "Drop Block";
+        }
+        else
+        {
+            iceBlockPrompts.SetActive(true);
+        }
+
+        isDisplayingIceBlockPrompts = true;
     }
 
     IEnumerator showTempElements()
