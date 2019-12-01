@@ -210,6 +210,7 @@ GameObject:
   - component: {fileID: 3806632318097114316}
   - component: {fileID: 8125058133236488722}
   - component: {fileID: -8269943895218089558}
+  - component: {fileID: 4162299685188390032}
   m_Layer: 11
   m_Name: Penguin
   m_TagString: Player
@@ -658,6 +659,23 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1329826876155729638}
   m_Enabled: 0
+--- !u!114 &4162299685188390032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329826876155729638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a15cd863a9bf244297e0e60d1319f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendTriggerMessage: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1585153
+  skinWidth: 0.8
 --- !u!114 &708230919129236312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20358,16 +20376,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PS_Charge_HyperJump
       objectReference: {fileID: 0}
-    - target: {fileID: 394438835814836716, guid: ea87e27ae403b064cbe0bb814297a537,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.651
-      objectReference: {fileID: 0}
-    - target: {fileID: 394438835814836716, guid: ea87e27ae403b064cbe0bb814297a537,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.08
-      objectReference: {fileID: 0}
     - target: {fileID: 394438837702868106, guid: ea87e27ae403b064cbe0bb814297a537,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20422,6 +20430,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 394438835814836716, guid: ea87e27ae403b064cbe0bb814297a537,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.651
+      objectReference: {fileID: 0}
+    - target: {fileID: 394438835814836716, guid: ea87e27ae403b064cbe0bb814297a537,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.08
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea87e27ae403b064cbe0bb814297a537, type: 3}
