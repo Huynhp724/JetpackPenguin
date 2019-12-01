@@ -26,6 +26,8 @@ public class Waterfall : MonoBehaviour
     }
 
     public void ChangeForm(bool water) {
+        AudioSource wts = GetComponent<AudioSource>();
+
         if (water) // changing to a waterfall
         {
             gameObject.layer = waterfall;
@@ -33,6 +35,8 @@ public class Waterfall : MonoBehaviour
 
             iceWallModel.SetActive(false);
             waterfallModel.SetActive(true);
+            wts.mute = false;
+            
 
         }
         else { // changing to a ice wall
@@ -41,7 +45,7 @@ public class Waterfall : MonoBehaviour
 
             waterfallModel.SetActive(false);
             iceWallModel.SetActive(true);
-
+            wts.mute = true;
             StartCoroutine(RevertToWaterfall());
         }
     }

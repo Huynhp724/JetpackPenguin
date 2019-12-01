@@ -15,11 +15,14 @@ public class WorldManager : MonoBehaviour
     //For reset
     [SerializeField] bool resetOnAwake = false;
 
-    public delegate void UpdateTempUI(int lives, int purpleCrystals, int clusters); // declares new delegate type
+    public delegate void UpdateTempUI(int lives, int purpleCrystals, int clusters);
     public event UpdateTempUI updateTempUI;
 
-    public delegate void UpdateConstUI(float hpPercent, int crystals); // declares new delegate type
+    public delegate void UpdateConstUI(float hpPercent, int crystals);
     public event UpdateConstUI updateConstUI;
+
+    public delegate void UpdateOptions(float masterVol, float musicVol, float sfxVol, bool buttonPrompts);
+    public event UpdateOptions updateOptions;
 
     private void Awake()
     {
@@ -36,7 +39,7 @@ public class WorldManager : MonoBehaviour
     private void Start()
     {
         updateAllUI();
-
+        callGetOptions();
     }
 
     // Update is called once per frame
@@ -207,12 +210,32 @@ public class WorldManager : MonoBehaviour
 
     public void updateAllUI()
     {
-        updateTempUI(worldStats.lives, worldStats.PurpleCrystals, worldStats.finalCrystalsCollected);
-        updateConstUI(getHealthPercent(), worldStats.crystalsFound);
+        try
+        {
+            updateTempUI(worldStats.lives, worldStats.PurpleCrystals, worldStats.finalCrystalsCollected);
+            updateConstUI(getHealthPercent(), worldStats.crystalsFound);
+        }
+        catch
+        {
+            print("No UI to update. Likely in Menu Scene.");
+        }
     }
 
     public void updateCrystals()
     {
         updateConstUI(getHealthPercent(), worldStats.crystalsFound);
+    }
+
+    public void callGetOptions()
+    {
+        updateOptions(worldStats.masterVolume, worldStats.musicVolume, worldStats.sfxVolume, worldStats.buttonPromptsOn);
+    }
+
+    public void setOptions(float masterVol, float musicVol, float sfxVol, bool buttonPrompts)
+    {
+        worldStats.masterVolume = masterVol;
+        worldStats.musicVolume = musicVol;
+        worldStats.sfxVolume = sfxVol;
+        worldStats.buttonPromptsOn = buttonPrompts;
     }
 }

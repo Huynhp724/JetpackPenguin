@@ -13,8 +13,14 @@ MonoBehaviour:
   m_Name: World Stats
   m_EditorClassIdentifier: 
   playerHealth: 3
-  crystalsFound: 0
+  crystalsFound: 4
+  PurpleCrystals: 0
   maxFuel: 0
-  lives: 3
+  lives: 2
   baseLives: 2
   maxHealth: 3
+  finalCrystalsCollected: 0
+  masterVolume: 0.2283328
+  sfxVolume: 0.8516933
+  musicVolume: 0.49789405
+  buttonPromptsOn: 0

@@ -741,6 +741,8 @@ MonoBehaviour:
   pickedUp: 0
   bottomOfBlock: {fileID: 2830434475317874996}
   topOfBlock: {fileID: 6927395889960417708}
+  ButtonPrompt: {fileID: 3016544249740969937}
+  GravityMultiplier: 4
 --- !u!54 &8049019986640476295
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1409,7 +1411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2718256068202034566
 Transform:
   m_ObjectHideFlags: 0
