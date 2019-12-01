@@ -40,15 +40,23 @@ public class Options : MonoBehaviour
 
     public void adjustMasterVolume(float value)
     {
-        mixer.SetFloat("MasterVolume", Mathf.Log10(value) * 20);
+        if(value <= 0)
+            mixer.SetFloat("MasterVolume", -80);
+        else
+            mixer.SetFloat("MasterVolume", Mathf.Log10(value) * 20);
         saveOptions();
     }
 
     public void adjustSFXVolume(float value)
     {
-        mixer.SetFloat("PluckVolume", Mathf.Log10(value) * 20);
-        mixer.SetFloat("InteractableVolume", Mathf.Log10(value) * 20);
-        mixer.SetFloat("EnvironmentVolume", Mathf.Log10(value) * 20);
+        float logValue;
+        if (value <= 0)
+            logValue = -80;
+        else
+            logValue = Mathf.Log10(value) * 20;
+        mixer.SetFloat("PluckVolume", logValue);
+        mixer.SetFloat("InteractableVolume", logValue);
+        mixer.SetFloat("EnvironmentVolume", logValue);
         saveOptions();
     }
 
@@ -61,7 +69,10 @@ public class Options : MonoBehaviour
 
     public void adjustMusicVolume(float value)
     {
-        mixer.SetFloat("MusicVolume", Mathf.Log10(value) * 20);
+        if (value <= 0)
+            mixer.SetFloat("MusicVolume", -80);
+        else
+            mixer.SetFloat("MusicVolume", Mathf.Log10(value) * 20);
         saveOptions();
     }
 
