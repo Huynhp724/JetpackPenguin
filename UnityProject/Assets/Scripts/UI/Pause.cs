@@ -16,6 +16,8 @@ public class Pause : MonoBehaviour
     private ScreenManager sm;
     private bool paused = false;
 
+    public bool cantPause = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,13 +26,15 @@ public class Pause : MonoBehaviour
         sm = GetComponent<ScreenManager>();
         sm.ClosePanelBasic(pauseMenu.gameObject);
         playerController = FindObjectOfType<PlayerController>();
-        cam = FindObjectOfType<CinemachineFreeLook>();
+        //cam = FindObjectOfType<CinemachineFreeLook>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!paused && player.GetButtonDown("Pause"))
+        if(cantPause)
+        {}
+        else if (!paused && player.GetButtonDown("Pause"))
         {
             pause();
         }
@@ -46,7 +50,7 @@ public class Pause : MonoBehaviour
         sm.OpenPanelBasic(pauseMenu.gameObject);
         playerController.enabled = false;
         playerController.GetComponent<Rigidbody>().isKinematic = true;
-        cam.enabled = false;
+        //cam.enabled = false;
         Time.timeScale = 0;
         Cursor.visible = true;
     }
@@ -58,7 +62,7 @@ public class Pause : MonoBehaviour
         sm.ClosePanelBasic(optionsMenu.gameObject);
         playerController.enabled = true;
         playerController.GetComponent<Rigidbody>().isKinematic = false;
-        cam.enabled = true;
+        //cam.enabled = true;
         Time.timeScale = 1;
         Cursor.visible = false;
     }
