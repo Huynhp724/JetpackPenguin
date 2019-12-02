@@ -57,6 +57,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5591f6910c6b65349ae56c2e5eed40aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winScreen: {fileID: 0}
+  delayTillWin: 1
+  globeBreakParticles: {fileID: 0}
 --- !u!1 &2053973141616125812
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,6 +117,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5591f6910c6b65349ae56c2e5eed40aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winScreen: {fileID: 0}
+  delayTillWin: 1
+  globeBreakParticles: {fileID: 0}
 --- !u!1 &2053973141764295487
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,6 +177,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5591f6910c6b65349ae56c2e5eed40aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winScreen: {fileID: 0}
+  delayTillWin: 1
+  globeBreakParticles: {fileID: 0}
 --- !u!1 &2053973141791503696
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,6 +237,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5591f6910c6b65349ae56c2e5eed40aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winScreen: {fileID: 0}
+  delayTillWin: 1
+  globeBreakParticles: {fileID: 0}
 --- !u!1 &2053973142252935508
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +409,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5591f6910c6b65349ae56c2e5eed40aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winScreen: {fileID: 0}
+  delayTillWin: 1
+  globeBreakParticles: {fileID: 0}
 --- !u!64 &4586719145528163321
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -498,11 +513,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: -1504981713932161579, guid: b03f0b63bffad0e489c8d658eb10df72,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 3203de560477d534b9035af251f09027, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b03f0b63bffad0e489c8d658eb10df72, type: 3}
 --- !u!4 &4813133487020193583 stripped
