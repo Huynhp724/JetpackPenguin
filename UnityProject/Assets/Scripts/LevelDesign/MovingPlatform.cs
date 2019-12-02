@@ -45,7 +45,9 @@ public class MovingPlatform : MonoBehaviour
             {
                 print("Player on moving platform");
                 float step = speed * Time.deltaTime; // calculate distance to move
+                Vector3 playerFromCenter = other.transform.position - transform.position;
                 Vector3 playerMovePoint = new Vector3(nextPathPointPos.x, other.transform.position.y, nextPathPointPos.z);
+                playerMovePoint = playerMovePoint + playerFromCenter;
                 playerControl.movePlayer(Vector3.MoveTowards(other.transform.position, playerMovePoint, step));
             }
         }

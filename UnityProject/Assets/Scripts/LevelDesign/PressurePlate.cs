@@ -32,14 +32,14 @@ public class PressurePlate : MonoBehaviour
             iceBlock = null;
         }
 
-        if (open) {
-            gateAnim.SetTrigger("Open");
-            open = false;
+        if (open && !gateAnim.GetBool("Open")) {
+            gateAnim.SetBool("Open", true);
+            //open = false;
         }
-
-        if (close) {
-            gateAnim.SetTrigger("Close");
-            close = false;
+        else if(!open && gateAnim.GetBool("Open"))
+        {
+            gateAnim.SetBool("Open", false);
+           //close = false;
         }
     }
 
@@ -78,7 +78,8 @@ public class PressurePlate : MonoBehaviour
         if (collision.gameObject.layer == 13)
             iceBlock = collision.transform.GetComponent<IceBlock>();
         //door.SetActive(false);
-        gateAnim.SetTrigger("Open");
+        //gateAnim.SetTrigger("Open");
+        open = true;
         transform.GetChild(0).gameObject.SetActive(true);
         rend.enabled = false;
     }
@@ -89,5 +90,6 @@ public class PressurePlate : MonoBehaviour
         gateAnim.SetTrigger("Close");
         transform.GetChild(0).gameObject.SetActive(false);
         rend.enabled = true;
+        open = false;
     }
 }
