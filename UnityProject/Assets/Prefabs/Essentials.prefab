@@ -826,22 +826,22 @@ PrefabInstance:
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0039292714
+      value: -0.003925626
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.1643116
+      value: 0.16370994
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.005323459
+      value: -0.0053259213
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858819535227, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9863863
+      value: 0.9864864
       objectReference: {fileID: 0}
     - target: {fileID: 8288169858432434212, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
@@ -946,7 +946,7 @@ PrefabInstance:
     - target: {fileID: 8288169857334309959, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
       propertyPath: m_Damping
-      value: 0.2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8288169857764725834, guid: 7a3d376ec22700344b99280ceee408ec,
         type: 3}
@@ -1245,15 +1245,15 @@ PrefabInstance:
       propertyPath: displayElementsDelay
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 1298656666, guid: 0a79ca57679f6144e9a0e761e1c8b871, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 3800452288755761169}
     - target: {fileID: 4958877824011963314, guid: 0a79ca57679f6144e9a0e761e1c8b871,
         type: 3}
       propertyPath: wm
       value: 
       objectReference: {fileID: 8925736899886976533}
+    - target: {fileID: 1298656666, guid: 0a79ca57679f6144e9a0e761e1c8b871, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3800452288755761169}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a79ca57679f6144e9a0e761e1c8b871, type: 3}
 --- !u!224 &5632698834821620675 stripped
