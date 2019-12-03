@@ -196,7 +196,7 @@ public class WorldManager : MonoBehaviour
         }
         else {
             worldStats.levelDesignCollectablesTable.Add(id, false);
-            Debug.Log("Adding colelctable " + id);
+            //Debug.Log("Adding colelctable " + id);
             return false;
         }
         

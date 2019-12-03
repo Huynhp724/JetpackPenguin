@@ -17,6 +17,8 @@ public class DontGoThroughThings : MonoBehaviour
     private Vector3 previousPosition;
     private Rigidbody myRigidbody;
     private Collider myCollider;
+    private float timeStarted;
+    private float timeDelay = 1f;
 
     //initialize values 
     void Start()
@@ -27,6 +29,7 @@ public class DontGoThroughThings : MonoBehaviour
         minimumExtent = Mathf.Min(Mathf.Min(myCollider.bounds.extents.x, myCollider.bounds.extents.y), myCollider.bounds.extents.z);
         partialExtent = minimumExtent * (1.0f - skinWidth);
         sqrMinimumExtent = minimumExtent * minimumExtent;
+        timeStarted = Time.time;
     }
 
     void FixedUpdate()
@@ -35,7 +38,7 @@ public class DontGoThroughThings : MonoBehaviour
         Vector3 movementThisStep = myRigidbody.position - previousPosition;
         float movementSqrMagnitude = movementThisStep.sqrMagnitude;
 
-        if (movementSqrMagnitude > sqrMinimumExtent)
+        if (movementSqrMagnitude > sqrMinimumExtent && Time.time > timeStarted + timeDelay)
         {
             float movementMagnitude = Mathf.Sqrt(movementSqrMagnitude);
             RaycastHit hitInfo;
