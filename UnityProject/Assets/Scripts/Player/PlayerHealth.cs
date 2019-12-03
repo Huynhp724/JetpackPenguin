@@ -20,6 +20,7 @@ public class PlayerHealth : MonoBehaviour
     PlayerInteraction playerInteraction;
     Animator anim;
     PlayerController playerController;
+    DontGoThroughThings dontGo;
 
     
 
@@ -32,7 +33,7 @@ public class PlayerHealth : MonoBehaviour
         playerInteraction = GetComponent<PlayerInteraction>();
         anim = GetComponentInChildren<Animator>();
         playerController = GetComponent<PlayerController>();
-
+        dontGo = GetComponent<DontGoThroughThings>();
     }
 
     // Update is called once per frame
@@ -209,6 +210,7 @@ public class PlayerHealth : MonoBehaviour
     void FindClosestMinorCheckpoint() {
         float minDistance = 90000000f;
         GameObject point = null;
+        dontGo.timeStarted = Time.time;
 
         for (int i = 0; i < minorCheckPoints.transform.childCount; i++)
         {

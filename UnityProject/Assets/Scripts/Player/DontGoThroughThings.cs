@@ -17,8 +17,8 @@ public class DontGoThroughThings : MonoBehaviour
     private Vector3 previousPosition;
     private Rigidbody myRigidbody;
     private Collider myCollider;
-    private float timeStarted;
-    private float timeDelay = 1f;
+    public float timeStarted;
+    private float timeDelay = 2f;
 
     //initialize values 
     void Start()
