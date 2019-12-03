@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ice_Explosion_KillObject : MonoBehaviour
 {
     [SerializeField] private float lifeTime = 0.1f;
+    
     private float timer;
 
     private void Awake()
