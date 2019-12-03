@@ -43,6 +43,7 @@ public class EnemyHealth : MonoBehaviour
     public void IsFrozen() {
         CreateIceBlock();
         Destroy(gameObject);
+        
     }
 
     public void LoseHp() {
@@ -74,6 +75,7 @@ public class EnemyHealth : MonoBehaviour
             GetComponent<EnemySpawner>().Spawn();
         }
         Destroy(gameObject);
+        
     }
 
     public void CreateIceBlock() {
@@ -89,11 +91,16 @@ public class EnemyHealth : MonoBehaviour
     }
 
     public void IsSquished() {
+        
         Destroy(gameObject);
     }
+
 
     private void OnDestroy()
     {
         Instantiate(deathParticles, transform.position, transform.rotation);
+        //-----------Death Audio------------------------------------
+        GetComponent<AudioScript>().PlaySound(0);
+        //-----------Plays Map Wide on Scene Exit -----------------
     }
 }
