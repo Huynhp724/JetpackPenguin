@@ -1158,4 +1158,9 @@ public class PlayerController : MonoBehaviour
         return chargeBoosted;
     }
 
+    public void BouncePluck(float force)
+    {
+        moveDirection.y = force;
+    }
+
 }

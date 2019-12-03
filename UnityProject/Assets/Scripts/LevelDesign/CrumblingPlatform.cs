@@ -6,9 +6,10 @@ public class CrumblingPlatform : MonoBehaviour
 {
     [SerializeField] float timeToCrumble = 1f;
     [SerializeField] float timeToComeBack = 5f;
+    [SerializeField] Animator animator;
 
     private BoxCollider[] colliders;
-    private MeshRenderer[] renderers;
+    private SkinnedMeshRenderer[] renderers;
 
     private AudioScript audioScript;
 
@@ -17,7 +18,7 @@ public class CrumblingPlatform : MonoBehaviour
         audioScript = GetComponent<AudioScript>();
 
         colliders = GetComponents<BoxCollider>();
-        renderers = GetComponentsInChildren<MeshRenderer>();
+        renderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         
     }
 
@@ -33,11 +34,14 @@ public class CrumblingPlatform : MonoBehaviour
     IEnumerator crumble()
     {
         audioScript.PlaySound(0);
+        animator.Play("NewCrumblingPlatformAnimation");
+        //animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
         yield return new WaitForSecondsRealtime(timeToCrumble);
         foreach (BoxCollider collider in colliders)
         {
             collider.enabled = false;
         }
+        yield return new WaitForSecondsRealtime(.5f);
         foreach (Renderer render in renderers)
         {
             render.enabled = false;
