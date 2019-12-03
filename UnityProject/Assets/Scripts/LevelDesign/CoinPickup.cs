@@ -28,7 +28,7 @@ public class CoinPickup : MonoBehaviour
     void Start()
     {
         id = transform.position.ToString();
-        Debug.Log("Id is " + id);
+        //Debug.Log("Id is " + id);
         asource = GetComponent<AudioSource>();
         intialY = transform.position.y;
         wm = FindObjectOfType<WorldManager>();

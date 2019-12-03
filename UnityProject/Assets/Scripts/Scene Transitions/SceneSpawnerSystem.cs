@@ -33,9 +33,10 @@ public class SceneSpawnerSystem : MonoBehaviour
                 cmFreeLook.transform.position = trans.position;
                 mainCam.transform.position = trans.position;
                 break;*/
-
+                print("Moving player to point: " + entryScenePoint +" The index is: " + i);
+                //player.GetComponent<DontGoThroughThings>().enabled = false;
                 player.transform.position = sceneTransitions[i].transform.GetChild(0).position;
-                
+                //player.GetComponent<DontGoThroughThings>().enabled = true;
             }
         }
     }
