@@ -332,6 +332,7 @@ public class PlayerController : MonoBehaviour
             if (player.GetButtonDown("Slide") && myState != State.Dashing && myState != State.Clinging && !hasDashed && !holdingBlock)
             {
                 initDash = true;
+                pluckJetJump.PlaySound(1);
             }
         }
 
