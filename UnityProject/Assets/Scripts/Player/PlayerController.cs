@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Pluck Audio Clips")]
     [SerializeField] AudioClip pluckDeath;
+    [SerializeField] AudioScript pluckJetJump;
 
     AudioSource asource;
 
@@ -843,6 +844,7 @@ public class PlayerController : MonoBehaviour
             //rb.drag = chargeDrag;
             if (currentCharge > minCharge)
             {
+                pluckJetJump.PlayOneSound(0);
                 //if (!flames[0].isPlaying) EmitFlames(true);
                 if (myState != State.Dashing)
                 {

@@ -59,7 +59,7 @@ public class FinalCollectable : MonoBehaviour
         wm.addFinalCrystal();
         transform.SetParent(player.transform);
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y + pickedUpDistance, player.transform.position.z);
-        yield return new WaitForSecondsRealtime(.5f);
+        yield return new WaitForSecondsRealtime(2f);
         Destroy(gameObject);
     }
 }

@@ -171,6 +171,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_Breakable_Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 109574762685614923, guid: 87fa429537437944298a2c523ab6c87a,
+        type: 3}
+      propertyPath: auds
+      value: 
+      objectReference: {fileID: 4057947102897857709}
+    - target: {fileID: 109574762685614923, guid: 87fa429537437944298a2c523ab6c87a,
+        type: 3}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 5899350362470615815}
+    - target: {fileID: 109574762685614923, guid: 87fa429537437944298a2c523ab6c87a,
+        type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 8256400715689985632}
+    - target: {fileID: 109574762685614923, guid: 87fa429537437944298a2c523ab6c87a,
+        type: 3}
+      propertyPath: playerSpeedThreshhold
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3679360043870783354, guid: 87fa429537437944298a2c523ab6c87a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3679360043026788181, guid: 87fa429537437944298a2c523ab6c87a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -225,31 +250,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3679360043870783354, guid: 87fa429537437944298a2c523ab6c87a,
-        type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 109574762685614923, guid: 87fa429537437944298a2c523ab6c87a,
-        type: 3}
-      propertyPath: auds
-      value: 
-      objectReference: {fileID: 4057947102897857709}
-    - target: {fileID: 109574762685614923, guid: 87fa429537437944298a2c523ab6c87a,
-        type: 3}
-      propertyPath: parent
-      value: 
-      objectReference: {fileID: 5899350362470615815}
-    - target: {fileID: 109574762685614923, guid: 87fa429537437944298a2c523ab6c87a,
-        type: 3}
-      propertyPath: collider
-      value: 
-      objectReference: {fileID: 8256400715689985632}
-    - target: {fileID: 109574762685614923, guid: 87fa429537437944298a2c523ab6c87a,
-        type: 3}
-      propertyPath: playerSpeedThreshhold
-      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1157209646863082715, guid: 87fa429537437944298a2c523ab6c87a,
         type: 3}

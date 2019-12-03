@@ -20,6 +20,7 @@ public class AudioController : MonoBehaviour
     [Header("Jetpack Audio Clips")] //Collection of AudioClips to play for Jetpack sounds.
     public AudioClip jetJump;
     public AudioClip jetHover;
+    public AudioClip jetCharge;
 
     public AudioScript audioScript;
     public AudioScript audioScript2;
@@ -35,7 +36,8 @@ public class AudioController : MonoBehaviour
 
     private bool isWalking;
     private bool isDashing;
-
+    private WorldManager wm;
+    private Player player;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,12 +49,44 @@ public class AudioController : MonoBehaviour
         lastpos = transform.position;
         isWalking = false;
         isDashing = false;
+        player = ReInput.players.GetPlayer(0);
+        wm = FindObjectOfType<WorldManager>();
     }
 
 
     private void FixedUpdate()
     {
 
+
+        if (player.GetButton("Hover") && pc.currentFuel > 0)
+        {
+
+            if (aud.clip != jetHover)
+            {
+                aud.clip = jetHover;
+                aud.volume = 0.6f;
+                aud.Play();
+            }
+        }
+        else
+        {
+            if (player.GetButton("Charge") && pc.currentFuel > 0 && wm.getFinalCrystals() > 1)
+            {
+
+                if (aud.clip != jetCharge)
+                {
+                    aud.clip = jetCharge;
+                    aud.volume = 0.8f;
+                    aud.Play();
+                }
+            }
+            else
+            {
+
+                aud.Stop();
+                aud.clip = null;
+            }
+        }
 
         if (pc.onGround && pc.GetCurrentState() != PlayerController.State.Dashing)
         {
@@ -99,26 +133,23 @@ public class AudioController : MonoBehaviour
         }
         if (pc.getHovering() && aud.clip != jetHover)
         {
-            aud.clip = jetHover;
-            aud.volume = 0.6f;
-            aud.Play();
+            //aud.clip = jetHover;
+            //aud.volume = 0.6f;
+            //aud.Play();
         }
         else if(aud.clip == jetHover && !pc.getHovering() ){
             
             //aud.Stop(); //This is commented out because pc.getHovering() is not constant. The player controller does not keep track properly. Known Bug.
         }
-        if (pc.getChargeRelease()) {
-            aud.volume = 0.8f;
-            aud.PlayOneShot(jetJump);
-        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        
 
-
-
+        
         state = pc.GetCurrentState();
         if (state == PlayerController.State.Dashing)
         {
@@ -126,15 +157,18 @@ public class AudioController : MonoBehaviour
             {
                 if (!isDashing)
                 {
+
                     audioScript2.PlaySound(0);
                     isDashing = true;
                 }
+                
             }
 
         }
         else {
             audioScript2.FadeSoundOut();
             isDashing = false;
+            
         }
 
         if (state == PlayerController.State.Flapping)
@@ -148,10 +182,7 @@ public class AudioController : MonoBehaviour
             }
         }
 
-        if (aud.clip == hoverFlap && pc.onGround) {
-            aud.Stop();
-        }
-
         
+
     }
 }
