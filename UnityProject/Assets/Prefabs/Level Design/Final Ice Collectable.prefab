@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3503325734406758538}
   - component: {fileID: 1013945597}
   - component: {fileID: 578433983956202111}
+  - component: {fileID: 6705663084614882877}
   - component: {fileID: 6737589558984699237}
   m_Layer: 2
   m_Name: Final Ice Collectable
@@ -111,6 +112,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.003618, y: 1.1040715, z: 1.0306156}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6705663084614882877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2928050304804885590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f18a61726996a748844c223b44e89cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToDestroy: {fileID: 0}
 --- !u!82 &6737589558984699237
 AudioSource:
   m_ObjectHideFlags: 0

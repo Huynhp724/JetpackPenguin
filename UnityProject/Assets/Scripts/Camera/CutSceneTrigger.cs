@@ -5,13 +5,15 @@ using UnityEngine;
 public class CutSceneTrigger : MonoBehaviour
 {
     private bool hasTrigger = false;
+    [SerializeField] Animator animator;
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player") && !hasTrigger)
         {
             hasTrigger = true;
-            GetComponentInParent<CutScene>().playCutScene();
+            //GetComponentInParent<CutScene>().playCutScene();
+            animator.Play("Intro Cutscene Resized");
         }
     }
 }
