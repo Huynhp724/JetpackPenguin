@@ -1160,7 +1160,16 @@ public class PlayerController : MonoBehaviour
 
     public void BouncePluck(float force)
     {
+        //CHANGE THIS LATER
         moveDirection.y = force;
+        jumping = true;
+        anim.SetTrigger("Jump");
+        //Quaternion colRotation = charCol.gameObject.transform.rotation;
+        charCol.transform.localRotation = Quaternion.Euler(0f, charCol.transform.localEulerAngles.y, 0f);
+        chargeDashing = false;
+
+        //Destroy(currentSlideSphere);
+        myState = State.Idle;
     }
 
 }
